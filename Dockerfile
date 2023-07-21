@@ -1,7 +1,7 @@
-FROM maven:3.6.3-jdk-11 AS build
-COPY . .
+FROM adoptopenjdk/openjdk11:alpine-jre
+WORKDIR /opt/app
+ARG JAR_FILE=target/spring-boot-web.jar
 
-FROM openjdk:11.0.13-jdk-slim
-COPY --from=build /target/pos-0.0.1-SNAPSHOT.jar pos.jar
-EXPOSE 8080	
-ENTRYPOINT ["java","-jar","demo.jar"]
+# cp spring-boot-web.jar /opt/app/app.jar
+COPY ${pos} app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
