@@ -1,9 +1,8 @@
-FROM maven:3.6.3-jdk-11 AS build
+FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
 RUN mvn clean package -DskipTests
 
-FROM openjdk:11-alpine
-WORKDIR /app
-COPY --from=build /app/target/*.jar /app/app.jar
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/pos-0.0.1-SNAPSHOT.jar pos.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","pos.jar"]
