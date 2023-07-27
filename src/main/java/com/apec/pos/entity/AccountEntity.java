@@ -1,8 +1,11 @@
 package com.apec.pos.entity;
 
 import java.util.Collection;
+
+
 import java.util.Date;
 import java.util.Set;
+
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,14 +19,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-
+import jakarta.persistence.Table;
+import lombok.Builder;
+import lombok.Data;
 
 @Entity
+@Table(name = "Account")
+@Builder
+@Data
 public class AccountEntity implements UserDetails{
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private long id;
+	private Integer id;
 	
 	private String username;
 	
@@ -42,7 +51,8 @@ public class AccountEntity implements UserDetails{
 	        name="user_role",
 	        joinColumns = {@JoinColumn(name="user_id")},
 	        inverseJoinColumns = {@JoinColumn(name="role_id")}
-	    )	
+	    )
+	
 	private Set<RoleEntity> roles;
 	
 	@Override
@@ -108,7 +118,7 @@ public class AccountEntity implements UserDetails{
 	}
 
 	public void setAccountName(String accountName) {
-		accountName = accountName;
+		this.accountName = accountName;
 	}
 
 	public Date getCreateDate() {
