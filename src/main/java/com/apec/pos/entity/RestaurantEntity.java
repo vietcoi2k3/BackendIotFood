@@ -5,12 +5,19 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
 public class RestaurantEntity {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	private String RestaurantName;
 	
 	private String adress;
 	
@@ -61,6 +68,12 @@ public class RestaurantEntity {
 	public void setFoodEntities(Set<FoodEntity> foodEntities) {
 		this.foodEntities = foodEntities;
 	}
-	
-	
+
+	public String getRestaurantName() {
+		return RestaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		RestaurantName = restaurantName;
+	}
 }

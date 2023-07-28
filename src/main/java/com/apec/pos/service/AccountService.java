@@ -49,6 +49,25 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	    if (accountRepository.findByUsername(accountEntity.getUsername()) != null) {	 
 	        return null;
 	    }
+	    if (accountEntity.getUsername().contains("admin")) {
+	        Set<RoleEntity> roleEntity = new HashSet<>();
+		    RoleEntity userRole = new RoleEntity();
+		    userRole.setAuthority("ADMIN");
+		    userRole.setId(1);
+		    roleEntity.add(userRole);
+
+		    AccountEntity accountEntity2 = new AccountEntity();
+		    accountEntity2.setAccountName(accountEntity.getAccountName());
+		    accountEntity2.setCreateDate(new Date());
+		    accountEntity2.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
+		    accountEntity2.setRoles(roleEntity);
+		    accountEntity2.setSdt(accountEntity.getSdt());
+		    accountEntity2.setUsername(accountEntity.getUsername());
+		    // Lưu tài khoản mới vào cơ sở dữ liệu
+		    accountRepository.insert(accountEntity2);
+		    
+		    return jwtService.generateToken(accountEntity2);
+		}
 
 	    // Tài khoản chưa tồn tại, tạo một tài khoản mới với vai trò "USER"
 	    Set<RoleEntity> roleEntity = new HashSet<>();

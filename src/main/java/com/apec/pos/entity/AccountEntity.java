@@ -24,7 +24,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Table(name = "Account")
 @Builder
 @Data
 public class AccountEntity implements UserDetails{
@@ -101,7 +100,7 @@ public class AccountEntity implements UserDetails{
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

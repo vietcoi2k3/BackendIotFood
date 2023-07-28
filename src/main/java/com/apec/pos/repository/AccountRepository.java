@@ -12,10 +12,13 @@ import com.apec.pos.entity.AccountEntity;
 @Repository
 public class AccountRepository extends BaseRepository<AccountEntity, Integer>{
 
-	public AccountRepository() {
-		super(AccountEntity.class);
-	}
+
 	
+	public AccountRepository( ) {
+		super(AccountEntity.class);
+		// TODO Auto-generated constructor stub
+	}
+
 	public AccountEntity findByUsername(String username){
 		  String query = "FROM AccountEntity c WHERE c.username = :username";
 		    Map<String, Object> params = new HashMap<>();

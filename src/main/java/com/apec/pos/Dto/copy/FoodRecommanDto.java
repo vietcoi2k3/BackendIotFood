@@ -6,6 +6,26 @@ public class FoodRecommanDto {
 	private String nameFood;
 	private long price;
 	private String nameRestaurantFood;
+	private byte[] imgFood;
+	
+	
+	public FoodRecommanDto(long id, String nameFood, long price, String nameRestaurantFood,byte[] imgFood) {
+		super();
+		this.id = id;
+		this.nameFood = nameFood;
+		this.price = price;
+		this.nameRestaurantFood = nameRestaurantFood;
+		this.imgFood=imgFood;
+	}
+	
+	public byte[] getImgFood() {
+		return imgFood;
+	}
+
+	public void setImgFood(byte[] imgFood) {
+		this.imgFood = imgFood;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -2,6 +2,7 @@ package com.apec.pos.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,13 +25,24 @@ public class FoodEntity {
 	
 	private String typeFood;
 	
-    @Column(name = "roleid", insertable = false, updatable = false)
+	@Column(columnDefinition ="LONGBLOB")
+	private byte[] imgFood;
+	
+    @Column(name = "restaurantEntityId", insertable = false, updatable = false)
 	private long restaurantEntityId;
 	
 	@ManyToOne
 	@JoinColumn(name = "restaurantEntityId")
 	@JsonBackReference
 	private RestaurantEntity restaurantEntity;
+
+	public byte[] getImgFood() {
+		return imgFood;
+	}
+
+	public void setImgFood(byte[] imgFood) {
+		this.imgFood = imgFood;
+	}
 
 	public long getId() {
 		return id;

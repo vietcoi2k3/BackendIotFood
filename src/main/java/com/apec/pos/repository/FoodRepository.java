@@ -1,10 +1,17 @@
 package com.apec.pos.repository;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
 import com.apec.pos.entity.FoodEntity;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 @Repository
 public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
@@ -13,9 +20,13 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 		super(FoodEntity.class);
 	}
 	
-	private List<FoodEntity> getTopFood(){
-		String query= "FROM FoodEntity c LIMIT 4";
-		return query(query, false);
+	@Autowired
+	private EntityManager entityManager;
+	
+	public List<FoodEntity> getTopFood(){
+		String query= "SELECT c FROM FoodEntity c";
+		Query query2 = entityManager.createQuery(query);
+		return query2.setMaxResults(4).getResultList();
 	}
 
 	private String buildQuery(FoodEntity foodEntity) {
@@ -26,7 +37,7 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
         return query;
     }
 	
-	 public Map<String, Object> getParams(FoodEntity foodEntity) {
+    private	Map<String, Object> getParams(FoodEntity foodEntity) {
 	        Map<String, Object> params = new HashMap<>();
 	        if (foodEntity.getId() > 0) {
 	            params.put("id", foodEntity.getId());
