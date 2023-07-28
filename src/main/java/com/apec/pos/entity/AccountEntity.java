@@ -60,6 +60,24 @@ public class AccountEntity implements UserDetails{
 		return this.roles;
 	}
 
+	public AccountEntity() {
+		
+	}
+	
+	public AccountEntity(Integer id, String username, String password, String sdt, String accountName, Date createDate,
+			Date modifyDate, Set<RoleEntity> roles) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.sdt = sdt;
+		this.accountName = accountName;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.roles = roles;
+	}
+
+
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub

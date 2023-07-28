@@ -16,6 +16,8 @@ public class RoleEntity implements GrantedAuthority{
 	private long id;
 	
 	private String authority;
+	
+	
 
 	public long getId() {
 		return id;
@@ -24,6 +26,11 @@ public class RoleEntity implements GrantedAuthority{
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public RoleEntity() {
+		super();
+	}
+
 
 	public String getAuthority() {
 		return authority;
