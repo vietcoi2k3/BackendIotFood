@@ -56,17 +56,17 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 		    userRole.setId(1);
 		    roleEntity.add(userRole);
 
-		    AccountEntity accountEntity2 = new AccountEntity();
-		    accountEntity2.setAccountName(accountEntity.getAccountName());
-		    accountEntity2.setCreateDate(new Date());
-		    accountEntity2.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
-		    accountEntity2.setRoles(roleEntity);
-		    accountEntity2.setSdt(accountEntity.getSdt());
-		    accountEntity2.setUsername(accountEntity.getUsername());
+		    AccountEntity accountEntity3 = new AccountEntity();
+		    accountEntity3.setAccountName(accountEntity.getAccountName());
+		    accountEntity3.setCreateDate(new Date());
+		    accountEntity3.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
+		    accountEntity3.setRoles(roleEntity);
+		    accountEntity3.setSdt(accountEntity.getSdt());
+		    accountEntity3.setUsername(accountEntity.getUsername());
 		    // Lưu tài khoản mới vào cơ sở dữ liệu
-		    accountRepository.insert(accountEntity2);
+		    accountRepository.insert(accountEntity3);
 		    
-		    return jwtService.generateToken(accountEntity2);
+		    return jwtService.generateToken(accountEntity3);
 		}
 
 	    // Tài khoản chưa tồn tại, tạo một tài khoản mới với vai trò "USER"
