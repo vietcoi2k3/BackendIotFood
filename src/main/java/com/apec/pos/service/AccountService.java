@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.apec.pos.Dto.copy.AccountInfoDto;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
@@ -87,6 +88,17 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	    accountRepository.insert(accountEntity2);
 	    
 	    return jwtService.generateToken(accountEntity2);
+	}
+
+
+
+		@Override
+		public AccountInfoDto getUserInfo(String token) {
+		String username= jwtService.getUsernameFromToken(token);
+		AccountEntity accountEntity = accountRepository.findByUsername(username);
+		AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(),accountEntity.getSdt(),accountEntity.getUsername());
+		
+		return accountInfoDto;
 	}
 
 }

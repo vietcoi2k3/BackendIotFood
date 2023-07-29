@@ -23,6 +23,12 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	@Autowired
 	private EntityManager entityManager;
 	
+	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity){
+		String query = buildQuery(foodEntity);
+		Map<String, Object> params = getParams(foodEntity);
+		return query(query, false,params);
+	}
+	
 	public List<FoodEntity> getTopFood(){
 		String query= "SELECT c FROM FoodEntity c";
 		Query query2 = entityManager.createQuery(query);
@@ -34,6 +40,9 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
         if (foodEntity.getId() > 0) {
             query += " AND c.id = :id";
         }
+        if(!foodEntity.getTypeFood().isBlank()) {
+        	query += "AND c.typeFood =: typeFood";
+        }
         return query;
     }
 	
@@ -41,7 +50,10 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	        Map<String, Object> params = new HashMap<>();
 	        if (foodEntity.getId() > 0) {
 	            params.put("id", foodEntity.getId());
-	        }     
+	        }   
+	        if(!foodEntity.getTypeFood().isBlank()) {
+	        	params.put("typeFood", foodEntity.getTypeFood());
+	        }
 
 	        return params;
 	 }

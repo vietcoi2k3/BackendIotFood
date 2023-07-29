@@ -9,4 +9,5 @@ public interface FoodInterface {
 
 	public List<FoodRecommanDto> getFoodRecommand();
 	public FoodEntity addFood(FoodEntity foodEntity);
+	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
 }

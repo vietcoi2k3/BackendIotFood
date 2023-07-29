@@ -6,6 +6,7 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.apec.pos.entity.FoodEntity;
+import com.apec.pos.entity.RestaurantEntity;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.FoodService;
 
@@ -34,13 +36,6 @@ public class FoodAdminController {
 			@RequestParam String detail,
 			@RequestParam  long restaurantId
 			) {
-		
-			System.out.println(foodName);
-			System.out.println(price);
-			System.out.println(typeFood);
-			System.out.println(imgFood.getContentType());
-			System.out.println(detail);
-			System.out.println(restaurantId);
 			FoodEntity f = new FoodEntity();
 			String fileName = StringUtils.cleanPath(imgFood.getOriginalFilename());
 			if(fileName.contains(".."))
@@ -57,6 +52,9 @@ public class FoodAdminController {
 			f.setPrice(price);
 			f.setFoodName(foodName);
 			f.setRestaurantEntityId(restaurantId);
+			RestaurantEntity restaurantEntity =new RestaurantEntity();
+			restaurantEntity.setId(restaurantId);
+			f.setRestaurantEntity(restaurantEntity);
 			return new Response(true,"thành công",foodService.addFood(f));
 
 	}

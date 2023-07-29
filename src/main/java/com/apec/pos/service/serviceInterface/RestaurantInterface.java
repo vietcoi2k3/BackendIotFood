@@ -1,5 +1,7 @@
 package com.apec.pos.service.serviceInterface;
 
-public interface RestaurantInterface {
+import com.apec.pos.entity.RestaurantEntity;
 
+public interface RestaurantInterface {
+	public RestaurantEntity addRestaurant(RestaurantEntity restaurantEntity);
 }

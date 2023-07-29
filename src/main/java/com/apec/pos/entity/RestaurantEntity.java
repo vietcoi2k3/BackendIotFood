@@ -1,5 +1,6 @@
 package com.apec.pos.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -11,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class RestaurantEntity {
+public class RestaurantEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

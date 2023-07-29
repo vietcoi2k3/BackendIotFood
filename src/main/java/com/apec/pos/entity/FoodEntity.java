@@ -1,5 +1,7 @@
 package com.apec.pos.entity;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
@@ -12,7 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class FoodEntity {
+public class FoodEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -25,7 +27,7 @@ public class FoodEntity {
 	
 	private String typeFood;
 	
-	@Column(columnDefinition ="LONGBLOB")
+	@Column(columnDefinition ="bytea")
 	private byte[] imgFood;
 	
     @Column(name = "restaurantEntityId", insertable = false, updatable = false)
