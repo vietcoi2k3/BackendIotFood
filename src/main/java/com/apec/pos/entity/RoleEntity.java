@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class RoleEntity implements GrantedAuthority{
+public class RoleEntity extends BaseEntity implements GrantedAuthority{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
@@ -18,6 +18,11 @@ public class RoleEntity implements GrantedAuthority{
 	private String authority;
 	
 	
+	public RoleEntity(String createBy, String modifiedBy, long id, String authority) {
+		super(createBy, modifiedBy);
+		this.id = id;
+		this.authority = authority;
+	}
 
 	public long getId() {
 		return id;

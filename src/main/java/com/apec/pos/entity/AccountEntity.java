@@ -26,7 +26,7 @@ import lombok.Data;
 @Entity
 @Builder
 @Data
-public class AccountEntity implements UserDetails{
+public class AccountEntity  extends BaseEntity implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,8 @@ public class AccountEntity implements UserDetails{
 	
 	private Date modifyDate;
 	
+	
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	        name="user_role",
@@ -54,6 +56,21 @@ public class AccountEntity implements UserDetails{
 	
 	private Set<RoleEntity> roles;
 	
+	
+	
+	public AccountEntity(String createBy, String modifiedBy, Integer id, String username, String password, String sdt,
+			String accountName, Date createDate, Date modifyDate, Set<RoleEntity> roles) {
+		super(createBy, modifiedBy);
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.sdt = sdt;
+		this.accountName = accountName;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.roles = roles;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

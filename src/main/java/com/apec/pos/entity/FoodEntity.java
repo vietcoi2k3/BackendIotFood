@@ -3,7 +3,7 @@ package com.apec.pos.entity;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class FoodEntity implements Serializable{
+public class FoodEntity extends BaseEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -27,16 +27,39 @@ public class FoodEntity implements Serializable{
 	
 	private String typeFood;
 	
+	@Column(name = "typeFoodEntityId")
+	private long typeFoodEntityId;
+	
+	@ManyToOne
+	@JsonManagedReference
+	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
+	private TypeFoodEntity typeFoodEntity;
+	
 	@Column(columnDefinition ="bytea")
 	private byte[] imgFood;
 	
-    @Column(name = "restaurantEntityId", insertable = false, updatable = false)
+    @Column(name = "restaurantEntityId")
 	private long restaurantEntityId;
 	
 	@ManyToOne
-	@JoinColumn(name = "restaurantEntityId")
+	@JoinColumn(name = "restaurantEntityId",insertable = false, updatable = false)
 	@JsonBackReference
 	private RestaurantEntity restaurantEntity;
+
+	
+	
+	public FoodEntity(String createBy, String modifiedBy, long id, String foodName, String detail, long price,
+			String typeFood, byte[] imgFood, long restaurantEntityId, RestaurantEntity restaurantEntity) {
+		super(createBy, modifiedBy);
+		this.id = id;
+		this.foodName = foodName;
+		this.detail = detail;
+		this.price = price;
+		this.typeFood = typeFood;
+		this.imgFood = imgFood;
+		this.restaurantEntityId = restaurantEntityId;
+		this.restaurantEntity = restaurantEntity;
+	}
 
 	public byte[] getImgFood() {
 		return imgFood;
