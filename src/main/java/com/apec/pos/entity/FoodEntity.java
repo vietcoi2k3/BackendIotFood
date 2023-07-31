@@ -25,8 +25,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	private long price;
 	
-	private String typeFood;
-	
 	@Column(name = "typeFoodEntityId")
 	private long typeFoodEntityId;
 	
@@ -48,6 +46,14 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 	
 	
+	public FoodEntity() {
+	
+	}
+
+	public FoodEntity(String createBy, String modifiedBy) {
+		super(createBy, modifiedBy);
+	}
+
 	public FoodEntity(String createBy, String modifiedBy, long id, String foodName, String detail, long price,
 			String typeFood, byte[] imgFood, long restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
@@ -55,7 +61,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		this.foodName = foodName;
 		this.detail = detail;
 		this.price = price;
-		this.typeFood = typeFood;
 		this.imgFood = imgFood;
 		this.restaurantEntityId = restaurantEntityId;
 		this.restaurantEntity = restaurantEntity;
@@ -99,14 +104,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 	public void setPrice(long price) {
 		this.price = price;
-	}
-
-	public String getTypeFood() {
-		return typeFood;
-	}
-
-	public void setTypeFood(String typeFood) {
-		this.typeFood = typeFood;
 	}
 
 	public long getRestaurantEntityId() {

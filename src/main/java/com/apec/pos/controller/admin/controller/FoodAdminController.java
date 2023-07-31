@@ -1,6 +1,7 @@
 package com.apec.pos.controller.admin.controller;
 
 import java.io.IOException;
+
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,6 @@ public class FoodAdminController {
 				e.printStackTrace();
 			}
 			f.setDetail(detail);
-			f.setTypeFood(typeFood);
 			f.setPrice(price);
 			f.setFoodName(foodName);
 			f.setRestaurantEntityId(restaurantId);

@@ -8,17 +8,17 @@ import jakarta.persistence.*;
 public class BaseEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date", nullable = false, updatable = false)
+    @Column(name = "create_date")
     private Date createDate;
 
-    @Column(name = "create_by", nullable = false, updatable = false)
+    @Column(name = "create_by")
     private String createBy;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modified_date", nullable = false)
+    @Column(name = "modified_date")
     private Date modifiedDate;
 
-    @Column(name = "modified_by", nullable = false)
+    @Column(name = "modified_by")
     private String modifiedBy;
 
     // Constructors, getters, and setters (you can generate them automatically or write them manually)
