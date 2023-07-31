@@ -73,9 +73,13 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 		
 	}
 	
-	public AccountEntity(Integer id, String username, String password, String sdt, String accountName, Date createDate,
-			Date modifyDate, Set<RoleEntity> roles) {
-		super();
+	public AccountEntity(String createBy, String modifiedBy) {
+		super(createBy, modifiedBy);
+	}
+
+	public AccountEntity(String createBy, String modifiedBy, Integer id, String username, String password, String sdt,
+			String accountName, Set<RoleEntity> roles) {
+		super(createBy, modifiedBy);
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -83,7 +87,6 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 		this.accountName = accountName;
 		this.roles = roles;
 	}
-
 
 	@Override
 	public String getPassword() {
