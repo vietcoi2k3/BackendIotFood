@@ -24,6 +24,9 @@ public class AuthController {
 	@RequestMapping(value= "login",method = RequestMethod.POST)
 	public Response login(@RequestBody AccountEntity accountEntity) {	
 		String token = accountService.login(accountEntity);
+		if(token==null) {
+			return new Response<>(false,"đăng nhập thất bại",ErrorCode.BAD_REQUEST);
+		}
  		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,token);
 	}
 	
@@ -32,7 +35,7 @@ public class AuthController {
 		String token =accountService.register(accountEntity);
 		
 		if(token==null) {
-			return new Response<>(true,"tài khoản đã tồn tại",ErrorCode.BAD_REQUEST);
+			return new Response<>(false,"tài khoản đã tồn tại",ErrorCode.BAD_REQUEST);
 		}
 		
 		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,token);
