@@ -18,7 +18,7 @@ public class RestaurantEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private String RestaurantName;
+	private String restaurantName;
 	
 	private String adress;
 	
@@ -71,10 +71,10 @@ public class RestaurantEntity implements Serializable{
 	}
 
 	public String getRestaurantName() {
-		return RestaurantName;
+		return restaurantName;
 	}
 
 	public void setRestaurantName(String restaurantName) {
-		RestaurantName = restaurantName;
+		this.restaurantName = restaurantName;
 	}
 }

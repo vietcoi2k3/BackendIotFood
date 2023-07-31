@@ -41,12 +41,6 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	
 	private String accountName;
 	
-	private Date createDate;
-	
-	private Date modifyDate;
-	
-	
-	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	        name="user_role",
@@ -66,8 +60,6 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 		this.password = password;
 		this.sdt = sdt;
 		this.accountName = accountName;
-		this.createDate = createDate;
-		this.modifyDate = modifyDate;
 		this.roles = roles;
 	}
 
@@ -89,8 +81,6 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 		this.password = password;
 		this.sdt = sdt;
 		this.accountName = accountName;
-		this.createDate = createDate;
-		this.modifyDate = modifyDate;
 		this.roles = roles;
 	}
 
@@ -153,22 +143,6 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
 	}
 
 	public Set<RoleEntity> getRoles() {

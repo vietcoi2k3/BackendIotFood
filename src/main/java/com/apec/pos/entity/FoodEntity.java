@@ -3,6 +3,7 @@ package com.apec.pos.entity;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -29,7 +30,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private long typeFoodEntityId;
 	
 	@ManyToOne
-	@JsonManagedReference
+	@JsonBackReference
 	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
 	private TypeFoodEntity typeFoodEntity;
 	
@@ -48,6 +49,28 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	public FoodEntity() {
 	
+	}
+	
+	public long getTypeFoodEntityId() {
+		return typeFoodEntityId;
+	}
+
+
+
+	public void setTypeFoodEntityId(long typeFoodEntityId) {
+		this.typeFoodEntityId = typeFoodEntityId;
+	}
+
+
+
+	public TypeFoodEntity getTypeFoodEntity() {
+		return typeFoodEntity;
+	}
+
+
+
+	public void setTypeFoodEntity(TypeFoodEntity typeFoodEntity) {
+		this.typeFoodEntity = typeFoodEntity;
 	}
 
 	public FoodEntity(String createBy, String modifiedBy) {

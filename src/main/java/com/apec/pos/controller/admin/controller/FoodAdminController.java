@@ -32,7 +32,7 @@ public class FoodAdminController {
 	public Response addFood( 
 			@RequestParam String foodName ,
 			@RequestParam  long price,
-			@RequestParam  String typeFood,
+			@RequestParam  long typeFood,
 			@RequestParam  MultipartFile imgFood,
 			@RequestParam String detail,
 			@RequestParam  long restaurantId
@@ -50,11 +50,9 @@ public class FoodAdminController {
 			}
 			f.setDetail(detail);
 			f.setPrice(price);
+			f.setTypeFoodEntityId(typeFood);
 			f.setFoodName(foodName);
 			f.setRestaurantEntityId(restaurantId);
-			RestaurantEntity restaurantEntity =new RestaurantEntity();
-			restaurantEntity.setId(restaurantId);
-			f.setRestaurantEntity(restaurantEntity);
 			return new Response(true,"thành công",foodService.addFood(f));
 
 	}

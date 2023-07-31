@@ -38,10 +38,13 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	@Override
 	public String login(AccountEntity accountEntity) {
 		AccountEntity aEntity = accountRepository.findByUsername(accountEntity.getUsername());
+		if(aEntity==null) {
+			return null;
+		}
 		if (passwordEncoder.matches( accountEntity.getPassword(),aEntity.getPassword())) {
 			return jwtService.generateToken(aEntity);
 		}		
-		return "đăng nhập không thành công";
+		return null;
 	}
 
 	@Override
