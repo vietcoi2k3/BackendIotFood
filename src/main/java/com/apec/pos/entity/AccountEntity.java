@@ -24,7 +24,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Builder
 @Data
 public class AccountEntity  extends BaseEntity implements UserDetails {
 

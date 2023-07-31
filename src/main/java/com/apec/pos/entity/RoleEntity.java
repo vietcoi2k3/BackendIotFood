@@ -16,7 +16,11 @@ public class RoleEntity extends BaseEntity implements GrantedAuthority{
 	private long id;
 	
 	private String authority;
-	
+
+	public RoleEntity(String createBy, String modifiedBy) {
+		super(createBy, modifiedBy);
+	}
+
 	public RoleEntity(String createBy, String modifiedBy, long id, String authority) {
 		super(createBy, modifiedBy);
 		this.id = id;
