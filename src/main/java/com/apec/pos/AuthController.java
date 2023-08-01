@@ -1,6 +1,9 @@
 package com.apec.pos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import com.apec.pos.service.AccountService;
 @RestController
 @RequestMapping(value = "auth")
 @CrossOrigin
+@CacheConfig(cacheNames = "iotFood")
 public class AuthController {
 	
 	@Autowired
@@ -42,7 +46,16 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value = "hello",method = RequestMethod.GET)
+	@CachePut(key = "2")
 	public String hello() {
-		return "hello";
+		String temp="hello";
+		return temp;
+	}
+	
+	@RequestMapping(value = "test-cache",method = RequestMethod.GET)
+	@Cacheable(key = "5")
+	public String testCache() {
+		System.out.println("đã gọi");
+		return "đã hoạt động";
 	}
 }

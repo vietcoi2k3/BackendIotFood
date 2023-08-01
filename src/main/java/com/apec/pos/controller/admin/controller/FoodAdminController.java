@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -58,7 +60,15 @@ public class FoodAdminController {
 	}
 	
 	@RequestMapping(value = "hello",method = RequestMethod.GET)
+	@CachePut(value = "temp",key = "1")
 	public String hello() {
 		return "hello";
+	}
+	
+	@RequestMapping(value = "test-cache",method = RequestMethod.GET)
+	@Cacheable(value = "temp",key = "1")
+	public String testCache() {
+		System.out.println("đã gọi");
+		return "không hoạt động";
 	}
 }

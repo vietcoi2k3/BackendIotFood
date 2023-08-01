@@ -2,6 +2,8 @@ package com.apec.pos.entity;
 
 import java.util.Date;
 
+import com.apec.pos.PosApplication;
+
 import jakarta.persistence.*;
 
 @MappedSuperclass
@@ -71,7 +73,12 @@ public class BaseEntity {
     @PreUpdate
     protected void onUpdate() {
         this.modifiedDate = new Date();
-        // You can get the current user or system user here and set the modifiedBy field accordingly
-        // For example: this.modifiedBy = getCurrentUser();
+        this.createBy=PosApplication.currentUserGlobal;
+    }
+    
+    @PrePersist
+    protected void onCreate() {
+    	this.createDate = new Date(); 
+    	this.createBy=PosApplication.currentUserGlobal;
     }
 }

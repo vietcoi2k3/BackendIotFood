@@ -22,4 +22,5 @@ public class FoodController {
 	public Response getRecommendFood() {
 		return new Response<>(true,"lấy thành công",ErrorCode.SUCCESS,foodService.getFoodRecommand());
 	}
+	
 }

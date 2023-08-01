@@ -30,7 +30,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private long typeFoodEntityId;
 	
 	@ManyToOne
-	@JsonBackReference
+	@JsonIgnore
 	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
 	private TypeFoodEntity typeFoodEntity;
 	

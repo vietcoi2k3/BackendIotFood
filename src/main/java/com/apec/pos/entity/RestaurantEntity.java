@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class RestaurantEntity implements Serializable{
+public class RestaurantEntity extends BaseEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,25 @@ public class RestaurantEntity implements Serializable{
 	@OneToMany(mappedBy = "restaurantEntity")
 	@JsonManagedReference
 	private Set<FoodEntity> foodEntities;
+
+	public RestaurantEntity() {
+	
+	}
+	
+	public RestaurantEntity(String createBy, String modifiedBy) {
+		super(createBy, modifiedBy);
+	}
+
+	public RestaurantEntity(String createBy, String modifiedBy, long id, String restaurantName, String adress,
+			long distance, String phoneNumber, Set<FoodEntity> foodEntities) {
+		super(createBy, modifiedBy);
+		this.id = id;
+		this.restaurantName = restaurantName;
+		this.adress = adress;
+		this.distance = distance;
+		this.phoneNumber = phoneNumber;
+		this.foodEntities = foodEntities;
+	}
 
 	public long getId() {
 		return id;

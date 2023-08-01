@@ -2,9 +2,11 @@ package com.apec.pos.repository;
 
 import java.util.HashMap;
 
+
 import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import com.apec.pos.entity.AccountEntity;
 
@@ -19,7 +21,9 @@ public class AccountRepository extends BaseRepository<AccountEntity, Integer>{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Cacheable(value = "account",key = "#username")
 	public AccountEntity findByUsername(String username){
+		  System.out.println("*********username không có trong cache*************");
 		  String query = "FROM AccountEntity c WHERE c.username = :username";
 		    Map<String, Object> params = new HashMap<>();
 		    params.put("username", username);

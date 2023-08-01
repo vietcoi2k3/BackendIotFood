@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.apec.pos.PosApplication;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.service.JwtService;
@@ -49,7 +50,8 @@ public class JwtFilterSecurity extends OncePerRequestFilter{
 	            logger.warn("JWT Token does not begin with Bearer String");
 	        }
 
-	        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {	        	
+	        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {	
+	        	PosApplication.currentUserGlobal=username;
 	            UserDetails userDetails = this.accountRepository.findByUsername(username);
 	            if (jwtService.validateToken(jwtToken, userDetails)) {
 	                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(

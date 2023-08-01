@@ -1,11 +1,12 @@
 package com.apec.pos.service;
 
 import java.util.Date;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,10 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 		return null;
 	}
 	
+	@CachePut(value = "account",key = "#accountEntity.username")
+	private AccountEntity afterLogin(AccountEntity accountEntity) {
+		return accountEntity;
+	}
 	
 
 	@Override
@@ -42,6 +47,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 			return null;
 		}
 		if (passwordEncoder.matches( accountEntity.getPassword(),aEntity.getPassword())) {
+			afterLogin(accountEntity);
 			return jwtService.generateToken(aEntity);
 		}		
 		return null;
