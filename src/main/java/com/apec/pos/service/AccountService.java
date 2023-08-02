@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.service.serviceInterface.AccountInterface;
 
 @Service
+@CacheConfig(cacheNames = "iotFood")
 public class AccountService extends BaseService<AccountRepository, AccountEntity, Integer> implements AccountInterface{
 
 	@Autowired
@@ -33,12 +35,6 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	@CachePut(value = "account",key = "#accountEntity.username")
-	private AccountEntity afterLogin(AccountEntity accountEntity) {
-		return accountEntity;
-	}
-	
 
 	@Override
 	public String login(AccountEntity accountEntity) {
@@ -47,7 +43,6 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 			return null;
 		}
 		if (passwordEncoder.matches( accountEntity.getPassword(),aEntity.getPassword())) {
-			afterLogin(accountEntity);
 			return jwtService.generateToken(aEntity);
 		}		
 		return null;
