@@ -13,7 +13,7 @@ import com.apec.pos.entity.AccountEntity;
 
 
 @Repository
-@CacheConfig(cacheNames = "iotFood")
+//@CacheConfig(cacheNames = "iotFood")
 public class AccountRepository extends BaseRepository<AccountEntity, Integer>{
 
 
@@ -23,9 +23,9 @@ public class AccountRepository extends BaseRepository<AccountEntity, Integer>{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Cacheable(key = "#username")
+	@Cacheable(key = "#username",cacheNames = "iotFood")
 	public AccountEntity findByUsername(String username){
-		
+		System.out.println("đã gọi");
 		  String query = "FROM AccountEntity c WHERE c.username = :username";
 		    Map<String, Object> params = new HashMap<>();
 		    params.put("username", username);
