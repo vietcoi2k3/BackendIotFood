@@ -23,7 +23,7 @@ public class TypeFoodEntity extends BaseEntity{
 	private String nameType;
 	
 	@OneToMany(mappedBy = "typeFoodEntity")
-	@JsonManagedReference
+	@JsonManagedReference(value = "type-food")
 	private Set<FoodEntity> foodEntities;
 
 	public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType) {

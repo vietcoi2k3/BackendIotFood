@@ -13,7 +13,7 @@ import com.apec.pos.service.TypeFoodService;
 
 @RestController
 @RequestMapping(value = "ADMIN")
-public class TypeFoodController {
+public class TypeFoodAdminController {
 	
 	@Autowired
 	private TypeFoodService typeFoodService;

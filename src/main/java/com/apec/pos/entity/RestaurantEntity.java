@@ -3,6 +3,7 @@ package com.apec.pos.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -27,7 +28,7 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	private String phoneNumber;
 	
 	@OneToMany(mappedBy = "restaurantEntity")
-	@JsonManagedReference
+	@JsonManagedReference(value = "food-res")
 	private Set<FoodEntity> foodEntities;
 
 	public RestaurantEntity() {

@@ -23,7 +23,7 @@ public class AccountRepository extends BaseRepository<AccountEntity, Integer>{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Cacheable(key = "#username",cacheNames = "iotFood")
+	@Cacheable(key = "#username",cacheNames = "iotFood",unless = "#result == null" )
 	public AccountEntity findByUsername(String username){
 		System.out.println("đã gọi");
 		  String query = "FROM AccountEntity c WHERE c.username = :username";

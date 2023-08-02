@@ -2,6 +2,7 @@ package com.apec.pos.entity;
 
 import java.io.Serializable;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,7 +31,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private long typeFoodEntityId;
 	
 	@ManyToOne
-	@JsonIgnore
+	@JsonBackReference(value = "type-food")
 	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
 	private TypeFoodEntity typeFoodEntity;
 	
@@ -41,8 +42,8 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private long restaurantEntityId;
 	
 	@ManyToOne
+	@JsonBackReference(value = "food-res")
 	@JoinColumn(name = "restaurantEntityId",insertable = false, updatable = false)
-	@JsonBackReference
 	private RestaurantEntity restaurantEntity;
 
 	

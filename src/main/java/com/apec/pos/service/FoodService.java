@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.copy.FoodRecommanDto;
@@ -14,6 +15,7 @@ import com.apec.pos.service.serviceInterface.FoodInterface;
 
 
 @Service
+@CacheConfig(cacheNames = "iotFood")
 public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer> implements FoodInterface{
 
 	@Autowired
@@ -26,6 +28,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
+	@Cacheable()
 	public List<FoodRecommanDto> getFoodRecommand() {
 	    List<FoodEntity> foodEntitys= foodRepository.getTopFood();
 	    System.out.println(foodEntitys.size());
