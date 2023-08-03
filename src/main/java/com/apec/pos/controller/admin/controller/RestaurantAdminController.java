@@ -10,6 +10,8 @@ import com.apec.pos.entity.RestaurantEntity;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.RestaurantService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping(value = "ADMIN")
 public class RestaurantAdminController {
@@ -17,6 +19,8 @@ public class RestaurantAdminController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
+	@Operation(description = "không filed nào là bắt buộc, thích nhập gì thì nhập\n\nếu không nhập gì thì sẽ thêm giá trị null vào trong db",
+			summary = "thêm nhà hàng mới")
 	@RequestMapping(value = "add-res",method = RequestMethod.POST)
 	public Response addRestaurant(@RequestBody RestaurantEntity restaurantEntity) 
 	{

@@ -2,13 +2,14 @@ package com.apec.pos.entity;
 
 import java.util.Date;
 
+
 import com.apec.pos.PosApplication;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.*;
 
 @MappedSuperclass
 public class BaseEntity {
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     private Date createDate;

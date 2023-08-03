@@ -1,6 +1,7 @@
 package com.apec.pos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,6 +16,9 @@ import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.AccountService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RestController
 @RequestMapping(value = "auth")
@@ -25,6 +29,8 @@ public class AuthController {
 	@Autowired
 	private AccountService accountService;
 	
+	@Operation(description = "<html>Endpoint đăng nhập<br><br>Đây là endpoint để thực hiện việc đăng nhập vào hệ thống.<br><br>Yêu cầu cung cấp các trường '<b>username</b>' và '<b>password</b>'.<br><br>Trả về mã token nếu đăng nhập thành công.</html>",
+	           summary = "Đăng nhập")
 	@RequestMapping(value= "login",method = RequestMethod.POST)
 	public Response login(@RequestBody AccountEntity accountEntity) {	
 		String token = accountService.login(accountEntity);
@@ -34,6 +40,8 @@ public class AuthController {
  		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,token);
 	}
 	
+	@Operation(description = "Endpoint đăng ký\n\nĐây là endpoint để thực hiện việc đăng ký tài khoản mới.\n\nYêu cầu cung cấp các trường '<b>username</b>' và '<b>password</b>' để tạo tài khoản.\n\nTrả về mã token nếu đăng ký thành công.",
+	           summary = "Đăng ký")
 	@RequestMapping(value= "register",method = RequestMethod.POST)
 	public Response register(@RequestBody AccountEntity accountEntity) {
 		String token =accountService.register(accountEntity);
