@@ -18,11 +18,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
 		servers= {
 				@Server(
 						description = "Local EVM",
-						url = "http://localhost:8080"
+						url = "https://localhost:8080"
 						),
 				@Server(
 						description = "PROD EVM",
-						url = "http://server-iot-food.onrender.com"
+						url = "https://server-iot-food.onrender.com"
 						)
 		}
 		)
