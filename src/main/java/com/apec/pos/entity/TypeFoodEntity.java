@@ -25,6 +25,20 @@ public class TypeFoodEntity extends BaseEntity{
 	@OneToMany(mappedBy = "typeFoodEntity")
 	@JsonManagedReference(value = "type-food")
 	private Set<FoodEntity> foodEntities;
+	
+	
+
+	public TypeFoodEntity(String createBy, String modifiedBy) {
+		super(createBy, modifiedBy);
+	}
+	
+	
+
+	public TypeFoodEntity() {
+		
+	}
+
+
 
 	public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType) {
 		super(createBy, modifiedBy);
