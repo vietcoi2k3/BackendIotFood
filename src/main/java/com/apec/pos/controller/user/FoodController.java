@@ -20,10 +20,5 @@ public class FoodController {
 	@Autowired
 	private FoodService foodService;
 	
-	@Operation(description = "lấy ra danh sách các món ăn được đề xuất,hiện tại đang là 4 món",summary = "lấy ra các món ăn đề xuất")
-	@RequestMapping(value = "get-recommend-food",method = RequestMethod.GET)
-	public Response getRecommendFood() {
-		return new Response<>(true,"lấy thành công",ErrorCode.SUCCESS,foodService.getFoodRecommand());
-	}
-	
+
 }

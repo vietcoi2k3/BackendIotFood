@@ -10,6 +10,8 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -46,7 +48,7 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	        joinColumns = {@JoinColumn(name="user_id")},
 	        inverseJoinColumns = {@JoinColumn(name="role_id")}
 	    )
-	
+	@JsonIgnore
 	private Set<RoleEntity> roles;
 	
 	
@@ -63,6 +65,7 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	}
 
 	@Override
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		return this.roles;
@@ -100,24 +103,28 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;

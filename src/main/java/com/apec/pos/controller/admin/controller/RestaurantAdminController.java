@@ -19,8 +19,8 @@ public class RestaurantAdminController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
-	@Operation(description = "không filed nào là bắt buộc, thích nhập gì thì nhập\n\nếu không nhập gì thì sẽ thêm giá trị null vào trong db",
-			summary = "thêm nhà hàng mới")
+	@Operation(description = "Thêm nhà hàng mới.\n\nCác trường không bắt buộc, bạn có thể nhập theo ý muốn.\n\nNếu không nhập giá trị cho một trường nào đó, giá trị null sẽ được thêm vào cơ sở dữ liệu.\n\nCác thông tin bổ sung:\n\n- id (không nhập): Mã nhà hàng (ID) sẽ được tạo tự động bởi hệ thống, bạn không cần phải nhập giá trị cho trường này.\n- \"restaurantName\" <=> \"tên nhà hàng\": Tên của nhà hàng.\n- \"address\" <=> Địa chỉ quán: Địa chỉ của nhà hàng.\n- \"distance\" <=> Khoảng cách từ trường đến quán: Khoảng cách từ trường đến nhà hàng.\n- \"phoneNumber\" <=> Số điện thoại của quán: Số điện thoại liên hệ của nhà hàng.\n- \"foodEntities\" <=> không nhập",
+	           summary = "Thêm nhà hàng mới")
 	@RequestMapping(value = "add-res",method = RequestMethod.POST)
 	public Response addRestaurant(@RequestBody RestaurantEntity restaurantEntity) 
 	{

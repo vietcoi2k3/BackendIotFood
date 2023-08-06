@@ -6,6 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	
 	@OneToMany(mappedBy = "restaurantEntity")
 	@JsonManagedReference(value = "food-res")
+	@ApiModelProperty(hidden = true)
 	private Set<FoodEntity> foodEntities;
 
 	public RestaurantEntity() {
@@ -82,10 +84,12 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 		this.phoneNumber = phoneNumber;
 	}
 
+	@ApiModelProperty(hidden = true)
 	public Set<FoodEntity> getFoodEntities() {
 		return foodEntities;
 	}
 
+	@ApiModelProperty(hidden = true)
 	public void setFoodEntities(Set<FoodEntity> foodEntities) {
 		this.foodEntities = foodEntities;
 	}

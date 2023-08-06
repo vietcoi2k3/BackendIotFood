@@ -4,23 +4,28 @@ import java.util.Date;
 
 
 import com.apec.pos.PosApplication;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.*;
 
 @MappedSuperclass
 public class BaseEntity {
+	@JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     private Date createDate;
 
+	@JsonIgnore
     @Column(name = "create_by")
     private String createBy;
 
+	@JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modified_date")
     private Date modifiedDate;
 
+	@JsonIgnore
     @Column(name = "modified_by")
     private String modifiedBy;
 
