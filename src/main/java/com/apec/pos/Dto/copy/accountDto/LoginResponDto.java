@@ -1,4 +1,4 @@
-package com.apec.pos.Dto.copy;
+package com.apec.pos.Dto.copy.accountDto;
 
 import java.util.Set;
 

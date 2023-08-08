@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apec.pos.Dto.copy.LoginResponDto;
-import com.apec.pos.Dto.copy.OtpRequestDto;
-import com.apec.pos.Dto.copy.OtpResponseDto;
-import com.apec.pos.Dto.copy.OtpValidationRequestDto;
+import com.apec.pos.Dto.copy.accountDto.LoginRequest;
+import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
+import com.apec.pos.Dto.copy.otpDto.OtpRequestDto;
+import com.apec.pos.Dto.copy.otpDto.OtpResponseDto;
+import com.apec.pos.Dto.copy.otpDto.OtpValidationRequestDto;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
@@ -46,18 +47,18 @@ public class AuthController {
 	@Autowired
 	private FoodService foodService;
 	
-	@Operation(description = "<html>Endpoint đăng nhập<br><br>Đây là endpoint để thực hiện việc đăng nhập vào hệ thống.<br><br>Yêu cầu cung cấp các trường '<b>username</b>' và '<b>password</b>'.<br><br>Trả về mã token nếu đăng nhập thành công.</html>",
+	@Operation(description = "'username'<=>'mã sinh viên'\n\n 'password'<=>'mật khẩu'",
 	           summary = "Đăng nhập")
 	@RequestMapping(value= "login",method = RequestMethod.POST)
-	public Response login(@RequestBody AccountEntity accountEntity) {	
-		LoginResponDto loginResponDto = accountService.login(accountEntity);
+	public Response login(@RequestBody LoginRequest loginRequest) {	
+		LoginResponDto loginResponDto = accountService.login(loginRequest);
 		if(loginResponDto==null) {
 			return new Response<>(false,"đăng nhập thất bại",ErrorCode.BAD_REQUEST);
 		}
  		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,loginResponDto);
 	}
 	
-	@Operation(description = "Endpoint đăng ký\n\nYêu cầu cung cấp các trường <b>'username'<=>mã sinh viên</b> , <b>'password'</b> , <b>'sdt'<b>,<b>để tạo tài khoản.\n\nTrả về mã token nếu đăng ký thành công.",
+	@Operation(description = "Endpoint đăng ký\n\nYêu cầu cung cấp các trường <b>'username'<=>mã sinh viên</b> , <b>'password'</b> , <b>'sdt'</b>,<b>'accountName'<=>'Họ và tên'</b>,<b>để tạo tài khoản.\n\nTrả về mã token nếu đăng ký thành công.",
 	           summary = "Đăng ký")
 	@RequestMapping(value= "register",method = RequestMethod.POST)
 	public Response register(@RequestBody AccountEntity accountEntity) {
@@ -70,12 +71,13 @@ public class AuthController {
 		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,loginResponDto);
 	}
 	
-	@Operation(description = "lấy ra danh sách các món ăn được đề xuất,hiện tại đang là 4 món",summary = "lấy ra các món ăn đề xuất")
+	@Operation(description = "lấy ra danh sách các món ăn được đề xuất,hiện tại đang là 10 món",summary = "lấy ra các món ăn đề xuất")
 	@RequestMapping(value = "get-recommend-food",method = RequestMethod.GET)
 	public Response getRecommendFood() {
 		return new Response<>(true,"lấy thành công",ErrorCode.SUCCESS,foodService.getFoodRecommand());
 	}
 	
+	@Operation(summary = "lấy ra các type food")
 	@RequestMapping(value = "get-all-type",method = RequestMethod.GET)
 	public Response getTypeFood() {
 		return new Response<>(true,"lấy ra các loại món ăn",ErrorCode.SUCCESS,typeFoodService.findAll()); 

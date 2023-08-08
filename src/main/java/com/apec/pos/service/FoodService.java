@@ -10,7 +10,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.FoodRecommanDto;
+import com.apec.pos.Dto.copy.FootDto.FoodRecommanDto;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.service.serviceInterface.FoodInterface;

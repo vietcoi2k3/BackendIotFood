@@ -10,10 +10,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.OtpRequestDto;
-import com.apec.pos.Dto.copy.OtpResponseDto;
-import com.apec.pos.Dto.copy.OtpStatusDto;
-import com.apec.pos.Dto.copy.OtpValidationRequestDto;
+import com.apec.pos.Dto.copy.otpDto.OtpRequestDto;
+import com.apec.pos.Dto.copy.otpDto.OtpResponseDto;
+import com.apec.pos.Dto.copy.otpDto.OtpStatusDto;
+import com.apec.pos.Dto.copy.otpDto.OtpValidationRequestDto;
 import com.apec.pos.Unitl.TwilioConfig;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;

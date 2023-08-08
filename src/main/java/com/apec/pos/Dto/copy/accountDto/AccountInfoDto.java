@@ -1,4 +1,4 @@
-package com.apec.pos.Dto.copy;
+package com.apec.pos.Dto.copy.accountDto;
 
 public class AccountInfoDto {
 	private String accountName;

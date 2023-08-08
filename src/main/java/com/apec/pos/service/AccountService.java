@@ -11,8 +11,9 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.AccountInfoDto;
-import com.apec.pos.Dto.copy.LoginResponDto;
+import com.apec.pos.Dto.copy.accountDto.AccountInfoDto;
+import com.apec.pos.Dto.copy.accountDto.LoginRequest;
+import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
@@ -38,12 +39,12 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	}
 
 	@Override
-	public LoginResponDto login(AccountEntity accountEntity) {
-		AccountEntity aEntity = accountRepository.findByUsername(accountEntity.getUsername());
+	public LoginResponDto login(LoginRequest loginRequest) {
+		AccountEntity aEntity = accountRepository.findByUsername(loginRequest.getUsername());
 		if(aEntity==null) {
 			return null;
 		}
-		if (passwordEncoder.matches( accountEntity.getPassword(),aEntity.getPassword())) {
+		if (passwordEncoder.matches( loginRequest.getPassword(),aEntity.getPassword())) {
 			return new LoginResponDto(aEntity.getRoles(),jwtService.generateToken(aEntity));
 		}		
 		return null;
