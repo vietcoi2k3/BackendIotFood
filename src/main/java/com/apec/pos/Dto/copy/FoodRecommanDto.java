@@ -6,23 +6,63 @@ public class FoodRecommanDto {
 	private String nameFood;
 	private long price;
 	private String nameRestaurantFood;
-	private byte[] imgFood;
+	private String imgFood;
+	private long distance;
+	private long time;
+	private double star;
+	private long quantity;
 	
-	
-	public FoodRecommanDto(long id, String nameFood, long price, String nameRestaurantFood,byte[] imgFood) {
+	public FoodRecommanDto(long id, String nameFood, long price, String nameRestaurantFood, String imgFood,
+			long distance, long time, double star, long quantity) {
 		super();
 		this.id = id;
 		this.nameFood = nameFood;
 		this.price = price;
 		this.nameRestaurantFood = nameRestaurantFood;
-		this.imgFood=imgFood;
+		this.imgFood = imgFood;
+		this.distance = distance;
+		this.time = time;
+		this.star = star;
+		this.quantity = quantity;
 	}
-	
-	public byte[] getImgFood() {
+
+	public long getDistance() {
+		return distance;
+	}
+
+	public void setDistance(long distance) {
+		this.distance = distance;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long time) {
+		this.time = time;
+	}
+
+	public double getStar() {
+		return star;
+	}
+
+	public void setStar(double star) {
+		this.star = star;
+	}
+
+	public long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(long quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getImgFood() {
 		return imgFood;
 	}
 
-	public void setImgFood(byte[] imgFood) {
+	public void setImgFood(String imgFood) {
 		this.imgFood = imgFood;
 	}
 

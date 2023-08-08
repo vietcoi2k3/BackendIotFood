@@ -32,7 +32,7 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	public List<FoodEntity> getTopFood(){
 		String query= "SELECT c FROM FoodEntity c";
 		Query query2 = entityManager.createQuery(query);
-		return query2.setMaxResults(4).getResultList();
+		return query2.setMaxResults(10).getResultList();
 	}
 
 	private String buildQuery(FoodEntity foodEntity) {

@@ -23,7 +23,7 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 	@Override
 	TypeFoodRepository getRepository() {
 		// TODO Auto-generated method stub
-		return null;
+		return typeFoodRepository;
 	}
 
 }

@@ -3,6 +3,8 @@ package com.apec.pos.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.x500.X500Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,18 +26,18 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	@Override
 	FoodRepository getRepository() {
 		// TODO Auto-generated method stub
-		return null;
+		return foodRepository;
 	}
 
 	@Override
-	@Cacheable()
 	public List<FoodRecommanDto> getFoodRecommand() {
 	    List<FoodEntity> foodEntitys= foodRepository.getTopFood();
 	    System.out.println(foodEntitys.size());
 		List<FoodRecommanDto> foodRecommanDtos = new ArrayList<FoodRecommanDto>();
 		for (FoodEntity x : foodEntitys) {
 			String nameRes = x.getRestaurantEntity().getRestaurantName();
-			FoodRecommanDto temp = new FoodRecommanDto(x.getId(), x.getFoodName(), x.getPrice(), nameRes,x.getImgFood());
+			long distance = x.getRestaurantEntity().getDistance();
+			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),x.getFoodName(),x.getPrice(),nameRes,x.getImgFood(),distance,x.getTimeout(),x.getStar(),x.getQuantity());
 			foodRecommanDtos.add(temp);
 		}
 		System.out.println(foodRecommanDtos.size());

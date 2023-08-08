@@ -21,6 +21,7 @@ import com.apec.pos.response.Response;
 import com.apec.pos.service.AccountService;
 import com.apec.pos.service.FoodService;
 import com.apec.pos.service.SmsService;
+import com.apec.pos.service.TypeFoodService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -34,6 +35,9 @@ public class AuthController {
 	
 	@Autowired
 	private SmsService smsService;
+	
+	@Autowired
+	private TypeFoodService typeFoodService;
 	
 	@Autowired
 	private AccountService accountService;
@@ -69,6 +73,11 @@ public class AuthController {
 	@RequestMapping(value = "get-recommend-food",method = RequestMethod.GET)
 	public Response getRecommendFood() {
 		return new Response<>(true,"lấy thành công",ErrorCode.SUCCESS,foodService.getFoodRecommand());
+	}
+	
+	@RequestMapping(value = "get-all-type",method = RequestMethod.GET)
+	public Response getTypeFood() {
+		return new Response<>(true,"lấy ra các loại món ăn",ErrorCode.SUCCESS,typeFoodService.findAll()); 
 	}
 	
 	@PostMapping("/send-otp")

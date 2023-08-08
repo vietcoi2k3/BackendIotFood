@@ -40,21 +40,13 @@ public class FoodAdminController {
 			@RequestParam 	String foodName ,
 			@RequestParam  long price,
 			@RequestParam  long typeFood,
-			@RequestPart(required = true)  MultipartFile imgFood,
+			@RequestParam  String imgFood,
 			@RequestParam String detail,
 			@RequestParam  long restaurantId
 			) {
-			FoodEntity f = new FoodEntity();
-			String fileName = StringUtils.cleanPath(imgFood.getOriginalFilename());
-			if(fileName.contains(".."))
-			{
-				System.out.println("not a a valid file");
-			}
-			try {
-				f.setImgFood(imgFood.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		
+			FoodEntity f = new FoodEntity();		
+			f.setImgFood(imgFood);
 			f.setDetail(detail);
 			f.setPrice(price);
 			f.setTypeFoodEntityId(typeFood);

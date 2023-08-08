@@ -33,7 +33,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	@Override
 	AccountRepository getRepository() {
 		// TODO Auto-generated method stub
-		return null;
+		return accountRepository;
 	}
 
 	@Override
