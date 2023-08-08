@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.copy.AccountInfoDto;
+import com.apec.pos.Dto.copy.LoginResponDto;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
@@ -37,42 +38,24 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	}
 
 	@Override
-	public String login(AccountEntity accountEntity) {
+	public LoginResponDto login(AccountEntity accountEntity) {
 		AccountEntity aEntity = accountRepository.findByUsername(accountEntity.getUsername());
 		if(aEntity==null) {
 			return null;
 		}
 		if (passwordEncoder.matches( accountEntity.getPassword(),aEntity.getPassword())) {
-			return jwtService.generateToken(aEntity);
+			return new LoginResponDto(aEntity.getRoles(),jwtService.generateToken(aEntity));
 		}		
 		return null;
 	}
 
 	@Override
-	public String register(AccountEntity accountEntity) {
+	public LoginResponDto register(AccountEntity accountEntity) {
 		// Kiểm tra xem tài khoản đã tồn tại chưa
 	    if (accountRepository.findByUsername(accountEntity.getUsername()) != null) {	 
 	        return null;
 	    }
-	    if (accountEntity.getUsername().contains("admin")) {
-	        Set<RoleEntity> roleEntity = new HashSet<>();
-		    RoleEntity userRole = new RoleEntity();
-		    userRole.setAuthority("ADMIN");
-		    userRole.setId(1);
-		    roleEntity.add(userRole);
-
-		    AccountEntity accountEntity3 = new AccountEntity();
-		    accountEntity3.setAccountName(accountEntity.getAccountName());
-		    accountEntity3.setCreateDate(new Date());
-		    accountEntity3.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
-		    accountEntity3.setRoles(roleEntity);
-		    accountEntity3.setSdt(accountEntity.getSdt());
-		    accountEntity3.setUsername(accountEntity.getUsername());
-		    // Lưu tài khoản mới vào cơ sở dữ liệu
-		    accountRepository.insert(accountEntity3);
-		    
-		    return jwtService.generateToken(accountEntity3);
-		}
+	   
 
 	    // Tài khoản chưa tồn tại, tạo một tài khoản mới với vai trò "USER"
 	    Set<RoleEntity> roleEntity = new HashSet<>();
@@ -91,7 +74,9 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	    // Lưu tài khoản mới vào cơ sở dữ liệu
 	    accountRepository.insert(accountEntity2);
 	    
-	    return jwtService.generateToken(accountEntity2);
+	    LoginResponDto loginResponDto =new LoginResponDto(accountEntity2.getRoles(),jwtService.generateToken(accountEntity2));
+	    
+	    return loginResponDto;
 	}
 
 

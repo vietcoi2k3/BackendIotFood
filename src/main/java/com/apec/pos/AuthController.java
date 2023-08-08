@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apec.pos.Dto.copy.LoginResponDto;
 import com.apec.pos.Dto.copy.OtpRequestDto;
 import com.apec.pos.Dto.copy.OtpResponseDto;
 import com.apec.pos.Dto.copy.OtpValidationRequestDto;
@@ -49,24 +50,24 @@ public class AuthController {
 	           summary = "Đăng nhập")
 	@RequestMapping(value= "login",method = RequestMethod.POST)
 	public Response login(@RequestBody AccountEntity accountEntity) {	
-		String token = accountService.login(accountEntity);
-		if(token==null) {
+		LoginResponDto loginResponDto = accountService.login(accountEntity);
+		if(loginResponDto==null) {
 			return new Response<>(false,"đăng nhập thất bại",ErrorCode.BAD_REQUEST);
 		}
- 		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,token);
+ 		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,loginResponDto);
 	}
 	
 	@Operation(description = "Endpoint đăng ký\n\nYêu cầu cung cấp các trường <b>'username'<=>mã sinh viên</b> , <b>'password'</b> , <b>'sdt'<b>,<b>để tạo tài khoản.\n\nTrả về mã token nếu đăng ký thành công.",
 	           summary = "Đăng ký")
 	@RequestMapping(value= "register",method = RequestMethod.POST)
 	public Response register(@RequestBody AccountEntity accountEntity) {
-		String token =accountService.register(accountEntity);
+		LoginResponDto loginResponDto =accountService.register(accountEntity);
 		
-		if(token==null) {
+		if(loginResponDto==null) {
 			return new Response<>(false,"tài khoản đã tồn tại",ErrorCode.BAD_REQUEST);
 		}
 
-		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,token);
+		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,loginResponDto);
 	}
 	
 	@Operation(description = "lấy ra danh sách các món ăn được đề xuất,hiện tại đang là 4 món",summary = "lấy ra các món ăn đề xuất")
