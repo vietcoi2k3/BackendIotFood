@@ -3,6 +3,7 @@ package com.apec.pos.entity;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -24,6 +25,7 @@ public class TypeFoodEntity extends BaseEntity{
 	
 	@OneToMany(mappedBy = "typeFoodEntity")
 	@JsonManagedReference(value = "type-food")
+	@JsonIgnore
 	private Set<FoodEntity> foodEntities;
 	
 	

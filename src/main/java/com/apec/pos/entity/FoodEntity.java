@@ -69,10 +69,12 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	}
 	
+	
+	
 	public long getTypeFoodEntityId() {
 		return typeFoodEntityId;
 	}
-
+	
 	public double getStar() {
 		return star;
 	}
