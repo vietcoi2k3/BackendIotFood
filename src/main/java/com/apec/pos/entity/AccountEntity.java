@@ -42,6 +42,8 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	
 	private String accountName;
 	
+	private String imgUser;
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	        name="user_role",
@@ -71,6 +73,14 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 		return this.roles;
 	}
 	
+	public String getImgUser() {
+		return imgUser;
+	}
+
+	public void setImgUser(String imgUser) {
+		this.imgUser = imgUser;
+	}
+
 	public AccountEntity() {
 		
 	}

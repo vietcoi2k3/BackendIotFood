@@ -45,7 +45,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 			return null;
 		}
 		if (passwordEncoder.matches( loginRequest.getPassword(),aEntity.getPassword())) {
-			return new LoginResponDto(aEntity.getRoles(),jwtService.generateToken(aEntity));
+			return new LoginResponDto(aEntity.getRoles(),jwtService.generateToken(aEntity),aEntity.getSdt(),aEntity.getAccountName(),aEntity.getImgUser(),aEntity.getUsername());
 		}		
 		return null;
 	}
@@ -72,10 +72,11 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	    accountEntity2.setRoles(roleEntity);
 	    accountEntity2.setSdt(accountEntity.getSdt());
 	    accountEntity2.setUsername(accountEntity.getUsername());
+	    accountEntity2.setImgUser("https://i.pinimg.com/736x/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg");
 	    // Lưu tài khoản mới vào cơ sở dữ liệu
 	    accountRepository.insert(accountEntity2);
 	    
-	    LoginResponDto loginResponDto =new LoginResponDto(accountEntity2.getRoles(),jwtService.generateToken(accountEntity2));
+	    LoginResponDto loginResponDto =new LoginResponDto(accountEntity2.getRoles(),jwtService.generateToken(accountEntity2),accountEntity2.getSdt(),accountEntity2.getAccountName(),accountEntity2.getImgUser(),accountEntity2.getUsername());;
 	    
 	    return loginResponDto;
 	}
