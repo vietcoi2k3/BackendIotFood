@@ -58,6 +58,11 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	public List<FoodEntity> searchFood(String searchString) {
 		return foodRepository.findFoodByKey(searchString);
 	}
+
+	@Override
+	public FoodEntity getDetailFood(Integer id) {
+		return foodRepository.findOne(id);
+	}
 	
 	
 

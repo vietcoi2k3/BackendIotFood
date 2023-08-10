@@ -105,9 +105,16 @@ public class AuthController {
 		return ResponseEntity.status(HttpStatus.SC_OK).body("Welcome to IOT-FOOT");
 	}
 	
+	@Operation(summary = "tìm kiếm món ăn theo type,detail,tên món ăn")
 	@RequestMapping(value = "search-food",method = RequestMethod.GET)
 	public ResponseEntity searchFood(@RequestParam String searchString){
 		return ResponseEntity.ok(foodService.searchFood(searchString));
+	}
+	
+	@Operation(summary = "lấy ra detail food",description = "khi bấm vào một món ăn sẽ gọi đến api này")
+	@RequestMapping(value = "get-detail-food",method = RequestMethod.GET)
+	public ResponseEntity getDetailFood(@RequestParam Integer id) {
+		return ResponseEntity.ok(foodService.getDetailFood(id));
 	}
 	
 }

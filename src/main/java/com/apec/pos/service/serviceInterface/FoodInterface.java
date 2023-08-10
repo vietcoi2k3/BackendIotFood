@@ -11,4 +11,5 @@ public interface FoodInterface {
 	public FoodEntity addFood(FoodEntity foodEntity);
 	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
 	public List<FoodEntity> searchFood(String searchString);
+	public FoodEntity getDetailFood(Integer id);
 }
