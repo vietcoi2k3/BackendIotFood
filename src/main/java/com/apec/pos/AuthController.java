@@ -1,10 +1,13 @@
 package com.apec.pos;
 
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +20,7 @@ import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
 import com.apec.pos.Dto.copy.otpDto.OtpRequestDto;
 import com.apec.pos.Dto.copy.otpDto.OtpResponseDto;
 import com.apec.pos.Dto.copy.otpDto.OtpValidationRequestDto;
+import com.apec.pos.Unitl.Validator;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
@@ -50,25 +54,26 @@ public class AuthController {
 	@Operation(description = "'username'<=>'mã sinh viên'\n\n 'password'<=>'mật khẩu'",
 	           summary = "Đăng nhập")
 	@RequestMapping(value= "login",method = RequestMethod.POST)
-	public Response login(@RequestBody LoginRequest loginRequest) {	
+	public ResponseEntity<Response> login(@RequestBody LoginRequest loginRequest) {	
 		LoginResponDto loginResponDto = accountService.login(loginRequest);
 		if(loginResponDto==null) {
-			return new Response<>(false,"đăng nhập thất bại",ErrorCode.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response(true,"Tài Khoản Hoặc Mật Khẩu Không Chính Xác",ErrorCode.BAD_REQUEST));
 		}
- 		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,loginResponDto);
+ 		return ResponseEntity.status(HttpStatus.SC_OK).body(new Response<LoginResponDto>(true,"Đăng nhập thành công",ErrorCode.SUCCESS,loginResponDto));
 	}
 	
-	@Operation(description = "Endpoint đăng ký\n\nYêu cầu cung cấp các trường <b>'username'<=>mã sinh viên</b> , <b>'password'</b> , <b>'sdt'</b>,<b>'accountName'<=>'Họ và tên'</b>,<b>để tạo tài khoản.\n\nTrả về mã token nếu đăng ký thành công.",
-	           summary = "Đăng ký")
 	@RequestMapping(value= "register",method = RequestMethod.POST)
-	public Response register(@RequestBody AccountEntity accountEntity) {
-		LoginResponDto loginResponDto =accountService.register(accountEntity);
+	public ResponseEntity<Response> register(@RequestBody AccountEntity accountEntity) {
+		if(!(Validator.validateStudentID(accountEntity.getUsername())&&Validator.validatePassword(accountEntity.getPassword()))) {
+			return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response<>(false,"Tài khoàn hoặc mật khẩu không hợp lệ"));
+		};
 		
+		LoginResponDto loginResponDto =accountService.register(accountEntity);
 		if(loginResponDto==null) {
-			return new Response<>(false,"tài khoản đã tồn tại",ErrorCode.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response(true,"Đăng kí thất bại,tài khoản đã tồn tại",ErrorCode.BAD_REQUEST));
 		}
 
-		return new Response(true,"đăng nhập thành công",ErrorCode.SUCCESS,loginResponDto);
+		return ResponseEntity.ok(new Response(true,"Đăng kí thành công",ErrorCode.SUCCESS,loginResponDto));
 	}
 	
 	@Operation(description = "lấy ra danh sách các món ăn được đề xuất,hiện tại đang là 10 món",summary = "lấy ra các món ăn đề xuất")
@@ -94,6 +99,9 @@ public class AuthController {
 		return smsService.validateOtp(otpValidationRequest);
     }
 	
-	
+	@RequestMapping(value = "hello",method = RequestMethod.GET)
+	public ResponseEntity hello() {
+		return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Welcome to IOT-FOOT");
+	}
 	
 }
