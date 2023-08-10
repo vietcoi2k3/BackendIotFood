@@ -101,7 +101,7 @@ public class AuthController {
 	
 	@RequestMapping(value = "hello",method = RequestMethod.GET)
 	public ResponseEntity hello() {
-		return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Welcome to IOT-FOOT");
+		return ResponseEntity.status(HttpStatus.SC_OK).body("Welcome to IOT-FOOT");
 	}
 	
 }
