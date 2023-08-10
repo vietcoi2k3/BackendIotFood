@@ -42,13 +42,13 @@ public class FoodAdminController {
 			@RequestParam 	String foodName ,
 			@RequestParam  long price,
 			@RequestParam  long typeFood,
-			@RequestParam  String imgFood,
+//			@RequestParam  String imgFood,
 			@RequestParam String detail,
 			@RequestParam  long restaurantId
 			) {
 		
 			FoodEntity f = new FoodEntity();		
-			f.setImgFood(imgFood);
+//			f.setImgFood(imgFood);
 			f.setDetail(detail);
 			f.setPrice(price);
 			f.setTypeFoodEntityId(typeFood);
@@ -56,14 +56,5 @@ public class FoodAdminController {
 			f.setRestaurantEntityId(restaurantId);
 			return new Response(true,"thành công",foodService.addFood(f));
 
-	}
-	
-	
-	
-	@RequestMapping(value = "test-cache",method = RequestMethod.GET)
-	@Cacheable(value = "temp",key = "1")
-	public String testCache() {
-		System.out.println("đã gọi");
-		return "không hoạt động";
 	}
 }

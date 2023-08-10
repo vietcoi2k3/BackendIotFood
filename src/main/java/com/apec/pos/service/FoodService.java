@@ -37,7 +37,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		for (FoodEntity x : foodEntitys) {
 			String nameRes = x.getRestaurantEntity().getRestaurantName();
 			long distance = x.getRestaurantEntity().getDistance();
-			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),x.getFoodName(),x.getPrice(),nameRes,x.getImgFood(),distance,x.getTimeout(),x.getStar(),x.getQuantity());
+			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),x.getFoodName(),x.getPrice(),nameRes,x.getImgFoodEntities().get(0).getImgFood(),distance,x.getTimeout(),x.getStar(),x.getQuantity());
 			foodRecommanDtos.add(temp);
 		}
 		System.out.println(foodRecommanDtos.size());

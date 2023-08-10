@@ -11,6 +11,12 @@ import jakarta.persistence.*;
 
 @MappedSuperclass
 public class BaseEntity {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
+	private Integer id;
+	
 	@JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
@@ -38,8 +44,22 @@ public class BaseEntity {
         this.createBy = createBy;
         this.modifiedBy = modifiedBy;
     }
+    
+    
 
-    public BaseEntity() {
+    public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
+	public BaseEntity() {
     }
 
  

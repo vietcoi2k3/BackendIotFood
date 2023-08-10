@@ -1,10 +1,12 @@
 package com.apec.pos.entity;
 
 import java.io.Serializable;
-
-
+import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
 
 @Entity
 public class FoodEntity extends BaseEntity implements Serializable{
@@ -19,10 +23,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -7836601664079901583L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
 	
 	@Column
 	private String foodName;
@@ -53,7 +53,9 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
 	private TypeFoodEntity typeFoodEntity;
 
-	private String imgFood;
+	@OneToMany(mappedBy = "foodEntity")
+	@JsonManagedReference(value = "food-img")
+	private List<ImgFoodEntity> imgFoodEntities;
 	
     @Column(name = "restaurantEntityId")
 	private long restaurantEntityId;
@@ -71,6 +73,26 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	
 	
+	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, long price, double star,
+			long quantity, long timeout, long quantityPurchased, long typeFoodEntityId, TypeFoodEntity typeFoodEntity,
+			List<ImgFoodEntity> imgFoodEntities, long restaurantEntityId, RestaurantEntity restaurantEntity) {
+		super(createBy, modifiedBy);
+		this.foodName = foodName;
+		this.detail = detail;
+		this.price = price;
+		this.star = star;
+		this.quantity = quantity;
+		this.timeout = timeout;
+		this.quantityPurchased = quantityPurchased;
+		this.typeFoodEntityId = typeFoodEntityId;
+		this.typeFoodEntity = typeFoodEntity;
+		this.imgFoodEntities = imgFoodEntities;
+		this.restaurantEntityId = restaurantEntityId;
+		this.restaurantEntity = restaurantEntity;
+	}
+
+
+
 	public long getTypeFoodEntityId() {
 		return typeFoodEntityId;
 	}
@@ -122,20 +144,23 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	public FoodEntity(String createBy, String modifiedBy, long id, String foodName, String detail, long price,
 			String typeFood, String imgFood, long restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
-		this.id = id;
+	
 		this.foodName = foodName;
 		this.detail = detail;
 		this.price = price;
-		this.imgFood = imgFood;
 		this.restaurantEntityId = restaurantEntityId;
 		this.restaurantEntity = restaurantEntity;
 	}
-
-	public String getImgFood() {
-		return imgFood;
+	
+	public List<ImgFoodEntity> getImgFoodEntities() {
+		return imgFoodEntities;
 	}
-	
-	
+
+	public void setImgFoodEntities(List<ImgFoodEntity> imgFoodEntities) {
+		this.imgFoodEntities = imgFoodEntities;
+	}
+
+
 
 	public long getQuantityPurchased() {
 		return quantityPurchased;
@@ -147,18 +172,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public void setImgFood(String imgFood) {
-		this.imgFood = imgFood;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getFoodName() {

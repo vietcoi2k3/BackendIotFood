@@ -29,10 +29,6 @@ import lombok.Data;
 @Data
 public class AccountEntity  extends BaseEntity implements UserDetails {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	private Integer id;
 	
 	private String username;
 	
@@ -55,10 +51,20 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	
 	
 	
+	public AccountEntity(String createBy, String modifiedBy, String username, String password, String sdt,
+			String accountName, String imgUser, Set<RoleEntity> roles) {
+		super(createBy, modifiedBy);
+		this.username = username;
+		this.password = password;
+		this.sdt = sdt;
+		this.accountName = accountName;
+		this.imgUser = imgUser;
+		this.roles = roles;
+	}
+
 	public AccountEntity(String createBy, String modifiedBy, Integer id, String username, String password, String sdt,
 			String accountName, Date createDate, Date modifyDate, Set<RoleEntity> roles) {
 		super(createBy, modifiedBy);
-		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.sdt = sdt;
@@ -89,10 +95,9 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 		super(createBy, modifiedBy);
 	}
 
-	public AccountEntity(String createBy, String modifiedBy, Integer id, String username, String password, String sdt,
+	public AccountEntity(String createBy, String modifiedBy, String username, String password, String sdt,
 			String accountName, Set<RoleEntity> roles) {
 		super(createBy, modifiedBy);
-		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.sdt = sdt;
@@ -138,14 +143,6 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getSdt() {

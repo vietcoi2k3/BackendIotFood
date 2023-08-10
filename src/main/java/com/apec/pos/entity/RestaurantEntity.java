@@ -16,10 +16,6 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class RestaurantEntity extends BaseEntity implements Serializable{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
 	private String restaurantName;
 	
 	private String adress;
@@ -44,7 +40,6 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	public RestaurantEntity(String createBy, String modifiedBy, long id, String restaurantName, String adress,
 			long distance, String phoneNumber, Set<FoodEntity> foodEntities) {
 		super(createBy, modifiedBy);
-		this.id = id;
 		this.restaurantName = restaurantName;
 		this.adress = adress;
 		this.distance = distance;
@@ -52,13 +47,8 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 		this.foodEntities = foodEntities;
 	}
 
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+
 
 	public String getAdress() {
 		return adress;
@@ -84,12 +74,10 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 		this.phoneNumber = phoneNumber;
 	}
 
-	@ApiModelProperty(hidden = true)
 	public Set<FoodEntity> getFoodEntities() {
 		return foodEntities;
 	}
 
-	@ApiModelProperty(hidden = true)
 	public void setFoodEntities(Set<FoodEntity> foodEntities) {
 		this.foodEntities = foodEntities;
 	}
