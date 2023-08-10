@@ -23,6 +23,14 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	@Autowired
 	private EntityManager entityManager;
 	
+	public List<FoodEntity> findFoodByKey(String key){
+		String query ="SELECT f FROM FoodEntity f LEFT JOIN TypeFoodEntity tf ON f.typeFoodEntityId = tf.id  WHERE f.foodName like :key OR f.detail like :key OR tf.nameType like :key ";
+		Query query2 = entityManager.createQuery(query);
+		query2.setParameter("key", "%"+key+"%");
+		System.out.println(key);
+		return query2.getResultList();
+	}
+	
 	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity){
 		String query = buildQuery(foodEntity);
 		Map<String, Object> params = getParams(foodEntity);

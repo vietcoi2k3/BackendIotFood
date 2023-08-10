@@ -53,6 +53,11 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity) {
 		return foodRepository.findFoodOnType(foodEntity);
 	}
+
+	@Override
+	public List<FoodEntity> searchFood(String searchString) {
+		return foodRepository.findFoodByKey(searchString);
+	}
 	
 	
 

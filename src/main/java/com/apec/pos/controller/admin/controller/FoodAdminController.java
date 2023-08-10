@@ -40,11 +40,11 @@ public class FoodAdminController {
 	@RequestMapping(value = "add-food",method = RequestMethod.POST,consumes = "multipart/form-data" )
 	public Response addFood( 
 			@RequestParam 	String foodName ,
-			@RequestParam  long price,
-			@RequestParam  long typeFood,
+			@RequestParam  Integer price,
+			@RequestParam  Integer typeFood,
 //			@RequestParam  String imgFood,
 			@RequestParam String detail,
-			@RequestParam  long restaurantId
+			@RequestParam  Integer restaurantId
 			) {
 		
 			FoodEntity f = new FoodEntity();		

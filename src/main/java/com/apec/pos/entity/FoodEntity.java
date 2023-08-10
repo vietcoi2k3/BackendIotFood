@@ -1,6 +1,7 @@
 package com.apec.pos.entity;
 
 import java.io.Serializable;
+
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +23,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7836601664079901583L;
 	
 	@Column
 	private String foodName;
@@ -31,22 +31,22 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private String detail;
 	
 	@Column
-	private long price;
+	private Integer price;
 	
 	@Column
 	private double star;
 	
 	@Column
-	private long quantity;
+	private Integer quantity;
 	
 	@Column
-	private long timeout;
+	private Integer timeout;
 	
 	@Column
-	private long quantityPurchased;
+	private Integer quantityPurchased;
 	
 	@Column(name = "typeFoodEntityId")
-	private long typeFoodEntityId;
+	private Integer typeFoodEntityId;
 	
 	@ManyToOne
 	@JsonBackReference(value = "type-food")
@@ -58,7 +58,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private List<ImgFoodEntity> imgFoodEntities;
 	
     @Column(name = "restaurantEntityId")
-	private long restaurantEntityId;
+	private Integer restaurantEntityId;
 	
 	@ManyToOne
 	@JsonBackReference(value = "food-res")
@@ -73,9 +73,9 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	
 	
-	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, long price, double star,
-			long quantity, long timeout, long quantityPurchased, long typeFoodEntityId, TypeFoodEntity typeFoodEntity,
-			List<ImgFoodEntity> imgFoodEntities, long restaurantEntityId, RestaurantEntity restaurantEntity) {
+	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, double star,
+			Integer quantity, Integer timeout, Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
+			List<ImgFoodEntity> imgFoodEntities, Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
 		this.foodName = foodName;
 		this.detail = detail;
@@ -93,7 +93,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 
 
-	public long getTypeFoodEntityId() {
+	public Integer getTypeFoodEntityId() {
 		return typeFoodEntityId;
 	}
 	
@@ -101,11 +101,11 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		return star;
 	}
 	
-	public long getTimeout() {
+	public Integer getTimeout() {
 		return timeout;
 	}
 
-	public void setTimeout(long timeout) {
+	public void setTimeout(Integer timeout) {
 		this.timeout = timeout;
 	}
 
@@ -113,15 +113,15 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		this.star = star;
 	}
 
-	public long getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(long quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	public void setTypeFoodEntityId(long typeFoodEntityId) {
+	public void setTypeFoodEntityId(Integer typeFoodEntityId) {
 		this.typeFoodEntityId = typeFoodEntityId;
 	}
 
@@ -141,8 +141,8 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		super(createBy, modifiedBy);
 	}
 
-	public FoodEntity(String createBy, String modifiedBy, long id, String foodName, String detail, long price,
-			String typeFood, String imgFood, long restaurantEntityId, RestaurantEntity restaurantEntity) {
+	public FoodEntity(String createBy, String modifiedBy, Integer id, String foodName, String detail, Integer price,
+			String typeFood, String imgFood, Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
 	
 		this.foodName = foodName;
@@ -162,17 +162,15 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 
 
-	public long getQuantityPurchased() {
+	public Integer getQuantityPurchased() {
 		return quantityPurchased;
 	}
 
-	public void setQuantityPurchased(long quantityPurchased) {
+	public void setQuantityPurchased(Integer quantityPurchased) {
 		this.quantityPurchased = quantityPurchased;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 
 	public String getFoodName() {
 		return foodName;
@@ -190,19 +188,19 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		this.detail = detail;
 	}
 
-	public long getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
-	public long getRestaurantEntityId() {
+	public Integer getRestaurantEntityId() {
 		return restaurantEntityId;
 	}
 
-	public void setRestaurantEntityId(long restaurantEntityId) {
+	public void setRestaurantEntityId(Integer restaurantEntityId) {
 		this.restaurantEntityId = restaurantEntityId;
 	}
 
