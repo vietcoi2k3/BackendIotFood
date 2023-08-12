@@ -35,6 +35,7 @@ public class ConfigSecurity {
 			.authorizeHttpRequests(auth ->{
 				auth.requestMatchers("/swagger-ui/**",
 						"/v3/api-docs/**").permitAll();
+				auth.requestMatchers("/ws-iotfood").permitAll();
 				auth.requestMatchers("/auth/**").permitAll();
 				auth.requestMatchers("/admin/**").hasAuthority("ADMIN");
 				auth.requestMatchers("/user/**").hasAuthority("USER");

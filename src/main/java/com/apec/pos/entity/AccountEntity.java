@@ -4,6 +4,7 @@ import java.util.Collection;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -11,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import jakarta.persistence.Column;
@@ -22,6 +24,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
@@ -50,8 +53,28 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	@JsonIgnore
 	private Set<RoleEntity> roles;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+	        name="account_room",
+	        joinColumns = {@JoinColumn(name="user_id")},
+	        inverseJoinColumns = {@JoinColumn(name="room_chat_id")}
+	    )
+	@JsonIgnore
+	private List<RoomChatEntity> roomChatEntities;
+	
+	@OneToMany
+	@JsonManagedReference(value = "account-mess")
+	private List<MessageEntity> messageEntities;
 	
 	
+	public List<MessageEntity> getMessageEntities() {
+		return messageEntities;
+	}
+
+	public void setMessageEntities(List<MessageEntity> messageEntities) {
+		this.messageEntities = messageEntities;
+	}
+
 	public AccountEntity(String createBy, String modifiedBy, String username, String password, String sdt,
 			String accountName, String imgUser, Set<RoleEntity> roles) {
 		super(createBy, modifiedBy);
