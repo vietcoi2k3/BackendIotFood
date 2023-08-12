@@ -53,9 +53,8 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
 	private TypeFoodEntity typeFoodEntity;
 
-	@OneToMany(mappedBy = "foodEntity")
-	@JsonManagedReference(value = "food-img")
-	private List<ImgFoodEntity> imgFoodEntities;
+	@Column
+	private String imgFood;
 	
     @Column(name = "restaurantEntityId")
 	private Integer restaurantEntityId;
@@ -73,9 +72,21 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	
 	
+	public String getImgFood() {
+		return imgFood;
+	}
+
+
+
+	public void setImgFood(String imgFood) {
+		this.imgFood = imgFood;
+	}
+
+
+
 	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, double star,
 			Integer quantity, Integer timeout, Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
-			List<ImgFoodEntity> imgFoodEntities, Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
+			 Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
 		this.foodName = foodName;
 		this.detail = detail;
@@ -86,7 +97,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		this.quantityPurchased = quantityPurchased;
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.typeFoodEntity = typeFoodEntity;
-		this.imgFoodEntities = imgFoodEntities;
 		this.restaurantEntityId = restaurantEntityId;
 		this.restaurantEntity = restaurantEntity;
 	}
@@ -152,16 +162,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		this.restaurantEntity = restaurantEntity;
 	}
 	
-	public List<ImgFoodEntity> getImgFoodEntities() {
-		return imgFoodEntities;
-	}
-
-	public void setImgFoodEntities(List<ImgFoodEntity> imgFoodEntities) {
-		this.imgFoodEntities = imgFoodEntities;
-	}
-
-
-
 	public Integer getQuantityPurchased() {
 		return quantityPurchased;
 	}

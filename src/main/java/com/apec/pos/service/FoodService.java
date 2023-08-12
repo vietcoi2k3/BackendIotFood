@@ -10,7 +10,8 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.FootDto.FoodRecommanDto;
+import com.apec.pos.Dto.copy.FoodDto.FoodRecommanDto;
+import com.apec.pos.Dto.copy.FoodDto.FoodSearchRespon;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.service.serviceInterface.FoodInterface;
@@ -37,7 +38,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		for (FoodEntity x : foodEntitys) {
 			String nameRes = x.getRestaurantEntity().getRestaurantName();
 			long distance = x.getRestaurantEntity().getDistance();
-			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),x.getFoodName(),x.getPrice(),nameRes,x.getImgFoodEntities().get(0).getImgFood(),distance,x.getTimeout(),x.getStar(),x.getQuantity());
+			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),x.getFoodName(),x.getPrice(),nameRes,x.getImgFood(),distance,x.getTimeout(),x.getStar(),x.getQuantity());
 			foodRecommanDtos.add(temp);
 		}
 		System.out.println(foodRecommanDtos.size());
@@ -55,8 +56,14 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public List<FoodEntity> searchFood(String searchString) {
-		return foodRepository.findFoodByKey(searchString);
+	public List<FoodSearchRespon> searchFood(String searchString) {
+		List<FoodEntity> foodEntity =foodRepository.findFoodByKey(searchString);
+		List<FoodSearchRespon> foodSearchRespons = new ArrayList<>();
+		for (FoodEntity x : foodEntity) {
+			FoodSearchRespon foodRecommanDto =  new FoodSearchRespon(x.getId(), x.getFoodName(), x.getDetail(), x.getPrice(),x.getQuantity(), x.getQuantityPurchased(), x.getImgFood()); 
+			foodSearchRespons.add(foodRecommanDto);
+		}
+		return foodSearchRespons;
 	}
 
 	@Override

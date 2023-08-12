@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 		servers= {
 				@Server(
 						description = "Local EVM",
-						url = "https://localhost:8080"
+						url = "http://localhost:8080"
 						),
 				@Server(
 						description = "PROD EVM",

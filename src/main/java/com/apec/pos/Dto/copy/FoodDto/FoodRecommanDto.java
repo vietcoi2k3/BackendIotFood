@@ -1,4 +1,4 @@
-package com.apec.pos.Dto.copy.FootDto;
+package com.apec.pos.Dto.copy.FoodDto;
 
 public class FoodRecommanDto {
 

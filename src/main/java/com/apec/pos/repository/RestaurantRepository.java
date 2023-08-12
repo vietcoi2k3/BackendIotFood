@@ -13,7 +13,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
 @Repository
-public class RestaurantRepository extends BaseRepository<RestaurantEntity, Long>{
+public class RestaurantRepository extends BaseRepository<RestaurantEntity, Integer>{
 
 	@Autowired
 	private EntityManager entityManager;

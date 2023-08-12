@@ -36,7 +36,6 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping(value = "auth")
-@CrossOrigin
 @CacheConfig(cacheNames = "iotFood")
 public class AuthController {
 	
@@ -109,13 +108,13 @@ public class AuthController {
 	}
 	
 	@Operation(summary = "tìm kiếm món ăn theo type,detail,tên món ăn")
-	@RequestMapping(value = "search-food",method = RequestMethod.GET)
+	@RequestMapping(value = "search-food",method = RequestMethod.POST)
 	public ResponseEntity searchFood(@RequestParam String searchString){
 		return ResponseEntity.ok(foodService.searchFood(searchString));
 	}
 	
 	@Operation(summary = "lấy ra detail food",description = "khi bấm vào một món ăn sẽ gọi đến api này")
-	@RequestMapping(value = "get-detail-food",method = RequestMethod.GET)
+	@RequestMapping(value = "get-detail-food",method = RequestMethod.POST)
 	public ResponseEntity getDetailFood(@RequestParam Integer id) {
 		return ResponseEntity.ok(foodService.getDetailFood(id));
 	}
@@ -124,6 +123,12 @@ public class AuthController {
 	@RequestMapping(value = "get-recommend-res",method = RequestMethod.GET)
 	public ResponseEntity getRecommendRes(){
 		return ResponseEntity.ok(restaurantService.getRecommendRes());
+	}
+	
+	@Operation(summary = "lấy ra restaurant detail",description = "quantitySold = 'Số lượng đã bán'\n\n quantityPurchased = 'số lượng đã mua'")
+	@RequestMapping(value = "get-detail-res",method = RequestMethod.POST)
+	public ResponseEntity getDetailRes(@RequestParam Integer id) {
+		return ResponseEntity.ok(restaurantService.findOne(id));
 	}
 	
 }

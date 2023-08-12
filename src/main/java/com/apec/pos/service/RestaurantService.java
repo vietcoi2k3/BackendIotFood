@@ -12,7 +12,7 @@ import com.apec.pos.repository.RestaurantRepository;
 import com.apec.pos.service.serviceInterface.RestaurantInterface;
 
 @Service
-public class RestaurantService extends BaseService<RestaurantRepository, RestaurantEntity, Long> implements RestaurantInterface {
+public class RestaurantService extends BaseService<RestaurantRepository, RestaurantEntity, Integer> implements RestaurantInterface {
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;
@@ -20,7 +20,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 	@Override
 	RestaurantRepository getRepository() {
 		// TODO Auto-generated method stub
-		return null;
+		return restaurantRepository;
 	}
 
 	@Override
@@ -37,6 +37,12 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 			resRecommnedRespons.add(temp);
 		}
 		return resRecommnedRespons;
+	}
+
+	@Override
+	public RestaurantEntity getResdetail(Integer id) {
+		// TODO Auto-generated method stub
+		return restaurantRepository.findOne(id);
 	}
 
 }
