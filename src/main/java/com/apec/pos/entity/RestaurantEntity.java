@@ -15,7 +15,7 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 
 	private String restaurantName;
 	
-	private String adress;
+	private String address;
 	
 	private Integer quantitySold;
 	
@@ -34,12 +34,12 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	@ApiModelProperty(hidden = true)
 	private Set<FoodEntity> foodEntities;
 
-	public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String adress,
+	public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String address,
 			Integer quantitySold, Date businessHours, Integer distance, String phoneNumber, String imgRes,
 			Set<FoodEntity> foodEntities) {
 		super(createBy, modifiedBy);
 		this.restaurantName = restaurantName;
-		this.adress = adress;
+		this.address = address;
 		this.quantitySold = quantitySold;
 		this.businessHours = businessHours;
 		this.distance = distance;
@@ -72,16 +72,6 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 		super(createBy, modifiedBy);
 	}
 
-	public RestaurantEntity(String createBy, String modifiedBy, Integer id, String restaurantName, String adress,
-			Integer distance, String phoneNumber, Set<FoodEntity> foodEntities) {
-		super(createBy, modifiedBy);
-		this.restaurantName = restaurantName;
-		this.adress = adress;
-		this.distance = distance;
-		this.phoneNumber = phoneNumber;
-		this.foodEntities = foodEntities;
-	}
-
 	public Integer getQuantitySold() {
 		return quantitySold;
 	}
@@ -98,12 +88,12 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 		this.businessHours = businessHours;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public Integer getDistance() {

@@ -10,35 +10,8 @@ public class ResRecommnedRespon {
 	private Date businessHours;
 	private Integer distance;
 	private String phoneNumber;
-	private String adress;
-		
-	public ResRecommnedRespon(Integer id, String restaurantName, Integer quantitySold, Date businessHours,
-			Integer distance, String phoneNumber, String adress) {
-		super();
-		this.id = id;
-		this.restaurantName = restaurantName;
-		this.quantitySold = quantitySold;
-		this.businessHours = businessHours;
-		this.distance = distance;
-		this.phoneNumber = phoneNumber;
-		this.adress = adress;
-	}
-	public String getAdress() {
-		return adress;
-	}
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
-	public ResRecommnedRespon(Integer id, String restaurantName, Integer quantitySold, Date businessHours,
-			Integer distance, String phoneNumber) {
-		super();
-		this.id = id;
-		this.restaurantName = restaurantName;
-		this.quantitySold = quantitySold;
-		this.businessHours = businessHours;
-		this.distance = distance;
-		this.phoneNumber = phoneNumber;
-	}
+	private String address;
+	private String imgRes;
 	public Integer getId() {
 		return id;
 	}
@@ -75,6 +48,33 @@ public class ResRecommnedRespon {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getImgRes() {
+		return imgRes;
+	}
+	public void setImgRes(String imgRes) {
+		this.imgRes = imgRes;
+	}
+	public ResRecommnedRespon(Integer id, String restaurantName, Integer quantitySold, Date businessHours,
+			Integer distance, String phoneNumber, String address, String imgRes) {
+		super();
+		this.id = id;
+		this.restaurantName = restaurantName;
+		this.quantitySold = quantitySold;
+		this.businessHours = businessHours;
+		this.distance = distance;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.imgRes = imgRes;
+	}
+		
+	
+	
 	
 	
 }
