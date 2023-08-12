@@ -6,17 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import com.apec.pos.entity.AccountEntity;
+
+import jakarta.persistence.EntityManager;
 
 
 @Repository
 //@CacheConfig(cacheNames = "iotFood")
 public class AccountRepository extends BaseRepository<AccountEntity, Integer>{
 
-
+	@Autowired
+	private EntityManager entityManager;
 	
 	public AccountRepository( ) {
 		super(AccountEntity.class);

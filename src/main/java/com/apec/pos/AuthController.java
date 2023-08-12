@@ -1,12 +1,11 @@
 package com.apec.pos;
 
 import org.apache.http.HttpStatus;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpStatusCode;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +26,7 @@ import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.AccountService;
 import com.apec.pos.service.FoodService;
+import com.apec.pos.service.RestaurantService;
 import com.apec.pos.service.SmsService;
 import com.apec.pos.service.TypeFoodService;
 
@@ -51,6 +51,9 @@ public class AuthController {
 	
 	@Autowired
 	private FoodService foodService;
+	
+	@Autowired
+	private RestaurantService restaurantService;
 	
 	@Operation(description = "'username'<=>'mã sinh viên'\n\n 'password'<=>'mật khẩu'",
 	           summary = "Đăng nhập")
@@ -115,6 +118,12 @@ public class AuthController {
 	@RequestMapping(value = "get-detail-food",method = RequestMethod.GET)
 	public ResponseEntity getDetailFood(@RequestParam Integer id) {
 		return ResponseEntity.ok(foodService.getDetailFood(id));
+	}
+	
+	@Operation(summary = "lấy ra danh sách cửa hàng đề xuất")
+	@RequestMapping(value = "get-recommend-res",method = RequestMethod.GET)
+	public ResponseEntity getRecommendRes(){
+		return ResponseEntity.ok(restaurantService.getRecommendRes());
 	}
 	
 }
