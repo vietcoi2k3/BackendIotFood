@@ -53,16 +53,7 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	@JsonIgnore
 	private Set<RoleEntity> roles;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-	        name="account_room",
-	        joinColumns = {@JoinColumn(name="user_id")},
-	        inverseJoinColumns = {@JoinColumn(name="room_chat_id")}
-	    )
-	@JsonIgnore
-	private List<RoomChatEntity> roomChatEntities;
-	
-	@OneToMany
+	@OneToMany(mappedBy = "accountEntity")
 	@JsonManagedReference(value = "account-mess")
 	private List<MessageEntity> messageEntities;
 	

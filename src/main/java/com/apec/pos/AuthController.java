@@ -2,11 +2,15 @@ package com.apec.pos;
 
 import org.apache.http.HttpStatus;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.cache.annotation.CacheConfig;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,15 +26,19 @@ import com.apec.pos.Dto.copy.otpDto.OtpResponseDto;
 import com.apec.pos.Dto.copy.otpDto.OtpValidationRequestDto;
 import com.apec.pos.Unitl.Validator;
 import com.apec.pos.entity.AccountEntity;
+import com.apec.pos.entity.RoomChatEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.AccountService;
 import com.apec.pos.service.FoodService;
 import com.apec.pos.service.RestaurantService;
+import com.apec.pos.service.RoomService;
 import com.apec.pos.service.SmsService;
 import com.apec.pos.service.TypeFoodService;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.val;
 
 
 
@@ -39,6 +47,9 @@ import io.swagger.v3.oas.annotations.Operation;
 @CrossOrigin
 @CacheConfig(cacheNames = "iotFood")
 public class AuthController {
+	
+	@Autowired
+	private RoomService roomService;
 	
 	@Autowired
 	private SmsService smsService;
@@ -111,25 +122,31 @@ public class AuthController {
 	@Operation(summary = "tìm kiếm món ăn theo type,detail,tên món ăn")
 	@RequestMapping(value = "search-food",method = RequestMethod.POST)
 	public ResponseEntity searchFood(@RequestParam String searchString){
-		return ResponseEntity.ok(foodService.searchFood(searchString));
+		return ResponseEntity.ok(new Response(true,"lấy thành công",ErrorCode.SUCCESS,foodService.searchFood(searchString)));
 	}
 	
 	@Operation(summary = "lấy ra detail food",description = "khi bấm vào một món ăn sẽ gọi đến api này")
 	@RequestMapping(value = "get-detail-food",method = RequestMethod.POST)
 	public ResponseEntity getDetailFood(@RequestParam Integer id) {
-		return ResponseEntity.ok(foodService.getDetailFood(id));
+		return ResponseEntity.ok(new Response(true,"lấy thành công",ErrorCode.SUCCESS,foodService.getDetailFood(id)));
 	}
 	
 	@Operation(summary = "lấy ra danh sách cửa hàng đề xuất")
 	@RequestMapping(value = "get-recommend-res",method = RequestMethod.GET)
 	public ResponseEntity getRecommendRes(){
-		return ResponseEntity.ok(restaurantService.getRecommendRes());
+		return ResponseEntity.ok(new Response<>(true,"lấy thành công",ErrorCode.SUCCESS,restaurantService.getRecommendRes()));
 	}
 	
 	@Operation(summary = "lấy ra restaurant detail",description = "quantitySold = 'Số lượng đã bán'\n\n quantityPurchased = 'số lượng đã mua'")
 	@RequestMapping(value = "get-detail-res",method = RequestMethod.POST)
 	public ResponseEntity getDetailRes(@RequestParam Integer id) {
-		return ResponseEntity.ok(restaurantService.findOne(id));
+		return ResponseEntity.ok(new Response(true,"lấy thành công",ErrorCode.SUCCESS,restaurantService.getResdetail(id)));
 	}
 	
+	@MessageMapping("/anhvietdeptrai")
+	@SendTo("/testvailol")
+	public int testSocket(@Payload int id) {
+		System.out.println(id);
+		return id;
+	}
 }

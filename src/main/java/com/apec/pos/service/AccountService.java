@@ -76,7 +76,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	    // Lưu tài khoản mới vào cơ sở dữ liệu
 	    accountRepository.insert(accountEntity2);
 	    
-	    LoginResponDto loginResponDto =new LoginResponDto(accountEntity2.getRoles(),jwtService.generateToken(accountEntity2),accountEntity2.getSdt(),accountEntity2.getAccountName(),accountEntity2.getImgUser(),accountEntity2.getUsername());;
+	    LoginResponDto loginResponDto =new LoginResponDto(accountEntity2.getId(),accountEntity2.getRoles(),jwtService.generateToken(accountEntity2),accountEntity2.getSdt(),accountEntity2.getAccountName(),accountEntity2.getImgUser(),accountEntity2.getUsername());;
 	    
 	    return loginResponDto;
 	}

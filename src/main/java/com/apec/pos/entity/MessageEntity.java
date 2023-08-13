@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class MessageEntity extends BaseEntity{
 
+	@Column
 	private String content;
 	
 	@Column(name = "accountEntityId")
@@ -27,7 +28,6 @@ public class MessageEntity extends BaseEntity{
 	@JoinColumn(name = "roomChatEntityId",updatable = false,insertable = false)
 	@JsonBackReference(value = "mes-room")
 	private RoomChatEntity roomChatEntity;
-	
 	
 	public MessageEntity(String createBy, String modifiedBy, String content, AccountEntity accountEntity) {
 		super(createBy, modifiedBy);

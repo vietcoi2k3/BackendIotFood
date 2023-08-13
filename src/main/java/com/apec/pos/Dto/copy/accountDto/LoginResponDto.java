@@ -5,6 +5,7 @@ import java.util.Set;
 import com.apec.pos.entity.RoleEntity;
 
 public class LoginResponDto {
+	private Integer id;
 	private Set<RoleEntity> role;
 	private String token;
 	private String std;
@@ -14,6 +15,24 @@ public class LoginResponDto {
 	
 	
 	
+	
+	public LoginResponDto(Integer id, Set<RoleEntity> role, String token, String std, String accountName,
+			String imgUser, String msv) {
+		super();
+		this.id = id;
+		this.role = role;
+		this.token = token;
+		this.std = std;
+		this.accountName = accountName;
+		this.imgUser = imgUser;
+		this.msv = msv;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getMsv() {
 		return msv;
 	}
