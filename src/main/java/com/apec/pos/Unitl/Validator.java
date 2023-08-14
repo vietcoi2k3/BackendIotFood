@@ -8,7 +8,7 @@ public class Validator {
 	    }
 
 	    public static boolean validatePassword(String password) {
-	        String pattern = "^(?=.*[a-z])(?=.*[A-Z]).{8,}$";
-	        return Pattern.matches(pattern, password);
+	    	   String pattern = "^(?=.*[A-Z]).{6,32}$";
+	           return Pattern.matches(pattern, password);
 	    }
 }
