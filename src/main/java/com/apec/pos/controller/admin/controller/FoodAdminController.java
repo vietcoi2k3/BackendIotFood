@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.entity.RestaurantEntity;
+import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.FoodService;
 
@@ -56,5 +57,11 @@ public class FoodAdminController {
 			f.setRestaurantEntityId(restaurantId);
 			return new Response(true,"thành công",foodService.addFood(f));
 
+	}
+	
+	@Operation(summary = "phân trang sản phẩm",description = "pageIndex nhận vào tính từ 0")
+	@RequestMapping(value = "/paging-food-admin",method = RequestMethod.POST)
+	public ResponseEntity pagingFood(@RequestParam int pageSize,@RequestParam int pageIndex) {
+		return ResponseEntity.ok(new Response(true,"trang"+pageIndex,ErrorCode.SUCCESS,foodService.paging(pageSize,pageIndex)));
 	}
 }

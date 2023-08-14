@@ -14,4 +14,5 @@ public interface FoodInterface {
 	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
 	public List<FoodSearchRespon> searchFood(String searchString);
 	public FoodEntity getDetailFood(Integer id);
+	public List<FoodRecommanDto> paging(int pageSize,int pageIndex);
 }

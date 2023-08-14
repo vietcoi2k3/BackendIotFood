@@ -8,6 +8,8 @@ import javax.security.auth.x500.X500Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.copy.FoodDto.FoodRecommanDto;
@@ -69,6 +71,19 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	@Override
 	public FoodEntity getDetailFood(Integer id) {
 		return foodRepository.findOne(id);
+	}
+
+	@Override
+	public List<FoodRecommanDto> paging(int pageSize, int pageIndex) {
+		PageRequest pageRequest =  PageRequest.of(pageIndex, pageSize);
+		List<FoodRecommanDto> foodRecommanDtos = new ArrayList<>();
+		List<FoodEntity> foodEntities = foodRepository.paging(pageRequest);
+		for (FoodEntity x : foodEntities) {
+			FoodRecommanDto foodRecommanDto = new FoodRecommanDto(x.getId(), x.getFoodName(), x.getPrice(), null, x.getImgFood(), 0, x.getTimeout(), x.getStar(), x.getQuantity());
+			foodRecommanDtos.add(foodRecommanDto);
+		}
+		
+		return foodRecommanDtos;
 	}
 	
 	

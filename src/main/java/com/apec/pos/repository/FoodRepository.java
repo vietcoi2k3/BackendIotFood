@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import com.apec.pos.entity.FoodEntity;
 
@@ -22,6 +22,12 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	
 	@Autowired
 	private EntityManager entityManager;
+	
+	public List<FoodEntity> paging(PageRequest pageRequest){
+		String query= "SELECT c FROM FoodEntity c";
+		Map<String, Object> params = new HashMap<>();
+		return query(query, false, params, pageRequest);
+	}
 	
 	public List<FoodEntity> findFoodByKey(String key){
 		String query ="SELECT f FROM FoodEntity f LEFT JOIN TypeFoodEntity tf ON f.typeFoodEntityId = tf.id  WHERE f.foodName like :key OR f.detail like :key OR tf.nameType like :key ";
@@ -44,8 +50,8 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	}
 
 	private String buildQuery(FoodEntity foodEntity) {
-        String query = "FROM AccountEntity c WHERE 1=1 ";
-        if (foodEntity.getId() > 0) {
+        String query = "FROM FoodEntity c WHERE 1=1 ";
+        if (foodEntity.getId()!=null) {
             query += " AND c.id = :id";
         }
         return query;
@@ -53,7 +59,7 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	
     private	Map<String, Object> getParams(FoodEntity foodEntity) {
 	        Map<String, Object> params = new HashMap<>();
-	        if (foodEntity.getId() > 0) {
+	        if (foodEntity.getId()!=null) {
 	            params.put("id", foodEntity.getId());
 	        }   
 
