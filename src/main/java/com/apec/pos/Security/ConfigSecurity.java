@@ -42,7 +42,7 @@ public class ConfigSecurity {
 				auth.requestMatchers("/auth/**").permitAll();
 				auth.requestMatchers("/admin/**").hasAuthority("ADMIN");
 				auth.requestMatchers("/user/**").hasAuthority("USER");
-				auth.anyRequest().authenticated();
+				auth.anyRequest().permitAll();
 			});
 		 http.sessionManagement(
 	                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -54,7 +54,9 @@ public class ConfigSecurity {
 	  @Bean
 	    public CorsFilter corsFilter() {
 	        CorsConfiguration corsConfig = new CorsConfiguration();
-	        corsConfig.addAllowedOrigin("*"); // Replace with your frontend origin
+	        corsConfig.addAllowedOrigin("http://127.0.0.1:5500");
+	        corsConfig.addAllowedOrigin("https://iotfood.vercel.app");// Replace with your frontend origin
+	        corsConfig.addAllowedOrigin("http://localhost:5173");
 	        corsConfig.addAllowedHeader("*");
 	        corsConfig.addAllowedMethod("*");
 	        corsConfig.setAllowCredentials(true);
