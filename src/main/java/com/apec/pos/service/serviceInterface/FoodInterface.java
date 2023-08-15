@@ -14,7 +14,7 @@ public interface FoodInterface {
 	public FoodRecommanDto addFood(AddFoodRequest addFoodRequest);
 	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
 	public List<FoodSearchRespon> searchFood(String searchString);
-	public FoodEntity getDetailFood(Integer id);
+	public FoodRecommanDto getDetailFood(Integer id);
 	public FoodResponseAdmin paging(int pageSize,int pageIndex);
 	public FoodRecommanDto updateFood(AddFoodRequest addFoodRequest);
 	public String updateStatusFood(Integer id,Boolean status);

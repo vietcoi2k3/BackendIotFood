@@ -99,8 +99,20 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodEntity getDetailFood(Integer id) {
-		return foodRepository.findOne(id);
+	public FoodRecommanDto getDetailFood(Integer id) {
+		FoodEntity x = new FoodEntity(); 
+		String nameRes = x.getRestaurantEntity().getRestaurantName();
+		long distance = x.getRestaurantEntity().getDistance();
+		FoodRecommanDto temp = new FoodRecommanDto(x.getId(),
+				x.getFoodName(),
+				x.getPrice(),
+				nameRes,
+				x.getImgFood(),
+				distance,
+				x.getTimeout(),
+				x.getStar(),
+				x.getQuantity());
+		return temp;
 	}
 
 	@Override
