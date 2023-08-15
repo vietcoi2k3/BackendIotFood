@@ -11,9 +11,11 @@ import com.apec.pos.response.Response;
 import com.apec.pos.service.FoodService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping(value = "user")
+@SecurityRequirement(name = "bearerAuth")
 @CrossOrigin
 public class FoodController {
 	

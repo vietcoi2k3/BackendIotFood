@@ -12,6 +12,7 @@ public class ResRecommnedRespon {
 	private String phoneNumber;
 	private String address;
 	private String imgRes;
+	
 	public Integer getId() {
 		return id;
 	}

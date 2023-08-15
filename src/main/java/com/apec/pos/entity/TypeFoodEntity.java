@@ -23,7 +23,7 @@ public class TypeFoodEntity extends BaseEntity{
 	
 	private String nameType;
 	
-	private String imgFood;
+	private String imgType;
 	
 	@OneToMany(mappedBy = "typeFoodEntity")
 	@JsonManagedReference(value = "type-food")
@@ -42,25 +42,21 @@ public class TypeFoodEntity extends BaseEntity{
 		
 	}
 	
-	public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType, String imgFood,
+	public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType, String imgType,
 			Set<FoodEntity> foodEntities) {
 		super(createBy, modifiedBy);
 		this.id = id;
 		this.nameType = nameType;
-		this.imgFood = imgFood;
+		this.imgType = imgType;
 		this.foodEntities = foodEntities;
 	}
 
-
-
-	public String getImgFood() {
-		return imgFood;
+	public String getImgType() {
+		return imgType;
 	}
 
-
-
-	public void setImgFood(String imgFood) {
-		this.imgFood = imgFood;
+	public void setImgType(String imgType) {
+		this.imgType = imgType;
 	}
 
 

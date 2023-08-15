@@ -4,5 +4,4 @@ spring:
     caffeine:
       spec: maximumSize=500, expireAfterAccess=60m
 
-
   

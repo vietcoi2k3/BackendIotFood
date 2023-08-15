@@ -12,7 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.apec.pos.Dto.copy.FoodDto.AddFoodRequest;
 import com.apec.pos.Dto.copy.FoodDto.FoodRecommanDto;
+import com.apec.pos.Dto.copy.FoodDto.FoodResponseAdmin;
 import com.apec.pos.Dto.copy.FoodDto.FoodSearchRespon;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.repository.FoodRepository;
@@ -40,7 +42,15 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		for (FoodEntity x : foodEntitys) {
 			String nameRes = x.getRestaurantEntity().getRestaurantName();
 			long distance = x.getRestaurantEntity().getDistance();
-			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),x.getFoodName(),x.getPrice(),nameRes,x.getImgFood(),distance,x.getTimeout(),x.getStar(),x.getQuantity());
+			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),
+					x.getFoodName(),
+					x.getPrice(),
+					nameRes,
+					x.getImgFood(),
+					distance,
+					x.getTimeout(),
+					x.getStar(),
+					x.getQuantity());
 			foodRecommanDtos.add(temp);
 		}
 		System.out.println(foodRecommanDtos.size());
@@ -48,8 +58,28 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodEntity addFood(FoodEntity foodEntity) {
-		return foodRepository.insert(foodEntity);
+	public FoodRecommanDto addFood(AddFoodRequest addFoodRequest) {
+		FoodEntity foodEntity = new FoodEntity();
+				   foodEntity.setDetail(addFoodRequest.getDetail());
+				   foodEntity.setFoodName(addFoodRequest.getFoodName());
+				   foodEntity.setImgFood(addFoodRequest.getImgFood());
+				   foodEntity.setPrice((int) addFoodRequest.getPrice());
+				   foodEntity.setQuantity((int) addFoodRequest.getQuantity());
+				   foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
+				   foodEntity.setTimeout((int) addFoodRequest.getTime());
+				   foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
+		foodRepository.insert(foodEntity);
+		FoodRecommanDto foodRecommanDto = new FoodRecommanDto();
+						foodRecommanDto.setFoodName(foodEntity.getFoodName());
+						foodRecommanDto.setPrice(foodEntity.getPrice());
+						foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
+						foodRecommanDto.setImgFood(foodEntity.getImgFood());
+						foodRecommanDto.setTime(foodEntity.getTimeout());
+						foodRecommanDto.setStar(foodEntity.getStar());
+						foodRecommanDto.setQuantity(foodEntity.getQuantity());
+						foodEntity.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
+						foodEntity.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
+		return foodRecommanDto;
 	}
 
 	@Override
@@ -74,16 +104,57 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public List<FoodRecommanDto> paging(int pageSize, int pageIndex) {
+	public FoodResponseAdmin paging(int pageSize, int pageIndex) {
 		PageRequest pageRequest =  PageRequest.of(pageIndex, pageSize);
 		List<FoodRecommanDto> foodRecommanDtos = new ArrayList<>();
 		List<FoodEntity> foodEntities = foodRepository.paging(pageRequest);
 		for (FoodEntity x : foodEntities) {
 			FoodRecommanDto foodRecommanDto = new FoodRecommanDto(x.getId(), x.getFoodName(), x.getPrice(), null, x.getImgFood(), 0, x.getTimeout(), x.getStar(), x.getQuantity());
+			foodRecommanDto.setCreateAt(x.getCreateDate());
+			foodRecommanDto.setCreateBy(x.getCreateBy());
 			foodRecommanDtos.add(foodRecommanDto);
 		}
 		
-		return foodRecommanDtos;
+		FoodResponseAdmin foodResponseAdmin = new FoodResponseAdmin(foodRepository.countAll()/pageSize, foodRecommanDtos);
+		return foodResponseAdmin;
+	}
+
+	@Override
+	public FoodRecommanDto updateFood(AddFoodRequest addFoodRequest) {
+		FoodEntity foodEntity = foodRepository.findOne(addFoodRequest.getId());
+			foodEntity.setDetail(addFoodRequest.getDetail());
+		    foodEntity.setFoodName(addFoodRequest.getFoodName());
+		    foodEntity.setImgFood(addFoodRequest.getImgFood());
+		    foodEntity.setPrice((int) addFoodRequest.getPrice());
+		    foodEntity.setQuantity((int) addFoodRequest.getQuantity());
+		    foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
+		    foodEntity.setTimeout((int) addFoodRequest.getTime());
+		    foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
+		foodRepository.update(foodEntity);
+		FoodRecommanDto foodRecommanDto = new FoodRecommanDto();
+			foodRecommanDto.setFoodName(foodEntity.getFoodName());
+			foodRecommanDto.setPrice(foodEntity.getPrice());
+			foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
+			foodRecommanDto.setImgFood(foodEntity.getImgFood());
+			foodRecommanDto.setTime(foodEntity.getTimeout());
+			foodRecommanDto.setStar(foodEntity.getStar());
+			foodRecommanDto.setQuantity(foodEntity.getQuantity());
+			foodEntity.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
+			foodEntity.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
+		return foodRecommanDto;
+	}
+
+	@Override
+	public String updateStatusFood(Integer id, Boolean status) {
+		FoodEntity foodEntity = foodRepository.findOne(id);
+				  foodEntity.setStatus(status);
+		return "Đã Sửa status";
+	}
+
+	@Override
+	public String deleteFood(Integer id) {
+		foodRepository.delete(id);
+		return "Đã xóa";
 	}
 	
 	

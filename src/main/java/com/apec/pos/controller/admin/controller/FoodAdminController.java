@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.apec.pos.Dto.copy.FoodDto.AddFoodRequest;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.entity.RestaurantEntity;
 import com.apec.pos.enu.ErrorCode;
@@ -27,10 +28,12 @@ import com.apec.pos.response.Response;
 import com.apec.pos.service.FoodService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping(value = "ADMIN")
-@CrossOrigin	
+@CrossOrigin
+@SecurityRequirement(name = "bearerAuth")
 public class FoodAdminController {
 	
 	@Autowired
@@ -38,25 +41,30 @@ public class FoodAdminController {
 
 	@Operation(description = "Endpoint thêm món ăn mới\n\nĐây là endpoint để thêm một món ăn mới vào hệ thống.\n\nThông tin về món ăn cần được cung cấp qua các tham số:\n\n- '<b>foodName</b>': Tên của món ăn.\n\n- '<b>price</b>': Giá của món ăn (kiểu số nguyên).\n\n- '<b>typeFood</b>': Loại món ăn (kiểu số nguyên).\n\n- '<b>imgFood</b>': Hình ảnh của món ăn (định dạng file hình ảnh).\n\n- '<b>detail</b>': Chi tiết về món ăn.\n\n- '<b>restaurantId</b>': ID của nhà hàng mà món ăn thuộc về (kiểu số nguyên).\n\nSau khi thêm thành công, hệ thống sẽ trả về phản hồi với thông tin về món ăn đã được thêm.",
 	           summary = "Thêm món ăn mới")
-	@RequestMapping(value = "add-food",method = RequestMethod.POST,consumes = "multipart/form-data" )
-	public Response addFood( 
-			@RequestParam 	String foodName ,
-			@RequestParam  Integer price,
-			@RequestParam  Integer typeFood,
-//			@RequestParam  String imgFood,
-			@RequestParam String detail,
-			@RequestParam  Integer restaurantId
-			) {
-		
-			FoodEntity f = new FoodEntity();		
-//			f.setImgFood(imgFood);
-			f.setDetail(detail);
-			f.setPrice(price);
-			f.setTypeFoodEntityId(typeFood);
-			f.setFoodName(foodName);
-			f.setRestaurantEntityId(restaurantId);
-			return new Response(true,"thành công",foodService.addFood(f));
+	@RequestMapping(value = "add-food",method = RequestMethod.POST )
+	public ResponseEntity addFood( 
+			@RequestBody AddFoodRequest addFoodRequest
+			) {	
+			return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.addFood(addFoodRequest)));
 
+	}
+	
+	@RequestMapping(value = "update-food",method = RequestMethod.PUT)
+	@Operation(summary = "sửa món ăn",description = "lưu ý truyền id")
+	public ResponseEntity updateFood(@RequestBody AddFoodRequest addFoodRequest) {
+		return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.updateFood(addFoodRequest)));
+	}
+
+	@RequestMapping(value = "update-status-food",method = RequestMethod.PUT)
+	@Operation(summary = "sửa status")
+	public ResponseEntity updateStatusFood(@RequestParam Integer id,@RequestParam Boolean status) {
+		return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.updateStatusFood(id,status)));
+	}
+	
+	@RequestMapping(value = "delete-food",method = RequestMethod.DELETE)
+	@Operation(summary = "xóa món ăn")
+	public ResponseEntity deleteFood(@RequestParam Integer id) {
+		return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.deleteFood(id)));
 	}
 	
 	@Operation(summary = "phân trang sản phẩm",description = "pageIndex nhận vào tính từ 0")

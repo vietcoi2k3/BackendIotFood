@@ -42,7 +42,7 @@ public class ConfigSecurity {
 				auth.requestMatchers("/auth/**").permitAll();
 				auth.requestMatchers("/admin/**").hasAuthority("ADMIN");
 				auth.requestMatchers("/user/**").hasAuthority("USER");
-				auth.anyRequest().permitAll();
+				auth.anyRequest().authenticated();
 			});
 		 http.sessionManagement(
 	                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

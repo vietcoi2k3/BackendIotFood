@@ -34,6 +34,9 @@ public class BaseEntity {
 	@JsonIgnore
     @Column(name = "modified_by")
     private String modifiedBy;
+	
+	@Column
+	private Boolean status;
 
     // Constructors, getters, and setters (you can generate them automatically or write them manually)
 
@@ -47,7 +50,19 @@ public class BaseEntity {
     
     
 
-    public Integer getId() {
+    public Boolean getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+
+
+	public Integer getId() {
 		return id;
 	}
 
@@ -104,6 +119,7 @@ public class BaseEntity {
     
     @PrePersist
     protected void onCreate() {
+    	this.status=false;
     	this.createDate = new Date(); 
     	this.createBy=PosApplication.currentUserGlobal;
     }
