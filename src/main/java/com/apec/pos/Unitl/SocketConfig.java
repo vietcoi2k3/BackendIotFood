@@ -18,7 +18,7 @@ public class SocketConfig implements WebSocketMessageBrokerConfigurer{
 	    }
 	 
 	  @Override
-	    public void configureMessageBroker(MessageBrokerRegistry registry) {
+	    public void configureMessageBroker(MessageBrokerRegistry config) {
 
 	    }
 }

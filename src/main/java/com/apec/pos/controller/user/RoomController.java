@@ -19,8 +19,8 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 
-	@MessageMapping("/topic-add-room")
-	@SendTo("/public-add-room")
+	@MessageMapping("/topic/add-room")
+	@SendTo("/public/add-room")
 	public ResponseEntity addUser(@Payload AddRoomRequest addRoomRequest) {
 		System.out.println(addRoomRequest);
 		return ResponseEntity.ok(new Response(true,"thêm phòng thành công",roomService.addRoom(addRoomRequest.getShipperId(), addRoomRequest.getUserId())));

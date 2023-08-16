@@ -5,7 +5,7 @@ import java.util.Date;
 import io.swagger.models.auth.In;
 
 
-public class FoodRecommanDto {
+public class FoodRecommendDto {
 
 	private Integer id;
 	private String foodName;
@@ -25,7 +25,7 @@ public class FoodRecommanDto {
 	
 	
 	
-	public FoodRecommanDto(Integer id, String foodName, Integer price, String detail, String nameRestaurantFood,
+	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String nameRestaurantFood,
 			String imgFood, Integer distance, Integer time, Integer star, Integer quantity, String createBy,
 			Date createAt, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
@@ -45,7 +45,7 @@ public class FoodRecommanDto {
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
-	public FoodRecommanDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time, Integer star,
+	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time, Integer star,
 			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.id = id;
@@ -60,7 +60,7 @@ public class FoodRecommanDto {
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
-	public FoodRecommanDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time,
+	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time,
 			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.id = id;
@@ -86,7 +86,7 @@ public class FoodRecommanDto {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public FoodRecommanDto() {
+	public FoodRecommendDto() {
 		super();
 	}
 	public Integer getId() {
@@ -167,7 +167,7 @@ public class FoodRecommanDto {
 	public void setRestaurantEntityId(Integer restaurantEntityId) {
 		this.restaurantEntityId = restaurantEntityId;
 	}
-	public FoodRecommanDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
+	public FoodRecommendDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
 			Integer distance, Integer time, Integer star, Integer quantity, String createBy, Date createAt,
 			Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
@@ -185,7 +185,7 @@ public class FoodRecommanDto {
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
-	public FoodRecommanDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
+	public FoodRecommendDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
 			Integer distance, Integer time, Integer star, Integer quantity) {
 		super();
 		this.id = id;

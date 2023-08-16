@@ -6,7 +6,7 @@ import java.util.List;
 public class FoodResponseAdmin {
 	
 	private long totalPage;
-	private List<FoodRecommanDto> data;
+	private List<FoodRecommendDto> data;
 	
 	public long getTotalPage() {
 		return totalPage;
@@ -16,15 +16,15 @@ public class FoodResponseAdmin {
 		this.totalPage = totalPage;
 	}
 
-	public List<FoodRecommanDto> getFoodRecommanDto() {
+	public List<FoodRecommendDto> getData() {
 		return data;
 	}
 
-	public void setFoodRecommanDto(List<FoodRecommanDto> data) {
+	public void setData(List<FoodRecommendDto> data) {
 		this.data = data;
 	}
 
-	public FoodResponseAdmin(long totalPage, List<FoodRecommanDto> data) {
+	public FoodResponseAdmin(long totalPage, List<FoodRecommendDto> data) {
 		super();
 		this.totalPage = totalPage;
 		this.data = data;

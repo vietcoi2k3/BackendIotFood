@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.copy.FoodDto.AddFoodRequest;
-import com.apec.pos.Dto.copy.FoodDto.FoodRecommanDto;
+import com.apec.pos.Dto.copy.FoodDto.FoodRecommendDto;
 import com.apec.pos.Dto.copy.FoodDto.FoodResponseAdmin;
 import com.apec.pos.Dto.copy.FoodDto.FoodSearchRespon;
 import com.apec.pos.entity.FoodEntity;
@@ -35,15 +35,15 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public List<FoodRecommanDto> getFoodRecommand() {
+	public List<FoodRecommendDto> getFoodRecommand() {
 	    List<FoodEntity> foodEntitys= foodRepository.getTopFood();
 	    System.out.println(foodEntitys.size());
-		List<FoodRecommanDto> foodRecommanDtos = new ArrayList<FoodRecommanDto>();
+		List<FoodRecommendDto> foodRecommanDtos = new ArrayList<FoodRecommendDto>();
 		for (FoodEntity x : foodEntitys) {
 			String nameRes = x.getRestaurantEntity().getRestaurantName();
 			long distance = x.getRestaurantEntity().getDistance();
-			FoodRecommanDto temp = 
-					new FoodRecommanDto(
+			FoodRecommendDto temp = 
+					new FoodRecommendDto(
 							x.getId(),
 							x.getFoodName(),
 							x.getPrice(),
@@ -68,7 +68,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodRecommanDto addFood(AddFoodRequest addFoodRequest) {
+	public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
 		FoodEntity foodEntity = new FoodEntity();
 				   foodEntity.setDetail(addFoodRequest.getDetail());
 				   foodEntity.setFoodName(addFoodRequest.getFoodName());
@@ -79,7 +79,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 				   foodEntity.setTimeout((int) addFoodRequest.getTime());
 				   foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
 		foodRepository.insert(foodEntity);
-		FoodRecommanDto foodRecommanDto = new FoodRecommanDto();
+		FoodRecommendDto foodRecommanDto = new FoodRecommendDto();
 						foodRecommanDto.setFoodName(foodEntity.getFoodName());
 						foodRecommanDto.setPrice(foodEntity.getPrice());
 						foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
@@ -98,13 +98,13 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public List<FoodRecommanDto> searchFood(String searchString) {
+	public List<FoodRecommendDto> searchFood(String searchString) {
 		List<FoodEntity> foodEntity =foodRepository.findFoodByKey(searchString);
-		List<FoodRecommanDto> foodSearchRespons = new ArrayList<>();
+		List<FoodRecommendDto> foodSearchRespons = new ArrayList<>();
 		for (FoodEntity x : foodEntity) {
 			String nameRes=x.getRestaurantEntity().getRestaurantName();
 			Integer distance = x.getRestaurantEntity().getDistance();
-			FoodRecommanDto temp = new FoodRecommanDto(
+			FoodRecommendDto temp = new FoodRecommendDto(
 					x.getId(),
 					x.getFoodName(),
 					x.getPrice(),
@@ -127,11 +127,11 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodRecommanDto getDetailFood(Integer id) {
+	public FoodRecommendDto getDetailFood(Integer id) {
 		FoodEntity x = foodRepository.findOne(id);
 		Integer distance = x.getRestaurantEntity().getDistance();
 		String nameRes = x.getRestaurantEntity().getRestaurantName();
-		FoodRecommanDto temp = new FoodRecommanDto(
+		FoodRecommendDto temp = new FoodRecommendDto(
 				x.getId(),
 				x.getFoodName(),
 				x.getPrice(),
@@ -154,11 +154,11 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	@Override
 	public FoodResponseAdmin paging(int pageSize, int pageIndex) {
 		PageRequest pageRequest =  PageRequest.of(pageIndex, pageSize);
-		List<FoodRecommanDto> foodRecommanDtos = new ArrayList<>();
+		List<FoodRecommendDto> foodRecommanDtos = new ArrayList<>();
 		List<FoodEntity> foodEntities = foodRepository.paging(pageRequest);
 		for (FoodEntity x : foodEntities) {
-			FoodRecommanDto foodRecommanDto = 
-					 new FoodRecommanDto(
+			FoodRecommendDto data = 
+					 new FoodRecommendDto(
 							x.getId(),
 							x.getFoodName(),
 							x.getPrice(),
@@ -175,9 +175,9 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 							x.getTypeFoodEntityId(),
 							x.getRestaurantEntityId()
 							);
-			foodRecommanDto.setCreateAt(x.getCreateDate());
-			foodRecommanDto.setCreateBy(x.getCreateBy());
-			foodRecommanDtos.add(foodRecommanDto);
+			data.setCreateAt(x.getCreateDate());
+			data.setCreateBy(x.getCreateBy());
+			foodRecommanDtos.add(data);
 		}
 		
 		FoodResponseAdmin foodResponseAdmin = new FoodResponseAdmin(foodRepository.countAll()/pageSize, foodRecommanDtos);
@@ -185,7 +185,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodRecommanDto updateFood(AddFoodRequest addFoodRequest) {
+	public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) {
 		FoodEntity foodEntity = foodRepository.findOne(addFoodRequest.getId());
 			foodEntity.setDetail(addFoodRequest.getDetail());
 		    foodEntity.setFoodName(addFoodRequest.getFoodName());
@@ -196,7 +196,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		    foodEntity.setTimeout((int) addFoodRequest.getTime());
 		    foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
 		foodRepository.update(foodEntity);
-		FoodRecommanDto foodRecommanDto = new FoodRecommanDto();
+		FoodRecommendDto foodRecommanDto = new FoodRecommendDto();
 			foodRecommanDto.setFoodName(foodEntity.getFoodName());
 			foodRecommanDto.setPrice(foodEntity.getPrice());
 			foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
