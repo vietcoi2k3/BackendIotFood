@@ -3,7 +3,6 @@ spring:
     cache-names: iotFood
     caffeine:
       spec: maximumSize=500, expireAfterAccess=60m
-  server:
-    port:8089
+  
 
   
