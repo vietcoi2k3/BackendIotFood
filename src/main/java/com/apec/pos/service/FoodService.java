@@ -158,14 +158,15 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		List<FoodEntity> foodEntities = foodRepository.paging(pageRequest);
 		for (FoodEntity x : foodEntities) {
 			FoodRecommendDto data = 
+					
 					 new FoodRecommendDto(
 							x.getId(),
 							x.getFoodName(),
 							x.getPrice(),
 							x.getDetail(),
-							"",
+							x.getRestaurantEntity().getRestaurantName(),
 							x.getImgFood(),
-							null,
+							x.getRestaurantEntity().getDistance(),
 							x.getTimeout(),
 							(int) x.getStar(),
 							x.getQuantity(),
