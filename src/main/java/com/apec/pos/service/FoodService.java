@@ -42,15 +42,25 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		for (FoodEntity x : foodEntitys) {
 			String nameRes = x.getRestaurantEntity().getRestaurantName();
 			long distance = x.getRestaurantEntity().getDistance();
-			FoodRecommanDto temp = new FoodRecommanDto(x.getId(),
-					x.getFoodName(),
-					x.getPrice(),
-					nameRes,
-					x.getImgFood(),
-					distance,
-					x.getTimeout(),
-					x.getStar(),
-					x.getQuantity());
+			FoodRecommanDto temp = 
+					new FoodRecommanDto(
+							x.getId(),
+							x.getFoodName(),
+							x.getPrice(),
+							x.getDetail(),
+							nameRes,
+							x.getImgFood(),
+							(int) distance,
+							x.getTimeout(),
+							(int) x.getStar(),
+							x.getQuantity(),
+							x.getCreateBy(),
+							x.getCreateDate(),
+							x.getQuantityPurchased(),
+							x.getTypeFoodEntityId(),
+							x.getRestaurantEntityId()
+							);
+						
 			foodRecommanDtos.add(temp);
 		}
 		System.out.println(foodRecommanDtos.size());
@@ -75,7 +85,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 						foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
 						foodRecommanDto.setImgFood(foodEntity.getImgFood());
 						foodRecommanDto.setTime(foodEntity.getTimeout());
-						foodRecommanDto.setStar(foodEntity.getStar());
+						foodRecommanDto.setStar((int) foodEntity.getStar());
 						foodRecommanDto.setQuantity(foodEntity.getQuantity());
 						foodEntity.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
 						foodEntity.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
@@ -88,30 +98,56 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public List<FoodSearchRespon> searchFood(String searchString) {
+	public List<FoodRecommanDto> searchFood(String searchString) {
 		List<FoodEntity> foodEntity =foodRepository.findFoodByKey(searchString);
-		List<FoodSearchRespon> foodSearchRespons = new ArrayList<>();
+		List<FoodRecommanDto> foodSearchRespons = new ArrayList<>();
 		for (FoodEntity x : foodEntity) {
-			FoodSearchRespon foodRecommanDto =  new FoodSearchRespon(x.getId(), x.getFoodName(), x.getDetail(), x.getPrice(),x.getQuantity(), x.getQuantityPurchased(), x.getImgFood()); 
-			foodSearchRespons.add(foodRecommanDto);
+			String nameRes=x.getRestaurantEntity().getRestaurantName();
+			Integer distance = x.getRestaurantEntity().getDistance();
+			FoodRecommanDto temp = new FoodRecommanDto(
+					x.getId(),
+					x.getFoodName(),
+					x.getPrice(),
+					x.getDetail(),
+					nameRes,
+					x.getImgFood(),
+					distance,
+					x.getTimeout(),
+					(int) x.getStar(),
+					x.getQuantity(),
+					x.getCreateBy(),
+					x.getCreateDate(),
+					x.getQuantityPurchased(),
+					x.getTypeFoodEntityId(),
+					x.getRestaurantEntityId()
+					);
+			foodSearchRespons.add(temp);
 		}
 		return foodSearchRespons;
 	}
 
 	@Override
 	public FoodRecommanDto getDetailFood(Integer id) {
-		FoodEntity x = new FoodEntity(); 
+		FoodEntity x = foodRepository.findOne(id);
+		Integer distance = x.getRestaurantEntity().getDistance();
 		String nameRes = x.getRestaurantEntity().getRestaurantName();
-		long distance = x.getRestaurantEntity().getDistance();
-		FoodRecommanDto temp = new FoodRecommanDto(x.getId(),
+		FoodRecommanDto temp = new FoodRecommanDto(
+				x.getId(),
 				x.getFoodName(),
 				x.getPrice(),
+				x.getDetail(),
 				nameRes,
 				x.getImgFood(),
 				distance,
 				x.getTimeout(),
-				x.getStar(),
-				x.getQuantity());
+				(int) x.getStar(),
+				x.getQuantity(),
+				x.getCreateBy(),
+				x.getCreateDate(),
+				x.getQuantityPurchased(),
+				x.getTypeFoodEntityId(),
+				x.getRestaurantEntityId()
+				);
 		return temp;
 	}
 
@@ -121,7 +157,24 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		List<FoodRecommanDto> foodRecommanDtos = new ArrayList<>();
 		List<FoodEntity> foodEntities = foodRepository.paging(pageRequest);
 		for (FoodEntity x : foodEntities) {
-			FoodRecommanDto foodRecommanDto = new FoodRecommanDto(x.getId(), x.getFoodName(), x.getPrice(), null, x.getImgFood(), 0, x.getTimeout(), x.getStar(), x.getQuantity());
+			FoodRecommanDto foodRecommanDto = 
+					 new FoodRecommanDto(
+							x.getId(),
+							x.getFoodName(),
+							x.getPrice(),
+							x.getDetail(),
+							"",
+							x.getImgFood(),
+							null,
+							x.getTimeout(),
+							(int) x.getStar(),
+							x.getQuantity(),
+							x.getCreateBy(),
+							x.getCreateDate(),
+							x.getQuantityPurchased(),
+							x.getTypeFoodEntityId(),
+							x.getRestaurantEntityId()
+							);
 			foodRecommanDto.setCreateAt(x.getCreateDate());
 			foodRecommanDto.setCreateBy(x.getCreateBy());
 			foodRecommanDtos.add(foodRecommanDto);
@@ -149,7 +202,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 			foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
 			foodRecommanDto.setImgFood(foodEntity.getImgFood());
 			foodRecommanDto.setTime(foodEntity.getTimeout());
-			foodRecommanDto.setStar(foodEntity.getStar());
+			foodRecommanDto.setStar((int) foodEntity.getStar());
 			foodRecommanDto.setQuantity(foodEntity.getQuantity());
 			foodEntity.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
 			foodEntity.setRestaurantEntityId(foodEntity.getRestaurantEntityId());

@@ -13,7 +13,7 @@ public interface FoodInterface {
 	public List<FoodRecommanDto> getFoodRecommand();
 	public FoodRecommanDto addFood(AddFoodRequest addFoodRequest);
 	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
-	public List<FoodSearchRespon> searchFood(String searchString);
+	public List<FoodRecommanDto> searchFood(String searchString);
 	public FoodRecommanDto getDetailFood(Integer id);
 	public FoodResponseAdmin paging(int pageSize,int pageIndex);
 	public FoodRecommanDto updateFood(AddFoodRequest addFoodRequest);

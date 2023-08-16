@@ -2,31 +2,97 @@ package com.apec.pos.Dto.copy.FoodDto;
 
 import java.util.Date;
 
+import io.swagger.models.auth.In;
+
 
 public class FoodRecommanDto {
 
-	private long id;
+	private Integer id;
 	private String foodName;
-	private long price;
+	private Integer price;
+	private String detail;
 	private String nameRestaurantFood;
 	private String imgFood;
-	private long distance;
-	private long time;
-	private double star;
-	private long quantity;
+	private Integer distance;
+	private Integer time;
+	private Integer star;
+	private Integer quantity;
 	private String createBy;
 	private Date createAt;
-	private Integer typeFtypeFoodEntityIdood;
+	private Integer quantityPurchased;
+	private Integer typeFoodEntityId;
 	private Integer restaurantEntityId;
 	
 	
+	
+	public FoodRecommanDto(Integer id, String foodName, Integer price, String detail, String nameRestaurantFood,
+			String imgFood, Integer distance, Integer time, Integer star, Integer quantity, String createBy,
+			Date createAt, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
+		super();
+		this.id = id;
+		this.foodName = foodName;
+		this.price = price;
+		this.detail = detail;
+		this.nameRestaurantFood = nameRestaurantFood;
+		this.imgFood = imgFood;
+		this.distance = distance;
+		this.time = time;
+		this.star = star;
+		this.quantity = quantity;
+		this.createBy = createBy;
+		this.createAt = createAt;
+		this.quantityPurchased = quantityPurchased;
+		this.typeFoodEntityId = typeFoodEntityId;
+		this.restaurantEntityId = restaurantEntityId;
+	}
+	public FoodRecommanDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time, Integer star,
+			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
+		super();
+		this.id = id;
+		this.foodName = foodName;
+		this.price = price;
+		this.detail = detail;
+		this.imgFood = imgFood;
+		this.time = time;
+		this.star = star;
+		this.quantity = quantity;
+		this.quantityPurchased = quantityPurchased;
+		this.typeFoodEntityId = typeFoodEntityId;
+		this.restaurantEntityId = restaurantEntityId;
+	}
+	public FoodRecommanDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time,
+			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
+		super();
+		this.id = id;
+		this.foodName = foodName;
+		this.price = price;
+		this.detail = detail;
+		this.imgFood = imgFood;
+		this.time = time;
+		this.quantity = quantity;
+		this.quantityPurchased = quantityPurchased;
+		this.typeFoodEntityId = typeFoodEntityId;
+		this.restaurantEntityId = restaurantEntityId;
+	}
+	public Integer getQuantityPurchased() {
+		return quantityPurchased;
+	}
+	public void setQuantityPurchased(Integer quantityPurchased) {
+		this.quantityPurchased = quantityPurchased;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
 	public FoodRecommanDto() {
 		super();
 	}
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getFoodName() {
@@ -35,10 +101,10 @@ public class FoodRecommanDto {
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
 	}
-	public long getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(long price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	public String getNameRestaurantFood() {
@@ -53,28 +119,28 @@ public class FoodRecommanDto {
 	public void setImgFood(String imgFood) {
 		this.imgFood = imgFood;
 	}
-	public long getDistance() {
+	public Integer getDistance() {
 		return distance;
 	}
-	public void setDistance(long distance) {
+	public void setDistance(Integer distance) {
 		this.distance = distance;
 	}
-	public long getTime() {
+	public Integer getTime() {
 		return time;
 	}
-	public void setTime(long time) {
+	public void setTime(Integer time) {
 		this.time = time;
 	}
-	public double getStar() {
+	public Integer getStar() {
 		return star;
 	}
-	public void setStar(double star) {
+	public void setStar(Integer star) {
 		this.star = star;
 	}
-	public long getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(long quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	public String getCreateBy() {
@@ -89,11 +155,11 @@ public class FoodRecommanDto {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-	public Integer getTypeFtypeFoodEntityIdood() {
-		return typeFtypeFoodEntityIdood;
+	public Integer getTypeFoodEntityId() {
+		return typeFoodEntityId;
 	}
-	public void setTypeFtypeFoodEntityIdood(Integer typeFtypeFoodEntityIdood) {
-		this.typeFtypeFoodEntityIdood = typeFtypeFoodEntityIdood;
+	public void setTypeFoodEntityId(Integer typeFoodEntityId) {
+		this.typeFoodEntityId = typeFoodEntityId;
 	}
 	public Integer getRestaurantEntityId() {
 		return restaurantEntityId;
@@ -101,9 +167,9 @@ public class FoodRecommanDto {
 	public void setRestaurantEntityId(Integer restaurantEntityId) {
 		this.restaurantEntityId = restaurantEntityId;
 	}
-	public FoodRecommanDto(long id, String foodName, long price, String nameRestaurantFood, String imgFood,
-			long distance, long time, double star, long quantity, String createBy, Date createAt,
-			Integer typeFtypeFoodEntityIdood, Integer restaurantEntityId) {
+	public FoodRecommanDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
+			Integer distance, Integer time, Integer star, Integer quantity, String createBy, Date createAt,
+			Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.id = id;
 		this.foodName = foodName;
@@ -116,11 +182,11 @@ public class FoodRecommanDto {
 		this.quantity = quantity;
 		this.createBy = createBy;
 		this.createAt = createAt;
-		this.typeFtypeFoodEntityIdood = typeFtypeFoodEntityIdood;
+		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
-	public FoodRecommanDto(long id, String foodName, long price, String nameRestaurantFood, String imgFood,
-			long distance, long time, double star, long quantity) {
+	public FoodRecommanDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
+			Integer distance, Integer time, Integer star, Integer quantity) {
 		super();
 		this.id = id;
 		this.foodName = foodName;
