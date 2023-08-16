@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 						),
 				@Server(
 						description = "PROD EVM",
-						url = "https://server-iot-food-3.onrender.com"
+						url = "https://server-iot-food.onrender.com"
 						)
 		}
 		)
