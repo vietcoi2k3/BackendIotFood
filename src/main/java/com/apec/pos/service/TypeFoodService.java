@@ -65,8 +65,10 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 	@Override
 	public TypefoodResponseData updateTypeFood(UpdateTypeRequest updateTypeRequest) {
 		TypeFoodEntity typeFoodEntity = typeFoodRepository.findOne(updateTypeRequest.getId());
-			typeFoodEntity.setNameType(updateTypeRequest.getNameType());
-			typeFoodEntity.setImgType(updateTypeRequest.getImgFood());
+			if(updateTypeRequest.getNameType()!=null)
+				typeFoodEntity.setNameType(updateTypeRequest.getNameType());
+			if(updateTypeRequest.getImgFood()!=null)
+				typeFoodEntity.setImgType(updateTypeRequest.getImgFood());
 			
 		TypeFoodEntity typeFoodEntity2 = typeFoodRepository.update(typeFoodEntity);
 		TypefoodResponseData typefoodResponseData = new TypefoodResponseData();

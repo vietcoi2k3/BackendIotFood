@@ -188,15 +188,23 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	@Override
 	public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) {
 		FoodEntity foodEntity = foodRepository.findOne(addFoodRequest.getId());
-			foodEntity.setDetail(addFoodRequest.getDetail());
-		    foodEntity.setFoodName(addFoodRequest.getFoodName());
-		    foodEntity.setImgFood(addFoodRequest.getImgFood());
-		    foodEntity.setPrice((int) addFoodRequest.getPrice());
-		    foodEntity.setQuantity((int) addFoodRequest.getQuantity());
-		    foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
-		    foodEntity.setTimeout((int) addFoodRequest.getTime());
-		    foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
-		foodRepository.update(foodEntity);
+			if(addFoodRequest.getDetail()!=null) 
+				foodEntity.setDetail(addFoodRequest.getDetail());
+			if(addFoodRequest.getFoodName()!=null)
+				foodEntity.setFoodName(addFoodRequest.getFoodName());
+			if(addFoodRequest.getImgFood()!=null)
+				foodEntity.setImgFood(addFoodRequest.getImgFood());
+			if(addFoodRequest.getPrice()>0)
+				foodEntity.setPrice((int) addFoodRequest.getPrice());
+			if(addFoodRequest.getQuantity()>0)
+				foodEntity.setQuantity((int) addFoodRequest.getQuantity());
+			if(addFoodRequest.getRestaurantEntityId()!=null)
+				foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
+			if(addFoodRequest.getTime()>0)
+				foodEntity.setTimeout((int) addFoodRequest.getTime());
+			if(addFoodRequest.getRestaurantEntityId()>0)
+				foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
+		foodEntity=	foodRepository.update(foodEntity);
 		FoodRecommendDto foodRecommanDto = new FoodRecommendDto();
 			foodRecommanDto.setFoodName(foodEntity.getFoodName());
 			foodRecommanDto.setPrice(foodEntity.getPrice());
