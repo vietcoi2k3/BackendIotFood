@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,18 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	
 	@Autowired
 	private EntityManager entityManager;
+	
+	public List<FoodEntity> muiltiDelete(Set<Integer> ids) {
+		  List<FoodEntity> deletedFoods = entityManager
+	                .createQuery("SELECT f FROM FoodEntity f WHERE f.id IN :ids", FoodEntity.class)
+	                .setParameter("ids", ids)
+	                .getResultList();
+
+	        for (FoodEntity food : deletedFoods) {
+	            entityManager.remove(food);
+	        }
+	        return deletedFoods;
+	}
 	
 	public List<FoodEntity> paging(PageRequest pageRequest){
 		String query= "SELECT c FROM FoodEntity c";

@@ -2,6 +2,7 @@ package com.apec.pos.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.security.auth.x500.X500Principal;
 
@@ -229,6 +230,16 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	public String deleteFood(Integer id) {
 		foodRepository.delete(id);
 		return "Đã xóa";
+	}
+
+	@Override
+	public List<Integer> MuiltiDelete(Set<Integer> ids) {
+		List<Integer> listId= new ArrayList<>();
+		for (Integer x : ids) {
+			int temp=foodRepository.delete(x);
+			listId.add(x);
+		}
+		return listId;
 	}
 	
 	

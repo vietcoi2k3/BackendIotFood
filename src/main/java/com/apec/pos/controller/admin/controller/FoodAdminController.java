@@ -1,8 +1,10 @@
 package com.apec.pos.controller.admin.controller;
 
+import java.awt.Point;
 import java.io.IOException;
 
 import java.util.Base64;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -71,5 +73,11 @@ public class FoodAdminController {
 	@RequestMapping(value = "/paging-food-admin",method = RequestMethod.POST)
 	public ResponseEntity pagingFood(@RequestParam int pageSize,@RequestParam int pageIndex) {
 		return ResponseEntity.ok(new Response(true,"trang"+pageIndex,ErrorCode.SUCCESS,foodService.paging(pageSize,pageIndex)));
+	}
+	
+	@Operation(summary = "xoá nhiều sản phẩm")
+	@RequestMapping(value = "/multi-delete",method = RequestMethod.POST)
+	public ResponseEntity multiDelete(@RequestBody Set<Integer> ids) {
+		return ResponseEntity.ok(new Response(true,"",foodService.MuiltiDelete(ids)));
 	}
 }

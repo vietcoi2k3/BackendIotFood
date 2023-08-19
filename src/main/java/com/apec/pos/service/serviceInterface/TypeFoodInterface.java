@@ -1,5 +1,7 @@
 package com.apec.pos.service.serviceInterface;
 
+import java.util.Set;
+
 import com.apec.pos.Dto.copy.TypeDto.AddTypeRequest;
 import com.apec.pos.Dto.copy.TypeDto.TypefoodResponseData;
 import com.apec.pos.Dto.copy.TypeDto.UpdateTypeRequest;
@@ -10,4 +12,5 @@ public interface TypeFoodInterface {
 	public TypefoodResponseData updateTypeFood(UpdateTypeRequest updateTypeRequest);
 	public TypefoodResponseData updateStatusType(Integer id,Boolean status);
 	public String deleteType(Integer id);
+	public Set<Integer> MultiDelete(Set<Integer> ids);
 }

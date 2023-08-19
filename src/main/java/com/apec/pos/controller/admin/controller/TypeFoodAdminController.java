@@ -1,5 +1,7 @@
 package com.apec.pos.controller.admin.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,5 +60,11 @@ public class TypeFoodAdminController {
 	@RequestMapping(value = "paging-type-admin",method = RequestMethod.POST)
 	public ResponseEntity pagingType(@RequestParam int pageSize,@RequestParam int pageIndex) {
 		return ResponseEntity.ok(new Response(true,"trang"+pageIndex,ErrorCode.SUCCESS,typeFoodService.paging(pageSize,pageIndex)));
+	}
+	
+	@RequestMapping(value = "muilti-delete-type",method = RequestMethod.DELETE)
+	@Operation(summary = "xóa nhiều type")
+	public ResponseEntity MultiDelete(@RequestBody Set<Integer> ids) {
+		return ResponseEntity.ok(new Response(true,"",typeFoodService.MultiDelete(ids)));
 	}
 }
