@@ -6,14 +6,14 @@ import com.apec.pos.entity.TypeFoodEntity;
 
 public class TypeResponseAdmin {
 
-	private Integer totalPage;
+	private Integer totalRow;
 	private List<TypefoodResponseData> data;
 	
-	public Integer getTotalPage() {
-		return totalPage;
+	public Integer getTotalRow() {
+		return totalRow;
 	}
-	public void setTotalPage(Integer totalPage) {
-		this.totalPage = totalPage;
+	public void setTotalRow(Integer totalRow) {
+		this.totalRow = totalRow;
 	}
 	public List<TypefoodResponseData> getData() {
 		return data;

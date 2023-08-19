@@ -5,15 +5,15 @@ import java.util.List;
 
 public class FoodResponseAdmin {
 	
-	private long totalPage;
+	private long totalRow;
 	private List<FoodRecommendDto> data;
 	
-	public long getTotalPage() {
-		return totalPage;
+	public long gettotalRow() {
+		return totalRow;
 	}
 
-	public void setTotalPage(long totalPage) {
-		this.totalPage = totalPage;
+	public void settotalRow(long totalRow) {
+		this.totalRow = totalRow;
 	}
 
 	public List<FoodRecommendDto> getData() {
@@ -24,9 +24,9 @@ public class FoodResponseAdmin {
 		this.data = data;
 	}
 
-	public FoodResponseAdmin(long totalPage, List<FoodRecommendDto> data) {
+	public FoodResponseAdmin(long totalRow, List<FoodRecommendDto> data) {
 		super();
-		this.totalPage = totalPage;
+		this.totalRow = totalRow;
 		this.data = data;
 	}
 }

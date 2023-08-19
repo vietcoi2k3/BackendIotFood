@@ -58,7 +58,7 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 			typefoodResponseDatas.add(temp);
 		}
 		typeResponseAdmin.setData(typefoodResponseDatas);
-		typeResponseAdmin.setTotalPage((int) (typeFoodRepository.countAll()/pageSize));
+		typeResponseAdmin.setTotalRow((int) (typeFoodRepository.countAll()));
 		return typeResponseAdmin;
 	}
 

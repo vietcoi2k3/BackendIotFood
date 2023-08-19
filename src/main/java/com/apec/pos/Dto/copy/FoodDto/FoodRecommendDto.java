@@ -22,9 +22,16 @@ public class FoodRecommendDto {
 	private Integer quantityPurchased;
 	private Integer typeFoodEntityId;
 	private Integer restaurantEntityId;
+	private Boolean status;
 	
 	
 	
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
 	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String nameRestaurantFood,
 			String imgFood, Integer distance, Integer time, Integer star, Integer quantity, String createBy,
 			Date createAt, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {

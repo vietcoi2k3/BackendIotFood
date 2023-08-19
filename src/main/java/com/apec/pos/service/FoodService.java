@@ -157,8 +157,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		List<FoodRecommendDto> foodRecommanDtos = new ArrayList<>();
 		List<FoodEntity> foodEntities = foodRepository.paging(pageRequest);
 		for (FoodEntity x : foodEntities) {
-			FoodRecommendDto data = 
-					
+			FoodRecommendDto data = 		
 					 new FoodRecommendDto(
 							x.getId(),
 							x.getFoodName(),
@@ -176,12 +175,13 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 							x.getTypeFoodEntityId(),
 							x.getRestaurantEntityId()
 							);
+			data.setStatus(x.getStatus());
 			data.setCreateAt(x.getCreateDate());
 			data.setCreateBy(x.getCreateBy());
 			foodRecommanDtos.add(data);
 		}
 		
-		FoodResponseAdmin foodResponseAdmin = new FoodResponseAdmin(foodRepository.countAll()/pageSize, foodRecommanDtos);
+		FoodResponseAdmin foodResponseAdmin = new FoodResponseAdmin(foodRepository.countAll(), foodRecommanDtos);
 		return foodResponseAdmin;
 	}
 
