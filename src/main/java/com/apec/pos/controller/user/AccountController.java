@@ -35,7 +35,7 @@ public class AccountController {
 		return ResponseEntity.ok(new Response<>(true,"lấy thông tin thành công",accountService.getUserInfo(token)));
 	}
 	
-	@Operation(summary = "sửa thông người dùng",description = "không cần truyền <b>username</b>, <b>id</b>")
+	@Operation(summary = "sửa thông người dùng",description = "không cần truyền <b>username</b>, <b>id</b>,tạm thời chưa thể sửa mật khẩu và số điện thoại được")
 	@RequestMapping(value = "/update-user-info",method = RequestMethod.POST)
 	public ResponseEntity updateUserInfo(HttpServletRequest request,@RequestBody RegisterRequest registerRequest) throws Exception {
 		String token= request.getHeader("Authorization").substring(7);
