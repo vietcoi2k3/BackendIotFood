@@ -20,6 +20,8 @@ import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.service.serviceInterface.AccountInterface;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 @Service
 @CacheConfig(cacheNames = "iotFood")
 public class AccountService extends BaseService<AccountRepository, AccountEntity, Integer> implements AccountInterface{
@@ -122,6 +124,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 		@Override
 		public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest) throws Exception {
 			AccountEntity accountEntity = accountRepository.findByUsername(updateRequest.getUsername());
+			System.out.println(updateRequest.getPassword());
 			if (accountEntity==null) {
 				 return null;
 			}
