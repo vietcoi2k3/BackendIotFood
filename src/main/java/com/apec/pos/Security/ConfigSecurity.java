@@ -41,7 +41,8 @@ public class ConfigSecurity {
 						"/v3/api-docs/**").permitAll();
 				auth.requestMatchers("/ws-iotfood/**").permitAll();
 				auth.requestMatchers("/auth/**").permitAll();
-				auth.requestMatchers("/admin/**").hasAuthority("ADMIN");
+				auth.requestMatchers("/ADMIN/*").hasAnyAuthority("ADMIN","EMPLOYEE");
+				auth.requestMatchers("/ADMIN/MANAGER/**").hasAuthority("ADMIN");
 				auth.requestMatchers("/user/**").hasAuthority("USER");
 				auth.anyRequest().authenticated();
 			});

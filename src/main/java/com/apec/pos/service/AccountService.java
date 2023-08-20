@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.apec.pos.Dto.copy.accountDto.AccountInfoDto;
 import com.apec.pos.Dto.copy.accountDto.LoginRequest;
 import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
+import com.apec.pos.Dto.copy.accountDto.RegisterRequest;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
@@ -91,5 +92,48 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 		
 		return accountInfoDto;
 	}
+
+		@Override
+		public LoginResponDto addEmployee(RegisterRequest registerRequest) {
+			Set<RoleEntity> roleEntity = new HashSet<>();
+			    RoleEntity userRole = new RoleEntity();
+			    userRole.setAuthority("EMPLOYEE");
+			    userRole.setId(3);
+			    roleEntity.add(userRole);
+			AccountEntity accountEntity = new AccountEntity();
+				accountEntity.setAccountName(registerRequest.getAccountName());
+				accountEntity.setImgUser(registerRequest.getImgUser());
+				accountEntity.setUsername(registerRequest.getUsername());
+				accountEntity.setPassword(registerRequest.getPassword());
+				accountEntity.setSdt(registerRequest.getSdt());
+				accountEntity.setRoles(roleEntity);
+			accountEntity= accountRepository.insert(accountEntity);
+			
+			LoginResponDto loginResponDto = new LoginResponDto();
+					loginResponDto.setAccountName(registerRequest.getAccountName());
+					loginResponDto.setId(accountEntity.getId());
+					loginResponDto.setImgUser(registerRequest.getImgUser());
+					loginResponDto.setMsv(registerRequest.getUsername());
+					loginResponDto.setToken(jwtService.generateToken(accountEntity));
+					loginResponDto.setStd(registerRequest.getSdt());
+			return loginResponDto;
+		}
+
+		@Override
+		public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest) throws Exception {
+			AccountEntity accountEntity = accountRepository.findByUsername(updateRequest.getUsername());
+			if (accountEntity==null) {
+				 return null;
+			}
+			if(passwordEncoder.matches(updateRequest.getPassword(), accountEntity.getPassword())) {
+				if(updateRequest.getAccountName()!=null) accountEntity.setAccountName(updateRequest.getAccountName());
+				if(updateRequest.getImgUser()!=null) accountEntity.setImgUser(updateRequest.getImgUser());
+				accountEntity= accountRepository.update(accountEntity);
+				
+				AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(),accountEntity.getSdt(),accountEntity.getUsername());		
+				return accountInfoDto;
+			}
+			return null;
+		}
 
 }
