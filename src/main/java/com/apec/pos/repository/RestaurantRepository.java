@@ -28,4 +28,12 @@ public class RestaurantRepository extends BaseRepository<RestaurantEntity, Integ
 		return query.setMaxResults(10).getResultList();
 	}
 
+	public List<RestaurantEntity> searchRes(String key){
+		String queryString = "SELECT c FROM RestaurantEntity c "
+				+ "WHERE c.restaurantName like :key";
+		
+		Query query2 = entityManager.createQuery(queryString);
+		query2.setParameter("key", "%"+key+"%");
+		return query2.getResultList();
+	}
 }

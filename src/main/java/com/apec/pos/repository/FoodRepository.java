@@ -46,7 +46,7 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 		String query ="SELECT f FROM FoodEntity f LEFT JOIN TypeFoodEntity tf ON f.typeFoodEntityId = tf.id  WHERE f.foodName like :key OR f.detail like :key OR tf.nameType like :key ";
 		Query query2 = entityManager.createQuery(query);
 		query2.setParameter("key", "%"+key+"%");
-		System.out.println(key);  
+		
 		return query2.getResultList();
 	}
 	

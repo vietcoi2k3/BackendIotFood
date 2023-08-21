@@ -52,6 +52,10 @@ public class AccountController {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,accountInfoDto));
 	}
 	
-	
+	@Operation(summary = "phân trang người dùng")
+	@RequestMapping(value = "paging-user",method = RequestMethod.POST)
+	public ResponseEntity pagingAccount(@RequestParam Integer pageSize,@RequestParam Integer pageIndex) {
+		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,accountService.paging(pageSize,pageIndex)));
+	}
 }
  

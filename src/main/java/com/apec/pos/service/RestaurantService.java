@@ -45,4 +45,9 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 		return restaurantRepository.findOne(id);
 	}
 
+	@Override
+	public List<RestaurantEntity> searchRes(String key) {
+		return restaurantRepository.searchRes(key);
+	}
+
 }

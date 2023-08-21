@@ -9,4 +9,5 @@ public interface RestaurantInterface {
 	public RestaurantEntity addRestaurant(RestaurantEntity restaurantEntity);
 	public List<ResRecommnedRespon> getRecommendRes();
 	public RestaurantEntity getResdetail(Integer id);
+	public List<RestaurantEntity> searchRes(String key);
 }
