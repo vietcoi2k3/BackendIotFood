@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import com.apec.pos.Dto.copy.TypeDto.AddTypeRequest;
 import com.apec.pos.Dto.copy.TypeDto.TypeResponseAdmin;
 import com.apec.pos.Dto.copy.TypeDto.TypefoodResponseData;
 import com.apec.pos.Dto.copy.TypeDto.UpdateTypeRequest;
+import com.apec.pos.Dto.copy.restaurantDto.SearchForm;
 import com.apec.pos.entity.TypeFoodEntity;
 import com.apec.pos.repository.TypeFoodRepository;
 import com.apec.pos.service.serviceInterface.TypeFoodInterface;
@@ -98,12 +100,26 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 		return "Đã Xóa";
 	}
 	
-	
+	@Override
 	public Set<Integer> MultiDelete(Set<Integer> ids){	
 		for (Integer x : ids) {
 			typeFoodRepository.delete(x);
 		}
 		return ids;
+	}
+	
+	@Override
+	public List<SearchForm> searchType(String key){
+		List<TypeFoodEntity> typeFoodEntities = typeFoodRepository.searchType(key);
+		List<SearchForm> searchForms = new ArrayList<>();
+		for (TypeFoodEntity x : typeFoodEntities) {
+			SearchForm temp = new SearchForm();
+						temp.setId(x.getId());
+						temp.setTitle(x.getNameType());
+			searchForms.add(temp);
+		}
+		
+		return searchForms;
 	}
 
 }

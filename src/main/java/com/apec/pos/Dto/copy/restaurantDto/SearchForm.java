@@ -1,6 +1,6 @@
 package com.apec.pos.Dto.copy.restaurantDto;
 
-public class SearchRes {
+public class SearchForm {
 
 	private Integer id;
 	private String title;
@@ -16,7 +16,7 @@ public class SearchRes {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public SearchRes() {
+	public SearchForm() {
 		super();
 	}
 	

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.copy.restaurantDto.ResRecommnedRespon;
-import com.apec.pos.Dto.copy.restaurantDto.SearchRes;
+import com.apec.pos.Dto.copy.restaurantDto.SearchForm;
 import com.apec.pos.entity.RestaurantEntity;
 import com.apec.pos.repository.RestaurantRepository;
 import com.apec.pos.service.serviceInterface.RestaurantInterface;
@@ -48,11 +48,11 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 	}
 
 	@Override
-	public List<SearchRes> searchRes(String key) {
+	public List<SearchForm> searchRes(String key) {
 		List<RestaurantEntity> restaurantEntities = restaurantRepository.searchRes(key);
-		List<SearchRes> searchRes = new ArrayList();
+		List<SearchForm> searchRes = new ArrayList();
 		for (RestaurantEntity x : restaurantEntities) {
-			SearchRes searchRess = new SearchRes();
+			SearchForm searchRess = new SearchForm();
 					  searchRess.setId(x.getId());
 					  searchRess.setTitle(x.getRestaurantName());
 			searchRes.add(searchRess);

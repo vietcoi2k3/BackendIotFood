@@ -67,4 +67,10 @@ public class TypeFoodAdminController {
 	public ResponseEntity MultiDelete(@RequestBody Set<Integer> ids) {
 		return ResponseEntity.ok(new Response(true,"",typeFoodService.MultiDelete(ids)));
 	}
+	
+	@RequestMapping(value = "search-type",method = RequestMethod.POST)
+	@Operation(summary = "tìm tiếm type")
+	public ResponseEntity searchType(@RequestParam String key) {
+		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,typeFoodService.searchType(key)));
+	}
 }
