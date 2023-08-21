@@ -1,12 +1,14 @@
 package com.apec.pos.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.copy.restaurantDto.ResRecommnedRespon;
+import com.apec.pos.Dto.copy.restaurantDto.SearchRes;
 import com.apec.pos.entity.RestaurantEntity;
 import com.apec.pos.repository.RestaurantRepository;
 import com.apec.pos.service.serviceInterface.RestaurantInterface;
@@ -46,8 +48,17 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 	}
 
 	@Override
-	public List<RestaurantEntity> searchRes(String key) {
-		return restaurantRepository.searchRes(key);
+	public List<SearchRes> searchRes(String key) {
+		List<RestaurantEntity> restaurantEntities = restaurantRepository.searchRes(key);
+		List<SearchRes> searchRes = new ArrayList();
+		for (RestaurantEntity x : restaurantEntities) {
+			SearchRes searchRess = new SearchRes();
+					  searchRess.setId(x.getId());
+					  searchRess.setTitle(x.getRestaurantName());
+			searchRes.add(searchRess);
+		}
+		
+		return searchRes;
 	}
 
 }
