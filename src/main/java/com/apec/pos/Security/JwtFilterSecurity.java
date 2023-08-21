@@ -2,6 +2,7 @@ package com.apec.pos.Security;
 
 import java.io.IOException;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.apec.pos.PosApplication;
-import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.service.JwtService;
 
@@ -20,6 +20,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 @Component
 public class JwtFilterSecurity extends OncePerRequestFilter{
 	
@@ -34,6 +35,7 @@ public class JwtFilterSecurity extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		 final String requestTokenHeader = request.getHeader("Authorization");
+		 System.out.println("******************888");
 	        String username = null;
 	        String jwtToken = null;
 	        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {

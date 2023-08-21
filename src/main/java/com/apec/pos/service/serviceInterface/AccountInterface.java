@@ -1,6 +1,7 @@
 package com.apec.pos.service.serviceInterface;
 
 import com.apec.pos.Dto.copy.accountDto.AccountInfoDto;
+import com.apec.pos.Dto.copy.accountDto.AccountResponseAdmin;
 import com.apec.pos.Dto.copy.accountDto.LoginRequest;
 import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
 import com.apec.pos.Dto.copy.accountDto.RegisterRequest;
@@ -17,4 +18,6 @@ public interface AccountInterface {
 	public LoginResponDto addEmployee(RegisterRequest registerRequest);
 	
 	public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest)throws Exception;
+	
+	public AccountResponseAdmin paging(Integer pageSize,Integer pageIndex);
 }

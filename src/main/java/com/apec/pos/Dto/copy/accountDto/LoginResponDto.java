@@ -8,21 +8,18 @@ public class LoginResponDto {
 	private Integer id;
 	private Set<RoleEntity> role;
 	private String token;
-	private String std;
+	private String sdt;
 	private String accountName;
 	private String imgUser;
 	private String msv;
 	
-	
-	
-	
-	public LoginResponDto(Integer id, Set<RoleEntity> role, String token, String std, String accountName,
+	public LoginResponDto(Integer id, Set<RoleEntity> role, String token, String sdt, String accountName,
 			String imgUser, String msv) {
 		super();
 		this.id = id;
 		this.role = role;
 		this.token = token;
-		this.std = std;
+		this.sdt = sdt;
 		this.accountName = accountName;
 		this.imgUser = imgUser;
 		this.msv = msv;
@@ -36,12 +33,12 @@ public class LoginResponDto {
 	public String getMsv() {
 		return msv;
 	}
-	public LoginResponDto(Set<RoleEntity> role, String token, String std, String accountName, String imgUser,
+	public LoginResponDto(Set<RoleEntity> role, String token, String sdt, String accountName, String imgUser,
 			String msv) {
 		super();
 		this.role = role;
 		this.token = token;
-		this.std = std;
+		this.sdt = sdt;
 		this.accountName = accountName;
 		this.imgUser = imgUser;
 		this.msv = msv;
@@ -49,11 +46,11 @@ public class LoginResponDto {
 	public void setMsv(String msv) {
 		this.msv = msv;
 	}
-	public LoginResponDto(Set<RoleEntity> role, String token, String std, String accountName, String imgUser) {
+	public LoginResponDto(Set<RoleEntity> role, String token, String sdt, String accountName, String imgUser) {
 		super();
 		this.role = role;
 		this.token = token;
-		this.std = std;
+		this.sdt = sdt;
 		this.accountName = accountName;
 		this.imgUser = imgUser;
 	}
@@ -63,11 +60,11 @@ public class LoginResponDto {
 	public void setRole(Set<RoleEntity> role) {
 		this.role = role;
 	}	
-	public String getStd() {
-		return std;
+	public String getsdt() {
+		return sdt;
 	}
-	public void setStd(String std) {
-		this.std = std;
+	public void setsdt(String sdt) {
+		this.sdt = sdt;
 	}
 	public String getAccountName() {
 		return accountName;

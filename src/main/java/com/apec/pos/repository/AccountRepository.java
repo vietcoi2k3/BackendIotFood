@@ -9,8 +9,10 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import com.apec.pos.entity.AccountEntity;
+import com.apec.pos.entity.FoodEntity;
 
 import jakarta.persistence.EntityManager;
 
@@ -25,6 +27,12 @@ public class AccountRepository extends BaseRepository<AccountEntity, Integer>{
 	public AccountRepository( ) {
 		super(AccountEntity.class);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public List<AccountEntity> paging(PageRequest pageRequest){
+		String query= "SELECT c FROM AccountEntity c";
+		Map<String, Object> params = new HashMap<>();
+		return query(query, false, params, pageRequest);
 	}
 
 	public AccountEntity findByUsername(String username){

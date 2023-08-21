@@ -1,17 +1,21 @@
 package com.apec.pos.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.copy.accountDto.AccountInfoDto;
+import com.apec.pos.Dto.copy.accountDto.AccountResponseAdmin;
 import com.apec.pos.Dto.copy.accountDto.LoginRequest;
 import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
 import com.apec.pos.Dto.copy.accountDto.RegisterRequest;
@@ -117,7 +121,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 					loginResponDto.setImgUser(registerRequest.getImgUser());
 					loginResponDto.setMsv(registerRequest.getUsername());
 					loginResponDto.setToken(jwtService.generateToken(accountEntity));
-					loginResponDto.setStd(registerRequest.getSdt());
+					loginResponDto.setsdt(registerRequest.getSdt());
 			return loginResponDto;
 		}
 
@@ -137,6 +141,27 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 				return accountInfoDto;
 			}
 			return null;
+		}
+
+		@Override
+		public AccountResponseAdmin paging(Integer pageSize, Integer pageIndex) {
+			PageRequest pageRequest =  PageRequest.of(pageIndex, pageSize);
+			List<AccountEntity> accountEntities = accountRepository.paging(pageRequest);
+			List<LoginResponDto> loginResponDtos = new ArrayList<>();
+			for (AccountEntity x : accountEntities) {
+				LoginResponDto temp = new LoginResponDto();
+					temp.setAccountName(x.getAccountName());
+					temp.setId(x.getId());
+					temp.setImgUser(x.getImgUser());
+					temp.setMsv(x.getUsername());
+					temp.setsdt(x.getSdt());
+					temp.setRole(x.getRoles());
+				loginResponDtos.add(temp);
+			}
+			AccountResponseAdmin accountResponseAdmin = new AccountResponseAdmin();
+			accountResponseAdmin.setLoginResponDtos(loginResponDtos);
+			accountResponseAdmin.setTotalRow((int) accountRepository.countAll());
+			return accountResponseAdmin;
 		}
 
 }

@@ -2,13 +2,13 @@ package com.apec.pos.Dto.copy.accountDto;
 
 public class AccountInfoDto {
 	private String accountName;
-	private String std;
+	private String sdt;
 	private String username;
 	
-	public AccountInfoDto(String accountName, String std, String username) {
+	public AccountInfoDto(String accountName, String sdt, String username) {
 		super();
 		this.accountName = accountName;
-		this.std = std;
+		this.sdt = sdt;
 		this.username = username;
 	}
 	public String getAccountName() {
@@ -17,11 +17,11 @@ public class AccountInfoDto {
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
-	public String getStd() {
-		return std;
+	public String getsdt() {
+		return sdt;
 	}
-	public void setStd(String std) {
-		this.std = std;
+	public void setsdt(String sdt) {
+		this.sdt = sdt;
 	}
 	public String getUsername() {
 		return username;
