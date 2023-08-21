@@ -121,7 +121,7 @@ public class AuthController {
 	
 	@Operation(summary = "tìm kiếm món ăn theo type,detail,tên món ăn")
 	@RequestMapping(value = "search-food",method = RequestMethod.POST)
-	public ResponseEntity searchFood(@RequestParam String searchString){
+	public ResponseEntity searchFood(@RequestParam (required = false)String searchString){
 		return ResponseEntity.ok(new Response(true,"lấy thành công",ErrorCode.SUCCESS,foodService.searchFood(searchString)));
 	}
 	

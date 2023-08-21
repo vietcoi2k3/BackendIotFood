@@ -28,11 +28,16 @@ public class TypeFoodRepository extends BaseRepository<TypeFoodEntity, Integer>{
 	}
 	
 	public List<TypeFoodEntity> searchType(String key){
+		if(key==null) {
+			String queryString = "SELECT c FROM TypeFoodEntity c ";
+			Query query = entityManager.createQuery(queryString);
+			return query.setMaxResults(20).getResultList();
+		}
 		String queryString = "SELECT c FROM TypeFoodEntity c "
 				+ "WHERE c.nameType like :key";
 		Query query2 = entityManager.createQuery(queryString);
 		query2.setParameter("key", "%"+key+"%");
-		return query2.getResultList();
+		return query2.setMaxResults(10).getResultList();
 	}
 
 }

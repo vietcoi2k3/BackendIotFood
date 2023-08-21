@@ -34,7 +34,7 @@ public class RestaurantAdminController {
 	
 	@Operation(summary = "tìm kiếm của hàng theo tên")
 	@RequestMapping(value = "search-res",method = RequestMethod.POST)
-	public ResponseEntity searchRes(@RequestParam String key) {
+	public ResponseEntity searchRes(@RequestParam(required = false) String key) {
 		return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,restaurantService.searchRes(key)));
 	}
 }

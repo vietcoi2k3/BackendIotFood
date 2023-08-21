@@ -64,19 +64,26 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	@JoinColumn(name = "restaurantEntityId",insertable = false, updatable = false)
 	private RestaurantEntity restaurantEntity;
 
+
+	@OneToMany(mappedBy = "foodEntity")
+	@JsonManagedReference(value = "food-type")
+	private List<ToppingEntity> toppingEntities;
 	
-	
+	public List<ToppingEntity> getToppingEntities() {
+		return toppingEntities;
+	}
+
+	public void setToppingEntities(List<ToppingEntity> toppingEntities) {
+		this.toppingEntities = toppingEntities;
+	}
+
 	public FoodEntity() {
 	
 	}
 	
-	
-	
 	public String getImgFood() {
 		return imgFood;
 	}
-
-
 
 	public void setImgFood(String imgFood) {
 		this.imgFood = imgFood;

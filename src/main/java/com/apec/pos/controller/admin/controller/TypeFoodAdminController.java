@@ -70,7 +70,7 @@ public class TypeFoodAdminController {
 	
 	@RequestMapping(value = "search-type",method = RequestMethod.POST)
 	@Operation(summary = "tìm tiếm type")
-	public ResponseEntity searchType(@RequestParam String key) {
+	public ResponseEntity searchType(@RequestParam(required = false) String key) {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,typeFoodService.searchType(key)));
 	}
 }
