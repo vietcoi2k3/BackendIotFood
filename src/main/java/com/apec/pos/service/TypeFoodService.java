@@ -1,6 +1,7 @@
 package com.apec.pos.service;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +12,6 @@ import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.TypeDto.AddTypeRequest;
 import com.apec.pos.Dto.copy.TypeDto.TypeResponseAdmin;
 import com.apec.pos.Dto.copy.TypeDto.TypefoodResponseData;
 import com.apec.pos.Dto.copy.TypeDto.UpdateTypeRequest;
@@ -82,9 +82,9 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 	@Override
 	public TypefoodResponseData updateTypeFood(UpdateTypeRequest updateTypeRequest) {
 		String imgType = null;
-		if(updateTypeRequest.getImgFood()!=null) {
+		if(updateTypeRequest.getImgType()!=null) {
 			try {
-				imgType = fileUploadService.uploadFile(updateTypeRequest.getImgFood());
+				imgType = fileUploadService.uploadFile(updateTypeRequest.getImgType());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -92,7 +92,7 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 		TypeFoodEntity typeFoodEntity = typeFoodRepository.findOne(updateTypeRequest.getId());
 			if(updateTypeRequest.getNameType()!=null)
 				typeFoodEntity.setNameType(updateTypeRequest.getNameType());
-			if(updateTypeRequest.getImgFood()!=null)
+			if(updateTypeRequest.getImgType()!=null)
 				typeFoodEntity.setImgType(imgType);
 			
 		TypeFoodEntity typeFoodEntity2 = typeFoodRepository.update(typeFoodEntity);

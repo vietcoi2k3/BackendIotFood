@@ -3,6 +3,7 @@ package com.apec.pos.controller.admin.controller;
 import java.util.Set;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apec.pos.Dto.copy.TypeDto.AddTypeRequest;
 import com.apec.pos.Dto.copy.TypeDto.UpdateTypeRequest;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
