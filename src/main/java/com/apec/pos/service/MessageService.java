@@ -37,6 +37,7 @@ public class MessageService extends BaseService<MessageRepository, MessageEntity
 				messageEntity.getRoomChatEntityId(),
 				 messageEntity.getCreateDate()
 				);
+	
 		
 		return messageResponse;
 	}

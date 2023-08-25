@@ -60,24 +60,17 @@ public class BaseEntity {
 		this.status = status;
 	}
 
-
-
 	public Integer getId() {
 		return id;
 	}
-
-
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-
 	public BaseEntity() {
     }
 
- 
     public Date getCreateDate() {
 		return createDate;
 	}
@@ -119,7 +112,7 @@ public class BaseEntity {
     
     @PrePersist
     protected void onCreate() {
-    	this.status=false;
+    	this.status=true;
     	this.createDate = new Date(); 
     	this.createBy=PosApplication.currentUserGlobal;
     }

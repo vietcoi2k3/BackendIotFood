@@ -1,9 +1,11 @@
 package com.apec.pos.Dto.copy.TypeDto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UpdateTypeRequest {
 
 	private Integer id;
-	private String imgFood;
+	private MultipartFile imgType;
 	private String nameType;
 	
 	public Integer getId() {
@@ -12,11 +14,11 @@ public class UpdateTypeRequest {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getImgFood() {
-		return imgFood;
+	public MultipartFile getImgType() {
+		return imgType;
 	}
-	public void setImgFood(String imgFood) {
-		this.imgFood = imgFood;
+	public void setImgType(MultipartFile imgType) {
+		this.imgType = imgType;
 	}
 	public String getNameType() {
 		return nameType;

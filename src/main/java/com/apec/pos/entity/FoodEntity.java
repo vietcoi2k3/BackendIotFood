@@ -34,7 +34,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private Integer price;
 	
 	@Column
-	private double star;
+	private Integer star;
 	
 	@Column
 	private Integer quantity;
@@ -91,7 +91,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 
 
-	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, double star,
+	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, Integer star,
 			Integer quantity, Integer timeout, Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
 			 Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
@@ -114,7 +114,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		return typeFoodEntityId;
 	}
 	
-	public double getStar() {
+	public Integer getStar() {
 		return star;
 	}
 	
@@ -126,7 +126,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
 		this.timeout = timeout;
 	}
 
-	public void setStar(double star) {
+	public void setStar(Integer star) {
 		this.star = star;
 	}
 

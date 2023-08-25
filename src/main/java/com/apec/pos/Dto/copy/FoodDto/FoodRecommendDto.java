@@ -1,6 +1,9 @@
 package com.apec.pos.Dto.copy.FoodDto;
 
 import java.util.Date;
+import java.util.List;
+
+import com.apec.pos.entity.ToppingEntity;
 
 import io.swagger.models.auth.In;
 
@@ -23,15 +26,24 @@ public class FoodRecommendDto {
 	private Integer typeFoodEntityId;
 	private Integer restaurantEntityId;
 	private Boolean status;
+	private List<ToppingEntity> toppingEntities;
 	
+	public List<ToppingEntity> getToppingEntities() {
+		return toppingEntities;
+	}
 	
+	public void setToppingEntities(List<ToppingEntity> toppingEntities) {
+		this.toppingEntities = toppingEntities;
+	}
 	
 	public Boolean getStatus() {
 		return status;
 	}
+	
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+	
 	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String nameRestaurantFood,
 			String imgFood, Integer distance, Integer time, Integer star, Integer quantity, String createBy,
 			Date createAt, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
@@ -52,6 +64,7 @@ public class FoodRecommendDto {
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
+	
 	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time, Integer star,
 			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
@@ -67,6 +80,7 @@ public class FoodRecommendDto {
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
+	
 	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time,
 			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
@@ -81,45 +95,59 @@ public class FoodRecommendDto {
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
+	
 	public Integer getQuantityPurchased() {
 		return quantityPurchased;
 	}
+	
 	public void setQuantityPurchased(Integer quantityPurchased) {
 		this.quantityPurchased = quantityPurchased;
 	}
+	
 	public String getDetail() {
 		return detail;
 	}
+	
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
+	
 	public FoodRecommendDto() {
 		super();
 	}
+	
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
 	public String getFoodName() {
 		return foodName;
 	}
+	
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
 	}
+	
 	public Integer getPrice() {
 		return price;
 	}
+	
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
+	
 	public String getNameRestaurantFood() {
 		return nameRestaurantFood;
 	}
+	
 	public void setNameRestaurantFood(String nameRestaurantFood) {
 		this.nameRestaurantFood = nameRestaurantFood;
 	}
+	
 	public String getImgFood() {
 		return imgFood;
 	}

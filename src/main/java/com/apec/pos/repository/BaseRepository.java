@@ -145,15 +145,15 @@ public class BaseRepository <T,ID extends Serializable> {
         return createQuery.getResultList();
     }
 	
-	public long countAll() {
+	public Integer countAll() {
         String queryStr = "SELECT COUNT(e) from " + entityClass.getSimpleName() + " e";
         Query createQuery = entityManager.createQuery(queryStr);
-        return (long) createQuery.getSingleResult();
+        return (Integer) createQuery.getSingleResult();
     }
 	
-	public long count(String jpaQuery, boolean isNative, Map<String, Object> params) {
+	public Integer count(String jpaQuery, boolean isNative, Map<String, Object> params) {
         Query createQuery = buildQueryHasParameters(jpaQuery, isNative, params, null);
-        return ((Number) createQuery.getSingleResult()).longValue();
+        return (int) ((Number) createQuery.getSingleResult()).longValue();
     }
 	
 	private Query buildQuery(String query, boolean isNative) {

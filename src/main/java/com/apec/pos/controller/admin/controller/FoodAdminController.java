@@ -1,30 +1,22 @@
 package com.apec.pos.controller.admin.controller;
 
-import java.awt.Point;
 import java.io.IOException;
-
-import java.util.Base64;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
-import org.springframework.util.StringUtils;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import com.apec.pos.Dto.copy.FoodDto.AddFoodRequest;
-import com.apec.pos.entity.FoodEntity;
-import com.apec.pos.entity.RestaurantEntity;
+
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.FoodService;
@@ -43,18 +35,24 @@ public class FoodAdminController {
 
 	@Operation(description = "Endpoint thêm món ăn mới\n\nĐây là endpoint để thêm một món ăn mới vào hệ thống.\n\nThông tin về món ăn cần được cung cấp qua các tham số:\n\n- '<b>foodName</b>': Tên của món ăn.\n\n- '<b>price</b>': Giá của món ăn (kiểu số nguyên).\n\n- '<b>typeFood</b>': Loại món ăn (kiểu số nguyên).\n\n- '<b>imgFood</b>': Hình ảnh của món ăn (định dạng file hình ảnh).\n\n- '<b>detail</b>': Chi tiết về món ăn.\n\n- '<b>restaurantId</b>': ID của nhà hàng mà món ăn thuộc về (kiểu số nguyên).\n\nSau khi thêm thành công, hệ thống sẽ trả về phản hồi với thông tin về món ăn đã được thêm.",
 	           summary = "Thêm món ăn mới")
-	@RequestMapping(value = "add-food",method = RequestMethod.POST )
+	@RequestMapping(value = "add-food",method = RequestMethod.POST,consumes = "multipart/form-data" )
 	public ResponseEntity addFood( 
-			@RequestBody AddFoodRequest addFoodRequest
-			) {	
-			return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.addFood(addFoodRequest)));
-
+			@ModelAttribute AddFoodRequest addFoodRequest
+			)  {
+		
+			return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.addFood(addFoodRequest)));	
 	}
 	
-	@RequestMapping(value = "update-food",method = RequestMethod.PUT)
+	@RequestMapping(value = "update-food",method = RequestMethod.PUT,consumes = "multipart/form-data")
 	@Operation(summary = "sửa món ăn",description = "lưu ý truyền id")
-	public ResponseEntity updateFood(@RequestBody AddFoodRequest addFoodRequest) {
-		return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.updateFood(addFoodRequest)));
+	public ResponseEntity updateFood(@ModelAttribute AddFoodRequest addFoodRequest) {
+		try {
+			return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.updateFood(addFoodRequest)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@RequestMapping(value = "update-status-food",method = RequestMethod.PUT)

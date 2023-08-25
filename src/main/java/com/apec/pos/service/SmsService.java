@@ -1,5 +1,6 @@
 package com.apec.pos.service;
 
+import java.net.URI;
 import java.text.DecimalFormat;
 
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import com.apec.pos.Dto.copy.otpDto.OtpResponseDto;
 import com.apec.pos.Dto.copy.otpDto.OtpStatusDto;
 import com.apec.pos.Dto.copy.otpDto.OtpValidationRequestDto;
 import com.apec.pos.Unitl.TwilioConfig;
+import com.twilio.rest.api.v2010.account.Call;
+import com.twilio.rest.api.v2010.account.CallCreator;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
@@ -32,7 +35,7 @@ public class SmsService {
 	public OtpResponseDto sendSMS(OtpRequestDto otpRequest) {
 		OtpResponseDto otpResponseDto = null;
 		try {
-			System.out.println("dsadsadsadsasđsa");
+		
 			PhoneNumber to = new PhoneNumber(otpRequest.getPhoneNumber());//to
 			PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber()); // from
 			System.out.println(twilioConfig.getPhoneNumber());
@@ -43,7 +46,7 @@ public class SmsService {
 			        .creator(to, from,
 			                otpMessage)
 			        .create();
-			otpMap.put(otpRequest.getUsername(), otp);
+			otpMap.put(otpRequest.getUsername(), otp);		
 			otpResponseDto = new OtpResponseDto(OtpStatusDto.DELIVERED, otpMessage);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,6 +9,11 @@ public class MessageResponse {
 	private Integer userId;
 	private Integer roomId;
 	private Date createAt;
+	
+	
+	public MessageResponse() {
+		super();
+	}
 	public Integer getId() {
 		return id;
 	}

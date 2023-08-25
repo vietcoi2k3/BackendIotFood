@@ -10,7 +10,7 @@ import com.apec.pos.Dto.copy.restaurantDto.SearchForm;
 import com.apec.pos.entity.TypeFoodEntity;
 
 public interface TypeFoodInterface {
-	public TypefoodResponseData addTypeFood(AddTypeRequest addTypeRequest);
+	public TypefoodResponseData addTypeFood(UpdateTypeRequest updateTypeRequest);
 	public TypefoodResponseData updateTypeFood(UpdateTypeRequest updateTypeRequest);
 	public TypefoodResponseData updateStatusType(Integer id,Boolean status);
 	public String deleteType(Integer id);

@@ -2,8 +2,10 @@ package com.apec.pos.controller.admin.controller;
 
 import java.util.Set;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apec.pos.Dto.copy.TypeDto.AddTypeRequest;
 import com.apec.pos.Dto.copy.TypeDto.UpdateTypeRequest;
-import com.apec.pos.entity.TypeFoodEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.TypeFoodService;
@@ -30,15 +31,15 @@ public class TypeFoodAdminController {
 	
 	//thêm
 	@Operation(description = "",summary = "thêm loại món ăn mới")
-	@RequestMapping(value = "add-type",method =RequestMethod.POST)
-	public ResponseEntity addTypeFood(@RequestBody AddTypeRequest addTypeRequest) {
-		return ResponseEntity.ok(new Response<>(true,"thêm thành công",ErrorCode.SUCCESS,typeFoodService.addTypeFood(addTypeRequest)));
+	@RequestMapping(value = "add-type",method =RequestMethod.POST,consumes = "multipart/form-data")
+	public ResponseEntity addTypeFood(@ModelAttribute UpdateTypeRequest updateTypeRequest) {
+		return ResponseEntity.ok(new Response<>(true,"thêm thành công",ErrorCode.SUCCESS,typeFoodService.addTypeFood(updateTypeRequest)));
 	}
 	
 	//sửa
 	@Operation(description = "",summary = "sửa loại món ăn")
 	@RequestMapping(value = "update-type",method =RequestMethod.PUT)
-	public ResponseEntity updateTypeFood(@RequestBody UpdateTypeRequest updateTypeRequest){
+	public ResponseEntity updateTypeFood(@ModelAttribute UpdateTypeRequest updateTypeRequest){
 		return ResponseEntity.ok(new Response<>(true,"sửa thành công",ErrorCode.SUCCESS,typeFoodService.updateTypeFood(updateTypeRequest)));
 	}
 	

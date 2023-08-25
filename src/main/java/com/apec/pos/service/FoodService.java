@@ -1,5 +1,6 @@
 package com.apec.pos.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,9 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 
 	@Autowired
 	private FoodRepository foodRepository;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 	
 	@Override
 	FoodRepository getRepository() {
@@ -69,27 +73,40 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
+	public FoodRecommendDto addFood(AddFoodRequest addFoodRequest)  {
+		String imgFood="";
+		if(addFoodRequest.getImgFood()!=null) {
+			try {
+				imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		FoodEntity foodEntity = new FoodEntity();
 				   foodEntity.setDetail(addFoodRequest.getDetail());
 				   foodEntity.setFoodName(addFoodRequest.getFoodName());
-				   foodEntity.setImgFood(addFoodRequest.getImgFood());
-				   foodEntity.setPrice((int) addFoodRequest.getPrice());
-				   foodEntity.setQuantity((int) addFoodRequest.getQuantity());
+				   foodEntity.setImgFood(imgFood);
+				   foodEntity.setPrice( addFoodRequest.getPrice());
+				   foodEntity.setQuantity( addFoodRequest.getQuantity());
 				   foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
-				   foodEntity.setTimeout((int) addFoodRequest.getTime());
+				   foodEntity.setTimeout( addFoodRequest.getTime());
 				   foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
-		foodRepository.insert(foodEntity);
+				   
+		foodEntity = foodRepository.insert(foodEntity);
+		
 		FoodRecommendDto foodRecommanDto = new FoodRecommendDto();
+						foodRecommanDto.setCreateAt(foodEntity.getCreateDate());
+						foodRecommanDto.setCreateBy(foodEntity.getCreateBy());
 						foodRecommanDto.setFoodName(foodEntity.getFoodName());
 						foodRecommanDto.setPrice(foodEntity.getPrice());
 						foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
 						foodRecommanDto.setImgFood(foodEntity.getImgFood());
 						foodRecommanDto.setTime(foodEntity.getTimeout());
-						foodRecommanDto.setStar((int) foodEntity.getStar());
 						foodRecommanDto.setQuantity(foodEntity.getQuantity());
-						foodEntity.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
-						foodEntity.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
+						foodRecommanDto.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
+						foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
+						foodRecommanDto.setStar(foodEntity.getStar());
+						foodRecommanDto.setStatus(foodEntity.getStatus());
 		return foodRecommanDto;
 	}
 
@@ -114,7 +131,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 					x.getImgFood(),
 					distance,
 					x.getTimeout(),
-					(int) x.getStar(),
+					 (int) x.getStar(),
 					x.getQuantity(),
 					x.getCreateBy(),
 					x.getCreateDate(),
@@ -149,6 +166,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 				x.getTypeFoodEntityId(),
 				x.getRestaurantEntityId()
 				);
+				temp.setToppingEntities(x.getToppingEntities());
 		return temp;
 	}
 
@@ -187,35 +205,44 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) {
+	public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) throws IOException {
+		String imgFood=null;
+		if(addFoodRequest.getImgFood()!=null) {	
+			 imgFood= fileUploadService.uploadFile(addFoodRequest.getImgFood());
+		}
 		FoodEntity foodEntity = foodRepository.findOne(addFoodRequest.getId());
 			if(addFoodRequest.getDetail()!=null) 
 				foodEntity.setDetail(addFoodRequest.getDetail());
 			if(addFoodRequest.getFoodName()!=null)
 				foodEntity.setFoodName(addFoodRequest.getFoodName());
 			if(addFoodRequest.getImgFood()!=null)
-				foodEntity.setImgFood(addFoodRequest.getImgFood());
-			if(addFoodRequest.getPrice()>0)
-				foodEntity.setPrice((int) addFoodRequest.getPrice());
-			if(addFoodRequest.getQuantity()>0)
-				foodEntity.setQuantity((int) addFoodRequest.getQuantity());
+				foodEntity.setImgFood(imgFood);
+			if(addFoodRequest.getPrice()!=null)
+				foodEntity.setPrice( addFoodRequest.getPrice());
+			if(addFoodRequest.getQuantity()!=null)
+				foodEntity.setQuantity( addFoodRequest.getQuantity());
 			if(addFoodRequest.getRestaurantEntityId()!=null)
 				foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
-			if(addFoodRequest.getTime()>0)
-				foodEntity.setTimeout((int) addFoodRequest.getTime());
-			if(addFoodRequest.getRestaurantEntityId()>0)
+			if(addFoodRequest.getTime()!=null)
+				foodEntity.setTimeout( addFoodRequest.getTime());
+			if(addFoodRequest.getRestaurantEntityId()!=null)
 				foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
 		foodEntity=	foodRepository.update(foodEntity);
+		
 		FoodRecommendDto foodRecommanDto = new FoodRecommendDto();
+			foodRecommanDto.setCreateAt(foodEntity.getCreateDate());
+			foodRecommanDto.setCreateBy(foodEntity.getCreateBy());
 			foodRecommanDto.setFoodName(foodEntity.getFoodName());
 			foodRecommanDto.setPrice(foodEntity.getPrice());
 			foodRecommanDto.setNameRestaurantFood(foodEntity.getFoodName());
 			foodRecommanDto.setImgFood(foodEntity.getImgFood());
 			foodRecommanDto.setTime(foodEntity.getTimeout());
-			foodRecommanDto.setStar((int) foodEntity.getStar());
 			foodRecommanDto.setQuantity(foodEntity.getQuantity());
-			foodEntity.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
-			foodEntity.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
+			foodRecommanDto.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
+			foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
+			foodRecommanDto.setStar(foodEntity.getStar());
+			foodRecommanDto.setStatus(foodEntity.getStatus());
+			
 		return foodRecommanDto;
 	}
 

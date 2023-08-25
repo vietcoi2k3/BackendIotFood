@@ -1,21 +1,29 @@
 package com.apec.pos.Dto.copy.FoodDto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class AddFoodRequest {
 
 	private Integer id;
 	private String foodName;
-	private long price;
-	private String nameRestaurantFood;
-	private String imgFood;
+	private Integer price;
 	private String detail;
-	private long distance;
-	private long time;
-	private long quantity;
+	private Integer distance;
+	private Integer time;
+	private Integer quantity;
+	private MultipartFile imgFood;
 	private Integer typeFoodEntityId;
 	private Integer restaurantEntityId;
 	
 	
-	
+	public MultipartFile getImgFood() {
+		return imgFood;
+	}
+
+	public void setImgFood(MultipartFile imgFood) {
+		this.imgFood = imgFood;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -24,13 +32,11 @@ public class AddFoodRequest {
 		this.id = id;
 	}
 
-	public AddFoodRequest(String foodName, long price, String nameRestaurantFood, String imgFood, long distance,
-			long time, double star, long quantity, Integer typeFoodEntityId, Integer restaurantEntityId) {
+	public AddFoodRequest(String foodName, Integer price, String nameRestaurantFood, Integer distance,
+			Integer time, Integer quantity, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.foodName = foodName;
 		this.price = price;
-		this.nameRestaurantFood = nameRestaurantFood;
-		this.imgFood = imgFood;
 		this.distance = distance;
 		this.time = time;
 		this.quantity = quantity;
@@ -54,51 +60,35 @@ public class AddFoodRequest {
 		this.foodName = foodName;
 	}
 
-	public long getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
-	public String getNameRestaurantFood() {
-		return nameRestaurantFood;
-	}
-
-	public void setNameRestaurantFood(String nameRestaurantFood) {
-		this.nameRestaurantFood = nameRestaurantFood;
-	}
-
-	public String getImgFood() {
-		return imgFood;
-	}
-
-	public void setImgFood(String imgFood) {
-		this.imgFood = imgFood;
-	}
-
-	public long getDistance() {
+	public Integer getDistance() {
 		return distance;
 	}
 
-	public void setDistance(long distance) {
+	public void setDistance(Integer distance) {
 		this.distance = distance;
 	}
 
-	public long getTime() {
+	public Integer getTime() {
 		return time;
 	}
 
-	public void setTime(long time) {
+	public void setTime(Integer time) {
 		this.time = time;
 	}
 
-	public long getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(long quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 

@@ -53,7 +53,7 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	@JsonIgnore
 	private Set<RoleEntity> roles;
 	
-	@OneToMany(mappedBy = "accountEntity")
+	@OneToMany(mappedBy = "accountEntity",fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "account-mess")
 	private List<MessageEntity> messageEntities;
 	

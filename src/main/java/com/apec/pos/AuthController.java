@@ -1,5 +1,7 @@
 package com.apec.pos;
 
+import java.io.IOException;
+
 import org.apache.http.HttpStatus;
 
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.apec.pos.Dto.copy.accountDto.LoginRequest;
 import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
@@ -30,6 +33,7 @@ import com.apec.pos.entity.RoomChatEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.AccountService;
+import com.apec.pos.service.FileUploadService;
 import com.apec.pos.service.FoodService;
 import com.apec.pos.service.RestaurantService;
 import com.apec.pos.service.RoomService;
@@ -65,6 +69,8 @@ public class AuthController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	
+
 	
 	@Operation(description = "'username'<=>'mã sinh viên'\n\n 'password'<=>'mật khẩu'",
 	           summary = "Đăng nhập")
@@ -143,10 +149,4 @@ public class AuthController {
 		return ResponseEntity.ok(new Response(true,"lấy thành công",ErrorCode.SUCCESS,restaurantService.getResdetail(id)));
 	}
 	
-	@MessageMapping("/anhvietdeptrai")
-	@SendTo("/testvailol")
-	public int testSocket(@Payload int id) {
-		System.out.println(id);
-		return id;
-	}
 }

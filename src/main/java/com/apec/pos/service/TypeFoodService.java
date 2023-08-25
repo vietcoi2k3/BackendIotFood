@@ -1,5 +1,6 @@
 package com.apec.pos.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,11 +26,23 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 	@Autowired
 	private TypeFoodRepository typeFoodRepository;
 	
+	@Autowired
+	private FileUploadService fileUploadService;
+	
 	@Override
-	public TypefoodResponseData addTypeFood(AddTypeRequest addTypeRequest) {
+	public TypefoodResponseData addTypeFood(UpdateTypeRequest updateTypeRequest) {
+		String imgType = null;
+		if(updateTypeRequest.getImgType()!=null) {
+			try {
+				imgType=fileUploadService.uploadFile(updateTypeRequest.getImgType());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		TypeFoodEntity typeFoodEntity = new TypeFoodEntity();
-			typeFoodEntity.setImgType(addTypeRequest.getImgType());
-			typeFoodEntity.setNameType(addTypeRequest.getNameType());
+			typeFoodEntity.setImgType(imgType);
+			typeFoodEntity.setNameType(updateTypeRequest.getNameType());
 		TypeFoodEntity typeFoodEntity2 = typeFoodRepository.insert(typeFoodEntity);
 		TypefoodResponseData typefoodResponseData = new TypefoodResponseData();
 			typefoodResponseData.setCreateAt(typeFoodEntity2.getCreateDate());
@@ -68,11 +81,19 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
 
 	@Override
 	public TypefoodResponseData updateTypeFood(UpdateTypeRequest updateTypeRequest) {
+		String imgType = null;
+		if(updateTypeRequest.getImgFood()!=null) {
+			try {
+				imgType = fileUploadService.uploadFile(updateTypeRequest.getImgFood());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		TypeFoodEntity typeFoodEntity = typeFoodRepository.findOne(updateTypeRequest.getId());
 			if(updateTypeRequest.getNameType()!=null)
 				typeFoodEntity.setNameType(updateTypeRequest.getNameType());
 			if(updateTypeRequest.getImgFood()!=null)
-				typeFoodEntity.setImgType(updateTypeRequest.getImgFood());
+				typeFoodEntity.setImgType(imgType);
 			
 		TypeFoodEntity typeFoodEntity2 = typeFoodRepository.update(typeFoodEntity);
 		TypefoodResponseData typefoodResponseData = new TypefoodResponseData();
