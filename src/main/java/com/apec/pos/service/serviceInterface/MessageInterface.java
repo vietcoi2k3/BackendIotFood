@@ -1,7 +1,7 @@
 package com.apec.pos.service.serviceInterface;
 
-import com.apec.pos.Dto.copy.MessageDto.MessageResponse;
-import com.apec.pos.Dto.copy.MessageDto.MessageSendRequest;
+import com.apec.pos.Dto.MessageDto.MessageResponse;
+import com.apec.pos.Dto.MessageDto.MessageSendRequest;
 
 public interface MessageInterface {
 

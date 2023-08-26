@@ -12,10 +12,10 @@ import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.TypeDto.TypeResponseAdmin;
-import com.apec.pos.Dto.copy.TypeDto.TypefoodResponseData;
-import com.apec.pos.Dto.copy.TypeDto.UpdateTypeRequest;
-import com.apec.pos.Dto.copy.restaurantDto.SearchForm;
+import com.apec.pos.Dto.TypeDto.TypeResponseAdmin;
+import com.apec.pos.Dto.TypeDto.TypefoodResponseData;
+import com.apec.pos.Dto.TypeDto.UpdateTypeRequest;
+import com.apec.pos.Dto.restaurantDto.SearchForm;
 import com.apec.pos.entity.TypeFoodEntity;
 import com.apec.pos.repository.TypeFoodRepository;
 import com.apec.pos.service.serviceInterface.TypeFoodInterface;

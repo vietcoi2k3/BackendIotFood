@@ -1,10 +1,10 @@
 package com.apec.pos.service.serviceInterface;
 
-import com.apec.pos.Dto.copy.accountDto.AccountInfoDto;
-import com.apec.pos.Dto.copy.accountDto.AccountResponseAdmin;
-import com.apec.pos.Dto.copy.accountDto.LoginRequest;
-import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
-import com.apec.pos.Dto.copy.accountDto.RegisterRequest;
+import com.apec.pos.Dto.accountDto.AccountInfoDto;
+import com.apec.pos.Dto.accountDto.AccountResponseAdmin;
+import com.apec.pos.Dto.accountDto.LoginRequest;
+import com.apec.pos.Dto.accountDto.LoginResponDto;
+import com.apec.pos.Dto.accountDto.RegisterRequest;
 import com.apec.pos.entity.AccountEntity;
 
 public interface AccountInterface {

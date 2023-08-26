@@ -24,7 +24,7 @@ public class MessageRepository extends BaseRepository<MessageEntity, Integer>{
 	public List<MessageEntity> getListLassMess(Integer id){
 		String queryString = "FROM MessageEntity c WHERE c.accountEntityId =:id ORDER BY c.id DESC";
 		Query query = entityManager.createQuery(queryString).setParameter("id", id);
-		return  query.getResultList();
+		return  query.setMaxResults(1).getResultList();
 	}
 	
 	public List<MessageEntity> getListChatRoom(Integer id){

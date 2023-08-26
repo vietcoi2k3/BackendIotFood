@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import com.apec.pos.Dto.copy.FoodDto.AddFoodRequest;
-import com.apec.pos.Dto.copy.FoodDto.FoodRecommendDto;
-import com.apec.pos.Dto.copy.FoodDto.FoodResponseAdmin;
+import com.apec.pos.Dto.FoodDto.AddFoodRequest;
+import com.apec.pos.Dto.FoodDto.FoodRecommendDto;
+import com.apec.pos.Dto.FoodDto.FoodResponseAdmin;
 import com.apec.pos.entity.FoodEntity;
 
 public interface FoodInterface {

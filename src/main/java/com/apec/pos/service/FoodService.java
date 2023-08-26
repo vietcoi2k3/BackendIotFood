@@ -14,10 +14,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.FoodDto.AddFoodRequest;
-import com.apec.pos.Dto.copy.FoodDto.FoodRecommendDto;
-import com.apec.pos.Dto.copy.FoodDto.FoodResponseAdmin;
-import com.apec.pos.Dto.copy.FoodDto.FoodSearchRespon;
+import com.apec.pos.Dto.FoodDto.AddFoodRequest;
+import com.apec.pos.Dto.FoodDto.FoodRecommendDto;
+import com.apec.pos.Dto.FoodDto.FoodResponseAdmin;
+import com.apec.pos.Dto.FoodDto.FoodSearchRespon;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.service.serviceInterface.FoodInterface;

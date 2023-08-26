@@ -5,8 +5,8 @@ import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.MessageDto.MessageResponse;
-import com.apec.pos.Dto.copy.MessageDto.MessageSendRequest;
+import com.apec.pos.Dto.MessageDto.MessageResponse;
+import com.apec.pos.Dto.MessageDto.MessageSendRequest;
 import com.apec.pos.entity.MessageEntity;
 import com.apec.pos.repository.MessageRepository;
 import com.apec.pos.service.serviceInterface.MessageInterface;

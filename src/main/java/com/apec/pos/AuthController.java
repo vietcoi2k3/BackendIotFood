@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.apec.pos.Dto.copy.accountDto.LoginRequest;
-import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
-import com.apec.pos.Dto.copy.otpDto.OtpRequestDto;
-import com.apec.pos.Dto.copy.otpDto.OtpResponseDto;
-import com.apec.pos.Dto.copy.otpDto.OtpValidationRequestDto;
+import com.apec.pos.Dto.accountDto.LoginRequest;
+import com.apec.pos.Dto.accountDto.LoginResponDto;
+import com.apec.pos.Dto.otpDto.OtpRequestDto;
+import com.apec.pos.Dto.otpDto.OtpResponseDto;
+import com.apec.pos.Dto.otpDto.OtpValidationRequestDto;
 import com.apec.pos.Unitl.Validator;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoomChatEntity;

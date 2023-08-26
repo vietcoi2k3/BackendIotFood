@@ -7,8 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.restaurantDto.ResRecommnedRespon;
-import com.apec.pos.Dto.copy.restaurantDto.SearchForm;
+import com.apec.pos.Dto.restaurantDto.ResRecommnedRespon;
+import com.apec.pos.Dto.restaurantDto.ResRequest;
+import com.apec.pos.Dto.restaurantDto.SearchForm;
 import com.apec.pos.entity.RestaurantEntity;
 import com.apec.pos.repository.RestaurantRepository;
 import com.apec.pos.service.serviceInterface.RestaurantInterface;
@@ -18,6 +19,9 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 	
 	@Override
 	RestaurantRepository getRepository() {
@@ -61,4 +65,36 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 		return searchRes;
 	}
 
+	@Override
+	public ResRecommnedRespon updateRes(ResRequest request) {
+		RestaurantEntity restaurantEntity = restaurantRepository.findOne(request.getId());
+		ResRecommnedRespon recommnedRespon = new ResRecommnedRespon();
+		if (request.getAddress() != null) 
+			restaurantEntity.setAddress(request.getAddress());
+		if (request.getBusinessHours()!=null)
+			restaurantEntity.setBusinessHours(request.getBusinessHours());
+		if (request.getDetail()!=null)
+			restaurantEntity.setDetail(request.getDetail());
+		if (request.getDistance()!=null)
+			restaurantEntity.setDistance(request.getDistance());
+		if (request.getImgRes()!=null)
+		{
+			String imgRes=null;
+			
+//			imgRes=fileUploadService.uploadFile(request.getImgRes());
+		}
+		if (request.getPhoneNumber()!=null)
+			restaurantEntity.setPhoneNumber(request.getPhoneNumber());
+		if (request.getQuantitySold()!=null)
+			restaurantEntity.setQuantitySold(request.getQuantitySold());
+		if (request.getRestaurantName()!=null)
+			restaurantEntity.setRestaurantName(request.getRestaurantName());
+		restaurantEntity = restaurantRepository.insert(restaurantEntity);
+			recommnedRespon.setAddress(restaurantEntity.getAddress());
+			recommnedRespon.setBusinessHours(restaurantEntity.getBusinessHours());
+			recommnedRespon.setDistance(restaurantEntity.getDistance());
+			recommnedRespon.setId(restaurantEntity.getId());
+//			recommnedRespon.setImgRes();
+		return null;
+	}
 }

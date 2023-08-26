@@ -2,8 +2,8 @@ package com.apec.pos.service.serviceInterface;
 
 import java.util.List;
 
-import com.apec.pos.Dto.copy.MessageDto.MessageResponse;
-import com.apec.pos.Dto.copy.RoomDto.GetListRoomResponse;
+import com.apec.pos.Dto.MessageDto.MessageResponse;
+import com.apec.pos.Dto.RoomDto.GetListRoomResponse;
 
 public interface RoomChatInterface {
 

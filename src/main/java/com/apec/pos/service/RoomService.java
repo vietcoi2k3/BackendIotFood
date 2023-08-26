@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.PosApplication;
-import com.apec.pos.Dto.copy.MessageDto.MessageResponse;
-import com.apec.pos.Dto.copy.RoomDto.GetListRoomResponse;
-import com.apec.pos.Dto.copy.RoomDto.InfoReceiver;
-import com.apec.pos.Dto.copy.RoomDto.LastMess;
+import com.apec.pos.Dto.MessageDto.MessageResponse;
+import com.apec.pos.Dto.RoomDto.GetListRoomResponse;
+import com.apec.pos.Dto.RoomDto.InfoReceiver;
+import com.apec.pos.Dto.RoomDto.LastMess;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.MessageEntity;
 import com.apec.pos.entity.RoomChatEntity;

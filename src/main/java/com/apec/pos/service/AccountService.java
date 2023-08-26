@@ -14,11 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.copy.accountDto.AccountInfoDto;
-import com.apec.pos.Dto.copy.accountDto.AccountResponseAdmin;
-import com.apec.pos.Dto.copy.accountDto.LoginRequest;
-import com.apec.pos.Dto.copy.accountDto.LoginResponDto;
-import com.apec.pos.Dto.copy.accountDto.RegisterRequest;
+import com.apec.pos.Dto.accountDto.AccountInfoDto;
+import com.apec.pos.Dto.accountDto.AccountResponseAdmin;
+import com.apec.pos.Dto.accountDto.LoginRequest;
+import com.apec.pos.Dto.accountDto.LoginResponDto;
+import com.apec.pos.Dto.accountDto.RegisterRequest;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
@@ -52,7 +52,8 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 			return null;
 		}
 		if (passwordEncoder.matches( loginRequest.getPassword(),aEntity.getPassword())) {
-			return new LoginResponDto(aEntity.getRoles(),jwtService.generateToken(aEntity),aEntity.getSdt(),aEntity.getAccountName(),aEntity.getImgUser(),aEntity.getUsername());
+			return new LoginResponDto(aEntity.getId(),aEntity.getRoles(),jwtService.generateToken(aEntity),aEntity.getSdt(),aEntity.getAccountName(),aEntity.getImgUser(),aEntity.getUsername());
+			
 		}		
 		return null;
 	}

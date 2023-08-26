@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apec.pos.Dto.copy.MessageDto.MessageResponse;
-import com.apec.pos.Dto.copy.MessageDto.MessageSendRequest;
+import com.apec.pos.Dto.MessageDto.MessageResponse;
+import com.apec.pos.Dto.MessageDto.MessageSendRequest;
 import com.apec.pos.entity.MessageEntity;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.MessageService;
