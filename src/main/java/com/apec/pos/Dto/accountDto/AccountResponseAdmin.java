@@ -4,13 +4,13 @@ import java.util.List;
 
 public class AccountResponseAdmin {
 
-	private Integer totalRow;
+	private Long totalRow;
 	private List<LoginResponDto> loginResponDtos;
 	
-	public Integer getTotalRow() {
+	public Long getTotalRow() {
 		return totalRow;
 	}
-	public void setTotalRow(Integer totalRow) {
+	public void setTotalRow(Long totalRow) {
 		this.totalRow = totalRow;
 	}
 	public List<LoginResponDto> getLoginResponDtos() {

@@ -8,7 +8,7 @@ import com.apec.pos.Dto.restaurantDto.SearchForm;
 import com.apec.pos.entity.RestaurantEntity;
 
 public interface RestaurantInterface {
-	public RestaurantEntity addRestaurant(RestaurantEntity restaurantEntity);
+	public RestaurantEntity addRestaurant(ResRequest request);
 	public List<ResRecommnedRespon> getRecommendRes();
 	public RestaurantEntity getResdetail(Integer id);
 	public List<SearchForm> searchRes(String key);

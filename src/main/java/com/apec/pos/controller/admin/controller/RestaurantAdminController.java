@@ -28,10 +28,10 @@ public class RestaurantAdminController {
 	
 	@Operation(description = "Thêm nhà hàng mới.\n\nCác trường không bắt buộc, bạn có thể nhập theo ý muốn.\n\nNếu không nhập giá trị cho một trường nào đó, giá trị null sẽ được thêm vào cơ sở dữ liệu.\n\nCác thông tin bổ sung:\n\n- id (không nhập): Mã nhà hàng (ID) sẽ được tạo tự động bởi hệ thống, bạn không cần phải nhập giá trị cho trường này.\n- \"restaurantName\" <=> \"tên nhà hàng\": Tên của nhà hàng.\n- \"address\" <=> Địa chỉ quán: Địa chỉ của nhà hàng.\n- \"distance\" <=> Khoảng cách từ trường đến quán: Khoảng cách từ trường đến nhà hàng.\n- \"phoneNumber\" <=> Số điện thoại của quán: Số điện thoại liên hệ của nhà hàng.\n- \"foodEntities\" <=> không nhập",
 	           summary = "Thêm nhà hàng mới")
-	@RequestMapping(value = "add-res",method = RequestMethod.POST)
-	public Response addRestaurant(@RequestBody RestaurantEntity restaurantEntity) 
+	@RequestMapping(value = "add-res",method = RequestMethod.POST,consumes = "multipart/form-data")
+	public Response addRestaurant(@ModelAttribute ResRequest request) 
 	{
-		return new Response(true,"thêm thành công",restaurantService.addRestaurant(restaurantEntity));
+		return new Response(true,"thêm thành công",restaurantService.addRestaurant(request));
 	}
 	
 	@Operation(summary = "tìm kiếm của hàng theo tên")
@@ -40,7 +40,7 @@ public class RestaurantAdminController {
 		return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,restaurantService.searchRes(key)));
 	}
 	
-	@RequestMapping(value = "update-res",method = RequestMethod.PUT)
+	@RequestMapping(value = "update-res",method = RequestMethod.PUT,consumes = "multipart/form-data")
 	public ResponseEntity updateRes(@ModelAttribute ResRequest request) {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,restaurantService.updateRes(request)));
 	}

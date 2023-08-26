@@ -1,5 +1,6 @@
 package com.apec.pos.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +31,23 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 	}
 
 	@Override
-	public RestaurantEntity addRestaurant(RestaurantEntity restaurantEntity) {
+	public RestaurantEntity addRestaurant(ResRequest request) {
+		RestaurantEntity restaurantEntity = new RestaurantEntity();
+		restaurantEntity.setRestaurantName(request.getRestaurantName());
+		restaurantEntity.setAddress(request.getAddress());
+		restaurantEntity.setBusinessHours(request.getBusinessHours());
+		restaurantEntity.setDetail(request.getDetail());
+		restaurantEntity.setPhoneNumber(request.getPhoneNumber());
+		if (request.getImgRes()!=null) {
+			String imgRes= null;
+			try {
+				imgRes = fileUploadService.uploadFile(request.getImgRes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		restaurantEntity.setDistance(request.getDistance());
 		return restaurantRepository.insert(restaurantEntity);
 	}
 	

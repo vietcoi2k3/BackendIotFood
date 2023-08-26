@@ -161,7 +161,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 			}
 			AccountResponseAdmin accountResponseAdmin = new AccountResponseAdmin();
 			accountResponseAdmin.setLoginResponDtos(loginResponDtos);
-			accountResponseAdmin.setTotalRow((int) accountRepository.countAll());
+			accountResponseAdmin.setTotalRow( accountRepository.countAll());
 			return accountResponseAdmin;
 		}
 

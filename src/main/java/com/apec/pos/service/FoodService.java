@@ -186,7 +186,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 							x.getImgFood(),
 							x.getRestaurantEntity().getDistance(),
 							x.getTimeout(),
-							(int) x.getStar(),
+							x.getStar(),
 							x.getQuantity(),
 							x.getCreateBy(),
 							x.getCreateDate(),
