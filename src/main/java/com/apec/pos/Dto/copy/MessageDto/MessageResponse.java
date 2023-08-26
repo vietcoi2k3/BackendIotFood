@@ -6,7 +6,7 @@ public class MessageResponse {
 	
 	private Integer id;
 	private String content;
-	private Integer userId;
+	private Integer sendId;
 	private Integer roomId;
 	private Date createAt;
 	
@@ -26,11 +26,11 @@ public class MessageResponse {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Integer getUserId() {
-		return userId;
+	public Integer getSendId() {
+		return sendId;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setSendId(Integer sendId) {
+		this.sendId = sendId;
 	}
 	public Integer getRoomId() {
 		return roomId;
@@ -44,11 +44,11 @@ public class MessageResponse {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-	public MessageResponse(Integer id, String content, Integer userId, Integer roomId, Date createAt) {
+	public MessageResponse(Integer id, String content, Integer sendId, Integer roomId, Date createAt) {
 		super();
 		this.id = id;
 		this.content = content;
-		this.userId = userId;
+		this.sendId = sendId;
 		this.roomId = roomId;
 		this.createAt = createAt;
 	}

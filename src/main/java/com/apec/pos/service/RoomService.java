@@ -106,6 +106,7 @@ public class RoomService extends BaseService<RoomChatRepository, RoomChatEntity,
 							messageResponse.setContent(x.getContent());
 							messageResponse.setCreateAt(x.getCreateDate());
 							messageResponse.setId(x.getId());
+							messageResponse.setSendId(x.getAccountEntityId());
 							messageResponse.setRoomId(x.getRoomChatEntityId());
 			messageResponses.add(messageResponse);
 		}

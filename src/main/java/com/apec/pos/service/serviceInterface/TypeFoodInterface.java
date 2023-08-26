@@ -7,7 +7,6 @@ import java.util.Set;
 import com.apec.pos.Dto.copy.TypeDto.TypefoodResponseData;
 import com.apec.pos.Dto.copy.TypeDto.UpdateTypeRequest;
 import com.apec.pos.Dto.copy.restaurantDto.SearchForm;
-import com.apec.pos.entity.TypeFoodEntity;
 
 public interface TypeFoodInterface {
 	public TypefoodResponseData addTypeFood(UpdateTypeRequest updateTypeRequest);
