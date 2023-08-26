@@ -98,7 +98,13 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 		{
 			String imgRes=null;
 			
-//			imgRes=fileUploadService.uploadFile(request.getImgRes());
+			try {
+				imgRes=fileUploadService.uploadFile(request.getImgRes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			restaurantEntity.setImgRes(imgRes);
 		}
 		if (request.getPhoneNumber()!=null)
 			restaurantEntity.setPhoneNumber(request.getPhoneNumber());
