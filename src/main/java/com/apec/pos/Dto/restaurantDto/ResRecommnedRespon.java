@@ -9,7 +9,7 @@ public class ResRecommnedRespon {
 	private String restaurantName;
 	private Integer quantitySold;
 	private Date businessHours;
-	private Integer distance;
+	private Double distance;
 	private String phoneNumber;
 	private String address;
 	private String imgRes;
@@ -42,10 +42,10 @@ public class ResRecommnedRespon {
 	public void setBusinessHours(Date businessHours) {
 		this.businessHours = businessHours;
 	}
-	public Integer getDistance() {
+	public Double getDistance() {
 		return distance;
 	}
-	public void setDistance(Integer distance) {
+	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
 	public String getPhoneNumber() {
@@ -67,7 +67,7 @@ public class ResRecommnedRespon {
 		this.imgRes = imgRes;
 	}
 	public ResRecommnedRespon(Integer id, String restaurantName, Integer quantitySold, Date businessHours,
-			Integer distance, String phoneNumber, String address, String imgRes) {
+			Double distance, String phoneNumber, String address, String imgRes) {
 		super();
 		this.id = id;
 		this.restaurantName = restaurantName;

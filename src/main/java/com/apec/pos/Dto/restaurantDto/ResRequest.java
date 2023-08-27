@@ -11,7 +11,7 @@ public class ResRequest {
 	private String address;
 	private Integer quantitySold;
 	private Date businessHours;
-	private Integer distance;
+	private Double distance;
 	private String detail;
 	private String phoneNumber;
 	private MultipartFile imgRes;
@@ -46,10 +46,10 @@ public class ResRequest {
 	public void setBusinessHours(Date businessHours) {
 		this.businessHours = businessHours;
 	}
-	public Integer getDistance() {
+	public Double getDistance() {
 		return distance;
 	}
-	public void setDistance(Integer distance) {
+	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
 	public String getDetail() {

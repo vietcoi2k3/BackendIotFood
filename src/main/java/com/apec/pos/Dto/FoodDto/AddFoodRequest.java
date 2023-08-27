@@ -8,9 +8,7 @@ public class AddFoodRequest {
 	private String foodName;
 	private Integer price;
 	private String detail;
-	private Integer distance;
 	private Integer time;
-	private Integer quantity;
 	private MultipartFile imgFood;
 	private Integer typeFoodEntityId;
 	private Integer restaurantEntityId;
@@ -32,14 +30,12 @@ public class AddFoodRequest {
 		this.id = id;
 	}
 
-	public AddFoodRequest(String foodName, Integer price, String nameRestaurantFood, Integer distance,
-			Integer time, Integer quantity, Integer typeFoodEntityId, Integer restaurantEntityId) {
+	public AddFoodRequest(String foodName, Integer price, String nameRestaurantFood,
+			Integer time, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.foodName = foodName;
 		this.price = price;
-		this.distance = distance;
 		this.time = time;
-		this.quantity = quantity;
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
@@ -68,28 +64,12 @@ public class AddFoodRequest {
 		this.price = price;
 	}
 
-	public Integer getDistance() {
-		return distance;
-	}
-
-	public void setDistance(Integer distance) {
-		this.distance = distance;
-	}
-
 	public Integer getTime() {
 		return time;
 	}
 
 	public void setTime(Integer time) {
 		this.time = time;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
 	}
 
 	public Integer getTypeFoodEntityId() {

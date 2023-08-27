@@ -16,10 +16,9 @@ public class FoodRecommendDto {
 	private String detail;
 	private String nameRestaurantFood;
 	private String imgFood;
-	private Integer distance;
+	private Double distance;
 	private Integer time;
 	private Integer star;
-	private Integer quantity;
 	private String createBy;
 	private Date createAt;
 	private Integer quantityPurchased;
@@ -45,7 +44,7 @@ public class FoodRecommendDto {
 	}
 	
 	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String nameRestaurantFood,
-			String imgFood, Integer distance, Integer time, Integer star, Integer quantity, String createBy,
+			String imgFood, Double distance, Integer time, Integer star, String createBy,
 			Date createAt, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.id = id;
@@ -57,7 +56,6 @@ public class FoodRecommendDto {
 		this.distance = distance;
 		this.time = time;
 		this.star = star;
-		this.quantity = quantity;
 		this.createBy = createBy;
 		this.createAt = createAt;
 		this.quantityPurchased = quantityPurchased;
@@ -65,24 +63,8 @@ public class FoodRecommendDto {
 		this.restaurantEntityId = restaurantEntityId;
 	}
 	
-	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time, Integer star,
-			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
-		super();
-		this.id = id;
-		this.foodName = foodName;
-		this.price = price;
-		this.detail = detail;
-		this.imgFood = imgFood;
-		this.time = time;
-		this.star = star;
-		this.quantity = quantity;
-		this.quantityPurchased = quantityPurchased;
-		this.typeFoodEntityId = typeFoodEntityId;
-		this.restaurantEntityId = restaurantEntityId;
-	}
 	
-	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time,
-			Integer quantity, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
+	public FoodRecommendDto(Integer id, String foodName, Integer price, String detail, String imgFood, Integer time, Integer quantityPurchased, Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.id = id;
 		this.foodName = foodName;
@@ -90,7 +72,6 @@ public class FoodRecommendDto {
 		this.detail = detail;
 		this.imgFood = imgFood;
 		this.time = time;
-		this.quantity = quantity;
 		this.quantityPurchased = quantityPurchased;
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
@@ -154,10 +135,10 @@ public class FoodRecommendDto {
 	public void setImgFood(String imgFood) {
 		this.imgFood = imgFood;
 	}
-	public Integer getDistance() {
+	public Double getDistance() {
 		return distance;
 	}
-	public void setDistance(Integer distance) {
+	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
 	public Integer getTime() {
@@ -171,12 +152,6 @@ public class FoodRecommendDto {
 	}
 	public void setStar(Integer star) {
 		this.star = star;
-	}
-	public Integer getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
 	}
 	public String getCreateBy() {
 		return createBy;
@@ -203,7 +178,7 @@ public class FoodRecommendDto {
 		this.restaurantEntityId = restaurantEntityId;
 	}
 	public FoodRecommendDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
-			Integer distance, Integer time, Integer star, Integer quantity, String createBy, Date createAt,
+			Double distance, Integer time, Integer star, String createBy, Date createAt,
 			Integer typeFoodEntityId, Integer restaurantEntityId) {
 		super();
 		this.id = id;
@@ -214,14 +189,13 @@ public class FoodRecommendDto {
 		this.distance = distance;
 		this.time = time;
 		this.star = star;
-		this.quantity = quantity;
 		this.createBy = createBy;
 		this.createAt = createAt;
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.restaurantEntityId = restaurantEntityId;
 	}
 	public FoodRecommendDto(Integer id, String foodName, Integer price, String nameRestaurantFood, String imgFood,
-			Integer distance, Integer time, Integer star, Integer quantity) {
+			Double distance, Integer time, Integer star ) {
 		super();
 		this.id = id;
 		this.foodName = foodName;
@@ -231,7 +205,6 @@ public class FoodRecommendDto {
 		this.distance = distance;
 		this.time = time;
 		this.star = star;
-		this.quantity = quantity;
 	}
 	
 	

@@ -21,7 +21,7 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	
 	private Date businessHours;
 	
-	private Integer distance;
+	private Double distance;
 	
 	private String detail;
 	
@@ -35,7 +35,7 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	private Set<FoodEntity> foodEntities;
 
 	public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String address,
-			Integer quantitySold, Date businessHours, Integer distance, String phoneNumber, String imgRes,
+			Integer quantitySold, Date businessHours, Double distance, String phoneNumber, String imgRes,
 			Set<FoodEntity> foodEntities) {
 		super(createBy, modifiedBy);
 		this.restaurantName = restaurantName;
@@ -96,11 +96,11 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 		this.address = address;
 	}
 
-	public Integer getDistance() {
+	public Double getDistance() {
 		return distance;
 	}
 
-	public void setDistance(Integer distance) {
+	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
 

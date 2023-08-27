@@ -37,9 +37,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private Integer star;
 	
 	@Column
-	private Integer quantity;
-	
-	@Column
 	private Integer timeout;
 	
 	@Column
@@ -92,14 +89,13 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 
 	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, Integer star,
-			Integer quantity, Integer timeout, Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
+			 Integer timeout, Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
 			 Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
 		this.foodName = foodName;
 		this.detail = detail;
 		this.price = price;
 		this.star = star;
-		this.quantity = quantity;
 		this.timeout = timeout;
 		this.quantityPurchased = quantityPurchased;
 		this.typeFoodEntityId = typeFoodEntityId;
@@ -128,14 +124,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 	public void setStar(Integer star) {
 		this.star = star;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
 	}
 
 	public void setTypeFoodEntityId(Integer typeFoodEntityId) {
