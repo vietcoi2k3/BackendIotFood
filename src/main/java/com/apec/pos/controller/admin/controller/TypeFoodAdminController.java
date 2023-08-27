@@ -63,7 +63,7 @@ public class TypeFoodAdminController {
 		return ResponseEntity.ok(new Response(true,"trang"+pageIndex,ErrorCode.SUCCESS,typeFoodService.paging(pageSize,pageIndex)));
 	}
 	
-	@RequestMapping(value = "muilti-delete-type",method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete-type",method = RequestMethod.DELETE)
 	@Operation(summary = "xóa nhiều type")
 	public ResponseEntity MultiDelete(@RequestBody Set<Integer> ids) {
 		return ResponseEntity.ok(new Response(true,"",typeFoodService.MultiDelete(ids)));

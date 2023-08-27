@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -113,12 +114,20 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 			restaurantEntity.setQuantitySold(request.getQuantitySold());
 		if (request.getRestaurantName()!=null)
 			restaurantEntity.setRestaurantName(request.getRestaurantName());
-		restaurantEntity = restaurantRepository.insert(restaurantEntity);
+		restaurantEntity = restaurantRepository.update(restaurantEntity);
 			recommnedRespon.setAddress(restaurantEntity.getAddress());
 			recommnedRespon.setBusinessHours(restaurantEntity.getBusinessHours());
 			recommnedRespon.setDistance(restaurantEntity.getDistance());
 			recommnedRespon.setId(restaurantEntity.getId());
 //			recommnedRespon.setImgRes();
+		return null;
+	}
+
+	@Override
+	public Set<Integer> deleteRes(Set<Integer> ids) {
+		for (Integer x : ids) {
+			restaurantRepository.delete(x);
+		}
 		return null;
 	}
 }

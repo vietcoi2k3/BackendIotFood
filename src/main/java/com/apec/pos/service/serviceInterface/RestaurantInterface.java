@@ -1,6 +1,7 @@
 package com.apec.pos.service.serviceInterface;
 
 import java.util.List;
+import java.util.Set;
 
 import com.apec.pos.Dto.restaurantDto.ResRecommnedRespon;
 import com.apec.pos.Dto.restaurantDto.ResRequest;
@@ -13,4 +14,5 @@ public interface RestaurantInterface {
 	public RestaurantEntity getResdetail(Integer id);
 	public List<SearchForm> searchRes(String key);
 	public ResRecommnedRespon updateRes(ResRequest request);
+	public Set<Integer> deleteRes(Set<Integer> ids);
 }

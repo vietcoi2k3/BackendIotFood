@@ -255,7 +255,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 		List<Integer> listId= new ArrayList<>();
 		for (Integer x : ids) {
 			int temp=foodRepository.delete(x);
-			listId.add(x);
+			listId.add(temp);
 		}
 		return listId;
 	}

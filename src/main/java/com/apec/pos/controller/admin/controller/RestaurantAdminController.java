@@ -1,5 +1,7 @@
 package com.apec.pos.controller.admin.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,5 +45,11 @@ public class RestaurantAdminController {
 	@RequestMapping(value = "update-res",method = RequestMethod.PUT,consumes = "multipart/form-data")
 	public ResponseEntity updateRes(@ModelAttribute ResRequest request) {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,restaurantService.updateRes(request)));
+	}
+	
+	@RequestMapping(value = "delete-res",method = RequestMethod.DELETE)
+	@Operation(summary = "xoa cua hang")
+	public ResponseEntity deleteRes(@RequestBody Set<Integer> ids) {
+		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,restaurantService.deleteRes(ids)));
 	}
 }

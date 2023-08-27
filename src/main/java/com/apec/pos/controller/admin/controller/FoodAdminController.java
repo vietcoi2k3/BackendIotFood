@@ -59,11 +59,7 @@ public class FoodAdminController {
 		return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.updateStatusFood(id,status)));
 	}
 	
-	@RequestMapping(value = "delete-food",method = RequestMethod.DELETE)
-	@Operation(summary = "xóa món ăn")
-	public ResponseEntity deleteFood(@RequestParam Integer id) {
-		return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.deleteFood(id)));
-	}
+	
 	
 	@Operation(summary = "phân trang sản phẩm",description = "pageIndex nhận vào tính từ 0")
 	@RequestMapping(value = "/paging-food-admin",method = RequestMethod.POST)
@@ -72,7 +68,7 @@ public class FoodAdminController {
 	}
 	
 	@Operation(summary = "xoá nhiều sản phẩm")
-	@RequestMapping(value = "/multi-delete",method = RequestMethod.POST)
+	@RequestMapping(value = "/delete-food",method = RequestMethod.POST)
 	public ResponseEntity multiDelete(@RequestBody Set<Integer> ids) {
 		return ResponseEntity.ok(new Response(true,"",foodService.MuiltiDelete(ids)));
 	}
