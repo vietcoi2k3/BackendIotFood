@@ -8,17 +8,12 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.Data;
 
 
 @Entity
+@Data
 public class FoodEntity extends BaseEntity implements Serializable{
 	/**
 	 * 
@@ -37,9 +32,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	private Integer star;
 	
 	@Column
-	private Integer timeout;
-	
-	@Column
 	private Integer quantityPurchased;
 	
 	@Column(name = "typeFoodEntityId")
@@ -56,7 +48,7 @@ public class FoodEntity extends BaseEntity implements Serializable{
     @Column(name = "restaurantEntityId")
 	private Integer restaurantEntityId;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference(value = "food-res")
 	@JoinColumn(name = "restaurantEntityId",insertable = false, updatable = false)
 	private RestaurantEntity restaurantEntity;
@@ -89,14 +81,13 @@ public class FoodEntity extends BaseEntity implements Serializable{
 
 
 	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, Integer star,
-			 Integer timeout, Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
+			  Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
 			 Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
 		super(createBy, modifiedBy);
 		this.foodName = foodName;
 		this.detail = detail;
 		this.price = price;
 		this.star = star;
-		this.timeout = timeout;
 		this.quantityPurchased = quantityPurchased;
 		this.typeFoodEntityId = typeFoodEntityId;
 		this.typeFoodEntity = typeFoodEntity;
@@ -112,14 +103,6 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	public Integer getStar() {
 		return star;
-	}
-	
-	public Integer getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
 	}
 
 	public void setStar(Integer star) {

@@ -1,4 +1,4 @@
-package com.apec.pos.controller.admin.controller;
+package com.apec.pos.controller.admin;
 
 import java.io.IOException;
 import java.util.Set;

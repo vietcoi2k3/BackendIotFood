@@ -14,6 +14,7 @@ import com.apec.pos.entity.FoodEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
+
 @Repository
 public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 

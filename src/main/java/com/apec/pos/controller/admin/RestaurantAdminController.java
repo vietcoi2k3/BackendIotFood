@@ -1,4 +1,4 @@
-package com.apec.pos.controller.admin.controller;
+package com.apec.pos.controller.admin;
 
 import java.util.Set;
 

@@ -2,6 +2,7 @@ package com.apec.pos;
 
 import java.io.IOException;
 
+import com.apec.pos.entity.FoodEntity;
 import org.apache.http.HttpStatus;
 
 
@@ -148,5 +149,16 @@ public class AuthController {
 	public ResponseEntity getDetailRes(@RequestParam Integer id) {
 		return ResponseEntity.ok(new Response(true,"lấy thành công",ErrorCode.SUCCESS,restaurantService.getResdetail(id)));
 	}
-	
+
+	@RequestMapping(value = "/paging-res",method = RequestMethod.POST)
+	public ResponseEntity pagingRes(@RequestParam Integer pageSize,@RequestParam Integer pageIndex){
+		return ResponseEntity.ok(new Response(true,"",restaurantService.paging(pageSize,pageIndex)));
+	}
+
+//	@RequestMapping(method = RequestMethod.GET,value = "get-user-lazy")
+//	public ResponseEntity testLazy(){
+//		FoodEntity foodEntity = foodService.findOne(2);
+//
+//		return ResponseEntity.ok(foodEntity.getRestaurantEntity());
+//	}
 }

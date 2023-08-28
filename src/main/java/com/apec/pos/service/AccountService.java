@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.entity.CartEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
@@ -82,6 +83,10 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	    accountEntity2.setUsername(accountEntity.getUsername());
 	    accountEntity2.setImgUser("https://i.pinimg.com/736x/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg");
 	    // Lưu tài khoản mới vào cơ sở dữ liệu
+		CartEntity cartEntity = new CartEntity();
+		cartEntity.setAccountEntity(accountEntity2);
+		accountEntity2.setCartEntity(cartEntity);
+		//thêm rỏ hàng cho tài khoản
 	    accountRepository.insert(accountEntity2);
 	    
 	    LoginResponDto loginResponDto =new LoginResponDto(accountEntity2.getId(),accountEntity2.getRoles(),jwtService.generateToken(accountEntity2),accountEntity2.getSdt(),accountEntity2.getAccountName(),accountEntity2.getImgUser(),accountEntity2.getUsername());;

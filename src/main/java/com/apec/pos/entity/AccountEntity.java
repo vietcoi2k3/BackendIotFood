@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,17 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
 
@@ -43,6 +33,9 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	private String accountName;
 	
 	private String imgUser;
+
+	@OneToOne(cascade = CascadeType.PERSIST,mappedBy = "accountEntity")
+	private CartEntity cartEntity;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -53,7 +46,7 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	@JsonIgnore
 	private Set<RoleEntity> roles;
 	
-	@OneToMany(mappedBy = "accountEntity",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "accountEntity")
 	@JsonManagedReference(value = "account-mess")
 	private List<MessageEntity> messageEntities;
 	
@@ -191,7 +184,7 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	
 
 }

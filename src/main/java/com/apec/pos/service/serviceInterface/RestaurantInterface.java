@@ -15,4 +15,5 @@ public interface RestaurantInterface {
 	public List<SearchForm> searchRes(String key);
 	public ResRecommnedRespon updateRes(ResRequest request);
 	public Set<Integer> deleteRes(Set<Integer> ids);
+	public List<ResRecommnedRespon> paging(Integer pageSize,Integer pageIndex);
 }

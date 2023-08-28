@@ -1,4 +1,4 @@
-package com.apec.pos.controller.admin.controller;
+package com.apec.pos.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

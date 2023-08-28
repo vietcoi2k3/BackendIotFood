@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.Dto.restaurantDto.ResRecommnedRespon;
@@ -129,5 +130,29 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 			restaurantRepository.delete(x);
 		}
 		return null;
+	}
+
+	@Override
+	public List<ResRecommnedRespon> paging(Integer pageSize, Integer pageIndex) {
+		PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
+		List<ResRecommnedRespon> result= new ArrayList<>();
+		List<RestaurantEntity> restaurantEntities = restaurantRepository.paging(pageRequest);
+		for (RestaurantEntity x: restaurantEntities
+			 ) {
+			ResRecommnedRespon temp = new ResRecommnedRespon();
+			temp.setAddress(x.getAddress());
+			temp.setId(x.getId());
+			temp.setRestaurantName(x.getRestaurantName());
+			temp.setBusinessHours(x.getBusinessHours());
+			temp.setDistance(x.getDistance());
+			temp.setPhoneNumber(x.getPhoneNumber());
+			temp.setQuantitySold(x.getQuantitySold());
+			temp.setImgRes(x.getImgRes());
+			temp.setTime(x.getTime());
+			temp.setDetail(x.getDetail());
+
+			result.add(temp);
+		}
+		return result;
 	}
 }

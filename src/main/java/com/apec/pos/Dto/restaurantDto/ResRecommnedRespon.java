@@ -1,8 +1,16 @@
 package com.apec.pos.Dto.restaurantDto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
-
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResRecommnedRespon {
 
 	private Integer id;
@@ -13,11 +21,9 @@ public class ResRecommnedRespon {
 	private String phoneNumber;
 	private String address;
 	private String imgRes;
-	
-	
-	public ResRecommnedRespon() {
-		super();
-	}
+	private Integer time;
+	private String detail;
+
 	public Integer getId() {
 		return id;
 	}

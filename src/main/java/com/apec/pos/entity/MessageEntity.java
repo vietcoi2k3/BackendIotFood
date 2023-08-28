@@ -6,8 +6,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
 @Entity
+@Data
 public class MessageEntity extends BaseEntity{
 
 	@Column
@@ -19,8 +21,6 @@ public class MessageEntity extends BaseEntity{
 	@Column(name = "roomChatEntityId")
 	private Integer roomChatEntityId;
 
-	
-	
 	public Integer getAccountEntityId() {
 		return accountEntityId;
 	}

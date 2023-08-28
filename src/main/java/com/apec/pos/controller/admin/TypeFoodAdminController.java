@@ -1,4 +1,4 @@
-package com.apec.pos.controller.admin.controller;
+package com.apec.pos.controller.admin;
 
 import java.util.Set;
 
@@ -38,7 +38,7 @@ public class TypeFoodAdminController {
 	
 	//sửa
 	@Operation(description = "",summary = "sửa loại món ăn")
-	@RequestMapping(value = "update-type",method =RequestMethod.PUT)
+	@RequestMapping(value = "update-type",method =RequestMethod.PUT,consumes = "multipart/form-data")
 	public ResponseEntity updateTypeFood(@ModelAttribute UpdateTypeRequest updateTypeRequest){
 		return ResponseEntity.ok(new Response<>(true,"sửa thành công",ErrorCode.SUCCESS,typeFoodService.updateTypeFood(updateTypeRequest)));
 	}

@@ -1,10 +1,14 @@
 package com.apec.pos.repository;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
+import com.apec.pos.entity.FoodEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import com.apec.pos.entity.RestaurantEntity;
@@ -21,7 +25,13 @@ public class RestaurantRepository extends BaseRepository<RestaurantEntity, Integ
 	public RestaurantRepository() {
 		super(RestaurantEntity.class);
 	}
-	
+
+	public List<RestaurantEntity>paging(PageRequest pageRequest){
+		String query= "SELECT c FROM RestaurantEntity c";
+		Map<String, Object> params = new HashMap<>();
+		return query(query, false, params, pageRequest);
+	}
+
 	public List<RestaurantEntity> getRecommendRes() {
 		String queryString = "SELECT c FROM RestaurantEntity c ORDER BY c.quantitySold DESC";
 		Query query = entityManager.createQuery(queryString);

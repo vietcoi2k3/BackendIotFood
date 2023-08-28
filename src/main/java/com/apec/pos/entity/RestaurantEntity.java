@@ -9,8 +9,12 @@ import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
+import lombok.Data;
 
 @Entity
+@Data
+//@Builder
 public class RestaurantEntity extends BaseEntity implements Serializable{
 
 	private String restaurantName;
@@ -28,10 +32,11 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	private String phoneNumber;
 	
 	private String imgRes;
+
+	private Integer time;
 	
 	@OneToMany(mappedBy = "restaurantEntity")
 	@JsonManagedReference(value = "food-res")
-	@ApiModelProperty(hidden = true)
 	private Set<FoodEntity> foodEntities;
 
 	public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String address,

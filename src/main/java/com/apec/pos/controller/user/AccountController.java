@@ -41,7 +41,7 @@ public class AccountController {
 	}
 	
 	@Operation(summary = "sửa thông người dùng",description = "không cần truyền <b>username</b>, <b>id</b>,tạm thời chưa thể sửa mật khẩu và số điện thoại được")
-	@RequestMapping(value = "/update-user-info",method = RequestMethod.POST)
+	@RequestMapping(value = "/update-user-info",method = RequestMethod.PUT)
 	public ResponseEntity updateUserInfo(HttpServletRequest request,@RequestBody RegisterRequest registerRequest) throws Exception {
 		String token= request.getHeader("Authorization").substring(7);
 		registerRequest.setUsername(jwtService.getUsernameFromToken(token));

@@ -1,11 +1,13 @@
 package com.apec.pos.entity;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import jakarta.persistence.Entity;
 
 
 @Entity
+@Data
 public class RoleEntity extends BaseEntity implements GrantedAuthority{
 
 	private String authority;
