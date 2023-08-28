@@ -60,6 +60,8 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 		List<ResRecommnedRespon> resRecommnedRespons = new ArrayList<>();
 		for (RestaurantEntity x : restaurantEntities) {
 			ResRecommnedRespon temp = new ResRecommnedRespon(x.getId(), x.getRestaurantName(), x.getQuantitySold(), x.getBusinessHours(),  x.getDistance(), x.getPhoneNumber(),x.getAddress(),x.getImgRes());
+			temp.setTime(x.getTime());
+			temp.setDetail(x.getDetail());
 			resRecommnedRespons.add(temp);
 		}
 		return resRecommnedRespons;
