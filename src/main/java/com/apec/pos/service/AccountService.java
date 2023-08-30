@@ -1,5 +1,6 @@
 package com.apec.pos.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.Dto.accountDto.*;
 import com.apec.pos.entity.CartEntity;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
@@ -15,11 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.accountDto.AccountInfoDto;
-import com.apec.pos.Dto.accountDto.AccountResponseAdmin;
-import com.apec.pos.Dto.accountDto.LoginRequest;
-import com.apec.pos.Dto.accountDto.LoginResponDto;
-import com.apec.pos.Dto.accountDto.RegisterRequest;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
@@ -39,7 +37,9 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
+	@Autowired
+	private FileUploadService fileUploadService;
 	@Override
 	AccountRepository getRepository() {
 		// TODO Auto-generated method stub
@@ -168,6 +168,33 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 			accountResponseAdmin.setLoginResponDtos(loginResponDtos);
 			accountResponseAdmin.setTotalRow( accountRepository.countAll());
 			return accountResponseAdmin;
+		}
+
+
+		@Override
+		public LoginResponDto updateEmployee(UpdateAccountRequest updateAccountRequest) throws IOException {
+			AccountEntity accountEntity = accountRepository.findOne(updateAccountRequest.getId());
+			if (updateAccountRequest.getAccountName()!=null)
+				accountEntity.setAccountName(updateAccountRequest.getAccountName());
+			if (updateAccountRequest.getMultipartFile()!=null)
+			{
+				String imgUser = null;
+				imgUser = fileUploadService.uploadFile(updateAccountRequest.getMultipartFile());
+				accountEntity.setImgUser(imgUser);
+			}
+			if(updateAccountRequest.getPassword()!=null)
+				accountEntity.setPassword(updateAccountRequest.getPassword());
+			if (updateAccountRequest.getSdt()!=null)
+				accountEntity.setSdt(updateAccountRequest.getSdt());
+
+			accountEntity = accountRepository.update(accountEntity);
+
+			LoginResponDto loginResponDto = new LoginResponDto();
+			loginResponDto.setAccountName(accountEntity.getAccountName());
+			loginResponDto.setsdt(accountEntity.getSdt());
+			loginResponDto.setImgUser(accountEntity.getImgUser());
+			loginResponDto.setRole(accountEntity.getRoles());
+			return loginResponDto;
 		}
 
 

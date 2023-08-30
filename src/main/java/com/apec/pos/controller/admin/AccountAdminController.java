@@ -1,5 +1,6 @@
 package com.apec.pos.controller.admin;
 
+import com.apec.pos.Dto.accountDto.UpdateAccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,8 @@ import com.apec.pos.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import java.io.IOException;
+
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping(value = "ADMIN")
@@ -32,14 +35,16 @@ public class AccountAdminController {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,accountService.paging(pageSize,pageIndex)));
 	}
 
-	@RequestMapping(value = "MANAGER/add-employee")
+	@RequestMapping(value = "MANAGER/add-employee",method = RequestMethod.POST)
 	@Operation(summary = "thêm nhân viên")
 	public ResponseEntity addEmployee(@RequestBody RegisterRequest registerRequest){
 		return ResponseEntity.ok(new Response<>(true,"",accountService.addEmployee(registerRequest)));
 	}
 
-//	public ResponseEntity updateEmployee(@RequestBody RegisterRequest registerRequest){
-//		return  ResponseEntity.ok(new Response<>(true,"",accountService.updateEmployee()));
-//	}
+	@RequestMapping(value = "MANAGET/update-employee",method = RequestMethod.POST)
+	@Operation(summary = "sửa nhân viên")
+	public ResponseEntity updateEmployee(@RequestBody UpdateAccountRequest updateAccountRequest) throws IOException {
+		return  ResponseEntity.ok(new Response<>(true,"",accountService.updateEmployee(updateAccountRequest)));
+	}
 
 }

@@ -1,11 +1,9 @@
 package com.apec.pos.service.serviceInterface;
 
-import com.apec.pos.Dto.accountDto.AccountInfoDto;
-import com.apec.pos.Dto.accountDto.AccountResponseAdmin;
-import com.apec.pos.Dto.accountDto.LoginRequest;
-import com.apec.pos.Dto.accountDto.LoginResponDto;
-import com.apec.pos.Dto.accountDto.RegisterRequest;
+import com.apec.pos.Dto.accountDto.*;
 import com.apec.pos.entity.AccountEntity;
+
+import java.io.IOException;
 
 public interface AccountInterface {
 
@@ -20,4 +18,6 @@ public interface AccountInterface {
 	public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest)throws Exception;
 	
 	public AccountResponseAdmin paging(Integer pageSize,Integer pageIndex);
+
+	public LoginResponDto updateEmployee(UpdateAccountRequest updateAccountRequest) throws IOException;
 }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.Dto.restaurantDto.ResponsePaging;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.repository.ToppingRepository;
@@ -146,7 +147,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 	}
 
 	@Override
-	public List<ResRecommnedRespon> paging(Integer pageSize, Integer pageIndex) {
+	public ResponsePaging paging(Integer pageSize, Integer pageIndex) {
 		PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
 		List<ResRecommnedRespon> result= new ArrayList<>();
 		List<RestaurantEntity> restaurantEntities = restaurantRepository.paging(pageRequest);
@@ -163,9 +164,11 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 			temp.setImgRes(x.getImgRes());
 			temp.setTime(x.getTime());
 			temp.setDetail(x.getDetail());
-
 			result.add(temp);
 		}
-		return result;
+		ResponsePaging responsePaging = new ResponsePaging();
+		responsePaging.setTotalRow( restaurantRepository.countAll());
+		responsePaging.setResponList(result);
+		return responsePaging;
 	}
 }
