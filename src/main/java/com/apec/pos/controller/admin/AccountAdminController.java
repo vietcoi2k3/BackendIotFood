@@ -38,5 +38,8 @@ public class AccountAdminController {
 		return ResponseEntity.ok(new Response<>(true,"",accountService.addEmployee(registerRequest)));
 	}
 
+//	public ResponseEntity updateEmployee(@RequestBody RegisterRequest registerRequest){
+//		return  ResponseEntity.ok(new Response<>(true,"",accountService.updateEmployee()));
+//	}
 
 }

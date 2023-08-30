@@ -8,6 +8,8 @@ public class RegisterRequest {
 	private String sdt;
 	private String accountName;
 	private String imgUser;
+
+
 	public Integer getId() {
 		return id;
 	}
