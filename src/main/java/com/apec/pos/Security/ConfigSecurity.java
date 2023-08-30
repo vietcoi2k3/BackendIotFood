@@ -59,6 +59,7 @@ public class ConfigSecurity {
 	        corsConfig.addAllowedOrigin("http://127.0.0.1:5500");
 	        corsConfig.addAllowedOrigin("https://iotfood.vercel.app");// Replace with your frontend origin
 	        corsConfig.addAllowedOrigin("http://localhost:5173");
+		  	corsConfig.addAllowedOrigin("*");
 	
 	        corsConfig.addAllowedHeader("*");
 	        corsConfig.addAllowedMethod("*");

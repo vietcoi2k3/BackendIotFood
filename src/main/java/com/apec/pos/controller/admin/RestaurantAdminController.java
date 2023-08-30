@@ -47,7 +47,7 @@ public class RestaurantAdminController {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,restaurantService.updateRes(request)));
 	}
 	
-	@RequestMapping(value = "delete-res",method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete-res",method = RequestMethod.POST)
 	@Operation(summary = "xoa cua hang")
 	public ResponseEntity deleteRes(@RequestBody Set<Integer> ids) {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,restaurantService.deleteRes(ids)));

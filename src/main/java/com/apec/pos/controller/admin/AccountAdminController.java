@@ -25,12 +25,7 @@ public class AccountAdminController {
 	@Autowired
 	private AccountService accountService;
 	
-	@Operation(summary = "thêm nhân viên")
-	@RequestMapping(value = "/MANAGER/add-employee",method = RequestMethod.POST)
-	public ResponseEntity addEmployee(@RequestBody RegisterRequest registerRequest) {
-		return ResponseEntity.ok(new Response(true,"",accountService.addEmployee(registerRequest)));
-	}
-	
+
 	@Operation(summary = "phân trang người dùng")
 	@RequestMapping(value = "paging-user",method = RequestMethod.POST)
 	public ResponseEntity pagingAccount(@RequestParam Integer pageSize,@RequestParam Integer pageIndex) {
