@@ -14,6 +14,7 @@ public class ToppingEntity extends BaseEntity{
 	private String nameTopping;
 	@Column(name = "foodEntityId")
 	private Integer foodEntityId;
+
 	@ManyToOne
 	@JoinColumn(name = "foodEntityId",updatable = false,insertable = false)
 	@JsonBackReference(value = "food-top")

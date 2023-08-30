@@ -52,4 +52,9 @@ public class RestaurantAdminController {
 	public ResponseEntity deleteRes(@RequestBody Set<Integer> ids) {
 		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,restaurantService.deleteRes(ids)));
 	}
+
+	@RequestMapping(value = "/paging-res",method = RequestMethod.POST)
+	public ResponseEntity pagingRes(@RequestParam Integer pageSize,@RequestParam Integer pageIndex){
+		return ResponseEntity.ok(new Response(true,"",restaurantService.paging(pageSize,pageIndex)));
+	}
 }

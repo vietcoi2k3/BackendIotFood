@@ -6,6 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.OneToMany;
@@ -35,7 +36,7 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 
 	private Integer time;
 	
-	@OneToMany(mappedBy = "restaurantEntity")
+	@OneToMany(mappedBy = "restaurantEntity",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "food-res")
 	private Set<FoodEntity> foodEntities;
 

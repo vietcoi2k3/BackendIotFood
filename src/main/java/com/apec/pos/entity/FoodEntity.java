@@ -36,11 +36,22 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	
 	@Column(name = "typeFoodEntityId")
 	private Integer typeFoodEntityId;
-	
-	@ManyToOne
+
+	@Column(name = "cartEntityId")
+	private Integer cartEntityId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference(value = "type-food")
 	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
 	private TypeFoodEntity typeFoodEntity;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name="food_cart",
+			joinColumns = {@JoinColumn(name="food_id")},
+			inverseJoinColumns = {@JoinColumn(name="cart_id")}
+	)
+	private List<CartEntity> cartEntities;
 
 	@Column
 	private String imgFood;
@@ -48,13 +59,13 @@ public class FoodEntity extends BaseEntity implements Serializable{
     @Column(name = "restaurantEntityId")
 	private Integer restaurantEntityId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonBackReference(value = "food-res")
 	@JoinColumn(name = "restaurantEntityId",insertable = false, updatable = false)
 	private RestaurantEntity restaurantEntity;
 
 
-	@OneToMany(mappedBy = "foodEntity")
+	@OneToMany(mappedBy = "foodEntity",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "food-type")
 	private List<ToppingEntity> toppingEntities;
 	

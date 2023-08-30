@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -24,6 +25,14 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
 	
 	@Autowired
 	private EntityManager entityManager;
+
+	@Transactional
+	public void deleteWhereRestaurantId(Integer id){
+		String queryString = "DELETE FROM FoodEntity c WHERE c.restaurantEntityId  =:id";
+		Query query= entityManager.createQuery(queryString);
+		query.setParameter("id",id);
+		query.executeUpdate();
+	}
 	
 	public List<FoodEntity> muiltiDelete(Set<Integer> ids) {
 		  List<FoodEntity> deletedFoods = entityManager

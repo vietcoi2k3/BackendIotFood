@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.entity.FoodEntity;
+import com.apec.pos.repository.FoodRepository;
+import com.apec.pos.repository.ToppingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -22,9 +25,15 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;
+
+	@Autowired
+	private ToppingRepository toppingRepository;
 	
 	@Autowired
 	private FileUploadService fileUploadService;
+
+	@Autowired
+	private FoodRepository foodRepository;
 	
 	@Override
 	RestaurantRepository getRepository() {
@@ -129,6 +138,8 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 	@Override
 	public Set<Integer> deleteRes(Set<Integer> ids) {
 		for (Integer x : ids) {
+			toppingRepository.deleteByFoodId(x);
+			foodRepository.deleteWhereRestaurantId(x);
 			restaurantRepository.delete(x);
 		}
 		return null;
