@@ -20,4 +20,6 @@ public interface AccountInterface {
 	public AccountResponseAdmin paging(Integer pageSize,Integer pageIndex);
 
 	public LoginResponDto updateEmployee(UpdateAccountRequest updateAccountRequest) throws IOException;
+
+	public void deleteAccount();
 }

@@ -9,11 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.apec.pos.Dto.accountDto.*;
-import com.apec.pos.entity.CartEntity;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,8 +19,6 @@ import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.RoleEntity;
 import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.service.serviceInterface.AccountInterface;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Service
 @CacheConfig(cacheNames = "iotFood")
@@ -83,10 +78,6 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 	    accountEntity2.setUsername(accountEntity.getUsername());
 	    accountEntity2.setImgUser("https://i.pinimg.com/736x/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg");
 	    // Lưu tài khoản mới vào cơ sở dữ liệu
-		CartEntity cartEntity = new CartEntity();
-		cartEntity.setAccountEntity(accountEntity2);
-		accountEntity2.setCartEntity(cartEntity);
-		//thêm rỏ hàng cho tài khoản
 	    accountRepository.insert(accountEntity2);
 	    
 	    LoginResponDto loginResponDto =new LoginResponDto(accountEntity2.getId(),accountEntity2.getRoles(),jwtService.generateToken(accountEntity2),accountEntity2.getSdt(),accountEntity2.getAccountName(),accountEntity2.getImgUser(),accountEntity2.getUsername());;
@@ -196,6 +187,11 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 			loginResponDto.setRole(accountEntity.getRoles());
 			return loginResponDto;
 		}
+
+	@Override
+	public void deleteAccount() {
+
+	}
 
 
 }

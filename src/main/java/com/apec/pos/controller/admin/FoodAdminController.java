@@ -1,8 +1,11 @@
 package com.apec.pos.controller.admin;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -31,18 +34,16 @@ public class FoodAdminController {
 	@Autowired
 	FoodService foodService;
 
-	@Operation(description = "Endpoint thêm món ăn mới\n\nĐây là endpoint để thêm một món ăn mới vào hệ thống.\n\nThông tin về món ăn cần được cung cấp qua các tham số:\n\n- '<b>foodName</b>': Tên của món ăn.\n\n- '<b>price</b>': Giá của món ăn (kiểu số nguyên).\n\n- '<b>typeFood</b>': Loại món ăn (kiểu số nguyên).\n\n- '<b>imgFood</b>': Hình ảnh của món ăn (định dạng file hình ảnh).\n\n- '<b>detail</b>': Chi tiết về món ăn.\n\n- '<b>restaurantId</b>': ID của nhà hàng mà món ăn thuộc về (kiểu số nguyên).\n\nSau khi thêm thành công, hệ thống sẽ trả về phản hồi với thông tin về món ăn đã được thêm.",
-	           summary = "Thêm món ăn mới")
-	@RequestMapping(value = "add-food",method = RequestMethod.POST,consumes = "multipart/form-data" )
-	public ResponseEntity addFood( 
-			@ModelAttribute AddFoodRequest addFoodRequest
+	@Operation(summary = "thêm food",description = "dsadsadas")
+	@RequestMapping(value = "add-food",method = RequestMethod.POST,consumes = "multipart/form-data")
+	public ResponseEntity addFood(
+			@ModelAttribute List<ToppingRequest> toppingRequests,@ModelAttribute AddFoodRequest addFoodRequest
 			)  {
-		
-			return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.addFood(addFoodRequest)));	
+			return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.addFood(addFoodRequest,toppingRequests)));
 	}
 	
 	@RequestMapping(value = "update-food",method = RequestMethod.PUT,consumes = "multipart/form-data")
-	@Operation(summary = "sửa món ăn",description = "lưu ý truyền id")
+	@Operation(summary = "sửa món ăn",description = "")
 	public ResponseEntity updateFood(@ModelAttribute AddFoodRequest addFoodRequest) {
 		try {
 			return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.updateFood(addFoodRequest)));
@@ -58,9 +59,7 @@ public class FoodAdminController {
 	public ResponseEntity updateStatusFood(@RequestParam Integer id,@RequestParam Boolean status) {
 		return ResponseEntity.ok(new Response(true,"Thành công",ErrorCode.SUCCESS,foodService.updateStatusFood(id,status)));
 	}
-	
-	
-	
+
 	@Operation(summary = "phân trang sản phẩm",description = "pageIndex nhận vào tính từ 0")
 	@RequestMapping(value = "/paging-food-admin",method = RequestMethod.POST)
 	public ResponseEntity pagingFood(@RequestParam int pageSize,@RequestParam int pageIndex) {

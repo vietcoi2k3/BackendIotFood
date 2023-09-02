@@ -2,40 +2,29 @@ package com.apec.pos.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ToppingEntity extends BaseEntity{
-	private String nameTopping;
+	private String name;
+	private Integer price;
+
 	@Column(name = "foodEntityId")
 	private Integer foodEntityId;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "foodEntityId",updatable = false,insertable = false)
 	@JsonBackReference(value = "food-top")
 	private FoodEntity foodEntity;
 	
-	public String getNameTopping() {
-		return nameTopping;
-	}
-	public void setNameTopping(String nameTopping) {
-		this.nameTopping = nameTopping;
-	}
-	public Integer getFoodEntityId() {
-		return foodEntityId;
-	}
-	public void setFoodEntityId(Integer foodEntityId) {
-		this.foodEntityId = foodEntityId;
-	}
-	public FoodEntity getFoodEntity() {
-		return foodEntity;
-	}
-	public void setFoodEntity(FoodEntity foodEntity) {
-		this.foodEntity = foodEntity;
-	}
+
 }

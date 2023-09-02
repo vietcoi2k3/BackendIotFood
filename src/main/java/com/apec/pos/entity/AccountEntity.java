@@ -33,9 +33,6 @@ public class AccountEntity  extends BaseEntity implements UserDetails {
 	private String accountName;
 	
 	private String imgUser;
-
-	@OneToOne(cascade = CascadeType.PERSIST,mappedBy = "accountEntity")
-	private CartEntity cartEntity;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(

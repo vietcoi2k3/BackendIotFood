@@ -47,7 +47,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 		RestaurantEntity restaurantEntity = new RestaurantEntity();
 		restaurantEntity.setRestaurantName(request.getRestaurantName());
 		restaurantEntity.setAddress(request.getAddress());
-		restaurantEntity.setBusinessHours(request.getBusinessHours());
 		restaurantEntity.setDetail(request.getDetail());
 		restaurantEntity.setPhoneNumber(request.getPhoneNumber());
 		if (request.getImgRes()!=null) {
@@ -69,9 +68,12 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 		List<RestaurantEntity> restaurantEntities = restaurantRepository.getRecommendRes();
 		List<ResRecommnedRespon> resRecommnedRespons = new ArrayList<>();
 		for (RestaurantEntity x : restaurantEntities) {
-			ResRecommnedRespon temp = new ResRecommnedRespon(x.getId(), x.getRestaurantName(), x.getQuantitySold(), x.getBusinessHours(),  x.getDistance(), x.getPhoneNumber(),x.getAddress(),x.getImgRes());
+			ResRecommnedRespon temp = new ResRecommnedRespon(x.getId(), x.getRestaurantName(), x.getQuantitySold(),  x.getDistance(), x.getPhoneNumber(),x.getAddress(),x.getImgRes());
 			temp.setTime(x.getTime());
 			temp.setDetail(x.getDetail());
+			temp.setStar(x.getStar());
+			temp.setTimeClose(x.getTimeClose());
+			temp.setTimeStart(x.getTimeStart());
 			resRecommnedRespons.add(temp);
 		}
 		return resRecommnedRespons;
@@ -103,8 +105,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 		ResRecommnedRespon recommnedRespon = new ResRecommnedRespon();
 		if (request.getAddress() != null) 
 			restaurantEntity.setAddress(request.getAddress());
-		if (request.getBusinessHours()!=null)
-			restaurantEntity.setBusinessHours(request.getBusinessHours());
 		if (request.getDetail()!=null)
 			restaurantEntity.setDetail(request.getDetail());
 		if (request.getDistance()!=null)
@@ -127,9 +127,13 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 			restaurantEntity.setQuantitySold(request.getQuantitySold());
 		if (request.getRestaurantName()!=null)
 			restaurantEntity.setRestaurantName(request.getRestaurantName());
+		if (request.getTimeClose()!=null)
+			restaurantEntity.setTimeClose(request.getTimeClose());
+		if(request.getTimeStart()!=null)
+			restaurantEntity.setTimeStart(request.getTimeStart());
+
 		restaurantEntity = restaurantRepository.update(restaurantEntity);
 			recommnedRespon.setAddress(restaurantEntity.getAddress());
-			recommnedRespon.setBusinessHours(restaurantEntity.getBusinessHours());
 			recommnedRespon.setDistance(restaurantEntity.getDistance());
 			recommnedRespon.setId(restaurantEntity.getId());
 //			recommnedRespon.setImgRes();
@@ -157,13 +161,15 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 			temp.setAddress(x.getAddress());
 			temp.setId(x.getId());
 			temp.setRestaurantName(x.getRestaurantName());
-			temp.setBusinessHours(x.getBusinessHours());
 			temp.setDistance(x.getDistance());
 			temp.setPhoneNumber(x.getPhoneNumber());
 			temp.setQuantitySold(x.getQuantitySold());
 			temp.setImgRes(x.getImgRes());
 			temp.setTime(x.getTime());
 			temp.setDetail(x.getDetail());
+			temp.setTimeStart(x.getTimeStart());
+			temp.setTimeClose(x.getTimeClose());
+			temp.setStar(x.getStar());
 			result.add(temp);
 		}
 		ResponsePaging responsePaging = new ResponsePaging();

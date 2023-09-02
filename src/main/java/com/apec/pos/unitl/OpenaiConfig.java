@@ -1,4 +1,4 @@
-package com.apec.pos.Unitl;
+package com.apec.pos.unitl;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;

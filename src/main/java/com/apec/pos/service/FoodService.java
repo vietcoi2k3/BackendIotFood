@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.security.auth.x500.X500Principal;
 
+import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
+import com.apec.pos.entity.ToppingEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -71,13 +73,25 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 	}
 
 	@Override
-	public FoodRecommendDto addFood(AddFoodRequest addFoodRequest)  {
+	public FoodRecommendDto addFood(AddFoodRequest addFoodRequest,List<ToppingRequest> toppingRequests)  {
 		String imgFood="";
 		if(addFoodRequest.getImgFood()!=null) {
 			try {
 				imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood());
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+		}
+		List<ToppingEntity> listToppingTemp = new ArrayList<>();
+		if (toppingRequests!=null){
+
+
+			for (ToppingRequest x:toppingRequests
+			) {
+				ToppingEntity temp = new ToppingEntity();
+				temp.setPrice(x.getPrice());
+				temp.setName(x.getName());
+				listToppingTemp.add(temp);
 			}
 		}
 		FoodEntity foodEntity = new FoodEntity();
@@ -87,7 +101,9 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 				   foodEntity.setPrice( addFoodRequest.getPrice());				
 				   foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
 				   foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
-				   
+				   foodEntity.setToppingEntities(listToppingTemp);
+
+
 		foodEntity = foodRepository.insert(foodEntity);
 		
 		FoodRecommendDto foodRecommanDto = new FoodRecommendDto();
@@ -174,7 +190,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 							x.getFoodName(),
 							x.getPrice(),
 							x.getDetail(),
-							x.getRestaurantEntity().getRestaurantName(),
+							x.getRestaurantEntity()!=null ? x.getRestaurantEntity().getRestaurantName():"",
 							x.getImgFood(),
 							x.getStar(),
 							x.getCreateBy(),
@@ -227,6 +243,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 			foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
 			foodRecommanDto.setStar(foodEntity.getStar());
 			foodRecommanDto.setStatus(foodEntity.getStatus());
+			foodRecommanDto.setToppingEntities(foodEntity.getToppingEntities());
 			
 		return foodRecommanDto;
 	}

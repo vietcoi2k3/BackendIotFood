@@ -1,4 +1,4 @@
-package com.apec.pos.Unitl;
+package com.apec.pos.unitl;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

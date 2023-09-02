@@ -10,12 +10,15 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-//@Builder
+@Builder
+@AllArgsConstructor
 public class RestaurantEntity extends BaseEntity implements Serializable{
 
 	private String restaurantName;
@@ -24,9 +27,13 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	
 	private Integer quantitySold;
 	
-	private Date businessHours;
-	
 	private Double distance;
+
+	private Double star;
+
+	private String timeStart;
+
+	private  String timeClose;
 	
 	private String detail;
 	
@@ -41,13 +48,12 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 	private Set<FoodEntity> foodEntities;
 
 	public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String address,
-			Integer quantitySold, Date businessHours, Double distance, String phoneNumber, String imgRes,
+			Integer quantitySold, Double distance, String phoneNumber, String imgRes,
 			Set<FoodEntity> foodEntities) {
 		super(createBy, modifiedBy);
 		this.restaurantName = restaurantName;
 		this.address = address;
 		this.quantitySold = quantitySold;
-		this.businessHours = businessHours;
 		this.distance = distance;
 		this.phoneNumber = phoneNumber;
 		this.imgRes = imgRes;
@@ -84,14 +90,6 @@ public class RestaurantEntity extends BaseEntity implements Serializable{
 
 	public void setQuantitySold(Integer quantitySold) {
 		this.quantitySold = quantitySold;
-	}
-
-	public Date getBusinessHours() {
-		return businessHours;
-	}
-
-	public void setBusinessHours(Date businessHours) {
-		this.businessHours = businessHours;
 	}
 
 	public String getAddress() {

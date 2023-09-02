@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.apec.pos.enu.ErrorCode;
 
+
 public class Response<T> implements Serializable {
 
     /**

@@ -9,11 +9,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Data
+@AllArgsConstructor
+@Builder
 public class FoodEntity extends BaseEntity implements Serializable{
 	/**
 	 * 
@@ -45,13 +50,10 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
 	private TypeFoodEntity typeFoodEntity;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name="food_cart",
-			joinColumns = {@JoinColumn(name="food_id")},
-			inverseJoinColumns = {@JoinColumn(name="cart_id")}
-	)
-	private List<CartEntity> cartEntities;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference(value = "food-bill")
+	@JoinColumn(name = "billEntityId",updatable = false,insertable = false)
+	private BillEntity billEntity;
 
 	@Column
 	private String imgFood;
@@ -64,6 +66,8 @@ public class FoodEntity extends BaseEntity implements Serializable{
 	@JoinColumn(name = "restaurantEntityId",insertable = false, updatable = false)
 	private RestaurantEntity restaurantEntity;
 
+	@Column(name = "billEntityId")
+	private Integer billEntityId;
 
 	@OneToMany(mappedBy = "foodEntity",cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "food-type")

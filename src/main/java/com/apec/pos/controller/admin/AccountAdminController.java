@@ -4,11 +4,7 @@ import com.apec.pos.Dto.accountDto.UpdateAccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.apec.pos.Dto.accountDto.RegisterRequest;
 import com.apec.pos.enu.ErrorCode;
@@ -27,7 +23,6 @@ public class AccountAdminController {
 	
 	@Autowired
 	private AccountService accountService;
-	
 
 	@Operation(summary = "phân trang người dùng")
 	@RequestMapping(value = "paging-user",method = RequestMethod.POST)
@@ -41,10 +36,11 @@ public class AccountAdminController {
 		return ResponseEntity.ok(new Response<>(true,"",accountService.addEmployee(registerRequest)));
 	}
 
-	@RequestMapping(value = "MANAGET/update-employee",method = RequestMethod.POST)
+	@RequestMapping(value = "MANAGER/update-employee",method = RequestMethod.POST,consumes = "multipart/form-data")
 	@Operation(summary = "sửa nhân viên")
-	public ResponseEntity updateEmployee(@RequestBody UpdateAccountRequest updateAccountRequest) throws IOException {
+	public ResponseEntity updateEmployee(@ModelAttribute UpdateAccountRequest updateAccountRequest) throws IOException {
 		return  ResponseEntity.ok(new Response<>(true,"",accountService.updateEmployee(updateAccountRequest)));
 	}
+
 
 }

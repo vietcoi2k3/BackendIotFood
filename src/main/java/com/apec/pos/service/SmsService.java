@@ -1,6 +1,5 @@
 package com.apec.pos.service;
 
-import java.net.URI;
 import java.text.DecimalFormat;
 
 import java.util.HashMap;
@@ -15,9 +14,7 @@ import com.apec.pos.Dto.otpDto.OtpRequestDto;
 import com.apec.pos.Dto.otpDto.OtpResponseDto;
 import com.apec.pos.Dto.otpDto.OtpStatusDto;
 import com.apec.pos.Dto.otpDto.OtpValidationRequestDto;
-import com.apec.pos.Unitl.TwilioConfig;
-import com.twilio.rest.api.v2010.account.Call;
-import com.twilio.rest.api.v2010.account.CallCreator;
+import com.apec.pos.unitl.TwilioConfig;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 

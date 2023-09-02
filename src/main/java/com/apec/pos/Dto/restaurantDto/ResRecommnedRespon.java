@@ -16,13 +16,15 @@ public class ResRecommnedRespon {
 	private Integer id;
 	private String restaurantName;
 	private Integer quantitySold;
-	private Date businessHours;
+	private String timeStart;
+	private String timeClose;
 	private Double distance;
 	private String phoneNumber;
 	private String address;
 	private String imgRes;
 	private Integer time;
 	private String detail;
+	private Double star;
 
 	public Integer getId() {
 		return id;
@@ -41,12 +43,6 @@ public class ResRecommnedRespon {
 	}
 	public void setQuantitySold(Integer quantitySold) {
 		this.quantitySold = quantitySold;
-	}
-	public Date getBusinessHours() {
-		return businessHours;
-	}
-	public void setBusinessHours(Date businessHours) {
-		this.businessHours = businessHours;
 	}
 	public Double getDistance() {
 		return distance;
@@ -72,13 +68,12 @@ public class ResRecommnedRespon {
 	public void setImgRes(String imgRes) {
 		this.imgRes = imgRes;
 	}
-	public ResRecommnedRespon(Integer id, String restaurantName, Integer quantitySold, Date businessHours,
+	public ResRecommnedRespon(Integer id, String restaurantName, Integer quantitySold,
 			Double distance, String phoneNumber, String address, String imgRes) {
 		super();
 		this.id = id;
 		this.restaurantName = restaurantName;
 		this.quantitySold = quantitySold;
-		this.businessHours = businessHours;
 		this.distance = distance;
 		this.phoneNumber = phoneNumber;
 		this.address = address;

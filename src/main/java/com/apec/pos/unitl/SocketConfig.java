@@ -1,8 +1,7 @@
-package com.apec.pos.Unitl;
+package com.apec.pos.unitl;
 
 import java.util.List;
 
-import org.postgresql.gss.GSSOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -21,10 +20,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.service.JwtService;
-import com.twilio.rest.api.v2010.Account;
 
-@Configuration
-@EnableWebSocketMessageBroker
+
 public class SocketConfig implements WebSocketMessageBrokerConfigurer{
 
 	 

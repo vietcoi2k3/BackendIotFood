@@ -1,8 +1,5 @@
 package com.apec.pos;
 
-import java.io.IOException;
-
-import com.apec.pos.entity.FoodEntity;
 import org.apache.http.HttpStatus;
 
 
@@ -11,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,30 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.apec.pos.Dto.accountDto.LoginRequest;
 import com.apec.pos.Dto.accountDto.LoginResponDto;
 import com.apec.pos.Dto.otpDto.OtpRequestDto;
 import com.apec.pos.Dto.otpDto.OtpResponseDto;
 import com.apec.pos.Dto.otpDto.OtpValidationRequestDto;
-import com.apec.pos.Unitl.Validator;
+import com.apec.pos.unitl.Validator;
 import com.apec.pos.entity.AccountEntity;
-import com.apec.pos.entity.RoomChatEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.AccountService;
-import com.apec.pos.service.FileUploadService;
 import com.apec.pos.service.FoodService;
 import com.apec.pos.service.RestaurantService;
 import com.apec.pos.service.RoomService;
 import com.apec.pos.service.SmsService;
 import com.apec.pos.service.TypeFoodService;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.val;
-
 
 
 @RestController

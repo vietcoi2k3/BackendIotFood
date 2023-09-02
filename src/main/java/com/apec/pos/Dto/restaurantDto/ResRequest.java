@@ -2,17 +2,20 @@ package com.apec.pos.Dto.restaurantDto;
 
 import java.util.Date;
 
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+@Data
 public class ResRequest {
 	
 	private Integer id;
 	private String restaurantName;
 	private String address;
 	private Integer quantitySold;
-	private Date businessHours;
 	private Double distance;
 	private String detail;
+	private String timeStart;
+	private String timeClose;
 	private String phoneNumber;
 	private MultipartFile imgRes;
 	
@@ -39,12 +42,6 @@ public class ResRequest {
 	}
 	public void setQuantitySold(Integer quantitySold) {
 		this.quantitySold = quantitySold;
-	}
-	public Date getBusinessHours() {
-		return businessHours;
-	}
-	public void setBusinessHours(Date businessHours) {
-		this.businessHours = businessHours;
 	}
 	public Double getDistance() {
 		return distance;

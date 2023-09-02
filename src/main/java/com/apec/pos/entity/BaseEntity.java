@@ -16,8 +16,7 @@ public class BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer id;
-	
-	@JsonIgnore
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     private Date createDate;
@@ -26,7 +25,6 @@ public class BaseEntity {
     @Column(name = "create_by")
     private String createBy;
 
-	@JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modified_date")
     private Date modifiedDate;
