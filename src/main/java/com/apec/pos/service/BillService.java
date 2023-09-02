@@ -49,7 +49,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                 .totalAmount(billRequest.getTotalAmount())
                 .foodEntities(foodEntities).build();
 
-        return billRepository.insert(billEntity);
+        return billRepository.update(billEntity);
     }
 
     @Override
