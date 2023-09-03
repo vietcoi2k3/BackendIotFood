@@ -67,7 +67,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         // Tài khoản chưa tồn tại, tạo một tài khoản mới với vai trò "USER"
         Set<RoleEntity> roleEntity = new HashSet<>();
         RoleEntity userRole = new RoleEntity();
-        userRole.setAuthority("ADMIN");
+        userRole.setAuthority("USER");
         userRole.setId(2);
         roleEntity.add(userRole);
 

@@ -48,8 +48,6 @@ public class ConfigSecurity {
         http.sessionManagement(
                 session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
-        http
-                .formLogin();
         http.addFilterBefore(jwtFilterSecurity, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
