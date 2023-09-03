@@ -12,22 +12,23 @@ import com.apec.pos.entity.FoodEntity;
 
 public interface FoodInterface {
 
-	public List<FoodRecommendDto> getFoodRecommand();
-	public FoodRecommendDto addFood(AddFoodRequest addFoodRequest, List<ToppingRequest> toppingRequests) throws IOException;
+    public List<FoodRecommendDto> getFoodRecommand();
 
-	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
+    public FoodRecommendDto addFood(AddFoodRequest addFoodRequest, List<ToppingRequest> toppingRequests) throws IOException;
 
-	public List<FoodRecommendDto> searchFood(String searchString);
+    public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
 
-	public FoodRecommendDto getDetailFood(Integer id);
+    public List<FoodRecommendDto> searchFood(String searchString);
 
-	public FoodResponseAdmin paging(int pageSize,int pageIndex);
+    public FoodRecommendDto getDetailFood(Integer id);
 
-	public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) throws IOException;
+    public FoodResponseAdmin paging(int pageSize, int pageIndex);
 
-	public String updateStatusFood(Integer id,Boolean status);
+    public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) throws IOException;
 
-	public String deleteFood(Integer id);
+    public String updateStatusFood(Integer id, Boolean status);
 
-	public List<Integer> MuiltiDelete(Set<Integer> ids);
+    public String deleteFood(Integer id);
+
+    public List<Integer> MuiltiDelete(Set<Integer> ids);
 }

@@ -17,75 +17,75 @@ import jakarta.persistence.Query;
 
 
 @Repository
-public class FoodRepository extends BaseRepository<FoodEntity, Integer>{
+public class FoodRepository extends BaseRepository<FoodEntity, Integer> {
 
-	public FoodRepository() {
-		super(FoodEntity.class);
-	}
-	
-	@Autowired
-	private EntityManager entityManager;
+    public FoodRepository() {
+        super(FoodEntity.class);
+    }
 
-	@Transactional
-	public void deleteWhereRestaurantId(Integer id){
-		String queryString = "DELETE FROM FoodEntity c WHERE c.restaurantEntityId  =:id";
-		Query query= entityManager.createQuery(queryString);
-		query.setParameter("id",id);
-		query.executeUpdate();
-	}
-	
-	public List<FoodEntity> muiltiDelete(Set<Integer> ids) {
-		  List<FoodEntity> deletedFoods = entityManager
-	                .createQuery("SELECT f FROM FoodEntity f WHERE f.id IN :ids", FoodEntity.class)
-	                .setParameter("ids", ids)
-	                .getResultList();
+    @Autowired
+    private EntityManager entityManager;
 
-	        for (FoodEntity food : deletedFoods) {
-	            entityManager.remove(food);
-	        }
-	        return deletedFoods;
-	}
-	
-	public List<FoodEntity> paging(PageRequest pageRequest){
-		String query= "SELECT c FROM FoodEntity c";
-		Map<String, Object> params = new HashMap<>();
-		return query(query, false, params, pageRequest);
-	}
-	
-	public List<FoodEntity> findFoodByKey(String key){
-		String query ="SELECT f FROM FoodEntity f LEFT JOIN TypeFoodEntity tf ON f.typeFoodEntityId = tf.id  WHERE f.foodName like :key OR f.detail like :key OR tf.nameType like :key ";
-		Query query2 = entityManager.createQuery(query);
-		query2.setParameter("key", "%"+key+"%");
-		
-		return query2.getResultList();
-	}
-	
-	public List<FoodEntity> findFoodOnType(FoodEntity foodEntity){
-		String query = buildQuery(foodEntity);
-		Map<String, Object> params = getParams(foodEntity);
-		return query(query, false,params);
-	}
-	
-	public List<FoodEntity> getTopFood(){
-		String query= "SELECT c FROM FoodEntity c";
-		Query query2 = entityManager.createQuery(query);
-		return query2.setMaxResults(10).getResultList();
-	}
+    @Transactional
+    public void deleteWhereRestaurantId(Integer id) {
+        String queryString = "DELETE FROM FoodEntity c WHERE c.restaurantEntityId  =:id";
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
 
-	private String buildQuery(FoodEntity foodEntity) {
+    public List<FoodEntity> muiltiDelete(Set<Integer> ids) {
+        List<FoodEntity> deletedFoods = entityManager
+                .createQuery("SELECT f FROM FoodEntity f WHERE f.id IN :ids", FoodEntity.class)
+                .setParameter("ids", ids)
+                .getResultList();
+
+        for (FoodEntity food : deletedFoods) {
+            entityManager.remove(food);
+        }
+        return deletedFoods;
+    }
+
+    public List<FoodEntity> paging(PageRequest pageRequest) {
+        String query = "SELECT c FROM FoodEntity c";
+        Map<String, Object> params = new HashMap<>();
+        return query(query, false, params, pageRequest);
+    }
+
+    public List<FoodEntity> findFoodByKey(String key) {
+        String query = "SELECT f FROM FoodEntity f LEFT JOIN TypeFoodEntity tf ON f.typeFoodEntityId = tf.id  WHERE f.foodName like :key OR f.detail like :key OR tf.nameType like :key ";
+        Query query2 = entityManager.createQuery(query);
+        query2.setParameter("key", "%" + key + "%");
+
+        return query2.getResultList();
+    }
+
+    public List<FoodEntity> findFoodOnType(FoodEntity foodEntity) {
+        String query = buildQuery(foodEntity);
+        Map<String, Object> params = getParams(foodEntity);
+        return query(query, false, params);
+    }
+
+    public List<FoodEntity> getTopFood() {
+        String query = "SELECT c FROM FoodEntity c";
+        Query query2 = entityManager.createQuery(query);
+        return query2.setMaxResults(10).getResultList();
+    }
+
+    private String buildQuery(FoodEntity foodEntity) {
         String query = "FROM FoodEntity c WHERE 1=1 ";
-        if (foodEntity.getId()!=null) {
+        if (foodEntity.getId() != null) {
             query += " AND c.id = :id";
         }
         return query;
     }
-	
-    private	Map<String, Object> getParams(FoodEntity foodEntity) {
-	        Map<String, Object> params = new HashMap<>();
-	        if (foodEntity.getId()!=null) {
-	            params.put("id", foodEntity.getId());
-	        }   
 
-	        return params;
-	 }
+    private Map<String, Object> getParams(FoodEntity foodEntity) {
+        Map<String, Object> params = new HashMap<>();
+        if (foodEntity.getId() != null) {
+            params.put("id", foodEntity.getId());
+        }
+
+        return params;
+    }
 }

@@ -37,13 +37,13 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     @Override
     public BillEntity addBill(BillRequest billRequest) {
 
-        List<FoodEntity> foodEntities=new ArrayList<>();
-        for (Integer x:billRequest.getIdFoods()
-             ) {
+        List<FoodEntity> foodEntities = new ArrayList<>();
+        for (Integer x : billRequest.getIdFoods()
+        ) {
             foodEntities.add(foodRepository.findOne(x));
         }
 
-        BillEntity billEntity= BillEntity.builder()
+        BillEntity billEntity = BillEntity.builder()
                 .orderBy(PosApplication.currentUserGlobal)
                 .orderStatus(billRequest.getOrderStatus())
                 .totalAmount(billRequest.getTotalAmount())
@@ -53,14 +53,12 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     }
 
     @Override
-    public BillEntity updateBill(OrderStatus orderStatus,Integer id) {
+    public BillEntity updateBill(OrderStatus orderStatus, Integer id) {
         BillEntity billEntity = billRepository.findOne(id);
-        if (orderStatus==OrderStatus.DELIVERED)
-        {
+        if (orderStatus == OrderStatus.DELIVERED) {
             billEntity.setOrderStatus(orderStatus);
             billEntity.setFinishDate(new Date());
-        }
-        else {
+        } else {
             billEntity.setOrderStatus(orderStatus);
         }
 

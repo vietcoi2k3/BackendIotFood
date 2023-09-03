@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class ToppingService extends  BaseService<ToppingRepository, ToppingEntity,Integer>  implements ToppingInterface {
+public class ToppingService extends BaseService<ToppingRepository, ToppingEntity, Integer> implements ToppingInterface {
 
     @Autowired
     private ToppingRepository toppingRepository;
@@ -43,9 +43,9 @@ public class ToppingService extends  BaseService<ToppingRepository, ToppingEntit
     @Override
     public ToppingResponse updateTopping(ToppingRequest toppingRequest) {
         ToppingEntity toppingEntity = toppingRepository.findOne(toppingRequest.getId());
-        toppingEntity =ToppingEntity.builder()
-                .price(toppingRequest.getPrice()!=null ? toppingRequest.getPrice() : toppingEntity.getPrice())
-                .name(toppingRequest.getName() !=null ? toppingRequest.getName() : toppingEntity.getName())
+        toppingEntity = ToppingEntity.builder()
+                .price(toppingRequest.getPrice() != null ? toppingRequest.getPrice() : toppingEntity.getPrice())
+                .name(toppingRequest.getName() != null ? toppingRequest.getName() : toppingEntity.getName())
                 .build();
         toppingRepository.update(toppingEntity);
 
@@ -60,8 +60,8 @@ public class ToppingService extends  BaseService<ToppingRepository, ToppingEntit
 
     @Override
     public void deleteTopping(Set<Integer> ids) {
-        for (Integer x:ids
-             ) {
+        for (Integer x : ids
+        ) {
             toppingRepository.delete(x);
         }
     }

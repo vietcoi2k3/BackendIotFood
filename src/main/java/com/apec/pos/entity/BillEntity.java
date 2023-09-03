@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BillEntity extends BaseEntity{
+public class BillEntity extends BaseEntity {
     private Date finishDate;
     private OrderStatus orderStatus;
     private long totalAmount;

@@ -16,20 +16,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FoodRecommendDto {
 
-	private Integer id;
-	private String foodName;
-	private Integer price;
-	private String detail;
-	private String nameRestaurantFood;
-	private String imgFood;
-	private Integer star;
-	private String createBy;
-	private Date createAt;
-	private Integer quantityPurchased;
-	private Integer typeFoodEntityId;
-	private Integer restaurantEntityId;
-	private Boolean status;
-	private List<ToppingEntity> toppingEntities;
+    private Integer id;
+    private String foodName;
+    private Integer price;
+    private String detail;
+    private String nameRestaurantFood;
+    private String imgFood;
+    private Integer star;
+    private String createBy;
+    private Date createAt;
+    private Integer quantityPurchased;
+    private Integer typeFoodEntityId;
+    private Integer restaurantEntityId;
+    private Boolean status;
+    private List<ToppingEntity> toppingEntities;
 
 
 }

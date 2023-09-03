@@ -24,92 +24,92 @@ import com.apec.pos.service.serviceInterface.RoomChatInterface;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @Service
-public class RoomService extends BaseService<RoomChatRepository, RoomChatEntity, Integer> implements RoomChatInterface{
-	
-	@Autowired
-	private MessageRepository messageRepository;
-	
-	@Autowired
-	private RoomChatRepository roomChatRepository;
-	
-	@Autowired
-	private AccountRepository accountRepository;
+public class RoomService extends BaseService<RoomChatRepository, RoomChatEntity, Integer> implements RoomChatInterface {
 
-	@Override
-	RoomChatRepository getRepository() {
-		return roomChatRepository;
-	}
+    @Autowired
+    private MessageRepository messageRepository;
 
-	public RoomChatEntity getRoomChat(Integer id) {
-		return roomChatRepository.findOne(id);
-	}
-	
-	public RoomChatEntity addRoom(Integer shipperId,Integer userId) {
-		RoomChatEntity roomChatEntity = new RoomChatEntity();
-		roomChatEntity.setShipperId(shipperId);
-		roomChatEntity.setUserId(userId);
+    @Autowired
+    private RoomChatRepository roomChatRepository;
 
-		
-		return	roomChatRepository.insert(roomChatEntity);
-	}
-	
-	@Override
-	public List<GetListRoomResponse> getListRoomResponses() {
-		List<GetListRoomResponse> result = new ArrayList<>();
-		 
-		String username = PosApplication.currentUserGlobal;
-		AccountEntity accountSend = accountRepository.findByUsername(username);
-		Integer idReceiver = null;
-		List<RoomChatEntity> roomChatEntities = roomChatRepository.getListRoom(accountSend.getId());
-		System.out.println("roomChatEntites:"+roomChatEntities);
-		for (RoomChatEntity x : roomChatEntities) {
-			GetListRoomResponse temp = new GetListRoomResponse(); 
-			InfoReceiver infoReceiver = new InfoReceiver(); 
-			LastMess lastMess = new LastMess();
-			AccountEntity accountRecei = new AccountEntity();
-			
-			if(x.getShipperId()!=accountSend.getId()) {
-				System.out.println("accountSend:"+accountSend.getId());
-				 accountRecei = accountRepository.findOne(x.getShipperId());
-			}
-			if(x.getUserId()!=accountSend.getId()) {
-				System.out.println("accountSend:"+accountSend.getId());
-				 accountRecei = accountRepository.findOne(x.getShipperId());
-			}
-			
-			infoReceiver.setAccountName(accountRecei.getAccountName());
-			infoReceiver.setId(accountRecei.getId());
-			infoReceiver.setImgAccount(accountRecei.getImgUser());
-			infoReceiver.setUsername(accountRecei.getUsername());
-			
-		    MessageEntity messageEntity=messageRepository.getListLassMess(accountSend.getId()).get(0);
-		    lastMess.setContent(messageEntity.getContent());
-		    lastMess.setCreateAt(messageEntity.getCreateDate());
-		    lastMess.setSendId(accountSend.getId());
-		    
-		    temp.setInfoReceiver(infoReceiver);
-		    temp.setLastMess(lastMess);
-		    temp.setRoomId(x.getId());
-		    
-		    result.add(temp);
-		}
-		
-		return result;
-	}
+    @Autowired
+    private AccountRepository accountRepository;
 
-	@Override
-	public List<MessageResponse> getListRoomChat(Integer roomId) {	
-		List<MessageResponse> messageResponses = new ArrayList<>();
-		List<MessageEntity> messageEntities= messageRepository.getListChatRoom(roomId);
-		for (MessageEntity x : messageEntities) {
-			MessageResponse messageResponse = new MessageResponse();
-							messageResponse.setContent(x.getContent());
-							messageResponse.setCreateAt(x.getCreateDate());
-							messageResponse.setId(x.getId());
-							messageResponse.setSendId(x.getAccountEntityId());
-							messageResponse.setRoomId(x.getRoomChatEntityId());
-			messageResponses.add(messageResponse);
-		}
-		return messageResponses;
-	}
+    @Override
+    RoomChatRepository getRepository() {
+        return roomChatRepository;
+    }
+
+    public RoomChatEntity getRoomChat(Integer id) {
+        return roomChatRepository.findOne(id);
+    }
+
+    public RoomChatEntity addRoom(Integer shipperId, Integer userId) {
+        RoomChatEntity roomChatEntity = new RoomChatEntity();
+        roomChatEntity.setShipperId(shipperId);
+        roomChatEntity.setUserId(userId);
+
+
+        return roomChatRepository.insert(roomChatEntity);
+    }
+
+    @Override
+    public List<GetListRoomResponse> getListRoomResponses() {
+        List<GetListRoomResponse> result = new ArrayList<>();
+
+        String username = PosApplication.currentUserGlobal;
+        AccountEntity accountSend = accountRepository.findByUsername(username);
+        Integer idReceiver = null;
+        List<RoomChatEntity> roomChatEntities = roomChatRepository.getListRoom(accountSend.getId());
+        System.out.println("roomChatEntites:" + roomChatEntities);
+        for (RoomChatEntity x : roomChatEntities) {
+            GetListRoomResponse temp = new GetListRoomResponse();
+            InfoReceiver infoReceiver = new InfoReceiver();
+            LastMess lastMess = new LastMess();
+            AccountEntity accountRecei = new AccountEntity();
+
+            if (x.getShipperId() != accountSend.getId()) {
+                System.out.println("accountSend:" + accountSend.getId());
+                accountRecei = accountRepository.findOne(x.getShipperId());
+            }
+            if (x.getUserId() != accountSend.getId()) {
+                System.out.println("accountSend:" + accountSend.getId());
+                accountRecei = accountRepository.findOne(x.getShipperId());
+            }
+
+            infoReceiver.setAccountName(accountRecei.getAccountName());
+            infoReceiver.setId(accountRecei.getId());
+            infoReceiver.setImgAccount(accountRecei.getImgUser());
+            infoReceiver.setUsername(accountRecei.getUsername());
+
+            MessageEntity messageEntity = messageRepository.getListLassMess(accountSend.getId()).get(0);
+            lastMess.setContent(messageEntity.getContent());
+            lastMess.setCreateAt(messageEntity.getCreateDate());
+            lastMess.setSendId(accountSend.getId());
+
+            temp.setInfoReceiver(infoReceiver);
+            temp.setLastMess(lastMess);
+            temp.setRoomId(x.getId());
+
+            result.add(temp);
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<MessageResponse> getListRoomChat(Integer roomId) {
+        List<MessageResponse> messageResponses = new ArrayList<>();
+        List<MessageEntity> messageEntities = messageRepository.getListChatRoom(roomId);
+        for (MessageEntity x : messageEntities) {
+            MessageResponse messageResponse = new MessageResponse();
+            messageResponse.setContent(x.getContent());
+            messageResponse.setCreateAt(x.getCreateDate());
+            messageResponse.setId(x.getId());
+            messageResponse.setSendId(x.getAccountEntityId());
+            messageResponse.setRoomId(x.getRoomChatEntityId());
+            messageResponses.add(messageResponse);
+        }
+        return messageResponses;
+    }
 }

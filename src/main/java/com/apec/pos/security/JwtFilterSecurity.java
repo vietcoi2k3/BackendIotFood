@@ -22,49 +22,49 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtFilterSecurity extends OncePerRequestFilter{
-	
-	@Autowired
-	private JwtService jwtService;
-	
-	@Autowired
-	private AccountRepository accountRepository;
-	
+public class JwtFilterSecurity extends OncePerRequestFilter {
 
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		
-		 	final String requestTokenHeader = request.getHeader("Authorization");
-	        String username = null;
-	        String jwtToken = null;
-	        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-	            jwtToken = requestTokenHeader.substring(7);
-	            try {
-	                username = jwtService.getUsernameFromToken(jwtToken);
-	            } catch (IllegalArgumentException e) {
-	                System.out.println("Unable to get JWT Token");
-	            } catch (ExpiredJwtException e) {
-	                System.out.println("JWT Token has expired");
-	            }
-	        } else {
-	            logger.warn("JWT Token does not begin with Bearer String");
-	        }
+    @Autowired
+    private JwtService jwtService;
 
-	        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {	
-	        	PosApplication.currentUserGlobal=username;
-	            UserDetails userDetails = this.accountRepository.findByUsername(username);
-	            if (jwtService.validateToken(jwtToken, userDetails)) {
-	                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-	                        userDetails, null, userDetails.getAuthorities());
+    @Autowired
+    private AccountRepository accountRepository;
 
-	                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-	            }
-	        }
-	        filterChain.doFilter(request, response);
-		
-	}
 
-	
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+
+        final String requestTokenHeader = request.getHeader("Authorization");
+        String username = null;
+        String jwtToken = null;
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            jwtToken = requestTokenHeader.substring(7);
+            try {
+                username = jwtService.getUsernameFromToken(jwtToken);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Unable to get JWT Token");
+            } catch (ExpiredJwtException e) {
+                System.out.println("JWT Token has expired");
+            }
+        } else {
+            logger.warn("JWT Token does not begin with Bearer String");
+        }
+
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            PosApplication.currentUserGlobal = username;
+            UserDetails userDetails = this.accountRepository.findByUsername(username);
+            if (jwtService.validateToken(jwtToken, userDetails)) {
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+
+                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
+        filterChain.doFilter(request, response);
+
+    }
+
+
 }

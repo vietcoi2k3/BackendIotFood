@@ -26,36 +26,36 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping(value = "user")
 @SecurityRequirement(name = "bearerAuth")
 public class AccountController {
-	
-	@Autowired
-    private	AccountService accountService;
-	
-	@Autowired
-	private JwtService jwtService;
-	
-	@Operation(description = "trả về thông tin người dùng đang đăng nhập, dựa trên token",summary = "lấy ra thông tin người dùng hiện tại")
-	@RequestMapping(value = "/get-user-info",method = RequestMethod.GET)
-	public ResponseEntity getUserInfo(HttpServletRequest request) {
-		String token= request.getHeader("Authorization").substring(7);
-		return ResponseEntity.ok(new Response<>(true,"lấy thông tin thành công",accountService.getUserInfo(token)));
-	}
-	
-	@Operation(summary = "sửa thông người dùng",description = "không cần truyền <b>username</b>, <b>id</b>,tạm thời chưa thể sửa mật khẩu và số điện thoại được")
-	@RequestMapping(value = "/update-user-info",method = RequestMethod.PUT)
-	public ResponseEntity updateUserInfo(HttpServletRequest request,@RequestBody RegisterRequest registerRequest) throws Exception {
-		String token= request.getHeader("Authorization").substring(7);
-		registerRequest.setUsername(jwtService.getUsernameFromToken(token));
-		AccountInfoDto accountInfoDto = accountService.updateAccountInfo(registerRequest);
-		if (accountInfoDto==null) {
-			return	ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(true,"mật khẩu không hợp lệ",ErrorCode.BAD_REQUEST));
-		}
-		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,accountInfoDto));
-	}
-	
-	@Operation(summary = "phân trang người dùng")
-	@RequestMapping(value = "paging-user",method = RequestMethod.POST)
-	public ResponseEntity pagingAccount(@RequestParam Integer pageSize,@RequestParam Integer pageIndex) {
-		return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,accountService.paging(pageSize,pageIndex)));
-	}
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Operation(description = "trả về thông tin người dùng đang đăng nhập, dựa trên token", summary = "lấy ra thông tin người dùng hiện tại")
+    @RequestMapping(value = "/get-user-info", method = RequestMethod.GET)
+    public ResponseEntity getUserInfo(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        return ResponseEntity.ok(new Response<>(true, "lấy thông tin thành công", accountService.getUserInfo(token)));
+    }
+
+    @Operation(summary = "sửa thông người dùng", description = "không cần truyền <b>username</b>, <b>id</b>,tạm thời chưa thể sửa mật khẩu và số điện thoại được")
+    @RequestMapping(value = "/update-user-info", method = RequestMethod.PUT)
+    public ResponseEntity updateUserInfo(HttpServletRequest request, @RequestBody RegisterRequest registerRequest) throws Exception {
+        String token = request.getHeader("Authorization").substring(7);
+        registerRequest.setUsername(jwtService.getUsernameFromToken(token));
+        AccountInfoDto accountInfoDto = accountService.updateAccountInfo(registerRequest);
+        if (accountInfoDto == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(true, "mật khẩu không hợp lệ", ErrorCode.BAD_REQUEST));
+        }
+        return ResponseEntity.ok(new Response(true, "", ErrorCode.SUCCESS, accountInfoDto));
+    }
+
+    @Operation(summary = "phân trang người dùng")
+    @RequestMapping(value = "paging-user", method = RequestMethod.POST)
+    public ResponseEntity pagingAccount(@RequestParam Integer pageSize, @RequestParam Integer pageIndex) {
+        return ResponseEntity.ok(new Response(true, "", ErrorCode.SUCCESS, accountService.paging(pageSize, pageIndex)));
+    }
 }
  

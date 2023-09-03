@@ -20,15 +20,15 @@ import com.apec.pos.service.MessageService;
 @RestController
 @RequestMapping(value = "user")
 public class MessageController {
-	
-	@Autowired
-	private MessageService messageService;
-	
-	@MessageMapping("/topic/send-mess")
-	@SendTo("/public/send-mess")
-	public ResponseEntity sendMessage(@Payload MessageSendRequest messageSendRequest) {
-			return ResponseEntity.ok(new Response (true,"",messageService.addMessage(messageSendRequest)));
-	}
-	
-	
+
+    @Autowired
+    private MessageService messageService;
+
+    @MessageMapping("/topic/send-mess")
+    @SendTo("/public/send-mess")
+    public ResponseEntity sendMessage(@Payload MessageSendRequest messageSendRequest) {
+        return ResponseEntity.ok(new Response(true, "", messageService.addMessage(messageSendRequest)));
+    }
+
+
 }

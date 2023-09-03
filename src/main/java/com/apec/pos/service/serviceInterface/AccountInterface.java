@@ -7,19 +7,19 @@ import java.io.IOException;
 
 public interface AccountInterface {
 
-	public LoginResponDto login(LoginRequest loginRequest);
-	
-	public LoginResponDto register(AccountEntity accountEntity);
-	
-	public AccountInfoDto getUserInfo(String token);
+    public LoginResponDto login(LoginRequest loginRequest);
 
-	public LoginResponDto addEmployee(RegisterRequest registerRequest);
-	
-	public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest)throws Exception;
-	
-	public AccountResponseAdmin paging(Integer pageSize,Integer pageIndex);
+    public LoginResponDto register(AccountEntity accountEntity);
 
-	public LoginResponDto updateEmployee(UpdateAccountRequest updateAccountRequest) throws IOException;
+    public AccountInfoDto getUserInfo(String token);
 
-	public void deleteAccount();
+    public LoginResponDto addEmployee(RegisterRequest registerRequest);
+
+    public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest) throws Exception;
+
+    public AccountResponseAdmin paging(Integer pageSize, Integer pageIndex);
+
+    public LoginResponDto updateEmployee(UpdateAccountRequest updateAccountRequest) throws IOException;
+
+    public void deleteAccount();
 }

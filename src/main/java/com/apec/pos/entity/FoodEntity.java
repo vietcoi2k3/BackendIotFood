@@ -19,193 +19,186 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @Builder
-public class FoodEntity extends BaseEntity implements Serializable{
-	/**
-	 * 
-	 */
-	
-	@Column
-	private String foodName;
-	
-	@Column
-	private String detail;
-	
-	@Column
-	private Integer price;
-	
-	@Column
-	private Integer star;
-	
-	@Column
-	private Integer quantityPurchased;
-	
-	@Column(name = "typeFoodEntityId")
-	private Integer typeFoodEntityId;
+public class FoodEntity extends BaseEntity implements Serializable {
+    /**
+     *
+     */
 
-	@Column(name = "cartEntityId")
-	private Integer cartEntityId;
+    @Column
+    private String foodName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonBackReference(value = "type-food")
-	@JoinColumn(name = "typeFoodEntityId",updatable = false,insertable = false)
-	private TypeFoodEntity typeFoodEntity;
+    @Column
+    private String detail;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonBackReference(value = "food-bill")
-	@JoinColumn(name = "billEntityId",updatable = false,insertable = false)
-	private BillEntity billEntity;
+    @Column
+    private Integer price;
 
-	@Column
-	private String imgFood;
-	
+    @Column
+    private Integer star;
+
+    @Column
+    private Integer quantityPurchased;
+
+    @Column(name = "typeFoodEntityId")
+    private Integer typeFoodEntityId;
+
+    @Column(name = "cartEntityId")
+    private Integer cartEntityId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "type-food")
+    @JoinColumn(name = "typeFoodEntityId", updatable = false, insertable = false)
+    private TypeFoodEntity typeFoodEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "food-bill")
+    @JoinColumn(name = "billEntityId", updatable = false, insertable = false)
+    private BillEntity billEntity;
+
+    @Column
+    private String imgFood;
+
     @Column(name = "restaurantEntityId")
-	private Integer restaurantEntityId;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonBackReference(value = "food-res")
-	@JoinColumn(name = "restaurantEntityId",insertable = false, updatable = false)
-	private RestaurantEntity restaurantEntity;
+    private Integer restaurantEntityId;
 
-	@Column(name = "billEntityId")
-	private Integer billEntityId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference(value = "food-res")
+    @JoinColumn(name = "restaurantEntityId", insertable = false, updatable = false)
+    private RestaurantEntity restaurantEntity;
 
-	@OneToMany(mappedBy = "foodEntity",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "food-type")
-	private List<ToppingEntity> toppingEntities;
-	
-	public List<ToppingEntity> getToppingEntities() {
-		return toppingEntities;
-	}
+    @Column(name = "billEntityId")
+    private Integer billEntityId;
 
-	public void setToppingEntities(List<ToppingEntity> toppingEntities) {
-		this.toppingEntities = toppingEntities;
-	}
+    @OneToMany(mappedBy = "foodEntity", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "food-type")
+    private List<ToppingEntity> toppingEntities;
 
-	public FoodEntity() {
-	
-	}
-	
-	public String getImgFood() {
-		return imgFood;
-	}
+    public List<ToppingEntity> getToppingEntities() {
+        return toppingEntities;
+    }
 
-	public void setImgFood(String imgFood) {
-		this.imgFood = imgFood;
-	}
+    public void setToppingEntities(List<ToppingEntity> toppingEntities) {
+        this.toppingEntities = toppingEntities;
+    }
 
+    public FoodEntity() {
 
+    }
 
-	public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, Integer star,
-			  Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
-			 Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
-		super(createBy, modifiedBy);
-		this.foodName = foodName;
-		this.detail = detail;
-		this.price = price;
-		this.star = star;
-		this.quantityPurchased = quantityPurchased;
-		this.typeFoodEntityId = typeFoodEntityId;
-		this.typeFoodEntity = typeFoodEntity;
-		this.restaurantEntityId = restaurantEntityId;
-		this.restaurantEntity = restaurantEntity;
-	}
+    public String getImgFood() {
+        return imgFood;
+    }
+
+    public void setImgFood(String imgFood) {
+        this.imgFood = imgFood;
+    }
 
 
-
-	public Integer getTypeFoodEntityId() {
-		return typeFoodEntityId;
-	}
-	
-	public Integer getStar() {
-		return star;
-	}
-
-	public void setStar(Integer star) {
-		this.star = star;
-	}
-
-	public void setTypeFoodEntityId(Integer typeFoodEntityId) {
-		this.typeFoodEntityId = typeFoodEntityId;
-	}
+    public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, Integer star,
+                      Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
+                      Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
+        super(createBy, modifiedBy);
+        this.foodName = foodName;
+        this.detail = detail;
+        this.price = price;
+        this.star = star;
+        this.quantityPurchased = quantityPurchased;
+        this.typeFoodEntityId = typeFoodEntityId;
+        this.typeFoodEntity = typeFoodEntity;
+        this.restaurantEntityId = restaurantEntityId;
+        this.restaurantEntity = restaurantEntity;
+    }
 
 
+    public Integer getTypeFoodEntityId() {
+        return typeFoodEntityId;
+    }
 
-	public TypeFoodEntity getTypeFoodEntity() {
-		return typeFoodEntity;
-	}
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
+    }
+
+    public void setTypeFoodEntityId(Integer typeFoodEntityId) {
+        this.typeFoodEntityId = typeFoodEntityId;
+    }
 
 
+    public TypeFoodEntity getTypeFoodEntity() {
+        return typeFoodEntity;
+    }
 
-	public void setTypeFoodEntity(TypeFoodEntity typeFoodEntity) {
-		this.typeFoodEntity = typeFoodEntity;
-	}
 
-	public FoodEntity(String createBy, String modifiedBy) {
-		super(createBy, modifiedBy);
-	}
+    public void setTypeFoodEntity(TypeFoodEntity typeFoodEntity) {
+        this.typeFoodEntity = typeFoodEntity;
+    }
 
-	public FoodEntity(String createBy, String modifiedBy, Integer id, String foodName, String detail, Integer price,
-			String typeFood, String imgFood, Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
-		super(createBy, modifiedBy);
-	
-		this.foodName = foodName;
-		this.detail = detail;
-		this.price = price;
-		this.restaurantEntityId = restaurantEntityId;
-		this.restaurantEntity = restaurantEntity;
-	}
-	
-	public Integer getQuantityPurchased() {
-		return quantityPurchased;
-	}
+    public FoodEntity(String createBy, String modifiedBy) {
+        super(createBy, modifiedBy);
+    }
 
-	public void setQuantityPurchased(Integer quantityPurchased) {
-		this.quantityPurchased = quantityPurchased;
-	}
+    public FoodEntity(String createBy, String modifiedBy, Integer id, String foodName, String detail, Integer price,
+                      String typeFood, String imgFood, Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
+        super(createBy, modifiedBy);
 
-	
+        this.foodName = foodName;
+        this.detail = detail;
+        this.price = price;
+        this.restaurantEntityId = restaurantEntityId;
+        this.restaurantEntity = restaurantEntity;
+    }
 
-	public String getFoodName() {
-		return foodName;
-	}
+    public Integer getQuantityPurchased() {
+        return quantityPurchased;
+    }
 
-	public void setFoodName(String foodName) {
-		this.foodName = foodName;
-	}
+    public void setQuantityPurchased(Integer quantityPurchased) {
+        this.quantityPurchased = quantityPurchased;
+    }
 
-	public String getDetail() {
-		return detail;
-	}
 
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
+    public String getFoodName() {
+        return foodName;
+    }
 
-	public Integer getPrice() {
-		return price;
-	}
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
+    public String getDetail() {
+        return detail;
+    }
 
-	public Integer getRestaurantEntityId() {
-		return restaurantEntityId;
-	}
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
-	public void setRestaurantEntityId(Integer restaurantEntityId) {
-		this.restaurantEntityId = restaurantEntityId;
-	}
+    public Integer getPrice() {
+        return price;
+    }
 
-	public RestaurantEntity getRestaurantEntity() {
-		return restaurantEntity;
-	}
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
-	public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
-		this.restaurantEntity = restaurantEntity;
-	}
-	
-	
-	
-	
+    public Integer getRestaurantEntityId() {
+        return restaurantEntityId;
+    }
+
+    public void setRestaurantEntityId(Integer restaurantEntityId) {
+        this.restaurantEntityId = restaurantEntityId;
+    }
+
+    public RestaurantEntity getRestaurantEntity() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
+    }
+
+
 }

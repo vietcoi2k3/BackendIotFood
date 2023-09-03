@@ -6,5 +6,6 @@ import com.apec.pos.enu.OrderStatus;
 
 public interface BillInterface {
     public BillEntity addBill(BillRequest billRequest);
-    public BillEntity updateBill(OrderStatus orderStatus,Integer id);
+
+    public BillEntity updateBill(OrderStatus orderStatus, Integer id);
 }

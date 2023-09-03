@@ -5,5 +5,5 @@ import com.apec.pos.Dto.MessageDto.MessageSendRequest;
 
 public interface MessageInterface {
 
-	public MessageResponse addMessage(MessageSendRequest messageSendRequest);
+    public MessageResponse addMessage(MessageSendRequest messageSendRequest);
 }

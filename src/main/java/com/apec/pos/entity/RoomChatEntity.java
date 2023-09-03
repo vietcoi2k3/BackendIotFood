@@ -15,39 +15,39 @@ import lombok.Data;
 
 @Entity
 @Data
-public class RoomChatEntity extends BaseEntity{
-	
-	private Integer shipperId;
-	
-	private Integer userId;
-	
-	@OneToMany(mappedBy = "roomChatEntity")
-	@JsonManagedReference(value = "mes-room")
-	private List<MessageEntity> messageEntities;
+public class RoomChatEntity extends BaseEntity {
 
-	public List<MessageEntity> getMessageEntities() {
-		return messageEntities;
-	}
+    private Integer shipperId;
 
-	public void setMessageEntities(List<MessageEntity> messageEntities) {
-		this.messageEntities = messageEntities;
-	}
+    private Integer userId;
 
-	public Integer getShipperId() {
-		return shipperId;
-	}
+    @OneToMany(mappedBy = "roomChatEntity")
+    @JsonManagedReference(value = "mes-room")
+    private List<MessageEntity> messageEntities;
 
-	public void setShipperId(Integer shipperId) {
-		this.shipperId = shipperId;
-	}
+    public List<MessageEntity> getMessageEntities() {
+        return messageEntities;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public void setMessageEntities(List<MessageEntity> messageEntities) {
+        this.messageEntities = messageEntities;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	
-	
+    public Integer getShipperId() {
+        return shipperId;
+    }
+
+    public void setShipperId(Integer shipperId) {
+        this.shipperId = shipperId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+
 }

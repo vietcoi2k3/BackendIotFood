@@ -22,8 +22,8 @@ public class BillController {
     private BillService billService;
 
     @Operation(summary = "Them bill")
-    @RequestMapping(value = "add-bill",method = RequestMethod.POST)
-    public ResponseEntity addBill(@RequestBody BillRequest billRequest){
-        return  ResponseEntity.ok(new Response<>(true,"",billService.addBill(billRequest)));
+    @RequestMapping(value = "add-bill", method = RequestMethod.POST)
+    public ResponseEntity addBill(@RequestBody BillRequest billRequest) {
+        return ResponseEntity.ok(new Response<>(true, "", billService.addBill(billRequest)));
     }
 }

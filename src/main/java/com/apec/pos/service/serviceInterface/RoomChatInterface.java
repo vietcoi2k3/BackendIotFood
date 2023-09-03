@@ -7,6 +7,7 @@ import com.apec.pos.Dto.RoomDto.GetListRoomResponse;
 
 public interface RoomChatInterface {
 
-	public List<GetListRoomResponse> getListRoomResponses();
-	public List<MessageResponse> getListRoomChat(Integer roomId);
+    public List<GetListRoomResponse> getListRoomResponses();
+
+    public List<MessageResponse> getListRoomChat(Integer roomId);
 }

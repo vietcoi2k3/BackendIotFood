@@ -12,14 +12,14 @@ import com.cloudinary.Cloudinary;
 @Service
 public class FileUploadService {
 
-	@Autowired
-	 private Cloudinary cloudinary;
-	    
-	    public String uploadFile(MultipartFile multipartFile) throws IOException {
-	        return cloudinary.uploader()
-	                .upload(multipartFile.getBytes(),
-	                        Map.of("public_id", UUID.randomUUID().toString()))
-	                .get("url")
-	                .toString();
-	    }
+    @Autowired
+    private Cloudinary cloudinary;
+
+    public String uploadFile(MultipartFile multipartFile) throws IOException {
+        return cloudinary.uploader()
+                .upload(multipartFile.getBytes(),
+                        Map.of("public_id", UUID.randomUUID().toString()))
+                .get("url")
+                .toString();
+    }
 }

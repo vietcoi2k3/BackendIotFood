@@ -19,25 +19,25 @@ import java.util.Set;
 @SecurityRequirement(name = "bearerAuth")
 public class ToppingAdminController {
 
-        @Autowired
-        private ToppingService toppingService;
+    @Autowired
+    private ToppingService toppingService;
 
-        @Operation(summary = "thêm topping",description = "không cần truyền id")
-        @RequestMapping(value = "add-topping",method = RequestMethod.POST)
-        public ResponseEntity addTopping(@RequestBody ToppingRequest toppingRequest){
-            return ResponseEntity.ok(new Response(true,"",toppingService.addTopping(toppingRequest)));
-        }
+    @Operation(summary = "thêm topping", description = "không cần truyền id")
+    @RequestMapping(value = "add-topping", method = RequestMethod.POST)
+    public ResponseEntity addTopping(@RequestBody ToppingRequest toppingRequest) {
+        return ResponseEntity.ok(new Response(true, "", toppingService.addTopping(toppingRequest)));
+    }
 
-        @Operation(summary = "sửa topping")
-        @RequestMapping(value = "update-topping",method = RequestMethod.PUT)
-        public ResponseEntity updateTopping(@RequestBody ToppingRequest toppingRequest){
-            return ResponseEntity.ok((new Response(true,"",toppingService.updateTopping(toppingRequest))));
-        }
+    @Operation(summary = "sửa topping")
+    @RequestMapping(value = "update-topping", method = RequestMethod.PUT)
+    public ResponseEntity updateTopping(@RequestBody ToppingRequest toppingRequest) {
+        return ResponseEntity.ok((new Response(true, "", toppingService.updateTopping(toppingRequest))));
+    }
 
-        @Operation(summary = "xóa topping")
-        @RequestMapping(value = "delete-topping",method = RequestMethod.POST)
-        public ResponseEntity deleteTopping(@RequestBody Set<Integer> ids){
-            toppingService.deleteTopping(ids);
-            return ResponseEntity.ok(new Response(true,""));
-        }
+    @Operation(summary = "xóa topping")
+    @RequestMapping(value = "delete-topping", method = RequestMethod.POST)
+    public ResponseEntity deleteTopping(@RequestBody Set<Integer> ids) {
+        toppingService.deleteTopping(ids);
+        return ResponseEntity.ok(new Response(true, ""));
+    }
 }

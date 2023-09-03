@@ -17,26 +17,26 @@ import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Root;
 
-public class BaseRepository <T,ID extends Serializable> {
-	@Autowired
-	private EntityManager entityManager;
-	private final Class entityClass;
-	
-	public BaseRepository(Class entityClass) {
+public class BaseRepository<T, ID extends Serializable> {
+    @Autowired
+    private EntityManager entityManager;
+    private final Class entityClass;
+
+    public BaseRepository(Class entityClass) {
         this.entityClass = entityClass;
     }
-	
-	protected EntityManager getEntityManager() {
+
+    protected EntityManager getEntityManager() {
         return entityManager;
     }
-	
-	@Transactional
+
+    @Transactional
     public T insert(T entity) {
         entityManager.persist(entity);
         return entity;
     }
-	
-	@Transactional
+
+    @Transactional
     public List<T> insert(List<T> listEntities, int batchSize) {
         if (listEntities != null && !listEntities.isEmpty()) {
             for (int i = 0; i < listEntities.size(); i++) {
@@ -49,13 +49,13 @@ public class BaseRepository <T,ID extends Serializable> {
         }
         return listEntities;
     }
-	
-	@Transactional
+
+    @Transactional
     public List<T> insert(List<T> listEntities) {
         return insert(listEntities, 50);
     }
-	
-	@Transactional
+
+    @Transactional
     public T update(T entity) {
         entityManager.merge(entity);
         //entityManager.flush();
@@ -80,7 +80,7 @@ public class BaseRepository <T,ID extends Serializable> {
         Query query = buildQueryHasParameters(queryStr, isNative, params);
         return query.executeUpdate();
     }
-    
+
     @Transactional
     public int delete(T entity) {
         entityManager.remove(entity);
@@ -135,28 +135,27 @@ public class BaseRepository <T,ID extends Serializable> {
     }
 
 
-	
-	public T findOne(ID id) {
+    public T findOne(ID id) {
         return (T) entityManager.find(entityClass, id);
     }
-	
-	public List<T> findAll() {
+
+    public List<T> findAll() {
         Query createQuery = entityManager.createQuery("From " + this.entityClass.getSimpleName());
         return createQuery.getResultList();
     }
-	
-	public Long countAll() {
+
+    public Long countAll() {
         String queryStr = "SELECT COUNT(e) from " + entityClass.getSimpleName() + " e";
         Query createQuery = entityManager.createQuery(queryStr);
-        return  (Long) createQuery.getSingleResult();
+        return (Long) createQuery.getSingleResult();
     }
-	
-	public Integer count(String jpaQuery, boolean isNative, Map<String, Object> params) {
+
+    public Integer count(String jpaQuery, boolean isNative, Map<String, Object> params) {
         Query createQuery = buildQueryHasParameters(jpaQuery, isNative, params, null);
         return ((Number) createQuery.getSingleResult()).intValue();
     }
-	
-	private Query buildQuery(String query, boolean isNative) {
+
+    private Query buildQuery(String query, boolean isNative) {
         return buildQuery(query, isNative, null);
     }
 
@@ -174,8 +173,8 @@ public class BaseRepository <T,ID extends Serializable> {
         return createdQuery;
     }
 
-	
-	private Query buildQueryHasParameters(String query, boolean isNative, Map<String, Object> params) {
+
+    private Query buildQueryHasParameters(String query, boolean isNative, Map<String, Object> params) {
         return buildQueryHasParameters(query, isNative, params, null);
     }
 
@@ -193,7 +192,7 @@ public class BaseRepository <T,ID extends Serializable> {
         }
         return createdQuery;
     }
-    
+
     public List<T> query(String query, boolean isNative) {
         return query(query, isNative, null, null, entityClass);
     }
@@ -229,18 +228,6 @@ public class BaseRepository <T,ID extends Serializable> {
             return createdQuery.getResultList();
         }
     }
-
-
-
-
-
-
-
-
-
-
-	
-	
 
 
 }

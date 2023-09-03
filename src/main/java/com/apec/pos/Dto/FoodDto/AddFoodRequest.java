@@ -17,11 +17,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class AddFoodRequest implements Serializable {
 
-	private Integer id;
-	private String foodName;
-	private Integer price;
-	private String detail;
-	private MultipartFile imgFood;
-	private Integer typeFoodEntityId;
-	private Integer restaurantEntityId;
+    private Integer id;
+    private String foodName;
+    private Integer price;
+    private String detail;
+    private MultipartFile imgFood;
+    private Integer typeFoodEntityId;
+    private Integer restaurantEntityId;
 }

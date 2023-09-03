@@ -17,38 +17,38 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
 @Repository
-public class RestaurantRepository extends BaseRepository<RestaurantEntity, Integer>{
+public class RestaurantRepository extends BaseRepository<RestaurantEntity, Integer> {
 
-	@Autowired
-	private EntityManager entityManager;
-	
-	public RestaurantRepository() {
-		super(RestaurantEntity.class);
-	}
+    @Autowired
+    private EntityManager entityManager;
 
-	public List<RestaurantEntity>paging(PageRequest pageRequest){
-		String query= "SELECT c FROM RestaurantEntity c";
-		Map<String, Object> params = new HashMap<>();
-		return query(query, false, params, pageRequest);
-	}
+    public RestaurantRepository() {
+        super(RestaurantEntity.class);
+    }
 
-	public List<RestaurantEntity> getRecommendRes() {
-		String queryString = "SELECT c FROM RestaurantEntity c ORDER BY c.quantitySold DESC";
-		Query query = entityManager.createQuery(queryString);
-		return query.setMaxResults(10).getResultList();
-	}
+    public List<RestaurantEntity> paging(PageRequest pageRequest) {
+        String query = "SELECT c FROM RestaurantEntity c";
+        Map<String, Object> params = new HashMap<>();
+        return query(query, false, params, pageRequest);
+    }
 
-	public List<RestaurantEntity> searchRes(String key){
-		if(key==null) {
-			String queryString = "SELECT c FROM RestaurantEntity c ";
-			Query query = entityManager.createQuery(queryString);
-			return query.setMaxResults(20).getResultList();
-		}
-		String queryString = "SELECT c FROM RestaurantEntity c "
-				+ "WHERE c.restaurantName like :key";
-		
-		Query query2 = entityManager.createQuery(queryString);
-		query2.setParameter("key", "%"+key+"%");
-		return query2.setMaxResults(10).getResultList();
-	}
+    public List<RestaurantEntity> getRecommendRes() {
+        String queryString = "SELECT c FROM RestaurantEntity c ORDER BY c.quantitySold DESC";
+        Query query = entityManager.createQuery(queryString);
+        return query.setMaxResults(10).getResultList();
+    }
+
+    public List<RestaurantEntity> searchRes(String key) {
+        if (key == null) {
+            String queryString = "SELECT c FROM RestaurantEntity c ";
+            Query query = entityManager.createQuery(queryString);
+            return query.setMaxResults(20).getResultList();
+        }
+        String queryString = "SELECT c FROM RestaurantEntity c "
+                + "WHERE c.restaurantName like :key";
+
+        Query query2 = entityManager.createQuery(queryString);
+        query2.setParameter("key", "%" + key + "%");
+        return query2.setMaxResults(10).getResultList();
+    }
 }

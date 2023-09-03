@@ -15,9 +15,9 @@ import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @RequestMapping(value = "user")
 public class RestaurantUserController {
-	
-	@Autowired
-	private RestaurantService restaurantService;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
 
 }

@@ -16,87 +16,81 @@ import lombok.Data;
 
 @Entity
 @Data
-public class TypeFoodEntity extends BaseEntity{
+public class TypeFoodEntity extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	private Integer id;
-	
-	private String nameType;
-	
-	private String imgType;
-	
-	@OneToMany(mappedBy = "typeFoodEntity")
-	@JsonManagedReference(value = "type-food")
-	@JsonIgnore
-	private Set<FoodEntity> foodEntities;
-	
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Integer id;
 
-	public TypeFoodEntity(String createBy, String modifiedBy) {
-		super(createBy, modifiedBy);
-	}
-	
-	
+    private String nameType;
 
-	public TypeFoodEntity() {
-		
-	}
-	
-	public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType, String imgType,
-			Set<FoodEntity> foodEntities) {
-		super(createBy, modifiedBy);
-		this.id = id;
-		this.nameType = nameType;
-		this.imgType = imgType;
-		this.foodEntities = foodEntities;
-	}
+    private String imgType;
 
-	public String getImgType() {
-		return imgType;
-	}
-
-	public void setImgType(String imgType) {
-		this.imgType = imgType;
-	}
+    @OneToMany(mappedBy = "typeFoodEntity")
+    @JsonManagedReference(value = "type-food")
+    @JsonIgnore
+    private Set<FoodEntity> foodEntities;
 
 
-
-	public Set<FoodEntity> getFoodEntities() {
-		return foodEntities;
-	}
-
+    public TypeFoodEntity(String createBy, String modifiedBy) {
+        super(createBy, modifiedBy);
+    }
 
 
-	public void setFoodEntities(Set<FoodEntity> foodEntities) {
-		this.foodEntities = foodEntities;
-	}
+    public TypeFoodEntity() {
+
+    }
+
+    public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType, String imgType,
+                          Set<FoodEntity> foodEntities) {
+        super(createBy, modifiedBy);
+        this.id = id;
+        this.nameType = nameType;
+        this.imgType = imgType;
+        this.foodEntities = foodEntities;
+    }
+
+    public String getImgType() {
+        return imgType;
+    }
+
+    public void setImgType(String imgType) {
+        this.imgType = imgType;
+    }
 
 
+    public Set<FoodEntity> getFoodEntities() {
+        return foodEntities;
+    }
 
-	public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType) {
-		super(createBy, modifiedBy);
-		this.id = id;
-		this.nameType = nameType;
-	}
 
-	public Integer getId() {
-		return id;
-	}
+    public void setFoodEntities(Set<FoodEntity> foodEntities) {
+        this.foodEntities = foodEntities;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
-	public String getNameType() {
-		return nameType;
-	}
+    public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType) {
+        super(createBy, modifiedBy);
+        this.id = id;
+        this.nameType = nameType;
+    }
 
-	public void setNameType(String nameType) {
-		this.nameType = nameType;
-	}
-	
-	
-	
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNameType() {
+        return nameType;
+    }
+
+    public void setNameType(String nameType) {
+        this.nameType = nameType;
+    }
+
+
 }

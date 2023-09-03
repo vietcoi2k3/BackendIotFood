@@ -18,9 +18,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @SecurityRequirement(name = "bearerAuth")
 @CrossOrigin
 public class FoodController {
-	
-	@Autowired
-	private FoodService foodService;
-	
+
+    @Autowired
+    private FoodService foodService;
+
 
 }

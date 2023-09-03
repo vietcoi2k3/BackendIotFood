@@ -10,86 +10,86 @@ import lombok.Data;
 
 @Entity
 @Data
-public class MessageEntity extends BaseEntity{
+public class MessageEntity extends BaseEntity {
 
-	@Column
-	private String content;
-	
-	@Column(name = "accountEntityId")
-	private Integer accountEntityId;
-	
-	@Column(name = "roomChatEntityId")
-	private Integer roomChatEntityId;
+    @Column
+    private String content;
 
-	public Integer getAccountEntityId() {
-		return accountEntityId;
-	}
+    @Column(name = "accountEntityId")
+    private Integer accountEntityId;
 
-	public void setAccountEntityId(Integer accountEntityId) {
-		this.accountEntityId = accountEntityId;
-	}
+    @Column(name = "roomChatEntityId")
+    private Integer roomChatEntityId;
 
-	public Integer getRoomChatEntityId() {
-		return roomChatEntityId;
-	}
+    public Integer getAccountEntityId() {
+        return accountEntityId;
+    }
 
-	public void setRoomChatEntityId(Integer roomChatEntityId) {
-		this.roomChatEntityId = roomChatEntityId;
-	}
+    public void setAccountEntityId(Integer accountEntityId) {
+        this.accountEntityId = accountEntityId;
+    }
 
-	public AccountEntity getAccountEntity() {
-		return accountEntity;
-	}
+    public Integer getRoomChatEntityId() {
+        return roomChatEntityId;
+    }
 
-	public void setAccountEntity(AccountEntity accountEntity) {
-		this.accountEntity = accountEntity;
-	}
+    public void setRoomChatEntityId(Integer roomChatEntityId) {
+        this.roomChatEntityId = roomChatEntityId;
+    }
 
-	public RoomChatEntity getRoomChatEntity() {
-		return roomChatEntity;
-	}
+    public AccountEntity getAccountEntity() {
+        return accountEntity;
+    }
 
-	public void setRoomChatEntity(RoomChatEntity roomChatEntity) {
-		this.roomChatEntity = roomChatEntity;
-	}
+    public void setAccountEntity(AccountEntity accountEntity) {
+        this.accountEntity = accountEntity;
+    }
 
-	@ManyToOne
-	@JoinColumn(name = "accountEntityId",updatable = false,insertable = false)
-	@JsonBackReference(value = "account-mess")
-	private AccountEntity accountEntity;
-	
-	@ManyToOne
-	@JoinColumn(name = "roomChatEntityId",updatable = false,insertable = false)
-	@JsonBackReference(value = "mes-room")
-	private RoomChatEntity roomChatEntity;
-	
-	
-	public MessageEntity() {
-	
-	}
+    public RoomChatEntity getRoomChatEntity() {
+        return roomChatEntity;
+    }
 
-	public MessageEntity(String createBy, String modifiedBy, String content, Integer accountEntityId,
-			Integer roomChatEntityId, AccountEntity accountEntity, RoomChatEntity roomChatEntity) {
-		super(createBy, modifiedBy);
-		this.content = content;
-		this.accountEntityId = accountEntityId;
-		this.roomChatEntityId = roomChatEntityId;
-		this.accountEntity = accountEntity;
-		this.roomChatEntity = roomChatEntity;
-	}
+    public void setRoomChatEntity(RoomChatEntity roomChatEntity) {
+        this.roomChatEntity = roomChatEntity;
+    }
 
-	public MessageEntity(String createBy, String modifiedBy, String content, AccountEntity accountEntity) {
-		super(createBy, modifiedBy);
-		this.content = content;
-		this.accountEntity = accountEntity;
-	}
+    @ManyToOne
+    @JoinColumn(name = "accountEntityId", updatable = false, insertable = false)
+    @JsonBackReference(value = "account-mess")
+    private AccountEntity accountEntity;
 
-	public String getContent() {
-		return content;
-	}
+    @ManyToOne
+    @JoinColumn(name = "roomChatEntityId", updatable = false, insertable = false)
+    @JsonBackReference(value = "mes-room")
+    private RoomChatEntity roomChatEntity;
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
+
+    public MessageEntity() {
+
+    }
+
+    public MessageEntity(String createBy, String modifiedBy, String content, Integer accountEntityId,
+                         Integer roomChatEntityId, AccountEntity accountEntity, RoomChatEntity roomChatEntity) {
+        super(createBy, modifiedBy);
+        this.content = content;
+        this.accountEntityId = accountEntityId;
+        this.roomChatEntityId = roomChatEntityId;
+        this.accountEntity = accountEntity;
+        this.roomChatEntity = roomChatEntity;
+    }
+
+    public MessageEntity(String createBy, String modifiedBy, String content, AccountEntity accountEntity) {
+        super(createBy, modifiedBy);
+        this.content = content;
+        this.accountEntity = accountEntity;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 }

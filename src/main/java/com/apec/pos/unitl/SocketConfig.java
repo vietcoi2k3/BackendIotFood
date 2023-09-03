@@ -22,54 +22,55 @@ import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.service.JwtService;
 
 
-public class SocketConfig implements WebSocketMessageBrokerConfigurer{
+public class SocketConfig implements WebSocketMessageBrokerConfigurer {
 
-	 
-	@Autowired
-	private JwtService jwtService;
-	
-	@Autowired
-	private AccountRepository accountRepository;
-	
-	 @Override
-	 @CrossOrigin
-	    public void registerStompEndpoints(StompEndpointRegistry registry) {
-	        registry.addEndpoint("/ws-iotfood").setAllowedOrigins("http://127.0.0.1:5500").withSockJS();
-	    }
-	 
-	  @Override
-	    public void configureMessageBroker(MessageBrokerRegistry config) {
 
-	    }
-	  
-	  @Override
-	  public void configureClientInboundChannel(ChannelRegistration registration) {
-		  registration.interceptors(new ChannelInterceptor() {
-			  @Override
-			  public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				  StompHeaderAccessor accessor =
-	                        MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-				 
-				  if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-					  List<String> authorization = accessor.getNativeHeader("Authorization");
-					  String accessToken =authorization.get(0).substring(7);
-					  System.out.println(accessToken);
-					  AccountEntity accountEntity = accountRepository.findByUsername(jwtService.getUsernameFromToken(accessToken));
-					  if(jwtService.validateToken(accessToken, accountEntity)) {
-						  return message;}
-					  throw new MyCustomException("tài khoản không hợp lệ");
-	                }
-				  return message;
-			  }
-			  
-		});
-	  }
-	  
-	  private class MyCustomException extends RuntimeException {
-	        public MyCustomException(String message) {
-	            super(message);
-	        }
-	    }
-	  
-	  
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Override
+    @CrossOrigin
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/ws-iotfood").setAllowedOrigins("http://127.0.0.1:5500").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+
+    }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new ChannelInterceptor() {
+            @Override
+            public Message<?> preSend(Message<?> message, MessageChannel channel) {
+                StompHeaderAccessor accessor =
+                        MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+
+                if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+                    List<String> authorization = accessor.getNativeHeader("Authorization");
+                    String accessToken = authorization.get(0).substring(7);
+                    System.out.println(accessToken);
+                    AccountEntity accountEntity = accountRepository.findByUsername(jwtService.getUsernameFromToken(accessToken));
+                    if (jwtService.validateToken(accessToken, accountEntity)) {
+                        return message;
+                    }
+                    throw new MyCustomException("tài khoản không hợp lệ");
+                }
+                return message;
+            }
+
+        });
+    }
+
+    private class MyCustomException extends RuntimeException {
+        public MyCustomException(String message) {
+            super(message);
+        }
+    }
+
+
 }

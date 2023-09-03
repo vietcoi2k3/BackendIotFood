@@ -3,6 +3,7 @@ package com.apec.pos.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -19,116 +20,116 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-public class RestaurantEntity extends BaseEntity implements Serializable{
+public class RestaurantEntity extends BaseEntity implements Serializable {
 
-	private String restaurantName;
-	
-	private String address;
-	
-	private Integer quantitySold;
-	
-	private Double distance;
+    private String restaurantName;
 
-	private Double star;
+    private String address;
 
-	private String timeStart;
+    private Integer quantitySold;
 
-	private  String timeClose;
-	
-	private String detail;
-	
-	private String phoneNumber;
-	
-	private String imgRes;
+    private Double distance;
 
-	private Integer time;
-	
-	@OneToMany(mappedBy = "restaurantEntity",cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "food-res")
-	private Set<FoodEntity> foodEntities;
+    private Double star;
 
-	public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String address,
-			Integer quantitySold, Double distance, String phoneNumber, String imgRes,
-			Set<FoodEntity> foodEntities) {
-		super(createBy, modifiedBy);
-		this.restaurantName = restaurantName;
-		this.address = address;
-		this.quantitySold = quantitySold;
-		this.distance = distance;
-		this.phoneNumber = phoneNumber;
-		this.imgRes = imgRes;
-		this.foodEntities = foodEntities;
-	}
+    private String timeStart;
 
-	public String getImgRes() {
-		return imgRes;
-	}
-	
-	public String getDetail() {
-		return detail;
-	}
+    private String timeClose;
 
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
+    private String detail;
 
-	public void setImgRes(String imgRes) {
-		this.imgRes = imgRes;
-	}
+    private String phoneNumber;
 
-	public RestaurantEntity() {
-	
-	}
-	
-	public RestaurantEntity(String createBy, String modifiedBy) {
-		super(createBy, modifiedBy);
-	}
+    private String imgRes;
 
-	public Integer getQuantitySold() {
-		return quantitySold;
-	}
+    private Integer time;
 
-	public void setQuantitySold(Integer quantitySold) {
-		this.quantitySold = quantitySold;
-	}
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "food-res")
+    private Set<FoodEntity> foodEntities;
 
-	public String getAddress() {
-		return address;
-	}
+    public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String address,
+                            Integer quantitySold, Double distance, String phoneNumber, String imgRes,
+                            Set<FoodEntity> foodEntities) {
+        super(createBy, modifiedBy);
+        this.restaurantName = restaurantName;
+        this.address = address;
+        this.quantitySold = quantitySold;
+        this.distance = distance;
+        this.phoneNumber = phoneNumber;
+        this.imgRes = imgRes;
+        this.foodEntities = foodEntities;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getImgRes() {
+        return imgRes;
+    }
 
-	public Double getDistance() {
-		return distance;
-	}
+    public String getDetail() {
+        return detail;
+    }
 
-	public void setDistance(Double distance) {
-		this.distance = distance;
-	}
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public void setImgRes(String imgRes) {
+        this.imgRes = imgRes;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public RestaurantEntity() {
 
-	public Set<FoodEntity> getFoodEntities() {
-		return foodEntities;
-	}
+    }
 
-	public void setFoodEntities(Set<FoodEntity> foodEntities) {
-		this.foodEntities = foodEntities;
-	}
+    public RestaurantEntity(String createBy, String modifiedBy) {
+        super(createBy, modifiedBy);
+    }
 
-	public String getRestaurantName() {
-		return restaurantName;
-	}
+    public Integer getQuantitySold() {
+        return quantitySold;
+    }
 
-	public void setRestaurantName(String restaurantName) {
-		this.restaurantName = restaurantName;
-	}
+    public void setQuantitySold(Integer quantitySold) {
+        this.quantitySold = quantitySold;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Set<FoodEntity> getFoodEntities() {
+        return foodEntities;
+    }
+
+    public void setFoodEntities(Set<FoodEntity> foodEntities) {
+        this.foodEntities = foodEntities;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
 }

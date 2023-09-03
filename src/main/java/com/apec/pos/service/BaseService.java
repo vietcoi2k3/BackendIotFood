@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.apec.pos.repository.BaseRepository;
 
-public abstract class BaseService <R extends BaseRepository<E, ID>, E, ID extends Serializable>  {
-	abstract R getRepository();
-	
-	public List<E> findAll() {
+public abstract class BaseService<R extends BaseRepository<E, ID>, E, ID extends Serializable> {
+    abstract R getRepository();
+
+    public List<E> findAll() {
         return getRepository().findAll();
     }
 
@@ -32,7 +32,7 @@ public abstract class BaseService <R extends BaseRepository<E, ID>, E, ID extend
         getRepository().insert(entities);
         return entities;
     }
-    
+
     public long delete(ID id) {
         return getRepository().delete(id);
     }
