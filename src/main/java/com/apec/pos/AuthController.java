@@ -73,10 +73,10 @@ public class AuthController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResponseEntity<Response> register(@RequestBody AccountEntity accountEntity) {
-        if (!(Validator.validateStudentID(accountEntity.getUsername()) && Validator.validatePassword(accountEntity.getPassword()))) {
-            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response<>(false, "Tài khoàn hoặc mật khẩu không hợp lệ"));
-        }
-        ;
+//        if (!(Validator.validateStudentID(accountEntity.getUsername()) && Validator.validatePassword(accountEntity.getPassword()))) {
+//            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response<>(false, "Tài khoàn hoặc mật khẩu không hợp lệ"));
+//        }
+
 
         LoginResponDto loginResponDto = accountService.register(accountEntity);
         if (loginResponDto == null) {
