@@ -1,6 +1,7 @@
 package com.apec.pos.entity;
 
 import java.util.Date;
+import java.util.List;
 
 
 import com.apec.pos.PosApplication;
@@ -8,8 +9,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @MappedSuperclass
+@Data
 public class BaseEntity {
 
     @Id
@@ -25,13 +30,10 @@ public class BaseEntity {
     @Column(name = "create_by")
     private String createBy;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modified_date")
-    private Date modifiedDate;
-
+    @ElementCollection
+    @CollectionTable(name = "log_table", joinColumns = @JoinColumn(name = "log_id"))
     @JsonIgnore
-    @Column(name = "modified_by")
-    private String modifiedBy;
+    private List<LogElement> logs;
 
     @Column
     private Boolean status;
@@ -41,9 +43,7 @@ public class BaseEntity {
     // Constructor with createBy and modifiedBy arguments
     public BaseEntity(String createBy, String modifiedBy) {
         this.createDate = new Date();
-        this.modifiedDate = new Date();
         this.createBy = createBy;
-        this.modifiedBy = modifiedBy;
     }
 
 
@@ -83,28 +83,17 @@ public class BaseEntity {
         this.createBy = createBy;
     }
 
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
 
     // Custom method to update modified date and modified by
     @PreUpdate
     protected void onUpdate() {
-        this.modifiedDate = new Date();
-        this.createBy = PosApplication.currentUserGlobal;
+        LogElement logElement=new LogElement();
+        logElement.setUrl(PosApplication.currentUrlGlobal);
+        logElement.setModifiedBy(PosApplication.currentUserGlobal);
+        logElement.setModifiedDate(new Date());
+        this.logs.add(logElement);
     }
+
 
     @PrePersist
     protected void onCreate() {

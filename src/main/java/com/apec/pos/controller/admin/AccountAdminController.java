@@ -41,6 +41,4 @@ public class AccountAdminController {
     public ResponseEntity updateEmployee(@ModelAttribute UpdateAccountRequest updateAccountRequest) throws IOException {
         return ResponseEntity.ok(new Response<>(true, "", accountService.updateEmployee(updateAccountRequest)));
     }
-
-
 }

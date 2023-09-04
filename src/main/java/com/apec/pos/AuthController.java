@@ -144,6 +144,12 @@ public class AuthController {
         return ResponseEntity.ok(new Response(true, "", restaurantService.paging(pageSize, pageIndex)));
     }
 
+    @RequestMapping(value ="get-detail-type",method= RequestMethod.POST)
+    @Operation(summary ="lấy detail type")
+    public ResponseEntity getDetailType(@RequestParam Integer id){
+        return  ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,typeFoodService.findOne(id)));
+    }
+
 //	@RequestMapping(method = RequestMethod.GET,value = "get-user-lazy")
 //	public ResponseEntity testLazy(){
 //		FoodEntity foodEntity = foodService.findOne(2);

@@ -1,10 +1,8 @@
 package com.apec.pos.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
@@ -16,11 +14,15 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping(value = "user")
 @SecurityRequirement(name = "bearerAuth")
-@CrossOrigin
 public class FoodController {
 
     @Autowired
     private FoodService foodService;
 
+    @Operation(summary = "phân trang sản phẩm", description = "pageIndex nhận vào tính từ 0")
+    @RequestMapping(value = "/paging-food-admin", method = RequestMethod.POST)
+    public ResponseEntity pagingFood(@RequestParam int pageSize, @RequestParam int pageIndex) {
+        return ResponseEntity.ok(new Response(true, "trang" + pageIndex, ErrorCode.SUCCESS, foodService.paging(pageSize, pageIndex)));
+    }
 
 }

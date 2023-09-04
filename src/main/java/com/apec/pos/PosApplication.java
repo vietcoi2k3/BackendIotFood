@@ -22,6 +22,7 @@ public class PosApplication extends SpringBootServletInitializer {
     }
 
     public static String currentUserGlobal = "";
+    public static String currentUrlGlobal = "";
 
   
 }
