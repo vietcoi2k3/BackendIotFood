@@ -55,9 +55,13 @@ public class ConfigSecurity {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.addAllowedOrigin("**");
         corsConfig.addAllowedOrigin("http://127.0.0.1:5500");
         corsConfig.addAllowedOrigin("https://iotfood.vercel.app");// Replace with your frontend origin
         corsConfig.addAllowedOrigin("http://localhost:5173");
+        corsConfig.addAllowedOrigin("http://127.0.0.1:5173");
+        corsConfig.addAllowedOrigin("https://thangdev.online");
+        corsConfig.addAllowedOrigin("http://14.225.206.173:8080");
 //		  	corsConfig.addAllowedOrigin("*");
 
         corsConfig.addAllowedHeader("*");
