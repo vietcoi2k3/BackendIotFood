@@ -73,7 +73,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     }
 
     @Override
-    public FoodRecommendDto addFood(AddFoodRequest addFoodRequest, List<ToppingRequest> toppingRequests) {
+    public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
         String imgFood = "";
         if (addFoodRequest.getImgFood() != null) {
             try {
@@ -83,17 +83,17 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
             }
         }
         List<ToppingEntity> listToppingTemp = new ArrayList<>();
-        if (toppingRequests != null) {
+            if (addFoodRequest.getToppingRequest() != null) {
 
 
-            for (ToppingRequest x : toppingRequests
-            ) {
-                ToppingEntity temp = new ToppingEntity();
-                temp.setPrice(x.getPrice());
-                temp.setName(x.getName());
-                listToppingTemp.add(temp);
+                for (ToppingRequest x : addFoodRequest.getToppingRequest()
+                ) {
+                    ToppingEntity temp = new ToppingEntity();
+                    temp.setPrice(x.getPrice());
+                    temp.setName(x.getName());
+                    listToppingTemp.add(temp);
+                }
             }
-        }
         FoodEntity foodEntity = new FoodEntity();
         foodEntity.setDetail(addFoodRequest.getDetail());
         foodEntity.setFoodName(addFoodRequest.getFoodName());

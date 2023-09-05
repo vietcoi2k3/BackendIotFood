@@ -14,7 +14,7 @@ public interface FoodInterface {
 
     public List<FoodRecommendDto> getFoodRecommand();
 
-    public FoodRecommendDto addFood(AddFoodRequest addFoodRequest, List<ToppingRequest> toppingRequests) throws IOException;
+    public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) throws IOException;
 
     public List<FoodEntity> findFoodOnType(FoodEntity foodEntity);
 

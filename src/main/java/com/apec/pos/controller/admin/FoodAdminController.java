@@ -5,17 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import com.apec.pos.Dto.FoodDto.AddFoodRequest;
 import com.apec.pos.enu.ErrorCode;
@@ -32,14 +28,19 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class FoodAdminController {
 
     @Autowired
-    FoodService foodService;
+    private FoodService foodService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Operation(summary = "thêm food", description = "dsadsadas")
     @RequestMapping(value = "add-food", method = RequestMethod.POST, consumes = "multipart/form-data")
     public ResponseEntity addFood(
-            @ModelAttribute List<ToppingRequest> toppingRequests, @ModelAttribute AddFoodRequest addFoodRequest
-    ) {
-        return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.addFood(addFoodRequest, toppingRequests)));
+            @ModelAttribute AddFoodRequest addFoodRequest, BindingResult bindingResult)
+    {
+
+
+     return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.addFood(addFoodRequest)));
     }
 
     @RequestMapping(value = "update-food", method = RequestMethod.PUT, consumes = "multipart/form-data")
