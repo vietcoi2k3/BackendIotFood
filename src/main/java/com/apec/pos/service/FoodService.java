@@ -9,6 +9,8 @@ import javax.security.auth.x500.X500Principal;
 
 import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.entity.ToppingEntity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -75,6 +77,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     @Override
     public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
         String imgFood = "";
+        Gson gson = new Gson();
+        List<ToppingRequest> toppingRequest = gson.fromJson(addFoodRequest.getToppingRequest(),new TypeToken<List<ToppingRequest>>(){}.getType());
         if (addFoodRequest.getImgFood() != null) {
             try {
                 imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood());
@@ -83,12 +87,11 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
             }
         }
         List<ToppingEntity> listToppingTemp = new ArrayList<>();
-            if (addFoodRequest.getToppingRequest() != null) {
-
-
-                for (ToppingRequest x : addFoodRequest.getToppingRequest()
+            if (toppingRequest != null) {
+                for (ToppingRequest x : toppingRequest
                 ) {
                     ToppingEntity temp = new ToppingEntity();
+                    System.out.println(temp.getName());
                     temp.setPrice(x.getPrice());
                     temp.setName(x.getName());
                     listToppingTemp.add(temp);
@@ -117,6 +120,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
         foodRecommanDto.setStar(foodEntity.getStar());
         foodRecommanDto.setStatus(foodEntity.getStatus());
+        foodRecommanDto.setToppingEntities(foodEntity.getToppingEntities());
         return foodRecommanDto;
     }
 

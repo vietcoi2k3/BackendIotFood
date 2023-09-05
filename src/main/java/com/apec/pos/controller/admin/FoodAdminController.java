@@ -6,7 +6,10 @@ import java.util.Set;
 
 import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.Valid;
+
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -36,11 +39,12 @@ public class FoodAdminController {
     @Operation(summary = "thêm food", description = "dsadsadas")
     @RequestMapping(value = "add-food", method = RequestMethod.POST, consumes = "multipart/form-data")
     public ResponseEntity addFood(
-            @ModelAttribute AddFoodRequest addFoodRequest, BindingResult bindingResult)
+            @ModelAttribute AddFoodRequest addFoodRequest,BindingResult bindingResult)
     {
 
 
-     return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.addFood(addFoodRequest)));
+
+   return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.addFood(addFoodRequest)));
     }
 
     @RequestMapping(value = "update-food", method = RequestMethod.PUT, consumes = "multipart/form-data")
