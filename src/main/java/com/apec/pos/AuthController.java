@@ -150,6 +150,12 @@ public class AuthController {
         return  ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,typeFoodService.findOne(id)));
     }
 
+    @Operation(summary = "phân trang sản phẩm", description = "pageIndex nhận vào tính từ 0")
+    @RequestMapping(value = "/paging-food-admin", method = RequestMethod.POST)
+    public ResponseEntity pagingAuthFood(@RequestParam int pageSize, @RequestParam int pageIndex) {
+        return ResponseEntity.ok(new Response(true, "trang" + pageIndex, ErrorCode.SUCCESS, foodService.paging(pageSize, pageIndex)));
+    }
+
 //	@RequestMapping(method = RequestMethod.GET,value = "get-user-lazy")
 //	public ResponseEntity testLazy(){
 //		FoodEntity foodEntity = foodService.findOne(2);
