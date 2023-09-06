@@ -79,6 +79,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
         String imgFood = "";
         Gson gson = new Gson();
+        System.out.println("topping:"+addFoodRequest.getToppingRequest());
         List<ToppingRequestAdd> toppingRequest = gson.fromJson(addFoodRequest.getToppingRequest(),new TypeToken<List<ToppingRequestAdd>>(){}.getType());
         if (addFoodRequest.getImgFood() != null) {
             try {
