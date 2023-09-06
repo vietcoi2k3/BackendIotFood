@@ -10,6 +10,7 @@ import javax.security.auth.x500.X500Principal;
 import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.Dto.ToppingDTO.ToppingRequestAdd;
 import com.apec.pos.entity.ToppingEntity;
+import com.apec.pos.repository.ToppingRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ import com.apec.pos.service.serviceInterface.FoodInterface;
 @Service
 @CacheConfig(cacheNames = "iotFood")
 public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer> implements FoodInterface {
+
+    @Autowired
+    private ToppingRepository toppingRepository;
 
     @Autowired
     private FoodRepository foodRepository;
@@ -271,6 +275,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     public List<Integer> MuiltiDelete(Set<Integer> ids) {
         List<Integer> listId = new ArrayList<>();
         for (Integer x : ids) {
+            toppingRepository.deleteByFoodId(x);
             int temp = foodRepository.delete(x);
             listId.add(temp);
         }
