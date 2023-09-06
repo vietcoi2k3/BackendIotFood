@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.security.auth.x500.X500Principal;
 
 import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
+import com.apec.pos.Dto.ToppingDTO.ToppingRequestAdd;
 import com.apec.pos.entity.ToppingEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -78,7 +79,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
         String imgFood = "";
         Gson gson = new Gson();
-        List<ToppingRequest> toppingRequest = gson.fromJson(addFoodRequest.getToppingRequest(),new TypeToken<List<ToppingRequest>>(){}.getType());
+        List<ToppingRequestAdd> toppingRequest = gson.fromJson(addFoodRequest.getToppingRequest(),new TypeToken<List<ToppingRequestAdd>>(){}.getType());
         if (addFoodRequest.getImgFood() != null) {
             try {
                 imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood());
@@ -88,7 +89,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         }
         List<ToppingEntity> listToppingTemp = new ArrayList<>();
             if (toppingRequest != null) {
-                for (ToppingRequest x : toppingRequest
+                for (ToppingRequestAdd x : toppingRequest
                 ) {
                     ToppingEntity temp = new ToppingEntity();
                     System.out.println(temp.getName());
