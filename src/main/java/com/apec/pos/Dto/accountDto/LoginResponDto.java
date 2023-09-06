@@ -3,7 +3,11 @@ package com.apec.pos.Dto.accountDto;
 import java.util.Set;
 
 import com.apec.pos.entity.RoleEntity;
+import lombok.Builder;
+import lombok.Data;
 
+@Builder
+@Data
 public class LoginResponDto {
     private Integer id;
     private Set<RoleEntity> role;

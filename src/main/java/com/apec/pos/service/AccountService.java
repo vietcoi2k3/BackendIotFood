@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.apec.pos.Dto.accountDto.*;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.PageRequest;
@@ -198,6 +199,29 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
     @Override
     public void deleteAccount() {
 
+    }
+
+    @Override
+    public List<LoginResponDto> pagingEmployee(Integer pageSize, Integer pageIndex) {
+        PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
+        List<Integer> ids= accountRepository.pagingEmployee(pageRequest);
+        List<LoginResponDto> result = new ArrayList<>();
+        for (Integer x:
+             ids) {
+            AccountEntity accountEntity = accountRepository.findOne(x);
+            LoginResponDto temp = new LoginResponDto();
+            temp = LoginResponDto.builder()
+                    .accountName(accountEntity.getAccountName())
+                    .imgUser(accountEntity.getImgUser())
+                    .sdt(accountEntity.getSdt())
+                    .role(accountEntity.getRoles())
+                    .id(accountEntity.getId())
+                    .msv(accountEntity.getUsername())
+                    .build();
+
+            result.add(temp);
+        }
+        return result;
     }
 
 

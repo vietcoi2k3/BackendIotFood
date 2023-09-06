@@ -1,11 +1,14 @@
 package com.apec.pos.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 import java.util.List;
 import java.util.Map;
 
+import io.swagger.models.auth.In;
+import jakarta.persistence.Query;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -28,6 +31,16 @@ public class AccountRepository extends BaseRepository<AccountEntity, Integer> {
     public AccountRepository() {
         super(AccountEntity.class);
         // TODO Auto-generated constructor stub
+    }
+
+    public List<Integer> pagingEmployee(PageRequest pageRequest){
+        String query = "select user_id from user_role where role_id = 3";
+        Query query1 = entityManager.createNativeQuery(query)
+                .setFirstResult(pageRequest.getPageSize()*pageRequest.getPageNumber())
+                .setMaxResults(pageRequest.getPageSize());
+        List<Integer> listUserId = query1.getResultList();
+
+        return listUserId;
     }
 
     public List<AccountEntity> paging(PageRequest pageRequest) {

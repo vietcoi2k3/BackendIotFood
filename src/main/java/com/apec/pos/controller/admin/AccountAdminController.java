@@ -13,6 +13,7 @@ import com.apec.pos.service.AccountService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 
 import java.io.IOException;
 
@@ -40,5 +41,11 @@ public class AccountAdminController {
     @Operation(summary = "sửa nhân viên")
     public ResponseEntity updateEmployee(@ModelAttribute UpdateAccountRequest updateAccountRequest) throws IOException {
         return ResponseEntity.ok(new Response<>(true, "", accountService.updateEmployee(updateAccountRequest)));
+    }
+
+    @RequestMapping(value = "MANAGER/paging-employee",method = RequestMethod.POST)
+    @Operation(summary = "phân trang nhân viên")
+    public ResponseEntity pagingEmployee(@RequestParam Integer pageSize,@RequestParam Integer pageIndex){
+        return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,accountService.pagingEmployee(pageSize,pageIndex)));
     }
 }

@@ -4,6 +4,7 @@ import com.apec.pos.Dto.accountDto.*;
 import com.apec.pos.entity.AccountEntity;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface AccountInterface {
 
@@ -22,4 +23,6 @@ public interface AccountInterface {
     public LoginResponDto updateEmployee(UpdateAccountRequest updateAccountRequest) throws IOException;
 
     public void deleteAccount();
+
+    public List<LoginResponDto> pagingEmployee(Integer pageSize, Integer pageIndex);
 }
