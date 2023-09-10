@@ -3,10 +3,10 @@ package com.apec.pos.service.serviceInterface;
 import java.util.List;
 import java.util.Set;
 
-import com.apec.pos.Dto.restaurantDto.ResRecommnedRespon;
-import com.apec.pos.Dto.restaurantDto.ResRequest;
-import com.apec.pos.Dto.restaurantDto.ResponsePaging;
-import com.apec.pos.Dto.restaurantDto.SearchForm;
+import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
+import com.apec.pos.dto.restaurantDto.ResRequest;
+import com.apec.pos.dto.restaurantDto.ResponsePaging;
+import com.apec.pos.dto.restaurantDto.SearchForm;
 import com.apec.pos.entity.RestaurantEntity;
 
 public interface RestaurantInterface {

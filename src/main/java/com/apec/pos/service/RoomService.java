@@ -3,16 +3,14 @@ package com.apec.pos.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.x500.X500Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apec.pos.PosApplication;
-import com.apec.pos.Dto.MessageDto.MessageResponse;
-import com.apec.pos.Dto.RoomDto.GetListRoomResponse;
-import com.apec.pos.Dto.RoomDto.InfoReceiver;
-import com.apec.pos.Dto.RoomDto.LastMess;
+import com.apec.pos.dto.MessageDto.MessageResponse;
+import com.apec.pos.dto.RoomDto.GetListRoomResponse;
+import com.apec.pos.dto.RoomDto.InfoReceiver;
+import com.apec.pos.dto.RoomDto.LastMess;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.MessageEntity;
 import com.apec.pos.entity.RoomChatEntity;
@@ -20,8 +18,6 @@ import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.repository.MessageRepository;
 import com.apec.pos.repository.RoomChatRepository;
 import com.apec.pos.service.serviceInterface.RoomChatInterface;
-
-import io.swagger.v3.oas.annotations.servers.Server;
 
 @Service
 public class RoomService extends BaseService<RoomChatRepository, RoomChatEntity, Integer> implements RoomChatInterface {

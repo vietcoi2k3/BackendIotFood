@@ -1,6 +1,6 @@
 package com.apec.pos.service.serviceInterface;
 
-import com.apec.pos.Dto.accountDto.*;
+import com.apec.pos.dto.accountDto.*;
 import com.apec.pos.entity.AccountEntity;
 
 import java.io.IOException;

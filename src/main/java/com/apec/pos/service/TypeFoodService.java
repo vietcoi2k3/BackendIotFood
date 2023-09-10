@@ -3,19 +3,17 @@ package com.apec.pos.service;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.TypeDto.TypeResponseAdmin;
-import com.apec.pos.Dto.TypeDto.TypefoodResponseData;
-import com.apec.pos.Dto.TypeDto.UpdateTypeRequest;
-import com.apec.pos.Dto.restaurantDto.SearchForm;
+import com.apec.pos.dto.TypeDto.TypeResponseAdmin;
+import com.apec.pos.dto.TypeDto.TypefoodResponseData;
+import com.apec.pos.dto.TypeDto.UpdateTypeRequest;
+import com.apec.pos.dto.restaurantDto.SearchForm;
 import com.apec.pos.entity.TypeFoodEntity;
 import com.apec.pos.repository.TypeFoodRepository;
 import com.apec.pos.service.serviceInterface.TypeFoodInterface;
@@ -34,7 +32,7 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
         String imgType = null;
         if (updateTypeRequest.getImgType() != null) {
             try {
-                imgType = fileUploadService.uploadFile(updateTypeRequest.getImgType());
+                imgType = fileUploadService.uploadFile(updateTypeRequest.getImgType().getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -84,7 +82,7 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
         String imgType = null;
         if (updateTypeRequest.getImgType() != null) {
             try {
-                imgType = fileUploadService.uploadFile(updateTypeRequest.getImgType());
+                imgType = fileUploadService.uploadFile(updateTypeRequest.getImgType().getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }

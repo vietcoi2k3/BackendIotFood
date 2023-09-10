@@ -11,14 +11,19 @@ import org.springframework.cache.annotation.EnableCaching;
 import com.twilio.Twilio;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.net.URL;
 
 @SpringBootApplication
 @EnableCaching
 @EnableConfigurationProperties
 public class PosApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)throws IOException {
         SpringApplication.run(PosApplication.class, args);
+
     }
 
     public static String currentUserGlobal = "";

@@ -1,7 +1,6 @@
 package com.apec.pos.service;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,8 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.apec.pos.Dto.accountDto.*;
-import io.swagger.models.auth.In;
+import com.apec.pos.dto.accountDto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.PageRequest;
@@ -178,7 +176,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
             accountEntity.setAccountName(updateAccountRequest.getAccountName());
         if (updateAccountRequest.getMultipartFile() != null) {
             String imgUser = null;
-            imgUser = fileUploadService.uploadFile(updateAccountRequest.getMultipartFile());
+            imgUser = fileUploadService.uploadFile(updateAccountRequest.getMultipartFile().getBytes());
             accountEntity.setImgUser(imgUser);
         }
         if (updateAccountRequest.getPassword() != null)

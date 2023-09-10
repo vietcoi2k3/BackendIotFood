@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apec.pos.Dto.accountDto.LoginRequest;
-import com.apec.pos.Dto.accountDto.LoginResponDto;
-import com.apec.pos.Dto.otpDto.OtpRequestDto;
-import com.apec.pos.Dto.otpDto.OtpResponseDto;
-import com.apec.pos.Dto.otpDto.OtpValidationRequestDto;
+import com.apec.pos.dto.accountDto.LoginRequest;
+import com.apec.pos.dto.accountDto.LoginResponDto;
+import com.apec.pos.dto.otpDto.OtpRequestDto;
+import com.apec.pos.dto.otpDto.OtpResponseDto;
+import com.apec.pos.dto.otpDto.OtpValidationRequestDto;
 import com.apec.pos.unitl.Validator;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.enu.ErrorCode;

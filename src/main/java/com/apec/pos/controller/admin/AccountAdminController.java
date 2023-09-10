@@ -1,19 +1,17 @@
 package com.apec.pos.controller.admin;
 
-import com.apec.pos.Dto.accountDto.UpdateAccountRequest;
+import com.apec.pos.dto.accountDto.UpdateAccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.apec.pos.Dto.accountDto.RegisterRequest;
+import com.apec.pos.dto.accountDto.RegisterRequest;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.AccountService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 
 import java.io.IOException;
 

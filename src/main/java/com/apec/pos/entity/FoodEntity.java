@@ -34,16 +34,10 @@ public class FoodEntity extends BaseEntity implements Serializable {
     private Integer price;
 
     @Column
-    private Integer star;
-
-    @Column
     private Integer quantityPurchased;
 
     @Column(name = "typeFoodEntityId")
     private Integer typeFoodEntityId;
-
-    @Column(name = "cartEntityId")
-    private Integer cartEntityId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "type-food")
@@ -94,14 +88,13 @@ public class FoodEntity extends BaseEntity implements Serializable {
     }
 
 
-    public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price, Integer star,
+    public FoodEntity(String createBy, String modifiedBy, String foodName, String detail, Integer price,
                       Integer quantityPurchased, Integer typeFoodEntityId, TypeFoodEntity typeFoodEntity,
                       Integer restaurantEntityId, RestaurantEntity restaurantEntity) {
         super(createBy, modifiedBy);
         this.foodName = foodName;
         this.detail = detail;
         this.price = price;
-        this.star = star;
         this.quantityPurchased = quantityPurchased;
         this.typeFoodEntityId = typeFoodEntityId;
         this.typeFoodEntity = typeFoodEntity;
@@ -112,14 +105,6 @@ public class FoodEntity extends BaseEntity implements Serializable {
 
     public Integer getTypeFoodEntityId() {
         return typeFoodEntityId;
-    }
-
-    public Integer getStar() {
-        return star;
-    }
-
-    public void setStar(Integer star) {
-        this.star = star;
     }
 
     public void setTypeFoodEntityId(Integer typeFoodEntityId) {

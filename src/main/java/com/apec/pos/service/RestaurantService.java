@@ -2,21 +2,19 @@ package com.apec.pos.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.apec.pos.Dto.restaurantDto.ResponsePaging;
-import com.apec.pos.entity.FoodEntity;
+import com.apec.pos.dto.restaurantDto.ResponsePaging;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.repository.ToppingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.restaurantDto.ResRecommnedRespon;
-import com.apec.pos.Dto.restaurantDto.ResRequest;
-import com.apec.pos.Dto.restaurantDto.SearchForm;
+import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
+import com.apec.pos.dto.restaurantDto.ResRequest;
+import com.apec.pos.dto.restaurantDto.SearchForm;
 import com.apec.pos.entity.RestaurantEntity;
 import com.apec.pos.repository.RestaurantRepository;
 import com.apec.pos.service.serviceInterface.RestaurantInterface;
@@ -49,10 +47,12 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         restaurantEntity.setAddress(request.getAddress());
         restaurantEntity.setDetail(request.getDetail());
         restaurantEntity.setPhoneNumber(request.getPhoneNumber());
+        restaurantEntity.setTimeStart(request.getTimeStart());
+        restaurantEntity.setTimeClose(request.getTimeClose());
         if (request.getImgRes() != null) {
             String imgRes = null;
             try {
-                imgRes = fileUploadService.uploadFile(request.getImgRes());
+                imgRes = fileUploadService.uploadFile(request.getImgRes().getBytes());
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -113,7 +113,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
             String imgRes = null;
 
             try {
-                imgRes = fileUploadService.uploadFile(request.getImgRes());
+                imgRes = fileUploadService.uploadFile(request.getImgRes().getBytes());
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

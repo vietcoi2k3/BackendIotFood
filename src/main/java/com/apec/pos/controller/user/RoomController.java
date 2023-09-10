@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apec.pos.Dto.RoomDto.AddRoomRequest;
-import com.apec.pos.enu.ErrorCode;
+import com.apec.pos.dto.RoomDto.AddRoomRequest;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.RoomService;
 

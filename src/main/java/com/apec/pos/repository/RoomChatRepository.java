@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.apec.pos.Dto.RoomDto.GetListRoomResponse;
 import com.apec.pos.entity.RoomChatEntity;
 
 import jakarta.persistence.EntityManager;

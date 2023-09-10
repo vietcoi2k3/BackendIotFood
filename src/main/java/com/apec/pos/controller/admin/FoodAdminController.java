@@ -4,19 +4,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
+import com.apec.pos.dto.FoodDto.AddMultipartFood;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.apec.pos.Dto.FoodDto.AddFoodRequest;
+import com.apec.pos.dto.FoodDto.AddFoodRequest;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.FoodService;
@@ -75,5 +73,13 @@ public class FoodAdminController {
     @RequestMapping(value = "/delete-food", method = RequestMethod.POST)
     public ResponseEntity multiDelete(@RequestBody Set<Integer> ids) {
         return ResponseEntity.ok(new Response(true, "", foodService.MuiltiDelete(ids)));
+    }
+
+
+    @Operation(summary = "thêm nhiều món ăn",description = "không cần truyền id")
+    @RequestMapping(value = "add-multi-food",method = RequestMethod.POST)
+    public ResponseEntity multiAddFood(@RequestBody List<AddMultipartFood> addFoodRequests) throws IOException {
+        foodService.multipartAddFood(addFoodRequests);
+        return ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS));
     }
 }

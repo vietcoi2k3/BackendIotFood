@@ -1,11 +1,10 @@
 package com.apec.pos.controller.user;
 
-import com.apec.pos.Dto.billDTO.BillRequest;
+import com.apec.pos.dto.billDTO.BillRequest;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.BillService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

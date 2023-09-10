@@ -4,9 +4,9 @@ import java.util.List;
 
 import java.util.Set;
 
-import com.apec.pos.Dto.TypeDto.TypefoodResponseData;
-import com.apec.pos.Dto.TypeDto.UpdateTypeRequest;
-import com.apec.pos.Dto.restaurantDto.SearchForm;
+import com.apec.pos.dto.TypeDto.TypefoodResponseData;
+import com.apec.pos.dto.TypeDto.UpdateTypeRequest;
+import com.apec.pos.dto.restaurantDto.SearchForm;
 
 public interface TypeFoodInterface {
     public TypefoodResponseData addTypeFood(UpdateTypeRequest updateTypeRequest);

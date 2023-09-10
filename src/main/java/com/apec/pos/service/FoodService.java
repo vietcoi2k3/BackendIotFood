@@ -1,29 +1,27 @@
 package com.apec.pos.service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.security.auth.x500.X500Principal;
-
-import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
-import com.apec.pos.Dto.ToppingDTO.ToppingRequestAdd;
+import com.apec.pos.dto.FoodDto.AddMultipartFood;
+import com.apec.pos.dto.ToppingDTO.ToppingRequestAdd;
 import com.apec.pos.entity.ToppingEntity;
 import com.apec.pos.repository.ToppingRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.FoodDto.AddFoodRequest;
-import com.apec.pos.Dto.FoodDto.FoodRecommendDto;
-import com.apec.pos.Dto.FoodDto.FoodResponseAdmin;
-import com.apec.pos.Dto.FoodDto.FoodSearchRespon;
+import com.apec.pos.dto.FoodDto.AddFoodRequest;
+import com.apec.pos.dto.FoodDto.FoodRecommendDto;
+import com.apec.pos.dto.FoodDto.FoodResponseAdmin;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.service.serviceInterface.FoodInterface;
@@ -63,7 +61,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getDetail(),
                             nameRes,
                             x.getImgFood(),
-                            x.getStar(),
                             x.getCreateBy(),
                             x.getCreateDate(),
                             x.getQuantityPurchased(),
@@ -83,11 +80,10 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
         String imgFood = "";
         Gson gson = new Gson();
-        System.out.println("topping:"+addFoodRequest.getToppingRequest());
         List<ToppingRequestAdd> toppingRequest = gson.fromJson(addFoodRequest.getToppingRequest(),new TypeToken<List<ToppingRequestAdd>>(){}.getType());
         if (addFoodRequest.getImgFood() != null) {
             try {
-                imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood());
+                imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood().getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -124,7 +120,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         foodRecommanDto.setImgFood(foodEntity.getImgFood());
         foodRecommanDto.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
         foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
-        foodRecommanDto.setStar(foodEntity.getStar());
         foodRecommanDto.setStatus(foodEntity.getStatus());
         foodRecommanDto.setToppingEntities(foodEntity.getToppingEntities());
         return foodRecommanDto;
@@ -149,7 +144,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                     x.getDetail(),
                     nameRes,
                     x.getImgFood(),
-                    x.getStar(),
                     x.getCreateBy(),
                     x.getCreateDate(),
                     x.getQuantityPurchased(),
@@ -175,7 +169,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                 x.getDetail(),
                 nameRes,
                 x.getImgFood(),
-                x.getStar(),
                 x.getCreateBy(),
                 x.getCreateDate(),
                 x.getQuantityPurchased(),
@@ -202,7 +195,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getDetail(),
                             x.getRestaurantEntity() != null ? x.getRestaurantEntity().getRestaurantName() : "",
                             x.getImgFood(),
-                            x.getStar(),
                             x.getCreateBy(),
                             x.getCreateDate(),
                             x.getQuantityPurchased(),
@@ -225,7 +217,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) throws IOException {
         String imgFood = null;
         if (addFoodRequest.getImgFood() != null) {
-            imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood());
+            imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood().getBytes());
         }
         FoodEntity foodEntity = foodRepository.findOne(addFoodRequest.getId());
         if (addFoodRequest.getDetail() != null)
@@ -251,7 +243,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         foodRecommanDto.setImgFood(foodEntity.getImgFood());
         foodRecommanDto.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
         foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
-        foodRecommanDto.setStar(foodEntity.getStar());
         foodRecommanDto.setStatus(foodEntity.getStatus());
         foodRecommanDto.setToppingEntities(foodEntity.getToppingEntities());
 
@@ -280,6 +271,47 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
             listId.add(temp);
         }
         return listId;
+    }
+
+    @Override
+    public void multipartAddFood(List<AddMultipartFood> addFoodRequests) throws IOException {
+        for (AddMultipartFood x:
+             addFoodRequests) {
+            //
+            byte[] bytes = null;
+            try(var stream = new URL(x.getImgFood()).openStream()){
+                 bytes = stream.readAllBytes();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String img=fileUploadService.uploadFile(bytes);
+            Gson gson = new Gson();
+            List<ToppingRequestAdd> toppingRequest = gson.fromJson(x.getToppingRequest(),new TypeToken<List<ToppingRequestAdd>>(){}.getType());
+            List<ToppingEntity> listToppingTemp = new ArrayList<>();
+            //
+            if (toppingRequest != null) {
+                for (ToppingRequestAdd a : toppingRequest
+                ) {
+                    ToppingEntity temp = new ToppingEntity();
+                    temp.setPrice(a.getPrice());
+                    temp.setName(a.getName());
+                    listToppingTemp.add(temp);
+                }
+            }
+
+            FoodEntity foodEntity = FoodEntity.builder()
+                    .foodName(x.getFoodName())
+                    .detail(x.getDetail())
+                    .price(x.getPrice())
+                    .imgFood(img)
+                    .typeFoodEntityId(x.getTypeFoodEntityId())
+                    .restaurantEntityId(x.getRestaurantEntityId())
+                    .toppingEntities(listToppingTemp).build();
+            foodRepository.insert(foodEntity);
+        }
+
     }
 
 

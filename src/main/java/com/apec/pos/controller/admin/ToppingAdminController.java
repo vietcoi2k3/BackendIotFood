@@ -1,6 +1,6 @@
 package com.apec.pos.controller.admin;
 
-import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
+import com.apec.pos.dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.ToppingService;
 import io.swagger.v3.oas.annotations.Operation;

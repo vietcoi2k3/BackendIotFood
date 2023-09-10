@@ -1,17 +1,13 @@
 package com.apec.pos.service;
 
-import com.apec.pos.Dto.billDTO.BillRequest;
+import com.apec.pos.dto.billDTO.BillRequest;
 import com.apec.pos.PosApplication;
 import com.apec.pos.entity.BillEntity;
 import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.enu.OrderStatus;
-import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.repository.BillRepository;
 import com.apec.pos.repository.FoodRepository;
-import com.apec.pos.service.BaseService;
 import com.apec.pos.service.serviceInterface.BillInterface;
-import io.swagger.models.auth.In;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

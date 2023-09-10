@@ -1,12 +1,10 @@
 package com.apec.pos.service;
 
-import java.sql.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.apec.pos.Dto.MessageDto.MessageResponse;
-import com.apec.pos.Dto.MessageDto.MessageSendRequest;
+import com.apec.pos.dto.MessageDto.MessageResponse;
+import com.apec.pos.dto.MessageDto.MessageSendRequest;
 import com.apec.pos.entity.MessageEntity;
 import com.apec.pos.repository.MessageRepository;
 import com.apec.pos.service.serviceInterface.MessageInterface;

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import com.apec.pos.Dto.FoodDto.AddFoodRequest;
-import com.apec.pos.Dto.FoodDto.FoodRecommendDto;
-import com.apec.pos.Dto.FoodDto.FoodResponseAdmin;
-import com.apec.pos.Dto.ToppingDTO.ToppingRequest;
+import com.apec.pos.dto.FoodDto.AddFoodRequest;
+import com.apec.pos.dto.FoodDto.AddMultipartFood;
+import com.apec.pos.dto.FoodDto.FoodRecommendDto;
+import com.apec.pos.dto.FoodDto.FoodResponseAdmin;
 import com.apec.pos.entity.FoodEntity;
 
 public interface FoodInterface {
@@ -31,4 +31,6 @@ public interface FoodInterface {
     public String deleteFood(Integer id);
 
     public List<Integer> MuiltiDelete(Set<Integer> ids);
+
+    public void multipartAddFood(List<AddMultipartFood> addFoodRequests) throws IOException;
 }
