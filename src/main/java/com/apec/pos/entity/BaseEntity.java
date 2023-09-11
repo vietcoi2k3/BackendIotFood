@@ -30,10 +30,10 @@ public class BaseEntity {
     @Column(name = "create_by")
     private String createBy;
 
-    @ElementCollection
-    @CollectionTable(name = "log_table", joinColumns = @JoinColumn(name = "log_id"))
-    @JsonIgnore
-    private List<LogElement> logs;
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(name = "log_table", joinColumns = @JoinColumn(name = "log_id"))
+//    @JsonIgnore
+//    private List<LogElement> logs;
 
     @Column
     private Boolean status;
@@ -87,11 +87,11 @@ public class BaseEntity {
     // Custom method to update modified date and modified by
     @PreUpdate
     protected void onUpdate() {
-        LogElement logElement=new LogElement();
-        logElement.setUrl(PosApplication.currentUrlGlobal);
-        logElement.setModifiedBy(PosApplication.currentUserGlobal);
-        logElement.setModifiedDate(new Date());
-        this.logs.add(logElement);
+//        LogElement logElement=new LogElement();
+//        logElement.setUrl(PosApplication.currentUrlGlobal);
+//        logElement.setModifiedBy(PosApplication.currentUserGlobal);
+//        logElement.setModifiedDate(new Date());
+//        this.logs.add(logElement);
     }
 
 

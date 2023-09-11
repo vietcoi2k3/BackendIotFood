@@ -44,7 +44,7 @@ public class RestaurantEntity extends BaseEntity implements Serializable {
 
     private Integer time;
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurantEntity")
     @JsonManagedReference(value = "food-res")
     private Set<FoodEntity> foodEntities;
 
