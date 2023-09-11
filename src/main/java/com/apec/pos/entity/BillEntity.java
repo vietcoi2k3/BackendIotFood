@@ -19,13 +19,14 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class BillEntity extends BaseEntity {
+
     private Date finishDate;
     private OrderStatus orderStatus;
     private long totalAmount;
     private String orderBy;
 
-    @OneToMany(mappedBy = "")
-    @JsonManagedReference("bill-food")
-    private List<FoodEntity> foodEntities;
+    @OneToMany(mappedBy = "billEntity")
+    @JsonManagedReference(value = "bill-detail")
+    private List<BillDetailEntity> billDetailEntities;
 
 }

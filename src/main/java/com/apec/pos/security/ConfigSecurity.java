@@ -42,7 +42,7 @@ public class ConfigSecurity {
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/ADMIN/*").hasAnyAuthority("ADMIN", "EMPLOYEE");
                     auth.requestMatchers("/ADMIN/MANAGER/**").hasAuthority("ADMIN");
-                    auth.requestMatchers("/user/**").hasAuthority("USER");
+                    auth.requestMatchers("/user/**").hasAnyAuthority("USER","ADMIN");
                     auth.anyRequest().authenticated();
                 });
         http.sessionManagement(

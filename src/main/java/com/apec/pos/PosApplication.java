@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.URL;
 
 @SpringBootApplication
-@EnableCaching
 @EnableConfigurationProperties
 public class PosApplication extends SpringBootServletInitializer {
 

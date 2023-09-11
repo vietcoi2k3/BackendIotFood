@@ -44,21 +44,20 @@ public class FoodEntity extends BaseEntity implements Serializable {
     @JoinColumn(name = "typeFoodEntityId", updatable = false, insertable = false)
     private TypeFoodEntity typeFoodEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference(value = "food-bill")
-    @JoinColumn(name = "billEntityId", updatable = false, insertable = false)
-    private BillEntity billEntity;
-
     @Column
     private String imgFood;
 
     @Column(name = "restaurantEntityId")
     private Integer restaurantEntityId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "food-res")
     @JoinColumn(name = "restaurantEntityId", insertable = false, updatable = false)
     private RestaurantEntity restaurantEntity;
+
+    @OneToMany(mappedBy = "foodEntity")
+    @JsonManagedReference(value = "food-bill-detail")
+    private List<BillDetailEntity> billDetailEntities;
 
     @Column(name = "billEntityId")
     private Integer billEntityId;

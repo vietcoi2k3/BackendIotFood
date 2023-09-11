@@ -1,9 +1,10 @@
 package com.apec.pos.service;
 
+
+import com.apec.pos.dto.FoodDto.BillFoodRequest;
 import com.apec.pos.dto.billDTO.BillRequest;
-import com.apec.pos.PosApplication;
+import com.apec.pos.entity.BillDetailEntity;
 import com.apec.pos.entity.BillEntity;
-import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.enu.OrderStatus;
 import com.apec.pos.repository.BillRepository;
 import com.apec.pos.repository.FoodRepository;
@@ -11,9 +12,12 @@ import com.apec.pos.service.serviceInterface.BillInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apec.pos.PosApplication;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 @Service
 public class BillService extends BaseService<BillRepository, BillEntity, Integer> implements BillInterface {
@@ -33,19 +37,28 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     @Override
     public BillEntity addBill(BillRequest billRequest) {
 
-        List<FoodEntity> foodEntities = new ArrayList<>();
-        for (Integer x : billRequest.getIdFoods()
-        ) {
-            foodEntities.add(foodRepository.findOne(x));
+        List<BillDetailEntity> billDetailEntities = new ArrayList<>();
+        for (BillFoodRequest x: billRequest.getBillFoodRequests()
+             ) {
+            BillDetailEntity temp = BillDetailEntity.builder()
+                    .billEntityId((int)( billRepository.countAll())+1)
+                    .foodEntityId(x.getFoodId())
+                    .quantity(x.getQuantity())
+                    .build();
+            billDetailEntities.add(temp);
         }
 
-        BillEntity billEntity = BillEntity.builder()
-                .orderBy(PosApplication.currentUserGlobal)
-                .orderStatus(billRequest.getOrderStatus())
+        BillEntity result = BillEntity.builder()
+                .orderStatus(OrderStatus.PENDING)
                 .totalAmount(billRequest.getTotalAmount())
-                .foodEntities(foodEntities).build();
+                .orderBy(PosApplication.currentUserGlobal)
+                .billDetailEntities(billDetailEntities)
+                .build()
+                ;
 
-        return billRepository.update(billEntity);
+
+
+        return billRepository.insert(result);
     }
 
     @Override

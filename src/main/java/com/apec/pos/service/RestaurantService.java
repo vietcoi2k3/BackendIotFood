@@ -49,6 +49,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         restaurantEntity.setPhoneNumber(request.getPhoneNumber());
         restaurantEntity.setTimeStart(request.getTimeStart());
         restaurantEntity.setTimeClose(request.getTimeClose());
+        restaurantEntity.setStar(5.0);
         if (request.getImgRes() != null) {
             String imgRes = null;
             try {

@@ -1,5 +1,6 @@
 package com.apec.pos.dto.billDTO;
 
+import com.apec.pos.dto.FoodDto.BillFoodRequest;
 import com.apec.pos.enu.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,5 @@ import java.util.List;
 public class BillRequest {
     private OrderStatus orderStatus;
     private long totalAmount;
-    private String orderBy;
-    private List<Integer> idFoods;
+    private List<BillFoodRequest> billFoodRequests;
 }
