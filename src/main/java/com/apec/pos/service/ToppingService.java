@@ -24,7 +24,7 @@ public class ToppingService extends BaseService<ToppingRepository, ToppingEntity
     @Override
     public ToppingResponse addTopping(ToppingRequest toppingRequest) {
         ToppingEntity toppingEntity = ToppingEntity.builder()
-                .foodEntityId(toppingRequest.getFoodId())
+                .restaurantEntityId(toppingRequest.getResId())
                 .name(toppingRequest.getName())
                 .price(toppingRequest.getPrice())
                 .build();
@@ -32,10 +32,10 @@ public class ToppingService extends BaseService<ToppingRepository, ToppingEntity
         toppingEntity = toppingRepository.insert(toppingEntity);
 
         ToppingResponse toppingResponse = ToppingResponse.builder()
-                .id(toppingEntity.getFoodEntityId())
+                .id(toppingEntity.getId())
                 .name(toppingEntity.getName())
                 .price(toppingEntity.getPrice())
-                .foodId(toppingEntity.getFoodEntityId())
+                .foodId(toppingEntity.getRestaurantEntityId())
                 .build();
         return toppingResponse;
     }
@@ -52,7 +52,6 @@ public class ToppingService extends BaseService<ToppingRepository, ToppingEntity
         ToppingResponse toppingResponse = ToppingResponse.builder()
                 .price(toppingEntity.getPrice())
                 .name(toppingEntity.getName())
-                .foodId(toppingEntity.getFoodEntityId())
                 .id(toppingEntity.getId())
                 .build();
         return null;

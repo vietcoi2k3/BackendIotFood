@@ -1,16 +1,16 @@
 package com.apec.pos.controller.user;
 
 import com.apec.pos.dto.billDTO.BillRequest;
+import com.apec.pos.enu.ErrorCode;
+import com.apec.pos.enu.OrderStatus;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.BillService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.persistence.criteria.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @SecurityRequirement(name = "bearerAuth")
@@ -24,5 +24,11 @@ public class BillController {
     @RequestMapping(value = "add-bill", method = RequestMethod.POST)
     public ResponseEntity addBill(@RequestBody BillRequest billRequest) {
         return ResponseEntity.ok(new Response<>(true, "", billService.addBill(billRequest)));
+    }
+
+    @Operation(summary = "lấy ra bill phía người dùng")
+    @RequestMapping(value = "get-bill",method = RequestMethod.POST)
+    public ResponseEntity getBill(@RequestParam int pageIndex, @RequestParam int pageSize, @RequestParam OrderStatus orderStatus){
+        return ResponseEntity.ok(new Response(true,"", ErrorCode.SUCCESS,billService.getBillUser(pageIndex,pageSize,orderStatus)));
     }
 }

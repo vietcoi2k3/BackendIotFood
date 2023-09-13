@@ -18,12 +18,4 @@ public class ToppingRepository extends BaseRepository<ToppingEntity, Integer> {
         super(ToppingEntity.class);
     }
 
-    @Transactional
-    public void deleteByFoodId(Integer id) {
-        String queryString0 = "(SELECT f.id FROM FoodEntity f INNER JOIN RestaurantEntity r ON r.id = :id)";
-        String deleteQuery = "DELETE FROM ToppingEntity t WHERE t.foodEntityId IN " + queryString0;
-        Query query = entityManager.createQuery(deleteQuery);
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
 }

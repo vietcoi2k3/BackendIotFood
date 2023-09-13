@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.dto.restaurantDto.ResponsePaging;
+import com.apec.pos.entity.ToppingEntity;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.repository.ToppingRepository;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -42,6 +46,11 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 
     @Override
     public RestaurantEntity addRestaurant(ResRequest request) {
+
+        Gson gson = new Gson();
+        List<ToppingRequest> toppingRequests = gson.fromJson(request.getToppingRequest(),new TypeToken<List<ToppingRequest>>(){}.getType());
+        List<ToppingEntity> toppingEntities = new ArrayList<>();
+
         RestaurantEntity restaurantEntity = new RestaurantEntity();
         restaurantEntity.setRestaurantName(request.getRestaurantName());
         restaurantEntity.setAddress(request.getAddress());
@@ -61,7 +70,19 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
             restaurantEntity.setImgRes(imgRes);
         }
         restaurantEntity.setDistance(request.getDistance());
-        return restaurantRepository.insert(restaurantEntity);
+        RestaurantEntity result = restaurantRepository.insert(restaurantEntity);
+
+        for (ToppingRequest x: toppingRequests
+             ) {
+            ToppingEntity toppingEntity = ToppingEntity.builder()
+                    .name(x.getName())
+                    .price(x.getPrice())
+                    .restaurantEntityId(result.getId())
+                    .build();
+            toppingEntities.add(toppingEntity);
+        }
+        result.setToppingEntityList(toppingEntities);
+        return result;
     }
 
     @Override
@@ -143,7 +164,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     @Override
     public Set<Integer> deleteRes(Set<Integer> ids) {
         for (Integer x : ids) {
-            toppingRepository.deleteByFoodId(x);
             foodRepository.deleteWhereRestaurantId(x);
             restaurantRepository.delete(x);
         }

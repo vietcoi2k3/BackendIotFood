@@ -20,5 +20,4 @@ public class AddFoodRequest implements Serializable {
     private MultipartFile imgFood;
     private Integer typeFoodEntityId;
     private Integer restaurantEntityId;
-    private String toppingRequest;
 }

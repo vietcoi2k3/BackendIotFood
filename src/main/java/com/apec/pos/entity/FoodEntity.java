@@ -62,18 +62,6 @@ public class FoodEntity extends BaseEntity implements Serializable {
     @Column(name = "billEntityId")
     private Integer billEntityId;
 
-    @OneToMany(mappedBy = "foodEntity", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "food-type")
-    private List<ToppingEntity> toppingEntities;
-
-    public List<ToppingEntity> getToppingEntities() {
-        return toppingEntities;
-    }
-
-    public void setToppingEntities(List<ToppingEntity> toppingEntities) {
-        this.toppingEntities = toppingEntities;
-    }
-
     public FoodEntity() {
 
     }

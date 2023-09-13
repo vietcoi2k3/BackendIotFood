@@ -2,9 +2,9 @@ package com.apec.pos.entity;
 
 
 import com.apec.pos.enu.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,9 +24,19 @@ public class BillEntity extends BaseEntity {
     private OrderStatus orderStatus;
     private long totalAmount;
     private String orderBy;
+    private String nameRes;
+
+    @Column(name = "accountEntityId")
+    private Integer accountEntityId;
 
     @OneToMany(mappedBy = "billEntity")
     @JsonManagedReference(value = "bill-detail")
     private List<BillDetailEntity> billDetailEntities;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "bill-account")
+    @JoinColumn(name = "accountEntityId",updatable = false,insertable = false)
+    private AccountEntity accountEntity;
+
 
 }

@@ -24,7 +24,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping(value = "ADMIN")
-@CrossOrigin
 @SecurityRequirement(name = "bearerAuth")
 public class FoodAdminController {
 

@@ -2,6 +2,7 @@ package com.apec.pos.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -43,6 +44,10 @@ public class RestaurantEntity extends BaseEntity implements Serializable {
     private String imgRes;
 
     private Integer time;
+
+    @OneToMany(mappedBy = "restaurantEntity")
+    @JsonManagedReference(value = "topping-res")
+    private List<ToppingEntity> toppingEntityList;
 
     @OneToMany(mappedBy = "restaurantEntity")
     @JsonManagedReference(value = "food-res")

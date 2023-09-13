@@ -15,5 +15,5 @@ public class ToppingRequest implements Serializable {
     private Integer id;
     private String name;
     private Integer price;
-    private Integer foodId;
+    private Integer resId;
 }

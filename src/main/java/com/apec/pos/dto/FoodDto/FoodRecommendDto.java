@@ -27,7 +27,8 @@ public class FoodRecommendDto {
     private Integer typeFoodEntityId;
     private Integer restaurantEntityId;
     private Boolean status;
-    private List<ToppingEntity> toppingEntities;
+    private Double distance;
+    private Integer resId;
 
 
 }

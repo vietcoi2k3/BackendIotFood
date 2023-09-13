@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -17,5 +16,4 @@ public class AddMultipartFood {
     private String imgFood;
     private Integer typeFoodEntityId;
     private Integer restaurantEntityId;
-    private String toppingRequest;
 }

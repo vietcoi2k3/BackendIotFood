@@ -47,6 +47,10 @@ public class AccountEntity extends BaseEntity implements UserDetails {
     @JsonManagedReference(value = "account-mess")
     private List<MessageEntity> messageEntities;
 
+    @OneToMany(mappedBy = "accountEntity")
+    @JsonManagedReference(value = "bill-account")
+    private List<BillEntity> billEntities;
+
 
     public List<MessageEntity> getMessageEntities() {
         return messageEntities;
