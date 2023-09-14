@@ -1,7 +1,7 @@
 package com.apec.pos.service.serviceInterface;
 
 
-import com.apec.pos.Dto.ToppingDTO.ToppingResponse;
+import com.apec.pos.dto.ToppingDTO.ToppingResponse;
 import com.apec.pos.dto.ToppingDTO.ToppingRequest;
 
 

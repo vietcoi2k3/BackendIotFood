@@ -1,6 +1,6 @@
 package com.apec.pos.service;
 
-import com.apec.pos.Dto.ToppingDTO.ToppingResponse;
+import com.apec.pos.dto.ToppingDTO.ToppingResponse;
 import com.apec.pos.dto.ToppingDTO.Item;
 import com.apec.pos.dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.entity.ToppingEntity;
@@ -42,7 +42,7 @@ public class ToppingService extends BaseService<ToppingRepository, ToppingEntity
 
         ToppingResponse toppingResponse = ToppingResponse.builder()
                 .id(toppingEntity.getId())
-                .name(toppingEntity.getTitle())
+                .title(toppingEntity.getTitle())
                 .itemList(itemList)
                 .build();
         return toppingResponse;

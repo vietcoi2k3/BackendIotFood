@@ -1,4 +1,4 @@
-package com.apec.pos.Dto.ToppingDTO;
+package com.apec.pos.dto.ToppingDTO;
 
 import com.apec.pos.dto.ToppingDTO.Item;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 public class ToppingResponse {
     private Integer id;
-    private String name;
+    private String title;
+    private Boolean requi;
     private List<Item> itemList;
 }

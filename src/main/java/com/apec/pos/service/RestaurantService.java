@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.dto.ToppingDTO.Item;
+import com.apec.pos.dto.ToppingDTO.*;
 import com.apec.pos.dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.dto.restaurantDto.ResponsePaging;
 import com.apec.pos.entity.ToppingEntity;
@@ -159,11 +161,25 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 
     @Override
     public ResponsePaging paging(Integer pageSize, Integer pageIndex) {
+        Gson gson= new Gson();
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         List<ResRecommnedRespon> result = new ArrayList<>();
         List<RestaurantEntity> restaurantEntities = restaurantRepository.paging(pageRequest);
         for (RestaurantEntity x : restaurantEntities
         ) {
+
+            List<ToppingResponse> toppingResponses = new ArrayList<>();
+            for (ToppingEntity y:x.getToppingEntityList()
+                 ) {
+                ToppingResponse toppingResponse= ToppingResponse.builder()
+                        .id(y.getId())
+                        .title(y.getTitle())
+                        .requi(y.getRequi())
+                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                        .build();
+                toppingResponses.add(toppingResponse);
+            }
+
             ResRecommnedRespon temp = new ResRecommnedRespon();
             temp.setAddress(x.getAddress());
             temp.setId(x.getId());
@@ -177,7 +193,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
             temp.setTimeStart(x.getTimeStart());
             temp.setTimeClose(x.getTimeClose());
             temp.setStar(x.getStar());
-            temp.setToppingEntityList(x.getToppingEntityList());
+            temp.setToppingEntityList(toppingResponses);
             result.add(temp);
         }
         ResponsePaging responsePaging = new ResponsePaging();
