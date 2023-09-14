@@ -1,9 +1,13 @@
 package com.apec.pos.dto.restaurantDto;
 
+import com.apec.pos.dto.ToppingDTO.Item;
+import com.apec.pos.entity.ToppingEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Builder
 @Data
@@ -23,6 +27,7 @@ public class ResRecommnedRespon {
     private Integer time;
     private String detail;
     private Double star;
+    private List<ToppingEntity> toppingEntityList;
 
     public Integer getId() {
         return id;

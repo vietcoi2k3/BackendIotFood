@@ -1,13 +1,17 @@
 package com.apec.pos.service;
 
 import com.apec.pos.Dto.ToppingDTO.ToppingResponse;
+import com.apec.pos.dto.ToppingDTO.Item;
 import com.apec.pos.dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.entity.ToppingEntity;
 import com.apec.pos.repository.ToppingRepository;
 import com.apec.pos.service.serviceInterface.ToppingInterface;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -23,37 +27,40 @@ public class ToppingService extends BaseService<ToppingRepository, ToppingEntity
 
     @Override
     public ToppingResponse addTopping(ToppingRequest toppingRequest) {
+        Gson gson = new Gson();
         ToppingEntity toppingEntity = ToppingEntity.builder()
                 .restaurantEntityId(toppingRequest.getResId())
-                .name(toppingRequest.getName())
-                .price(toppingRequest.getPrice())
+                .title(toppingRequest.getTitle())
+                .requi(toppingRequest.getRequire())
+                .items(gson.toJson(toppingRequest.getItem()))
                 .build();
-        System.out.println(toppingEntity.getName());
         toppingEntity = toppingRepository.insert(toppingEntity);
+
+
+        List<Item> itemList = gson.fromJson(toppingEntity.getItems(),new TypeToken<List<Item>>(){}.getType());
+//        System.out.println(itemList);
 
         ToppingResponse toppingResponse = ToppingResponse.builder()
                 .id(toppingEntity.getId())
-                .name(toppingEntity.getName())
-                .price(toppingEntity.getPrice())
-                .foodId(toppingEntity.getRestaurantEntityId())
+                .name(toppingEntity.getTitle())
+                .itemList(itemList)
                 .build();
         return toppingResponse;
     }
 
     @Override
     public ToppingResponse updateTopping(ToppingRequest toppingRequest) {
-        ToppingEntity toppingEntity = toppingRepository.findOne(toppingRequest.getId());
+        Gson gson = new Gson();
+
+        ToppingEntity toppingEntity = toppingRepository.findOne(toppingRequest.getToppingId());
         toppingEntity = ToppingEntity.builder()
-                .price(toppingRequest.getPrice() != null ? toppingRequest.getPrice() : toppingEntity.getPrice())
-                .name(toppingRequest.getName() != null ? toppingRequest.getName() : toppingEntity.getName())
+                .items(toppingRequest.getItem() !=null ? gson.toJson(toppingRequest.getItem()):toppingEntity.getItems())
+                .title(toppingRequest.getTitle() != null ? toppingRequest.getTitle() : toppingEntity.getTitle())
+                .requi(toppingRequest.getRequire() !=null ? toppingRequest.getRequire() : toppingEntity.getRequi())
+                .restaurantEntityId(toppingRequest.getResId() != null ? toppingRequest.getResId() : toppingEntity.getRestaurantEntityId())
                 .build();
         toppingRepository.update(toppingEntity);
 
-        ToppingResponse toppingResponse = ToppingResponse.builder()
-                .price(toppingEntity.getPrice())
-                .name(toppingEntity.getName())
-                .id(toppingEntity.getId())
-                .build();
         return null;
     }
 

@@ -47,9 +47,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     @Override
     public RestaurantEntity addRestaurant(ResRequest request) {
 
-        Gson gson = new Gson();
-        List<ToppingRequest> toppingRequests = gson.fromJson(request.getToppingRequest(),new TypeToken<List<ToppingRequest>>(){}.getType());
-        List<ToppingEntity> toppingEntities = new ArrayList<>();
 
         RestaurantEntity restaurantEntity = new RestaurantEntity();
         restaurantEntity.setRestaurantName(request.getRestaurantName());
@@ -72,16 +69,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         restaurantEntity.setDistance(request.getDistance());
         RestaurantEntity result = restaurantRepository.insert(restaurantEntity);
 
-        for (ToppingRequest x: toppingRequests
-             ) {
-            ToppingEntity toppingEntity = ToppingEntity.builder()
-                    .name(x.getName())
-                    .price(x.getPrice())
-                    .restaurantEntityId(result.getId())
-                    .build();
-            toppingEntities.add(toppingEntity);
-        }
-        result.setToppingEntityList(toppingEntities);
         return result;
     }
 
@@ -164,7 +151,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     @Override
     public Set<Integer> deleteRes(Set<Integer> ids) {
         for (Integer x : ids) {
-            foodRepository.deleteWhereRestaurantId(x);
+            toppingRepository.deleteByResId(x);
             restaurantRepository.delete(x);
         }
         return null;
@@ -190,6 +177,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
             temp.setTimeStart(x.getTimeStart());
             temp.setTimeClose(x.getTimeClose());
             temp.setStar(x.getStar());
+            temp.setToppingEntityList(x.getToppingEntityList());
             result.add(temp);
         }
         ResponsePaging responsePaging = new ResponsePaging();

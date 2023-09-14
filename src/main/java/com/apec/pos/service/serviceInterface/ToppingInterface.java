@@ -10,7 +10,7 @@ import java.util.Set;
 public interface ToppingInterface {
     public ToppingResponse addTopping(ToppingRequest toppingRequest);
 
-    public com.apec.pos.Dto.ToppingDTO.ToppingResponse updateTopping(ToppingRequest toppingRequest);
+    public ToppingResponse updateTopping(ToppingRequest toppingRequest);
 
     public void deleteTopping(Set<Integer> ids);
 }

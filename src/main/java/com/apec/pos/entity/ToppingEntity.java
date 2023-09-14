@@ -2,7 +2,6 @@ package com.apec.pos.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ToppingEntity extends BaseEntity {
-    private String name;
-    private Integer price;
+    private String title;
+    private String items;
+    private Boolean requi;
 
     @Column(name = "restaurantEntityId")
     private Integer restaurantEntityId;

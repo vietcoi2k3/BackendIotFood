@@ -16,5 +16,4 @@ public class ResRequest {
     private String timeClose;
     private String phoneNumber;
     private MultipartFile imgRes;
-    private String toppingRequest;
 }

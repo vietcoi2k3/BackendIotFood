@@ -27,12 +27,12 @@ public class ToppingAdminController {
     public ResponseEntity addTopping(@RequestBody ToppingRequest toppingRequest) {
         return ResponseEntity.ok(new Response(true, "", toppingService.addTopping(toppingRequest)));
     }
-
-    @Operation(summary = "sửa topping")
-    @RequestMapping(value = "update-topping", method = RequestMethod.PUT)
-    public ResponseEntity updateTopping(@RequestBody ToppingRequest toppingRequest) {
-        return ResponseEntity.ok((new Response(true, "", toppingService.updateTopping(toppingRequest))));
-    }
+//
+//    @Operation(summary = "sửa topping")
+//    @RequestMapping(value = "update-topping", method = RequestMethod.PUT)
+//    public ResponseEntity updateTopping(@RequestBody ToppingRequest toppingRequest) {
+//        return ResponseEntity.ok((new Response(true, "", toppingService.updateTopping(toppingRequest))));
+//    }
 
     @Operation(summary = "xóa topping")
     @RequestMapping(value = "delete-topping", method = RequestMethod.POST)

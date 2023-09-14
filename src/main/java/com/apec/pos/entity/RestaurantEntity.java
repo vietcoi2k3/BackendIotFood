@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-public class RestaurantEntity extends BaseEntity implements Serializable {
+public class RestaurantEntity extends BaseEntity  {
 
     private String restaurantName;
 

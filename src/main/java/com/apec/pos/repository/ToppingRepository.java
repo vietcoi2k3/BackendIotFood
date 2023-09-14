@@ -18,4 +18,13 @@ public class ToppingRepository extends BaseRepository<ToppingEntity, Integer> {
         super(ToppingEntity.class);
     }
 
+
+    @Transactional
+    public void deleteByResId(int id){
+        String query = "DELETE  FROM ToppingEntity c WHERE c.restaurantEntityId =:id";
+        Query query1 = entityManager.createQuery(query);
+        query1.setParameter("id",id);
+        query1.executeUpdate();
+    }
+
 }
