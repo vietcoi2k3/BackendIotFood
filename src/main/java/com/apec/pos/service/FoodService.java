@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.apec.pos.dto.FoodDto.AddMultipartFood;
+import com.apec.pos.dto.ToppingDTO.Item;
 import com.apec.pos.dto.ToppingDTO.ToppingRequestAdd;
+import com.apec.pos.dto.ToppingDTO.ToppingResponse;
 import com.apec.pos.entity.ToppingEntity;
 import com.apec.pos.repository.ToppingRepository;
 import com.google.gson.Gson;
@@ -53,6 +55,19 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         List<FoodRecommendDto> foodRecommanDtos = new ArrayList<FoodRecommendDto>();
         for (FoodEntity x : foodEntitys) {
             String nameRes = x.getRestaurantEntity().getRestaurantName();
+            //convert topping
+            Gson gson = new Gson();
+            List<ToppingResponse> toppingResponses = new ArrayList<>();
+            for (ToppingEntity y:x.getRestaurantEntity().getToppingEntityList()
+            ) {
+                ToppingResponse toppingResponse= ToppingResponse.builder()
+                        .id(y.getId())
+                        .title(y.getTitle())
+                        .requi(y.getRequi())
+                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                        .build();
+                toppingResponses.add(toppingResponse);
+            }
             FoodRecommendDto temp =
                     new FoodRecommendDto(
                             x.getId(),
@@ -68,7 +83,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getRestaurantEntityId(),
                             x.getStatus(),
                             x.getRestaurantEntity().getDistance(),
-                            x.getRestaurantEntityId()
+                            x.getRestaurantEntityId(),
+                            toppingResponses
                     );
 
             foodRecommanDtos.add(temp);
@@ -79,6 +95,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 
     @Override
     public FoodRecommendDto addFood(AddFoodRequest addFoodRequest) {
+
         String imgFood = "";
         if (addFoodRequest.getImgFood() != null) {
             try {
@@ -125,6 +142,19 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         for (FoodEntity x : foodEntity) {
             String nameRes = x.getRestaurantEntity().getRestaurantName();
             Double distance = x.getRestaurantEntity().getDistance();
+            //convert topping
+            Gson gson = new Gson();
+            List<ToppingResponse> toppingResponses = new ArrayList<>();
+            for (ToppingEntity y:x.getRestaurantEntity().getToppingEntityList()
+            ) {
+                ToppingResponse toppingResponse= ToppingResponse.builder()
+                        .id(y.getId())
+                        .title(y.getTitle())
+                        .requi(y.getRequi())
+                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                        .build();
+                toppingResponses.add(toppingResponse);
+            }
             FoodRecommendDto temp = new FoodRecommendDto(
                     x.getId(),
                     x.getFoodName(),
@@ -139,7 +169,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                     x.getRestaurantEntityId(),
                     x.getStatus(),
                     x.getRestaurantEntity().getDistance(),
-                    x.getRestaurantEntityId()
+                    x.getRestaurantEntityId(),
+                    toppingResponses
             );
             foodSearchRespons.add(temp);
         }
@@ -150,6 +181,20 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     public FoodRecommendDto getDetailFood(Integer id) {
         FoodEntity x = foodRepository.findOne(id);
         String nameRes = x.getRestaurantEntity().getRestaurantName();
+        //convert topping
+        Gson gson = new Gson();
+        List<ToppingResponse> toppingResponses = new ArrayList<>();
+        for (ToppingEntity y:x.getRestaurantEntity().getToppingEntityList()
+        ) {
+            ToppingResponse toppingResponse= ToppingResponse.builder()
+                    .id(y.getId())
+                    .title(y.getTitle())
+                    .requi(y.getRequi())
+                    .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                    .build();
+            toppingResponses.add(toppingResponse);
+        }
+
         FoodRecommendDto temp = new FoodRecommendDto(
                 x.getId(),
                 x.getFoodName(),
@@ -164,7 +209,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                 x.getRestaurantEntityId(),
                 x.getStatus(),
                 x.getRestaurantEntity().getDistance(),
-                x.getRestaurantEntityId()
+                x.getRestaurantEntityId(),
+                toppingResponses
         );
         return temp;
     }
@@ -175,6 +221,19 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         List<FoodRecommendDto> foodRecommanDtos = new ArrayList<>();
         List<FoodEntity> foodEntities = foodRepository.paging(pageRequest);
         for (FoodEntity x : foodEntities) {
+            Gson gson = new Gson();
+            List<ToppingResponse> toppingResponses = new ArrayList<>();
+            for (ToppingEntity y:x.getRestaurantEntity().getToppingEntityList()
+            ) {
+                ToppingResponse toppingResponse= ToppingResponse.builder()
+                        .id(y.getId())
+                        .title(y.getTitle())
+                        .requi(y.getRequi())
+                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                        .build();
+                toppingResponses.add(toppingResponse);
+            }
+
             FoodRecommendDto data =
                     new FoodRecommendDto(
                             x.getId(),
@@ -190,8 +249,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getRestaurantEntityId(),
                             x.getStatus(),
                             x.getRestaurantEntity().getDistance(),
-                            x.getRestaurantEntityId()
-
+                            x.getRestaurantEntityId(),
+                            toppingResponses
                     );
             data.setStatus(x.getStatus());
             data.setCreateAt(x.getCreateDate());

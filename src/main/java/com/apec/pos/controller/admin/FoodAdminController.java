@@ -39,8 +39,6 @@ public class FoodAdminController {
             @ModelAttribute AddFoodRequest addFoodRequest,BindingResult bindingResult)
     {
 
-
-
    return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.addFood(addFoodRequest)));
     }
 

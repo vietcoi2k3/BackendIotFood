@@ -3,6 +3,7 @@ package com.apec.pos.dto.FoodDto;
 import java.util.Date;
 import java.util.List;
 
+import com.apec.pos.dto.ToppingDTO.ToppingResponse;
 import com.apec.pos.entity.ToppingEntity;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,6 @@ public class FoodRecommendDto {
     private Boolean status;
     private Double distance;
     private Integer resId;
-
+    private List<ToppingResponse> toppingEntityList;
 
 }

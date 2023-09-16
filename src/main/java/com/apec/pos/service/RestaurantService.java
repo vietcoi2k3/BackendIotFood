@@ -80,11 +80,26 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         List<ResRecommnedRespon> resRecommnedRespons = new ArrayList<>();
         for (RestaurantEntity x : restaurantEntities) {
             ResRecommnedRespon temp = new ResRecommnedRespon(x.getId(), x.getRestaurantName(), x.getQuantitySold(), x.getDistance(), x.getPhoneNumber(), x.getAddress(), x.getImgRes());
+
+            Gson gson = new Gson();
+            List<ToppingResponse> toppingResponses = new ArrayList<>();
+            for (ToppingEntity y:x.getToppingEntityList()
+            ) {
+                ToppingResponse toppingResponse= ToppingResponse.builder()
+                        .id(y.getId())
+                        .title(y.getTitle())
+                        .requi(y.getRequi())
+                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                        .build();
+                toppingResponses.add(toppingResponse);
+            }
+
             temp.setTime(x.getTime());
             temp.setDetail(x.getDetail());
             temp.setStar(x.getStar());
             temp.setTimeClose(x.getTimeClose());
             temp.setTimeStart(x.getTimeStart());
+            temp.setToppingEntityList(toppingResponses);
             resRecommnedRespons.add(temp);
         }
         return resRecommnedRespons;
@@ -167,7 +182,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         List<RestaurantEntity> restaurantEntities = restaurantRepository.paging(pageRequest);
         for (RestaurantEntity x : restaurantEntities
         ) {
-
+            //convert topping
             List<ToppingResponse> toppingResponses = new ArrayList<>();
             for (ToppingEntity y:x.getToppingEntityList()
                  ) {
