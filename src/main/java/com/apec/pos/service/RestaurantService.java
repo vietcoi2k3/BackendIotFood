@@ -168,10 +168,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     @Override
     public Set<Integer> deleteRes(Set<Integer> ids) {
         for (Integer x : ids) {
-            for (int y:ids
-                 ) {
-                foodRepository.deleteWhereRestaurantId(y);
-            }
+            foodRepository.deleteWhereRestaurantId(x);
             toppingRepository.deleteByResId(x);
             restaurantRepository.delete(x);
         }
