@@ -84,7 +84,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getStatus(),
                             x.getRestaurantEntity().getDistance(),
                             x.getRestaurantEntityId(),
-                            toppingResponses
+                            toppingResponses,
+                            x.getTypeFoodEntity().getNameType()
                     );
 
             foodRecommanDtos.add(temp);
@@ -170,7 +171,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                     x.getStatus(),
                     x.getRestaurantEntity().getDistance(),
                     x.getRestaurantEntityId(),
-                    toppingResponses
+                    toppingResponses,
+                    x.getTypeFoodEntity().getNameType()
             );
             foodSearchRespons.add(temp);
         }
@@ -210,7 +212,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                 x.getStatus(),
                 x.getRestaurantEntity().getDistance(),
                 x.getRestaurantEntityId(),
-                toppingResponses
+                toppingResponses,
+                x.getTypeFoodEntity().getNameType()
         );
         return temp;
     }
@@ -250,7 +253,8 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getStatus(),
                             x.getRestaurantEntity().getDistance(),
                             x.getRestaurantEntityId(),
-                            toppingResponses
+                            toppingResponses,
+                            x.getTypeFoodEntity().getNameType()
                     );
             data.setStatus(x.getStatus());
             data.setCreateAt(x.getCreateDate());

@@ -31,5 +31,6 @@ public class FoodRecommendDto {
     private Double distance;
     private Integer resId;
     private List<ToppingResponse> toppingEntityList;
+    private String nameType;
 
 }
