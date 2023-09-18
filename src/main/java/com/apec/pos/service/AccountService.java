@@ -221,7 +221,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
             listLoginResponse.add(temp);
         }
         result.setTotalRow((int)accountRepository.countEmployee());
-        result.setLoginResponDtoList(listLoginResponse);
+        result.setData(listLoginResponse);
         return result;
     }
 
