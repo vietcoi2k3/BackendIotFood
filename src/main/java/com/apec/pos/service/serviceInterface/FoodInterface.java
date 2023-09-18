@@ -8,6 +8,7 @@ import com.apec.pos.dto.FoodDto.AddFoodRequest;
 import com.apec.pos.dto.FoodDto.AddMultipartFood;
 import com.apec.pos.dto.FoodDto.FoodRecommendDto;
 import com.apec.pos.dto.FoodDto.FoodResponseAdmin;
+import com.apec.pos.dto.FoodDto.UpdateFood;
 import com.apec.pos.entity.FoodEntity;
 
 public interface FoodInterface {
@@ -24,7 +25,7 @@ public interface FoodInterface {
 
     public FoodResponseAdmin paging(int pageSize, int pageIndex);
 
-    public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) throws IOException;
+    public FoodRecommendDto updateFood(UpdateFood addFoodRequest) throws IOException;
 
     public String updateStatusFood(Integer id, Boolean status);
 

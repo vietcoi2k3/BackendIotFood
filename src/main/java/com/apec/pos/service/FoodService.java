@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.apec.pos.dto.FoodDto.AddMultipartFood;
+import com.apec.pos.dto.FoodDto.UpdateFood;
 import com.apec.pos.dto.ToppingDTO.Item;
 import com.apec.pos.dto.ToppingDTO.ToppingRequestAdd;
 import com.apec.pos.dto.ToppingDTO.ToppingResponse;
@@ -267,7 +268,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     }
 
     @Override
-    public FoodRecommendDto updateFood(AddFoodRequest addFoodRequest) throws IOException {
+    public FoodRecommendDto updateFood(UpdateFood addFoodRequest) throws IOException {
         String imgFood = null;
         if (addFoodRequest.getImgFood() != null) {
             imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood().getBytes());

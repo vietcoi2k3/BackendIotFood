@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.apec.pos.dto.FoodDto.AddMultipartFood;
+import com.apec.pos.dto.FoodDto.UpdateFood;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -44,7 +45,7 @@ public class FoodAdminController {
 
     @RequestMapping(value = "update-food", method = RequestMethod.PUT, consumes = "multipart/form-data")
     @Operation(summary = "sửa món ăn", description = "")
-    public ResponseEntity updateFood(@ModelAttribute AddFoodRequest addFoodRequest) {
+    public ResponseEntity updateFood(@ModelAttribute UpdateFood addFoodRequest) {
         try {
             return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.updateFood(addFoodRequest)));
         } catch (IOException e) {
