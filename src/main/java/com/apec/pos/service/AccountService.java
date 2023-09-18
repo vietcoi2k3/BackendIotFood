@@ -200,10 +200,11 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
     }
 
     @Override
-    public List<LoginResponDto> pagingEmployee(Integer pageSize, Integer pageIndex) {
+    public ResponseEmployeePaging pagingEmployee(Integer pageSize, Integer pageIndex) {
+        ResponseEmployeePaging result = new ResponseEmployeePaging();
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
         List<Integer> ids= accountRepository.pagingEmployee(pageRequest);
-        List<LoginResponDto> result = new ArrayList<>();
+        List<LoginResponDto> listLoginResponse = new ArrayList<>();
         for (Integer x:
              ids) {
             AccountEntity accountEntity = accountRepository.findOne(x);
@@ -217,8 +218,10 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
                     .msv(accountEntity.getUsername())
                     .build();
 
-            result.add(temp);
+            listLoginResponse.add(temp);
         }
+        result.setTotalRow((int)accountRepository.countEmployee());
+        result.setLoginResponDtoList(listLoginResponse);
         return result;
     }
 

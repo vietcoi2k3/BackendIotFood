@@ -3,6 +3,7 @@ package com.apec.pos.service.serviceInterface;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.dto.FoodDto.FoodRecommendDto;
 import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
 import com.apec.pos.dto.restaurantDto.ResRequest;
 import com.apec.pos.dto.restaurantDto.ResponsePaging;
@@ -23,4 +24,6 @@ public interface RestaurantInterface {
     public Set<Integer> deleteRes(Set<Integer> ids);
 
     public ResponsePaging paging(Integer pageSize, Integer pageIndex);
+
+    public List<FoodRecommendDto> getFoodOfRes(Integer id);
 }

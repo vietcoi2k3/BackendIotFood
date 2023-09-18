@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.apec.pos.dto.FoodDto.FoodRecommendDto;
 import com.apec.pos.dto.ToppingDTO.Item;
 import com.apec.pos.dto.ToppingDTO.*;
 import com.apec.pos.dto.ToppingDTO.ToppingRequest;
 import com.apec.pos.dto.restaurantDto.ResponsePaging;
+import com.apec.pos.entity.FoodEntity;
 import com.apec.pos.entity.ToppingEntity;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.repository.ToppingRepository;
@@ -216,5 +218,47 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         responsePaging.setTotalRow(restaurantRepository.countAll());
         responsePaging.setResponList(result);
         return responsePaging;
+    }
+
+    @Override
+    public List<FoodRecommendDto> getFoodOfRes(Integer id) {
+        RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
+        List<FoodRecommendDto> foodRecommendDtos = new ArrayList<>();
+
+        for (FoodEntity x:restaurantEntity.getFoodEntities()
+             ) {
+
+            //convert topping
+            Gson gson = new Gson();
+            List<ToppingResponse> toppingResponses = new ArrayList<>();
+            for (ToppingEntity y:x.getRestaurantEntity().getToppingEntityList()
+            ) {
+                ToppingResponse toppingResponse= ToppingResponse.builder()
+                        .id(y.getId())
+                        .title(y.getTitle())
+                        .requi(y.getRequi())
+                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                        .build();
+                toppingResponses.add(toppingResponse);
+            }
+
+            FoodRecommendDto temp = new FoodRecommendDto(x.getId(),
+                    x.getFoodName(),
+                    x.getPrice(),
+                    x.getDetail(),
+                    restaurantEntity.getRestaurantName(),
+                    x.getImgFood(),
+                    x.getCreateBy(),
+                    x.getCreateDate(),
+                    x.getQuantityPurchased(),
+                    x.getTypeFoodEntityId(),
+                    x.getRestaurantEntityId(),
+                    x.getStatus(),
+                    restaurantEntity.getDistance(),
+                    toppingResponses,
+                    x.getTypeFoodEntity().getNameType());
+            foodRecommendDtos.add(temp);
+        }
+        return foodRecommendDtos;
     }
 }

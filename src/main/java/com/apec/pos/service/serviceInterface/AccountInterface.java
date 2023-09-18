@@ -24,5 +24,5 @@ public interface AccountInterface {
 
     public void deleteAccount();
 
-    public List<LoginResponDto> pagingEmployee(Integer pageSize, Integer pageIndex);
+    public ResponseEmployeePaging pagingEmployee(Integer pageSize, Integer pageIndex);
 }

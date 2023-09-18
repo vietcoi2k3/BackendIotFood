@@ -43,6 +43,12 @@ public class AccountRepository extends BaseRepository<AccountEntity, Integer> {
         return listUserId;
     }
 
+    public long countEmployee(){
+        String query = "select count(user_id) from user_role where role_id = 3";
+        Query query1 = entityManager.createNativeQuery(query);
+        return  (long)query1.getSingleResult();
+    }
+
     public List<AccountEntity> paging(PageRequest pageRequest) {
         String query = "SELECT c FROM AccountEntity c";
         Map<String, Object> params = new HashMap<>();
