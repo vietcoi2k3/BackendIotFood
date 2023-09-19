@@ -147,13 +147,19 @@ public class AuthController {
     @RequestMapping(value ="get-detail-type",method= RequestMethod.POST)
     @Operation(summary ="lấy detail type")
     public ResponseEntity getDetailType(@RequestParam Integer id){
-        return  ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,typeFoodService.findOne(id)));
+        return  ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,typeFoodService.getDetailType(id)));
     }
 
     @Operation(summary = "phân trang sản phẩm", description = "pageIndex nhận vào tính từ 0")
     @RequestMapping(value = "/paging-food-admin", method = RequestMethod.POST)
     public ResponseEntity pagingAuthFood(@RequestParam int pageSize, @RequestParam int pageIndex) {
         return ResponseEntity.ok(new Response(true, "trang" + pageIndex, ErrorCode.SUCCESS, foodService.paging(pageSize, pageIndex)));
+    }
+
+    @Operation(summary = "tim food theo cửa hàng")
+    @RequestMapping(value = "/get-food-of-res",method = RequestMethod.POST)
+    public ResponseEntity getFoofOfRes(@RequestParam Integer id){
+        return  ResponseEntity.ok(new Response<>(true,"",restaurantService.getFoodOfRes(id)));
     }
 
 //	@RequestMapping(method = RequestMethod.GET,value = "get-user-lazy")

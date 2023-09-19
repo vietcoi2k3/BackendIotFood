@@ -4,6 +4,8 @@ import java.util.List;
 
 import java.util.Set;
 
+import com.apec.pos.dto.FoodDto.FoodRecommendDto;
+import com.apec.pos.dto.TypeDto.DetailTypeFood;
 import com.apec.pos.dto.TypeDto.TypefoodResponseData;
 import com.apec.pos.dto.TypeDto.UpdateTypeRequest;
 import com.apec.pos.dto.restaurantDto.SearchForm;
@@ -20,5 +22,5 @@ public interface TypeFoodInterface {
     public Set<Integer> MultiDelete(Set<Integer> ids);
 
     public List<SearchForm> searchType(String key);
-
+    public DetailTypeFood getDetailType(Integer id);
 }
