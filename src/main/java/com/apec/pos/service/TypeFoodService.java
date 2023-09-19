@@ -194,6 +194,7 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
                 typeFoodEntity.getImgType(),
                 foodRecommendDtos
         );
+        System.out.println();
         return result;
     }
 

@@ -29,7 +29,6 @@ public class TypeFoodEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "typeFoodEntity")
     @JsonManagedReference(value = "type-food")
-    @JsonIgnore
     private Set<FoodEntity> foodEntities;
 
 
