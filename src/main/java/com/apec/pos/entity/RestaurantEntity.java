@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,11 +46,11 @@ public class RestaurantEntity extends BaseEntity  {
 
     private Integer time;
 
-    @OneToMany(mappedBy = "restaurantEntity")
+    @OneToMany(mappedBy = "restaurantEntity",fetch = FetchType.LAZY)
     @JsonManagedReference(value = "topping-res")
     private List<ToppingEntity> toppingEntityList;
 
-    @OneToMany(mappedBy = "restaurantEntity")
+    @OneToMany(mappedBy = "restaurantEntity",fetch = FetchType.LAZY)
     @JsonManagedReference(value = "food-res")
     private Set<FoodEntity> foodEntities;
 
