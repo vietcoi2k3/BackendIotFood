@@ -109,6 +109,8 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     public ResRecommnedRespon getResdetail(Integer id) {
 
         RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
+        System.out.println("TOPPINGLIST:"+restaurantEntity.getToppingEntityList());
+        System.out.println("RESTAURANT:"+restaurantEntity.getFoodEntities());
         if (restaurantEntity == null){
             return null;
         }
