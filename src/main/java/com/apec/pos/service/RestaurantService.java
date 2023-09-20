@@ -278,7 +278,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     public List<FoodRecommendDto> getFoodOfRes(Integer id) {
         RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
         List<FoodRecommendDto> foodRecommendDtos = new ArrayList<>();
-        List<FoodEntity> foodEntities = restaurantEntity.getFoodEntities()
+        List<FoodEntity> foodEntities = restaurantEntity.getFoodEntities();
         for (FoodEntity x:foodEntities
              ) {
 
