@@ -52,11 +52,11 @@ public class RestaurantEntity extends BaseEntity  {
 
     @OneToMany(mappedBy = "restaurantEntity",fetch = FetchType.LAZY)
     @JsonManagedReference(value = "food-res")
-    private Set<FoodEntity> foodEntities;
+    private List<FoodEntity> foodEntities;
 
     public RestaurantEntity(String createBy, String modifiedBy, String restaurantName, String address,
                             Integer quantitySold, Double distance, String phoneNumber, String imgRes,
-                            Set<FoodEntity> foodEntities) {
+                            List<FoodEntity> foodEntities) {
         super(createBy, modifiedBy);
         this.restaurantName = restaurantName;
         this.address = address;
@@ -123,13 +123,6 @@ public class RestaurantEntity extends BaseEntity  {
         this.phoneNumber = phoneNumber;
     }
 
-    public Set<FoodEntity> getFoodEntities() {
-        return foodEntities;
-    }
-
-    public void setFoodEntities(Set<FoodEntity> foodEntities) {
-        this.foodEntities = foodEntities;
-    }
 
     public String getRestaurantName() {
         return restaurantName;

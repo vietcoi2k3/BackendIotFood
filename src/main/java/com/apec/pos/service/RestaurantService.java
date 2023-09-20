@@ -109,8 +109,8 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     public ResRecommnedRespon getResdetail(Integer id) {
 
         RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
-        System.out.println("TOPPINGLIST:"+restaurantEntity.getToppingEntityList());
-        System.out.println("RESTAURANT:"+restaurantEntity.getFoodEntities());
+        List<ToppingEntity> toppingEntityList = restaurantEntity.getToppingEntityList();
+        List<FoodEntity> foodEntities =restaurantEntity.getFoodEntities();
         if (restaurantEntity == null){
             return null;
         }
@@ -118,10 +118,10 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         Gson gson = new Gson();
         List<ToppingResponse> toppingResponses = new ArrayList<>();
 
-        for (FoodEntity x:restaurantEntity.getFoodEntities()
+        for (FoodEntity x: foodEntities
              ) {
 
-            for (ToppingEntity y:x.getRestaurantEntity().getToppingEntityList()
+            for (ToppingEntity y:toppingEntityList
             ) {
                 ToppingResponse toppingResponse= ToppingResponse.builder()
                         .id(y.getId())
