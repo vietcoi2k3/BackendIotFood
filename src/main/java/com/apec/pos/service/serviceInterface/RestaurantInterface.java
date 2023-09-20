@@ -26,4 +26,6 @@ public interface RestaurantInterface {
     public ResponsePaging paging(Integer pageSize, Integer pageIndex);
 
     public List<FoodRecommendDto> getFoodOfRes(Integer id);
+
+    public ResRecommnedRespon getDetailResAdmin(Integer id);
 }

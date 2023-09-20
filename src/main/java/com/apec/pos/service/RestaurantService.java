@@ -315,4 +315,23 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         }
         return foodRecommendDtos;
     }
+
+    @Override
+    public ResRecommnedRespon getDetailResAdmin(Integer id) {
+        RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
+        ResRecommnedRespon resRecommnedRespon = new ResRecommnedRespon(
+                restaurantEntity.getId(),
+                restaurantEntity.getRestaurantName(),
+                restaurantEntity.getQuantitySold(),
+                restaurantEntity.getTimeStart(),
+                restaurantEntity.getTimeClose(),
+                restaurantEntity.getDistance(),
+                restaurantEntity.getAddress(),
+                restaurantEntity.getPhoneNumber(),
+                restaurantEntity.getImgRes(),
+                restaurantEntity.getDetail(),
+                restaurantEntity.getStar()
+        );
+        return resRecommnedRespon;
+    }
 }

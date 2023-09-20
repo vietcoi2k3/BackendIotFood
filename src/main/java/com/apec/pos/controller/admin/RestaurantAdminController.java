@@ -55,4 +55,9 @@ public class RestaurantAdminController {
     public ResponseEntity pagingRes(@RequestParam Integer pageSize, @RequestParam Integer pageIndex) {
         return ResponseEntity.ok(new Response(true, "", restaurantService.paging(pageSize, pageIndex)));
     }
+
+    @RequestMapping(value = "/get-detail-res",method = RequestMethod.POST)
+    public ResponseEntity getDetailResAdmin(@RequestParam Integer id){
+        return ResponseEntity.ok(new Response<>(true,"",restaurantService.getDetailResAdmin(id)));
+    }
 }
