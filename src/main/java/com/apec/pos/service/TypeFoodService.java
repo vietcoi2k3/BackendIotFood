@@ -195,8 +195,19 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
                 typeFoodEntity.getImgType(),
                 foodRecommendDtos
         );
-        System.out.println();
         return result;
+    }
+
+    @Override
+    public DetailTypeFood getDetailFoodAdmin(Integer id) {
+        TypeFoodEntity typeFoodEntity = typeFoodRepository.findOne(id);
+        DetailTypeFood detailTypeFood = DetailTypeFood.builder()
+                .imgType(typeFoodEntity.getImgType())
+                .nameType(typeFoodEntity.getNameType())
+                .status(typeFoodEntity.getStatus())
+                .createAt(typeFoodEntity.getCreateDate())
+                .build();
+        return detailTypeFood;
     }
 
 
