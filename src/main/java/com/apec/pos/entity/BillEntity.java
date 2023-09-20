@@ -25,6 +25,8 @@ public class BillEntity extends BaseEntity {
     private long totalAmount;
     private String orderBy;
     private String nameRes;
+    private String finishTime;
+
 
     @Column(name = "accountEntityId")
     private Integer accountEntityId;

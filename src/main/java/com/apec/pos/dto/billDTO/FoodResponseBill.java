@@ -14,4 +14,5 @@ public class FoodResponseBill {
     private String nameFood;
     private Integer priceFood;
     private Integer quantity;
+
 }

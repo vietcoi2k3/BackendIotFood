@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @Data
-public class BillDetailEntity extends BaseEntity{
+public class   BillDetailEntity extends BaseEntity{
 
     @Column
     private Integer quantity;
@@ -32,4 +32,6 @@ public class BillDetailEntity extends BaseEntity{
     @JsonBackReference(value = "bill-detail")
     @JoinColumn(name = "billEntityId",updatable = false,insertable = false)
     private BillEntity billEntity;
+
+
 }

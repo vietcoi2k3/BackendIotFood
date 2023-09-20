@@ -15,7 +15,7 @@ public interface RestaurantInterface {
 
     public List<ResRecommnedRespon> getRecommendRes();
 
-    public RestaurantEntity getResdetail(Integer id);
+    public ResRecommnedRespon getResdetail(Integer id);
 
     public List<SearchForm> searchRes(String key);
 

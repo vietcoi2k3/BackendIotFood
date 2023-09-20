@@ -81,9 +81,8 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         List<RestaurantEntity> restaurantEntities = restaurantRepository.getRecommendRes();
         List<ResRecommnedRespon> resRecommnedRespons = new ArrayList<>();
         for (RestaurantEntity x : restaurantEntities) {
-            ResRecommnedRespon temp = new ResRecommnedRespon(x.getId(), x.getRestaurantName(), x.getQuantitySold(), x.getDistance(), x.getPhoneNumber(), x.getAddress(), x.getImgRes());
-
-            Gson gson = new Gson();
+            ResRecommnedRespon temp = new ResRecommnedRespon(x.getId(), x.getRestaurantName(), x.getQuantitySold(), x.getDistance(), null, null, x.getImgRes());
+                    Gson gson = new Gson();
             List<ToppingResponse> toppingResponses = new ArrayList<>();
             for (ToppingEntity y:x.getToppingEntityList()
             ) {
@@ -96,7 +95,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
                 toppingResponses.add(toppingResponse);
             }
 
-            temp.setTime(x.getTime());
             temp.setDetail(x.getDetail());
             temp.setStar(x.getStar());
             temp.setTimeClose(x.getTimeClose());
@@ -108,9 +106,65 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     }
 
     @Override
-    public RestaurantEntity getResdetail(Integer id) {
-        // TODO Auto-generated method stub
-        return restaurantRepository.findOne(id);
+    public ResRecommnedRespon getResdetail(Integer id) {
+
+        RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
+        if (restaurantEntity == null){
+            return null;
+        }
+        List<FoodRecommendDto> foodRecommendDtos = new ArrayList<>();
+        Gson gson = new Gson();
+        List<ToppingResponse> toppingResponses = new ArrayList<>();
+
+        for (FoodEntity x:restaurantEntity.getFoodEntities()
+             ) {
+
+            for (ToppingEntity y:x.getRestaurantEntity().getToppingEntityList()
+            ) {
+                ToppingResponse toppingResponse= ToppingResponse.builder()
+                        .id(y.getId())
+                        .title(y.getTitle())
+                        .requi(y.getRequi())
+                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                        .build();
+                toppingResponses.add(toppingResponse);
+            }
+            FoodRecommendDto temp = new FoodRecommendDto(
+                    x.getId(),
+                    x.getFoodName(),
+                    x.getPrice(),
+                    x.getDetail(),
+                    x.getRestaurantEntity().getRestaurantName(),
+                    x.getImgFood(),
+                    x.getCreateBy(),
+                    x.getCreateDate(),
+                    x.getQuantityPurchased(),
+                    x.getTypeFoodEntityId(),
+                    x.getRestaurantEntityId(),
+                    x.getStatus(),
+                    x.getRestaurantEntity().getDistance(),
+                    null,
+                    x.getTypeFoodEntity().getNameType()
+            );
+            foodRecommendDtos.add(temp);
+        }
+
+        ResRecommnedRespon result = new ResRecommnedRespon(
+                restaurantEntity.getId(),
+                restaurantEntity.getRestaurantName(),
+                restaurantEntity.getQuantitySold(),
+                restaurantEntity.getTimeStart(),
+                restaurantEntity.getTimeClose(),
+                restaurantEntity.getDistance(),
+                null,
+                null,
+                restaurantEntity.getImgRes(),
+                restaurantEntity.getDetail(),
+                restaurantEntity.getStar(),
+                toppingResponses,
+                foodRecommendDtos
+        );
+        return result;
     }
 
     @Override
@@ -160,7 +214,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
             restaurantEntity.setTimeStart(request.getTimeStart());
 
         restaurantEntity = restaurantRepository.update(restaurantEntity);
-        recommnedRespon.setAddress(restaurantEntity.getAddress());
         recommnedRespon.setDistance(restaurantEntity.getDistance());
         recommnedRespon.setId(restaurantEntity.getId());
 //			recommnedRespon.setImgRes();
@@ -206,7 +259,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
             temp.setPhoneNumber(x.getPhoneNumber());
             temp.setQuantitySold(x.getQuantitySold());
             temp.setImgRes(x.getImgRes());
-            temp.setTime(x.getTime());
             temp.setDetail(x.getDetail());
             temp.setTimeStart(x.getTimeStart());
             temp.setTimeClose(x.getTimeClose());
