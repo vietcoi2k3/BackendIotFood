@@ -26,12 +26,13 @@ public class BillEntity extends BaseEntity {
     private String orderBy;
     private String nameRes;
     private String finishTime;
+    private int shipFee;
 
 
     @Column(name = "accountEntityId")
     private Integer accountEntityId;
 
-    @OneToMany(mappedBy = "billEntity")
+    @OneToMany(mappedBy = "billEntity",cascade = CascadeType.ALL)
     @JsonManagedReference(value = "bill-detail")
     private List<BillDetailEntity> billDetailEntities;
 

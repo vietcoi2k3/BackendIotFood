@@ -1,9 +1,12 @@
 package com.apec.pos.dto.billDTO;
 
+import com.apec.pos.dto.ToppingDTO.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Builder
 @Data
@@ -14,5 +17,6 @@ public class FoodResponseBill {
     private String nameFood;
     private Integer priceFood;
     private Integer quantity;
+    private List<Item> itemList;
 
 }

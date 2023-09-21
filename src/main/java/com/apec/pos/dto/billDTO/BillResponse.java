@@ -18,5 +18,7 @@ public class BillResponse {
     private Date createAt;
     private OrderStatus orderStatus;
     private String nameRestaurant;
+    private int shipFee;
+    private String finishTime;
     private List<FoodResponseBill> foodResponseBills;
 }

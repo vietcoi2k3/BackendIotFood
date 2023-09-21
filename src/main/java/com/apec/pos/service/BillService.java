@@ -2,6 +2,7 @@ package com.apec.pos.service;
 
 
 import com.apec.pos.dto.FoodDto.BillFoodRequest;
+import com.apec.pos.dto.ToppingDTO.Item;
 import com.apec.pos.dto.billDTO.BillRequest;
 import com.apec.pos.dto.billDTO.BillResponse;
 import com.apec.pos.dto.billDTO.FoodResponseBill;
@@ -14,6 +15,8 @@ import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.repository.BillRepository;
 import com.apec.pos.repository.FoodRepository;
 import com.apec.pos.service.serviceInterface.BillInterface;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.twilio.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -47,26 +50,29 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     @Override
     public BillEntity addBill(BillRequest billRequest) {
 
-        List<BillDetailEntity> billDetailEntities = new ArrayList<>();
-        for (BillFoodRequest x: billRequest.getBillFoodRequests()
-             ) {
-            BillDetailEntity temp = BillDetailEntity.builder()
-                    .billEntityId((int)( billRepository.countAll())+1)
-                    .foodEntityId(x.getFoodId())
-                    .quantity(x.getQuantity())
-                    .build();
-            billDetailEntities.add(temp);
-        }
+        Gson gson = new Gson();
 
         BillEntity result = BillEntity.builder()
                 .orderStatus(OrderStatus.PENDING)
                 .totalAmount(billRequest.getTotalAmount())
                 .orderBy(PosApplication.currentUserGlobal)
-                .billDetailEntities(billDetailEntities)
                 .nameRes(billRequest.getNameRes())
                 .build()
                 ;
-        return billRepository.insert(result);
+        result = billRepository.insert(result);
+        List<BillDetailEntity> billDetailEntities = new ArrayList<>();
+        for (BillFoodRequest x: billRequest.getBillFoodRequests()
+        ) {
+            BillDetailEntity temp = BillDetailEntity.builder()
+                    .billEntityId(result.getId())
+                    .foodEntityId(x.getFoodId())
+                    .quantity(x.getQuantity())
+                    .item(gson.toJson(x.getItemList()))
+                    .build();
+            billDetailEntities.add(temp);
+        }
+        result.setBillDetailEntities(billDetailEntities);
+        return billRepository.update(result);
     }
 
     @Override
@@ -84,6 +90,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
 
     @Override
     public List<BillResponse> getBill(int pageIndex, int pageSize, OrderStatus orderStatus) {
+        Gson gson = new Gson();
         //tao pageRequest
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
 
@@ -93,15 +100,20 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
               ) {
             //tao LIST FOOD CHO TRA VE CHO BILL
             List<FoodResponseBill> foodResponseBills = new ArrayList<>();
-            for (BillDetailEntity y:x.getBillDetailEntities()
+            List<BillDetailEntity> billDetailEntities = x.getBillDetailEntities();
+            for (BillDetailEntity y:billDetailEntities
                  ) {
                 //tim food
-                FoodEntity foodEntity = foodRepository.findOne(y.getFoodEntityId());
+                FoodEntity foodEntity = y.getFoodEntity();
+                if (foodEntity==null){
+                    break;
+                }
                 FoodResponseBill foodResponseBill = FoodResponseBill.builder()
                         .foodId(y.getFoodEntityId())
                         .quantity(y.getQuantity())
                         .nameFood(foodEntity.getFoodName())
                         .priceFood(foodEntity.getPrice())
+                        .itemList(gson.fromJson(y.getItem(),new TypeToken<List<Item>>(){}.getType()))
                         .build();
                 foodResponseBills.add(foodResponseBill);
             }
@@ -111,9 +123,11 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .nameRestaurant(x.getNameRes())
                     .orderStatus(x.getOrderStatus())
                     .foodResponseBills(foodResponseBills)
+                    .finishTime(x.getFinishTime())
+                    .shipFee(x.getShipFee())
                     .id(x.getId())
                     .build();
-            
+            result.add(billResponse);
         }
         return result;
     }

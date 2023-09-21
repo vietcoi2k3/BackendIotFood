@@ -12,10 +12,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @Data
-public class   BillDetailEntity extends BaseEntity{
+public class BillDetailEntity extends BaseEntity{
 
     @Column
     private Integer quantity;
+
+    @Column
+    private String item;
 
     @Column(name = "foodEntityId")
     private Integer foodEntityId;
