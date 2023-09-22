@@ -120,8 +120,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
 
         for (FoodEntity x: foodEntities
              ) {
-
-
             FoodRecommendDto temp = new FoodRecommendDto(
                     x.getId(),
                     x.getFoodName(),
