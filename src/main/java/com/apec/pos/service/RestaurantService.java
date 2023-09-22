@@ -121,16 +121,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         for (FoodEntity x: foodEntities
              ) {
 
-            for (ToppingEntity y:toppingEntityList
-            ) {
-                ToppingResponse toppingResponse= ToppingResponse.builder()
-                        .id(y.getId())
-                        .title(y.getTitle())
-                        .requi(y.getRequi())
-                        .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
-                        .build();
-                toppingResponses.add(toppingResponse);
-            }
+
             FoodRecommendDto temp = new FoodRecommendDto(
                     x.getId(),
                     x.getFoodName(),
@@ -151,6 +142,16 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
             foodRecommendDtos.add(temp);
         }
 
+        for (ToppingEntity y:toppingEntityList
+        ) {
+            ToppingResponse toppingResponse= ToppingResponse.builder()
+                    .id(y.getId())
+                    .title(y.getTitle())
+                    .requi(y.getRequi())
+                    .itemList(gson.fromJson(y.getItems(),new TypeToken<List<Item>>(){}.getType()))
+                    .build();
+            toppingResponses.add(toppingResponse);
+        }
         ResRecommnedRespon result = new ResRecommnedRespon(
                 restaurantEntity.getId(),
                 restaurantEntity.getRestaurantName(),
