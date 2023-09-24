@@ -46,11 +46,11 @@ public class RestaurantEntity extends BaseEntity  {
 
     private Integer time;
 
-    @OneToMany(mappedBy = "restaurantEntity",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurantEntity",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference(value = "topping-res")
     private List<ToppingEntity> toppingEntityList;
 
-    @OneToMany(mappedBy = "restaurantEntity",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurantEntity",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference(value = "food-res")
     private List<FoodEntity> foodEntities;
 

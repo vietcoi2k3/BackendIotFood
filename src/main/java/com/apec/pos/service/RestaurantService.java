@@ -109,6 +109,9 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     public ResRecommnedRespon getResdetail(Integer id) {
 
         RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
+        if (restaurantEntity==null){
+            return null;
+        }
         List<ToppingEntity> toppingEntityList = restaurantEntity.getToppingEntityList();
         List<FoodEntity> foodEntities =restaurantEntity.getFoodEntities();
         if (restaurantEntity == null){
@@ -185,6 +188,9 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     @Override
     public ResRecommnedRespon updateRes(ResRequest request) {
         RestaurantEntity restaurantEntity = restaurantRepository.findOne(request.getId());
+        if (restaurantEntity==null){
+            return null;
+        }
         ResRecommnedRespon recommnedRespon = new ResRecommnedRespon();
         if (request.getAddress() != null)
             restaurantEntity.setAddress(request.getAddress());
@@ -224,9 +230,11 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     @Override
     public Set<Integer> deleteRes(Set<Integer> ids) {
         for (Integer x : ids) {
-            foodRepository.deleteWhereRestaurantId(x);
-            toppingRepository.deleteByResId(x);
-            restaurantRepository.delete(x);
+            RestaurantEntity restaurantEntity = restaurantRepository.findOne(x);
+            if (restaurantEntity==null){
+                continue;
+            }
+            restaurantRepository.delete(restaurantEntity);
         }
         return null;
     }
@@ -318,6 +326,9 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
     @Override
     public ResRecommnedRespon getDetailResAdmin(Integer id) {
         RestaurantEntity restaurantEntity = restaurantRepository.findOne(id);
+        if (restaurantEntity==null){
+            return null;
+        }
         ResRecommnedRespon resRecommnedRespon = new ResRecommnedRespon(
                 restaurantEntity.getId(),
                 restaurantEntity.getRestaurantName(),

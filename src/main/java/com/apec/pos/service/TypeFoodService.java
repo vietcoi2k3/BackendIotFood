@@ -96,6 +96,9 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
             }
         }
         TypeFoodEntity typeFoodEntity = typeFoodRepository.findOne(updateTypeRequest.getId());
+        if (typeFoodEntity==null){
+            return null;
+        }
         if (updateTypeRequest.getNameType() != null)
             typeFoodEntity.setNameType(updateTypeRequest.getNameType());
         if (updateTypeRequest.getImgType() != null)
@@ -152,6 +155,9 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
     @Override
     public DetailTypeFood getDetailType(Integer id) {
         TypeFoodEntity typeFoodEntity = typeFoodRepository.findOne(id);
+        if(typeFoodEntity==null){
+            return null;
+        }
 
         List<FoodRecommendDto> foodRecommendDtos=new ArrayList<>();
         System.out.println(typeFoodEntity.getFoodEntities());

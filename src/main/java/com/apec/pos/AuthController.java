@@ -1,5 +1,8 @@
 package com.apec.pos;
 
+import com.apec.pos.dto.FoodDto.FoodRecommendDto;
+import com.apec.pos.dto.TypeDto.DetailTypeFood;
+import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
 import org.apache.http.HttpStatus;
 
 
@@ -124,7 +127,11 @@ public class AuthController {
     @Operation(summary = "lấy ra detail food", description = "khi bấm vào một món ăn sẽ gọi đến api này")
     @RequestMapping(value = "get-detail-food", method = RequestMethod.POST)
     public ResponseEntity getDetailFood(@RequestParam Integer id) {
-        return ResponseEntity.ok(new Response(true, "lấy thành công", ErrorCode.SUCCESS, foodService.getDetailFood(id)));
+        FoodRecommendDto foodRecommendDto = foodService.getDetailFood(id);
+        if (foodRecommendDto==null){
+            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body((new Response<>(false,"món ăn không tồn tại")));
+        }
+        return ResponseEntity.ok(new Response(true, "lấy thành công", ErrorCode.SUCCESS, foodRecommendDto));
     }
 
     @Operation(summary = "lấy ra danh sách cửa hàng đề xuất")
@@ -136,7 +143,11 @@ public class AuthController {
     @Operation(summary = "lấy ra restaurant detail", description = "quantitySold = 'Số lượng đã bán'\n\n quantityPurchased = 'số lượng đã mua'")
     @RequestMapping(value = "get-detail-res", method = RequestMethod.POST)
     public ResponseEntity getDetailRes(@RequestParam Integer id) {
-        return ResponseEntity.ok(new Response(true, "lấy thành công", ErrorCode.SUCCESS, restaurantService.getResdetail(id)));
+        ResRecommnedRespon resRecommnedRespon = restaurantService.getResdetail(id);
+        if (resRecommnedRespon==null){
+            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body((new Response<>(false,"cửa hàng không tồn tại")));
+        }
+        return ResponseEntity.ok(new Response(true, "lấy thành công", ErrorCode.SUCCESS, resRecommnedRespon));
     }
 
     @RequestMapping(value = "/paging-res", method = RequestMethod.POST)
@@ -147,19 +158,18 @@ public class AuthController {
     @RequestMapping(value ="get-detail-type",method= RequestMethod.POST)
     @Operation(summary ="lấy detail type")
     public ResponseEntity getDetailType(@RequestParam Integer id){
-        return  ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,typeFoodService.getDetailType(id)));
+        DetailTypeFood detailTypeFood = typeFoodService.getDetailType(id);
+        if(detailTypeFood==null){
+            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body((new Response<>(false,"type không tồn tại")));
+        }
+
+        return  ResponseEntity.ok(new Response(true,"",ErrorCode.SUCCESS,detailTypeFood));
     }
 
     @Operation(summary = "phân trang sản phẩm", description = "pageIndex nhận vào tính từ 0")
     @RequestMapping(value = "/paging-food-admin", method = RequestMethod.POST)
     public ResponseEntity pagingAuthFood(@RequestParam int pageSize, @RequestParam int pageIndex) {
         return ResponseEntity.ok(new Response(true, "trang" + pageIndex, ErrorCode.SUCCESS, foodService.paging(pageSize, pageIndex)));
-    }
-
-    @Operation(summary = "tim food theo cửa hàng")
-    @RequestMapping(value = "/get-food-of-res",method = RequestMethod.POST)
-    public ResponseEntity getFoofOfRes(@RequestParam Integer id){
-        return  ResponseEntity.ok(new Response<>(true,"",restaurantService.getFoodOfRes(id)));
     }
 
 //	@RequestMapping(method = RequestMethod.GET,value = "get-user-lazy")

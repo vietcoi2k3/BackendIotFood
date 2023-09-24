@@ -105,6 +105,11 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
 
     @Override
     public LoginResponDto addEmployee(RegisterRequest registerRequest) {
+        AccountEntity em = accountRepository.findByUsername(registerRequest.getUsername());
+        if(em!=null){
+            return null;
+        }
+
         Set<RoleEntity> roleEntity = new HashSet<>();
         RoleEntity userRole = new RoleEntity();
         userRole.setAuthority("EMPLOYEE");
@@ -114,7 +119,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         accountEntity.setAccountName(registerRequest.getAccountName());
         accountEntity.setImgUser(registerRequest.getImgUser());
         accountEntity.setUsername(registerRequest.getUsername());
-        accountEntity.setPassword(registerRequest.getPassword());
+        accountEntity.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         accountEntity.setSdt(registerRequest.getSdt());
         accountEntity.setRoles(roleEntity);
         accountEntity = accountRepository.insert(accountEntity);

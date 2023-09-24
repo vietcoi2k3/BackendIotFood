@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.apec.pos.dto.FoodDto.AddMultipartFood;
+import com.apec.pos.dto.FoodDto.FoodRecommendDto;
 import com.apec.pos.dto.FoodDto.UpdateFood;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.validation.BindingResult;
@@ -45,20 +47,12 @@ public class FoodAdminController {
 
     @RequestMapping(value = "update-food", method = RequestMethod.PUT, consumes = "multipart/form-data")
     @Operation(summary = "sửa món ăn", description = "")
-    public ResponseEntity updateFood(@ModelAttribute UpdateFood addFoodRequest) {
-        try {
-            return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.updateFood(addFoodRequest)));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+    public ResponseEntity updateFood(@ModelAttribute UpdateFood addFoodRequest) throws IOException {
+        FoodRecommendDto foodRecommendDto = foodService.updateFood(addFoodRequest);
+        if (foodRecommendDto==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,"món ăn không tồn tại",ErrorCode.BAD_REQUEST));
         }
-        return null;
-    }
-
-    @RequestMapping(value = "update-status-food", method = RequestMethod.PUT)
-    @Operation(summary = "sửa status")
-    public ResponseEntity updateStatusFood(@RequestParam Integer id, @RequestParam Boolean status) {
-        return ResponseEntity.ok(new Response(true, "Thành công", ErrorCode.SUCCESS, foodService.updateStatusFood(id, status)));
+        return ResponseEntity.ok(new Response<>(true,"",foodRecommendDto));
     }
 
     @Operation(summary = "phân trang sản phẩm", description = "pageIndex nhận vào tính từ 0")

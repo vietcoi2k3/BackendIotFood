@@ -181,6 +181,9 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     @Override
     public FoodRecommendDto getDetailFood(Integer id) {
         FoodEntity x = foodRepository.findOne(id);
+        if (x==null){
+            return null;
+        }
         String nameRes = x.getRestaurantEntity().getRestaurantName();
         //convert topping
         Gson gson = new Gson();
@@ -270,6 +273,9 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
             imgFood = fileUploadService.uploadFile(addFoodRequest.getImgFood().getBytes());
         }
         FoodEntity foodEntity = foodRepository.findOne(addFoodRequest.getId());
+        if (foodEntity==null){
+            return null;
+        }
         if (addFoodRequest.getDetail() != null)
             foodEntity.setDetail(addFoodRequest.getDetail());
         if (addFoodRequest.getFoodName() != null)
@@ -301,6 +307,9 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     @Override
     public String updateStatusFood(Integer id, Boolean status) {
         FoodEntity foodEntity = foodRepository.findOne(id);
+        if (foodEntity==null){
+            return null;
+        }
         foodEntity.setStatus(status);
         return "Đã Sửa status";
     }

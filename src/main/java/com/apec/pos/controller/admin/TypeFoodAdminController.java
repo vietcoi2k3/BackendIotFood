@@ -2,7 +2,9 @@ package com.apec.pos.controller.admin;
 
 import java.util.Set;
 
+import com.apec.pos.dto.TypeDto.TypefoodResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,15 +41,11 @@ public class TypeFoodAdminController {
     @Operation(description = "", summary = "sửa loại món ăn")
     @RequestMapping(value = "update-type", method = RequestMethod.PUT, consumes = "multipart/form-data")
     public ResponseEntity updateTypeFood(@ModelAttribute UpdateTypeRequest updateTypeRequest) {
-        return ResponseEntity.ok(new Response<>(true, "sửa thành công", ErrorCode.SUCCESS, typeFoodService.updateTypeFood(updateTypeRequest)));
-    }
-
-    //sửa status
-    @Operation(description = "", summary = "sửa status của type")
-    @RequestMapping(value = "update-status", method = RequestMethod.PUT)
-    public ResponseEntity updateStatusType(@RequestParam Integer id, @RequestParam Boolean status) {
-        return ResponseEntity.ok(new Response<>(true, "sửa thành công", ErrorCode.SUCCESS, typeFoodService.updateStatusType(id, status)));
-
+        TypefoodResponseData typefoodResponseData = typeFoodService.updateTypeFood(updateTypeRequest);
+        if (typefoodResponseData==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,"không tồn tại id này",typefoodResponseData));
+        }
+        return ResponseEntity.ok(new Response<>(true, "sửa thành công", ErrorCode.SUCCESS));
     }
 
     @Operation(description = "", summary = "xóa vĩnh viễn type")

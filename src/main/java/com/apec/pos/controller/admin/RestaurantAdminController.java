@@ -2,7 +2,9 @@ package com.apec.pos.controller.admin;
 
 import java.util.Set;
 
+import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +44,11 @@ public class RestaurantAdminController {
 
     @RequestMapping(value = "update-res", method = RequestMethod.PUT, consumes = "multipart/form-data")
     public ResponseEntity updateRes(@ModelAttribute ResRequest request) {
-        return ResponseEntity.ok(new Response(true, "", ErrorCode.SUCCESS, restaurantService.updateRes(request)));
+        ResRecommnedRespon resRecommnedRespon = restaurantService.updateRes(request);
+        if (resRecommnedRespon==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,"không tồn tại",ErrorCode.BAD_REQUEST));
+        }
+        return ResponseEntity.ok(new Response(true, "", ErrorCode.SUCCESS, resRecommnedRespon));
     }
 
     @RequestMapping(value = "delete-res", method = RequestMethod.POST)
@@ -58,6 +64,10 @@ public class RestaurantAdminController {
 
     @RequestMapping(value = "/get-detail-res",method = RequestMethod.POST)
     public ResponseEntity getDetailResAdmin(@RequestParam Integer id){
-        return ResponseEntity.ok(new Response<>(true,"",restaurantService.getDetailResAdmin(id)));
+        ResRecommnedRespon resRecommnedRespon= restaurantService.getDetailResAdmin(id);
+        if (resRecommnedRespon==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,"Cửa hàng không tồn tại",ErrorCode.BAD_REQUEST));
+        }
+        return ResponseEntity.ok(new Response<>(true,"",resRecommnedRespon));
     }
 }
