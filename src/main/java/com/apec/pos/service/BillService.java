@@ -110,6 +110,8 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                 }
                 FoodResponseBill foodResponseBill = FoodResponseBill.builder()
                         .foodId(y.getFoodEntityId())
+                        .nameRes(foodEntity.getRestaurantEntity().getRestaurantName())
+                        .resId(foodEntity.getRestaurantEntityId())
                         .quantity(y.getQuantity())
                         .nameFood(foodEntity.getFoodName())
                         .priceFood(foodEntity.getPrice())
@@ -137,6 +139,8 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         //tao pageRequest
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
 
+        Gson gson = new Gson();
+
         //tim user hien tai
         AccountEntity accountEntity = accountRepository.findByUsername(PosApplication.currentUserGlobal);
 
@@ -146,15 +150,22 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         ) {
             //tao LIST FOOD CHO TRA VE CHO BILL
             List<FoodResponseBill> foodResponseBills = new ArrayList<>();
-            for (BillDetailEntity y:x.getBillDetailEntities()
+            List<BillDetailEntity> billDetailEntities = x.getBillDetailEntities();
+            for (BillDetailEntity y:billDetailEntities
             ) {
                 //tim food
-                FoodEntity foodEntity = foodRepository.findOne(y.getFoodEntityId());
+                FoodEntity foodEntity = y.getFoodEntity();
+                if (foodEntity==null){
+                    break;
+                }
                 FoodResponseBill foodResponseBill = FoodResponseBill.builder()
                         .foodId(y.getFoodEntityId())
+                        .nameRes(foodEntity.getRestaurantEntity().getRestaurantName())
+                        .resId(foodEntity.getRestaurantEntityId())
                         .quantity(y.getQuantity())
                         .nameFood(foodEntity.getFoodName())
                         .priceFood(foodEntity.getPrice())
+                        .itemList(gson.fromJson(y.getItem(),new TypeToken<List<Item>>(){}.getType()))
                         .build();
                 foodResponseBills.add(foodResponseBill);
             }
@@ -164,9 +175,11 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .nameRestaurant(x.getNameRes())
                     .orderStatus(x.getOrderStatus())
                     .foodResponseBills(foodResponseBills)
+                    .finishTime(x.getFinishTime())
+                    .shipFee(x.getShipFee())
                     .id(x.getId())
                     .build();
-
+            result.add(billResponse);
         }
         return result;
     }
