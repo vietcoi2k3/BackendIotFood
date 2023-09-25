@@ -160,8 +160,8 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
         }
 
         List<FoodRecommendDto> foodRecommendDtos=new ArrayList<>();
-        System.out.println(typeFoodEntity.getFoodEntities());
-        for (FoodEntity x:typeFoodEntity.getFoodEntities()
+        List<FoodEntity> foodEntities = typeFoodEntity.getFoodEntities();
+        for (FoodEntity x:typeFoodEntities
              ) {
             Gson gson = new Gson();
             List<ToppingResponse> toppingResponses = new ArrayList<>();

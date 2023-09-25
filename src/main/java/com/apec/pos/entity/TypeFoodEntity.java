@@ -1,5 +1,6 @@
 package com.apec.pos.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -29,7 +30,7 @@ public class TypeFoodEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "typeFoodEntity")
     @JsonManagedReference(value = "type-food")
-    private Set<FoodEntity> foodEntities;
+    private List<FoodEntity> foodEntities;
 
 
     public TypeFoodEntity(String createBy, String modifiedBy) {
@@ -42,7 +43,7 @@ public class TypeFoodEntity extends BaseEntity {
     }
 
     public TypeFoodEntity(String createBy, String modifiedBy, Integer id, String nameType, String imgType,
-                          Set<FoodEntity> foodEntities) {
+                          List<FoodEntity> foodEntities) {
         super(createBy, modifiedBy);
         this.id = id;
         this.nameType = nameType;
@@ -59,12 +60,12 @@ public class TypeFoodEntity extends BaseEntity {
     }
 
 
-    public Set<FoodEntity> getFoodEntities() {
+    public List<FoodEntity> getFoodEntities() {
         return foodEntities;
     }
 
 
-    public void setFoodEntities(Set<FoodEntity> foodEntities) {
+    public void setFoodEntities(List<FoodEntity> foodEntities) {
         this.foodEntities = foodEntities;
     }
 
