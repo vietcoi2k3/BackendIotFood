@@ -18,17 +18,38 @@ public class BillRepository extends BaseRepository<BillEntity, Integer> {
     }
 
     public List<BillEntity> pagingBill(PageRequest pageRequest, OrderStatus orderStatus){
-        String query = "SELECT c FROM BillEntity c WHERE c.orderStatus =:orderStatus";
+        String query = "SELECT c FROM BillEntity c WHERE 1=1";
         Map<String, Object> params = new HashMap<>();
-        params.put("orderStatus",orderStatus);
+        if (orderStatus!=null){
+            query +="and c.orderStatus =:orderStatus";
+            params.put("orderStatus",orderStatus);
+        }
         return query(query,false,params,pageRequest);
     }
 
     public List<BillEntity> pagingUserBill(PageRequest pageRequest,OrderStatus orderStatus,Integer accountId){
-        String query = "SELECT c FROM BillEntity c WHERE c.orderStatus =:orderStatus and c.accountEntityId =:accountId";
+        String query = "SELECT c FROM BillEntity c WHERE c.accountEntityId =:accountId";
         Map<String, Object> params = new HashMap<>();
-        params.put("orderStatus",orderStatus);
+        if (orderStatus!=null){
+            query +="and c.orderStatus =:orderStatus";
+            params.put("orderStatus",orderStatus);
+        }
         params.put("accountId",accountId);
         return query(query,false,params,pageRequest);
+    }
+
+    public long countBill(Integer accountId,OrderStatus orderStatus){
+        String query = "SELECT c FROM BillEntity c WHERE 1=1";
+        Map<String, Object> params = new HashMap<>();
+        if (accountId!=null){
+            query += "and c.accountEntityId =:accountId";
+            params.put("accountId",accountId);
+        }
+        if (orderStatus !=null){
+            query +="and c.orderStatus =:orderStatus";
+            params.put("orderStatus",orderStatus);
+        }
+
+        return count(query,false,params);
     }
 }

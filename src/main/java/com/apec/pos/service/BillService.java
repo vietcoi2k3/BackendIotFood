@@ -5,6 +5,7 @@ import com.apec.pos.dto.FoodDto.BillFoodRequest;
 import com.apec.pos.dto.ToppingDTO.Item;
 import com.apec.pos.dto.billDTO.BillRequest;
 import com.apec.pos.dto.billDTO.BillResponse;
+import com.apec.pos.dto.billDTO.BillResponsePage;
 import com.apec.pos.dto.billDTO.FoodResponseBill;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.entity.BillDetailEntity;
@@ -89,7 +90,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     }
 
     @Override
-    public List<BillResponse> getBill(int pageIndex, int pageSize, OrderStatus orderStatus) {
+    public BillResponsePage getBill(int pageIndex, int pageSize, OrderStatus orderStatus) {
         Gson gson = new Gson();
         //tao pageRequest
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
@@ -131,11 +132,12 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .build();
             result.add(billResponse);
         }
-        return result;
+
+        return new BillResponsePage ((int) billRepository.countBill(null,orderStatus), result);
     }
 
     @Override
-    public List<BillResponse> getBillUser(int pageIndex, int pageSize, OrderStatus orderStatus) {
+    public BillResponsePage getBillUser(int pageIndex, int pageSize, OrderStatus orderStatus) {
         //tao pageRequest
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
 
@@ -181,6 +183,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .build();
             result.add(billResponse);
         }
-        return result;
+
+        return new BillResponsePage ((int) billRepository.countBill(accountEntity.getId(),orderStatus), result);
     }
 }

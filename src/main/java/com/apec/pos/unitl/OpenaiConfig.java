@@ -11,14 +11,13 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(),
-                description = "\n\nTrường '<b>createDate</b>', '<b>createBy</b>', '<b>modifiedDate</b>' và '<b>modifiedBy</b>' sẽ tự động tạo khi thêm hoặc cập nhật dữ liệu.\n",
-
+                description = "\n\n<h1>Đã có totalRow cho getBill,getBillUser và admin bây giờ chỉ cần không truyền orderStatus sẽ ra tất cả</h1>\n",
                 version = "1.0"
         ),
         servers = {
                 @Server(
                         description = "Local EVM",
-                        url = "http://localhost:8080"
+                        url = "http://localhost:8081"
                 ),
                 @Server(
                         description = "PROD EVM",

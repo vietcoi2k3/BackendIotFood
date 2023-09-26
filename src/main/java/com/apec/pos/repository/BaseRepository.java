@@ -150,9 +150,9 @@ public class BaseRepository<T, ID extends Serializable> {
         return (long) createQuery.getSingleResult();
     }
 
-    public Integer count(String jpaQuery, boolean isNative, Map<String, Object> params) {
+    public long count(String jpaQuery, boolean isNative, Map<String, Object> params) {
         Query createQuery = buildQueryHasParameters(jpaQuery, isNative, params, null);
-        return ((Number) createQuery.getSingleResult()).intValue();
+        return ((Number) createQuery.getSingleResult()).longValue();
     }
 
     private Query buildQuery(String query, boolean isNative) {
