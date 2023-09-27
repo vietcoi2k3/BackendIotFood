@@ -34,7 +34,7 @@ public class ConfigSecurity {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf(crsf -> crsf.disable())
                 .cors().and()
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/swagger-ui/**",

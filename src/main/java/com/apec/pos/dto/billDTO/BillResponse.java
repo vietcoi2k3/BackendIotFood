@@ -20,5 +20,6 @@ public class BillResponse {
     private String nameRestaurant;
     private int shipFee;
     private String finishTime;
+    private int accountId;
     private List<FoodResponseBill> foodResponseBills;
 }
