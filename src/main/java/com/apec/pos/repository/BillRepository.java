@@ -39,7 +39,7 @@ public class BillRepository extends BaseRepository<BillEntity, Integer> {
     }
 
     public long countBill(Integer accountId,OrderStatus orderStatus){
-        String query = "SELECT c FROM BillEntity c WHERE 1=1";
+        String query = "SELECT count(c.id) FROM BillEntity c WHERE 1=1";
         Map<String, Object> params = new HashMap<>();
         if (accountId!=null){
             query += "and c.accountEntityId =:accountId";
