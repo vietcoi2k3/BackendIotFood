@@ -128,6 +128,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .foodResponseBills(foodResponseBills)
                     .finishTime(x.getFinishTime())
                     .shipFee(x.getShipFee())
+                    .accountId(x.getAccountEntityId())
                     .id(x.getId())
                     .build();
             result.add(billResponse);
@@ -179,6 +180,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .foodResponseBills(foodResponseBills)
                     .finishTime(x.getFinishTime())
                     .shipFee(x.getShipFee())
+                    .accountId(x.getAccountEntityId())
                     .id(x.getId())
                     .build();
             result.add(billResponse);
