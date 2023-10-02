@@ -4,6 +4,7 @@ import com.apec.pos.dto.voucherDTO.VoucherRequest;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.VoucherService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "user")
+@SecurityRequirement(name = "bearerAuth")
 public class VoucherController {
 
     @Autowired
