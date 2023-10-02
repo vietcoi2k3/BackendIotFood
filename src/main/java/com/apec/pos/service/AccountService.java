@@ -62,9 +62,9 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
     }
 
     @Override
-    public LoginResponDto register(AccountEntity accountEntity) {
+    public LoginResponDto register(RegisterRequest registerRequest) {
         // Kiểm tra xem tài khoản đã tồn tại chưa
-        if (accountRepository.findByUsername(accountEntity.getUsername()) != null) {
+        if (accountRepository.findByUsername(registerRequest.getUsername()) != null) {
             return null;
         }
 
@@ -77,12 +77,12 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         roleEntity.add(userRole);
 
         AccountEntity accountEntity2 = new AccountEntity();
-        accountEntity2.setAccountName(accountEntity.getAccountName());
+        accountEntity2.setAccountName(registerRequest.getAccountName());
         accountEntity2.setCreateDate(new Date());
-        accountEntity2.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
+        accountEntity2.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         accountEntity2.setRoles(roleEntity);
-        accountEntity2.setSdt(accountEntity.getSdt());
-        accountEntity2.setUsername(accountEntity.getUsername());
+        accountEntity2.setSdt(registerRequest.getSdt());
+        accountEntity2.setUsername(registerRequest.getUsername());
         accountEntity2.setImgUser("https://i.pinimg.com/736x/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg");
         // Lưu tài khoản mới vào cơ sở dữ liệu
         accountRepository.insert(accountEntity2);

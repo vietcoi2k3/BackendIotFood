@@ -2,6 +2,7 @@ package com.apec.pos;
 
 import com.apec.pos.dto.FoodDto.FoodRecommendDto;
 import com.apec.pos.dto.TypeDto.DetailTypeFood;
+import com.apec.pos.dto.accountDto.RegisterRequest;
 import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
 import org.apache.http.HttpStatus;
 
@@ -75,13 +76,13 @@ public class AuthController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ResponseEntity<Response> register(@RequestBody AccountEntity accountEntity) {
-        if (!(Validator.validateStudentID(accountEntity.getUsername()) && Validator.validatePassword(accountEntity.getPassword()))) {
+    public ResponseEntity<Response> register(@RequestBody RegisterRequest registerRequest) {
+        if (!(Validator.validateStudentID(registerRequest.getUsername()) && Validator.validatePassword(registerRequest.getPassword()))) {
             return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response<>(false, "Tài khoàn hoặc mật khẩu không hợp lệ"));
         }
 
 
-        LoginResponDto loginResponDto = accountService.register(accountEntity);
+        LoginResponDto loginResponDto = accountService.register(registerRequest);
         if (loginResponDto == null) {
             return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response(true, "Đăng kí thất bại,tài khoản đã tồn tại", ErrorCode.BAD_REQUEST));
         }

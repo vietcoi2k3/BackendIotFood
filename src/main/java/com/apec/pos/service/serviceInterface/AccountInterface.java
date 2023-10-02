@@ -10,7 +10,7 @@ public interface AccountInterface {
 
     public LoginResponDto login(LoginRequest loginRequest);
 
-    public LoginResponDto register(AccountEntity accountEntity);
+    public LoginResponDto register(RegisterRequest registerRequest);
 
     public AccountInfoDto getUserInfo(String token);
 
