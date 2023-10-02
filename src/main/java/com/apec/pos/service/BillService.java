@@ -57,7 +57,6 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                 .orderStatus(OrderStatus.PENDING)
                 .totalAmount(billRequest.getTotalAmount())
                 .orderBy(PosApplication.currentUserGlobal)
-                .nameRes(billRequest.getNameRes())
                 .build()
                 ;
         result = billRepository.insert(result);

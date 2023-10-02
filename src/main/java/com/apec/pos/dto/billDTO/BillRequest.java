@@ -16,7 +16,6 @@ import java.util.List;
 public class BillRequest {
     private OrderStatus orderStatus;
     private long totalAmount;
-    private String nameRes;
     private int shipFee;
     private List<BillFoodRequest> billFoodRequests;
 
