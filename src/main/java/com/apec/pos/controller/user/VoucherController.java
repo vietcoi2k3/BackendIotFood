@@ -11,8 +11,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class VoucherController {
@@ -28,6 +27,10 @@ public class VoucherController {
         } catch (Exception ex){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false, ex.getMessage(),ErrorCode.BAD_REQUEST));
     }
+    }
 
+    @RequestMapping(value = "paging-voucher",method = RequestMethod.POST)
+    public ResponseEntity pagingVoucher(@RequestParam Integer pageIndex, @RequestParam Integer pageSize){
+        return ResponseEntity.ok(new Response<>(true,"",voucherService.pagingVoucher(pageIndex,pageSize)));
     }
 }
