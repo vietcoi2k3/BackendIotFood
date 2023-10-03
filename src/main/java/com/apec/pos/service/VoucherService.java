@@ -8,6 +8,7 @@ import com.apec.pos.service.serviceInterface.VoucherInteface;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -37,6 +38,13 @@ public class VoucherService extends BaseService<VoucherReposioty,VoucherEntity,I
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
         return voucherReposioty.paging(pageRequest);
     }
+
+    // Phương thức này sẽ được thực hiện sau mỗi 2 ngày
+    @Scheduled(fixedRate = 2 * 24 * 60 * 60 * 1000) // Khoảng thời gian được tính bằng mili giây
+    public void checkEveryTwoDays() {
+        voucherReposioty.deleteVoucherExpired();
+    }
+
 
     @Override
     VoucherReposioty getRepository() {
