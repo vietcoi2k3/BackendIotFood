@@ -9,5 +9,5 @@ import java.util.List;
 public interface VoucherInteface {
     public VoucherResponse useVoucher(VoucherRequest voucherRequest) throws Exception;
 
-    public List<VoucherEntity> pagingVoucher(Integer pageIndex,Integer pageSize);
+    public VoucherResponse pagingVoucher(Integer pageIndex,Integer pageSize);
 }

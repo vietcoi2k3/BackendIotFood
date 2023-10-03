@@ -34,9 +34,10 @@ public class VoucherService extends BaseService<VoucherReposioty,VoucherEntity,I
     }
 
     @Override
-    public List<VoucherEntity> pagingVoucher(Integer pageIndex, Integer pageSize) {
+    public VoucherResponse pagingVoucher(Integer pageIndex, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
-        return voucherReposioty.paging(pageRequest);
+        VoucherResponse voucherResponse = new VoucherResponse((int) voucherReposioty.countAll(),voucherReposioty.paging(pageRequest));
+        return voucherResponse;
     }
 
     // Phương thức này sẽ được thực hiện sau mỗi 2 ngày
