@@ -25,12 +25,12 @@ public class VoucherAdminController {
         voucherEntity.setExpired(voucherEntity.getExpired().plusDays(1));
         return ResponseEntity.ok(new Response(true,"",voucherReposioty.insert(voucherEntity)));
     }
-    @RequestMapping(value = "update-voucher",method = RequestMethod.POST)
+    @RequestMapping(value = "update-voucher",method = RequestMethod.PUT)
     public ResponseEntity updateVoucher(@RequestBody VoucherEntity voucherEntity){
         return ResponseEntity.ok(new Response(true,"",voucherReposioty.update(voucherEntity)));
     }
 
-    @RequestMapping(value = "delete-voucher",method = RequestMethod.POST)
+    @RequestMapping(value = "delete-voucher",method = RequestMethod.DELETE)
     public ResponseEntity deleteVoucher(@RequestParam Integer id){
         return ResponseEntity.ok(new Response(true,"",voucherReposioty.delete(id)));
     }
