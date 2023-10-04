@@ -32,7 +32,7 @@ public class VoucherAdminController {
     public ResponseEntity updateVoucher(@RequestBody VoucherEntity voucherEntity){
         return ResponseEntity.ok(new Response(true,"",voucherReposioty.update(voucherEntity)));
     }
-    @RequestMapping(value = "delete-voucher",method = RequestMethod.DELETE)
+    @RequestMapping(value = "delete-voucher",method = RequestMethod.POST)
     public ResponseEntity deleteVoucher(@RequestBody Set<Integer> ids){
         try{
             voucherService.multiDelete(ids);
