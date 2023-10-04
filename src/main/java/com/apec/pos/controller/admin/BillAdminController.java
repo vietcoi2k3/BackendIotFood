@@ -26,4 +26,9 @@ public class BillAdminController {
     public ResponseEntity getBill(@RequestParam int pageIndex, @RequestParam int pageSize, @RequestParam(required = false) OrderStatus orderStatus){
         return ResponseEntity.ok(new Response(true,"", ErrorCode.SUCCESS,billService.getBill(pageIndex,pageSize,orderStatus)));
     }
+
+    @RequestMapping(value = "update-bill",method = RequestMethod.PUT)
+    public ResponseEntity updateBill(@RequestParam OrderStatus orderStatus,@RequestParam Integer id){
+        return  ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,billService.updateBill(orderStatus,id)));
+    }
 }

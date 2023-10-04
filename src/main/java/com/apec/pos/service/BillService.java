@@ -90,7 +90,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
             billEntity.setOrderStatus(orderStatus);
         }
 
-        return billRepository.insert(billEntity);
+        return billRepository.update(billEntity);
     }
 
     @Override
