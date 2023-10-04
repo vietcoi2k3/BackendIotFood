@@ -32,22 +32,19 @@ public class VoucherAdminController {
     public ResponseEntity updateVoucher(@RequestBody VoucherEntity voucherEntity){
         return ResponseEntity.ok(new Response(true,"",voucherReposioty.update(voucherEntity)));
     }
-
     @RequestMapping(value = "delete-voucher",method = RequestMethod.DELETE)
-    public ResponseEntity deleteVoucher(@RequestParam Set<Integer> ids){
+    public ResponseEntity deleteVoucher(@RequestBody Set<Integer> ids){
         try{
             voucherService.multiDelete(ids);
             return ResponseEntity.ok(new Response<>(true,"thành công"));
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,e.getMessage()));
         }
-
     }
     @RequestMapping(value = "paging-voucher",method = RequestMethod.POST)
     public ResponseEntity pagingVoucher(@RequestParam Integer pageIndex,@RequestParam Integer pageSize){
         return ResponseEntity.ok(new Response<>(true,"",voucherService.pagingVoucher(pageIndex,pageSize)));
     }
-
     @RequestMapping(value = "get-detail-voucher",method = RequestMethod.POST)
     public ResponseEntity getDetailVoucher(@RequestParam Integer id){
         return ResponseEntity.ok(new Response<>(true,"",voucherService.findOne(id)));
