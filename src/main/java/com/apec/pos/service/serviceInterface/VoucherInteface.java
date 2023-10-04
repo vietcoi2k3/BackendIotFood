@@ -13,4 +13,5 @@ public interface VoucherInteface {
     public VoucherResponse pagingVoucher(Integer pageIndex,Integer pageSize);
 
     public void multiDelete(Set<Integer> ids);
+    public VoucherEntity updateVoucher(VoucherEntity voucherEntity);
 }

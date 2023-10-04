@@ -30,7 +30,7 @@ public class VoucherAdminController {
     }
     @RequestMapping(value = "update-voucher",method = RequestMethod.PUT)
     public ResponseEntity updateVoucher(@RequestBody VoucherEntity voucherEntity){
-        return ResponseEntity.ok(new Response(true,"",voucherReposioty.update(voucherEntity)));
+        return ResponseEntity.ok(new Response(true,"",voucherService.updateVoucher(voucherEntity)));
     }
     @RequestMapping(value = "delete-voucher",method = RequestMethod.POST)
     public ResponseEntity deleteVoucher(@RequestBody Set<Integer> ids){

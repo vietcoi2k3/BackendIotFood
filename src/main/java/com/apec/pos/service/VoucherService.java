@@ -49,6 +49,19 @@ public class VoucherService extends BaseService<VoucherReposioty,VoucherEntity,I
         }
     }
 
+    @Override
+    public VoucherEntity updateVoucher(VoucherEntity voucherEntity) {
+        VoucherEntity voucherNew = voucherReposioty.findOne(voucherEntity.getId());
+        voucherNew.setCode(voucherEntity.getCode()!=null ? voucherEntity.getCode() : voucherNew.getCode());
+        voucherNew.setTitle(voucherEntity.getTitle() !=null ? voucherEntity.getTitle() : voucherNew.getTitle());
+        voucherNew.setExpired(voucherEntity.getExpired() != null ? voucherEntity.getExpired() : voucherNew.getExpired());
+        voucherNew.setQuantity(voucherEntity.getQuantity() >0 ? voucherEntity.getQuantity() : voucherEntity.getQuantity());
+        voucherNew.setDetail(voucherEntity.getDetail() != null ? voucherEntity.getDetail() : voucherNew.getDetail());
+        voucherNew.setDiscount(voucherEntity.getDiscount() > 0 ? voucherEntity.getDiscount() : voucherNew.getDiscount());
+
+        return voucherReposioty.update(voucherNew);
+    }
+
     // Phương thức này sẽ được thực hiện sau mỗi 2 ngày
     @Scheduled(fixedRate = 2 * 24 * 60 * 60 * 1000) // Khoảng thời gian được tính bằng mili giây
     public void checkEveryTwoDays() {
