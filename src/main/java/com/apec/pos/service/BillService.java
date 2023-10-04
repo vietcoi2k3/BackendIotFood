@@ -7,14 +7,14 @@ import com.apec.pos.dto.billDTO.BillRequest;
 import com.apec.pos.dto.billDTO.BillResponse;
 import com.apec.pos.dto.billDTO.BillResponsePage;
 import com.apec.pos.dto.billDTO.FoodResponseBill;
-import com.apec.pos.entity.AccountEntity;
-import com.apec.pos.entity.BillDetailEntity;
-import com.apec.pos.entity.BillEntity;
-import com.apec.pos.entity.FoodEntity;
+import com.apec.pos.dto.voucherDTO.VoucherResponse;
+import com.apec.pos.dto.voucherDTO.VoucherResponseBill;
+import com.apec.pos.entity.*;
 import com.apec.pos.enu.OrderStatus;
 import com.apec.pos.repository.AccountRepository;
 import com.apec.pos.repository.BillRepository;
 import com.apec.pos.repository.FoodRepository;
+import com.apec.pos.repository.VoucherReposioty;
 import com.apec.pos.service.serviceInterface.BillInterface;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,6 +42,9 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private VoucherReposioty voucherReposioty;
+
     @Override
     BillRepository getRepository() {
         // TODO Auto-generated method stub
@@ -57,6 +60,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                 .orderStatus(OrderStatus.PENDING)
                 .totalAmount(billRequest.getTotalAmount())
                 .orderBy(PosApplication.currentUserGlobal)
+                .code(billRequest.getCodeVoucher())
                 .accountEntityId(accountRepository.findByUsername(PosApplication.currentUserGlobal).getId())
                 .build()
                 ;
@@ -120,6 +124,11 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                         .build();
                 foodResponseBills.add(foodResponseBill);
             }
+            VoucherEntity voucherEntity = voucherReposioty.findVoucherByCode(x.getCode());
+            VoucherResponseBill voucherResponseBill = null;
+            if (voucherEntity!=null){
+                voucherResponseBill = new VoucherResponseBill(voucherEntity.getCode(),voucherEntity.getDiscount(),voucherEntity.getExpired(),voucherEntity.getCreateDate());
+            }
             // tao BillRespone de tra ve
             BillResponse billResponse = BillResponse.builder()
                     .createAt(x.getCreateDate())
@@ -129,6 +138,8 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .finishTime(x.getFinishTime())
                     .shipFee(x.getShipFee())
                     .accountId(x.getAccountEntityId())
+                    .voucherResponseBill(voucherResponseBill)
+                    .totalAmount((int) x.getTotalAmount())
                     .id(x.getId())
                     .build();
             result.add(billResponse);
@@ -172,6 +183,11 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                         .build();
                 foodResponseBills.add(foodResponseBill);
             }
+            VoucherEntity voucherEntity = voucherReposioty.findVoucherByCode(x.getCode());
+            VoucherResponseBill voucherResponseBill = null;
+            if (voucherEntity!=null){
+                 voucherResponseBill = new VoucherResponseBill(voucherEntity.getCode(),voucherEntity.getDiscount(),voucherEntity.getExpired(),voucherEntity.getCreateDate());
+            }
             // tao BillRespone de tra ve
             BillResponse billResponse = BillResponse.builder()
                     .createAt(x.getCreateDate())
@@ -181,6 +197,8 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .finishTime(x.getFinishTime())
                     .shipFee(x.getShipFee())
                     .accountId(x.getAccountEntityId())
+                    .totalAmount((int) x.getTotalAmount())
+                    .voucherResponseBill(voucherResponseBill)
                     .id(x.getId())
                     .build();
             result.add(billResponse);

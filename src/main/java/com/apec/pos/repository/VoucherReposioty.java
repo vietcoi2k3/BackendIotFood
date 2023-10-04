@@ -46,4 +46,19 @@ public class VoucherReposioty extends BaseRepository<VoucherEntity,Integer>{
         return query1.executeUpdate();
     }
 
+    public VoucherEntity findVoucherByCode(String code){
+        String query = "SELECT c FROM VoucherEntity c WHERE c.code =:code";
+        Query query1 = entityManager.createQuery(query);
+        query1.setParameter("code",code);
+        List<VoucherEntity> voucherEntities = query1.getResultList();
+        if (voucherEntities.isEmpty()){
+            return null;
+        }
+        else {
+            VoucherEntity voucherEntity = voucherEntities.get(0);
+            return voucherEntity;
+        }
+
+    }
+
 }

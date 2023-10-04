@@ -27,6 +27,7 @@ public class BillEntity extends BaseEntity {
     private String nameRes;
     private String finishTime;
     private int shipFee;
+    private String code;
 
 
     @Column(name = "accountEntityId")

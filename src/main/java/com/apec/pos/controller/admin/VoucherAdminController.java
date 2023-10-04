@@ -7,8 +7,11 @@ import com.apec.pos.response.Response;
 import com.apec.pos.service.VoucherService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @SecurityRequirement(name = "bearerAuth")
@@ -31,8 +34,14 @@ public class VoucherAdminController {
     }
 
     @RequestMapping(value = "delete-voucher",method = RequestMethod.DELETE)
-    public ResponseEntity deleteVoucher(@RequestParam Integer id){
-        return ResponseEntity.ok(new Response(true,"",voucherReposioty.delete(id)));
+    public ResponseEntity deleteVoucher(@RequestParam Set<Integer> ids){
+        try{
+            voucherService.multiDelete(ids);
+            return ResponseEntity.ok(new Response<>(true,"thành công"));
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,e.getMessage()));
+        }
+
     }
 
     @RequestMapping(value = "paging-voucher",method = RequestMethod.POST)

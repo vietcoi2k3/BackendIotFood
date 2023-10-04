@@ -17,7 +17,7 @@ public class VoucherEntity extends BaseEntity{
     private int discount;
     private LocalDate expired;
     private String detail;
-    private String idVoucher;
+    private String code;
     private int quantity;
     private String title;
 }

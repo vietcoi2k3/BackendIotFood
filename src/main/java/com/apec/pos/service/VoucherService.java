@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class VoucherService extends BaseService<VoucherReposioty,VoucherEntity,Integer> implements VoucherInteface{
@@ -38,6 +39,14 @@ public class VoucherService extends BaseService<VoucherReposioty,VoucherEntity,I
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
         VoucherResponse voucherResponse = new VoucherResponse((int) voucherReposioty.countAll(),voucherReposioty.paging(pageRequest));
         return voucherResponse;
+    }
+
+    @Override
+    public void multiDelete(Set<Integer> ids) {
+        for (Integer x:
+             ids) {
+            voucherReposioty.delete(x);
+        }
     }
 
     // Phương thức này sẽ được thực hiện sau mỗi 2 ngày

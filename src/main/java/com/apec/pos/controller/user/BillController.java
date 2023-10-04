@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Struct;
+
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping(value = "user")
@@ -28,7 +30,7 @@ public class BillController {
 
     @Operation(summary = "lấy ra bill phía người dùng")
     @RequestMapping(value = "get-bill",method = RequestMethod.POST)
-    public ResponseEntity getBill(@RequestParam int pageIndex, @RequestParam int pageSize, @RequestParam(required = false) OrderStatus orderStatus){
+    public ResponseEntity getBill(@RequestParam int pageIndex, @RequestParam int pageSize, @RequestParam(required = false) OrderStatus orderStatus ){
         return ResponseEntity.ok(new Response(true,"", ErrorCode.SUCCESS,billService.getBillUser(pageIndex,pageSize,orderStatus)));
     }
 }
