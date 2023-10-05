@@ -32,8 +32,8 @@ public class VoucherController {
     }
     }
 
-    @RequestMapping(value = "paging-voucher",method = RequestMethod.POST)
-    public ResponseEntity pagingVoucher(@RequestParam Integer pageIndex, @RequestParam Integer pageSize){
-        return ResponseEntity.ok(new Response<>(true,"",voucherService.pagingVoucher(pageIndex,pageSize)));
+    @RequestMapping(value = "get-all-voucher",method = RequestMethod.POST)
+    public ResponseEntity pagingVoucher(){
+        return ResponseEntity.ok(new Response<>(true,"",voucherService.findAll()));
     }
 }

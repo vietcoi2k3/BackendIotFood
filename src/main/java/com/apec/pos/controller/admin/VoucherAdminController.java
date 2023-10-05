@@ -25,7 +25,6 @@ public class VoucherAdminController {
     private VoucherReposioty voucherReposioty;
     @RequestMapping(value = "add-voucher",method = RequestMethod.POST)
     public ResponseEntity addVoucher(@RequestBody VoucherEntity voucherEntity){
-        voucherEntity.setExpired(voucherEntity.getExpired().plusDays(1));
         return ResponseEntity.ok(new Response(true,"",voucherReposioty.insert(voucherEntity)));
     }
     @RequestMapping(value = "update-voucher",method = RequestMethod.PUT)
@@ -42,8 +41,8 @@ public class VoucherAdminController {
         }
     }
     @RequestMapping(value = "paging-voucher",method = RequestMethod.POST)
-    public ResponseEntity pagingVoucher(@RequestParam Integer pageIndex,@RequestParam Integer pageSize){
-        return ResponseEntity.ok(new Response<>(true,"",voucherService.pagingVoucher(pageIndex,pageSize)));
+    public ResponseEntity pagingVoucher(){
+        return ResponseEntity.ok(new Response<>(true,"",voucherService.findAll()));
     }
     @RequestMapping(value = "get-detail-voucher",method = RequestMethod.POST)
     public ResponseEntity getDetailVoucher(@RequestParam Integer id){

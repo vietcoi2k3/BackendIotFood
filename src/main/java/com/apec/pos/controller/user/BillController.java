@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.criteria.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Struct;
@@ -22,8 +24,10 @@ public class BillController {
     @Autowired
     private BillService billService;
 
-    @Operation(summary = "Them bill")
-    @RequestMapping(value = "add-bill", method = RequestMethod.POST)
+//    @Operation(summary = "Them bill")
+//    @RequestMapping(value = "add-bill", method = RequestMethod.POST)
+    @MessageMapping("/app/add-bill")
+    @SendTo("/topic/add-bill")
     public ResponseEntity addBill(@RequestBody BillRequest billRequest) {
         return ResponseEntity.ok(new Response<>(true, "", billService.addBill(billRequest)));
     }
