@@ -40,7 +40,7 @@ public class ConfigSecurity {
                     auth.requestMatchers("/swagger-ui/**",
                             "/v3/api-docs/**").permitAll();
                     auth.requestMatchers("/error").permitAll();
-                    auth.requestMatchers("/ws-iotfood/**").hasAnyAuthority("USER","ADMIN","EMPLOYEE");
+                    auth.requestMatchers("/ws-iotfood/**").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/ADMIN/*").hasAnyAuthority("ADMIN", "EMPLOYEE");
                     auth.requestMatchers("/ADMIN/MANAGER/**").hasAuthority("ADMIN");
