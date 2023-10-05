@@ -18,6 +18,7 @@ public class BillRequest {
     private long totalAmount;
     private int shipFee;
     private String codeVoucher;
+    private String note;
     private List<BillFoodRequest> billFoodRequests;
 
 }

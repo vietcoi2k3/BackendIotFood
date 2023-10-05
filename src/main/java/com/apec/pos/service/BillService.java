@@ -61,6 +61,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                 .totalAmount(billRequest.getTotalAmount())
                 .orderBy(PosApplication.currentUserGlobal)
                 .code(billRequest.getCodeVoucher())
+                .note(billRequest.getNote())
                 .accountEntityId(accountRepository.findByUsername(PosApplication.currentUserGlobal).getId())
                 .build()
                 ;
@@ -137,6 +138,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .foodResponseBills(foodResponseBills)
                     .finishTime(x.getFinishTime())
                     .shipFee(x.getShipFee())
+                    .note(x.getNote())
                     .accountId(x.getAccountEntityId())
                     .voucherResponseBill(voucherResponseBill)
                     .totalAmount((int) x.getTotalAmount())
@@ -199,6 +201,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .accountId(x.getAccountEntityId())
                     .totalAmount((int) x.getTotalAmount())
                     .voucherResponseBill(voucherResponseBill)
+                    .note(x.getNote())
                     .id(x.getId())
                     .build();
             result.add(billResponse);

@@ -23,6 +23,7 @@ public class BillResponse {
     private String finishTime;
     private int accountId;
     private int totalAmount;
+    private String note;
     private VoucherResponseBill voucherResponseBill;
     private List<FoodResponseBill> foodResponseBills;
 }
