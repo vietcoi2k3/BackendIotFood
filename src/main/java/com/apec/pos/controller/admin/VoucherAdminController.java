@@ -1,11 +1,14 @@
 package com.apec.pos.controller.admin;
 
+import com.apec.pos.dto.voucherDTO.VoucherResponse;
 import com.apec.pos.entity.VoucherEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.repository.VoucherReposioty;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.VoucherService;
+import io.swagger.models.auth.In;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.persistence.Index;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +44,9 @@ public class VoucherAdminController {
         }
     }
     @RequestMapping(value = "paging-voucher",method = RequestMethod.POST)
-    public ResponseEntity pagingVoucher(){
-        return ResponseEntity.ok(new Response<>(true,"",voucherService.findAll()));
+    public ResponseEntity pagingVoucher(@RequestParam Integer pageIndex,@RequestParam Integer pageSize){
+
+        return ResponseEntity.ok(new Response<>(true,"",voucherService.pagingVoucher(pageIndex,pageSize)));
     }
     @RequestMapping(value = "get-detail-voucher",method = RequestMethod.POST)
     public ResponseEntity getDetailVoucher(@RequestParam Integer id){
