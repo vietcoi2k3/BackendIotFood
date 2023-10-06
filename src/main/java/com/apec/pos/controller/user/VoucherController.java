@@ -1,5 +1,6 @@
 package com.apec.pos.controller.user;
 
+import com.apec.pos.PosApplication;
 import com.apec.pos.dto.voucherDTO.VoucherRequest;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
@@ -26,9 +27,9 @@ public class VoucherController {
     public ResponseEntity useVoucher(@Payload VoucherRequest voucherRequest) {
         System.out.println("ddd");
         try{
-            return ResponseEntity.ok(new Response<>(true,"thành công",ErrorCode.SUCCESS,voucherService.useVoucher(voucherRequest)));
+            return ResponseEntity.ok(new Response<>(true,ErrorCode.SUCCESS,"",voucherService.useVoucher(voucherRequest),PosApplication.currentUrlGlobal));
         } catch (Exception ex){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false, ex.getMessage(),ErrorCode.BAD_REQUEST));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false, ErrorCode.BAD_REQUEST,ex.getMessage(),null,PosApplication.currentUserGlobal));
     }
     }
 
