@@ -35,7 +35,7 @@ public class BillController {
            return ResponseEntity.ok(new Response<>(true, ErrorCode.SUCCESS,"", billService.addBill(billRequest),PosApplication.currentUserGlobal));
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,ErrorCode.BAD_REQUEST,e.getMessage(),null, PosApplication.currentUrlGlobal));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,ErrorCode.BAD_REQUEST,e.getMessage(),null, PosApplication.currentUserGlobal));
         }
     }
 
