@@ -6,6 +6,7 @@ import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.enu.OrderStatus;
 import com.apec.pos.response.Response;
 import com.apec.pos.service.BillService;
+import com.apec.pos.service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.criteria.Order;
@@ -14,14 +15,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Struct;
+import java.util.Map;
 
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping(value = "user")
 public class BillController {
+
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired
     private BillService billService;
@@ -30,12 +36,15 @@ public class BillController {
 //    @RequestMapping(value = "add-bill", method = RequestMethod.POST)
     @MessageMapping("/app/add-bill")
     @SendTo("/topic/add-bill")
-    public ResponseEntity addBill(@RequestBody BillRequest billRequest) {
+    public ResponseEntity addBill(@RequestBody BillRequest billRequest, SimpMessageHeaderAccessor headerAccessor) {
+        Map<String, Object> headers = headerAccessor.getMessageHeaders();
+        String someHeader = (String) headers.get("Authorization");
+        String username =jwtService.getUsernameFromToken(someHeader.substring(7));
         try {
-           return ResponseEntity.ok(new Response<>(true, ErrorCode.SUCCESS,"", billService.addBill(billRequest),PosApplication.currentUserGlobal));
+           return ResponseEntity.ok(new Response<>(true, ErrorCode.SUCCESS,"", billService.addBill(billRequest), username));
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,ErrorCode.BAD_REQUEST,e.getMessage(),null, PosApplication.currentUserGlobal));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,ErrorCode.BAD_REQUEST,e.getMessage(),null, username));
         }
     }
 
