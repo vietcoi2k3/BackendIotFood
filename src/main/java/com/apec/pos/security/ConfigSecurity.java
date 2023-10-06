@@ -64,7 +64,7 @@ public class ConfigSecurity {
         corsConfig.addAllowedOrigin("http://127.0.0.1:5173");
         corsConfig.addAllowedOrigin("https://thangdev.online");
         corsConfig.addAllowedOrigin("https://food.labtlu.shop");
-        corsConfig.addAllowedOrigin("http://14.225.206.173:8080");
+        corsConfig.addAllowedOrigin("http://14.225.206.173:8081");
 
         corsConfig.addAllowedHeader("*");
         corsConfig.addAllowedMethod("*");
