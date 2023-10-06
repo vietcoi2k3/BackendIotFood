@@ -60,7 +60,7 @@ public class SocketConfig implements WebSocketMessageBrokerConfigurer {
                     System.out.println(accessToken);
                     AccountEntity accountEntity = accountRepository.findByUsername(jwtService.getUsernameFromToken(accessToken));
                     if (jwtService.validateToken(accessToken, accountEntity)) {
-                        PosApplication.currentUserGlobal=accountEntity.getUsername();
+//                        PosApplication.currentUserGlobal=accountEntity.getUsername();
                         return message;
                     }
                     throw new MyCustomException("tài khoản không hợp lệ");
