@@ -37,9 +37,11 @@ public class BillController {
     @MessageMapping("/app/add-bill")
     @SendTo("/topic/add-bill")
     public ResponseEntity addBill(@RequestBody BillRequest billRequest, SimpMessageHeaderAccessor headerAccessor) {
-        Map<String, Object> headers = headerAccessor.getMessageHeaders();
-        String someHeader = (String) headers.get("Authorization");
+        System.out.println("header"+(headerAccessor.getNativeHeader("Authorization")));
+
+        String someHeader =  headerAccessor.getNativeHeader("Authorization").get(0);
         String username =jwtService.getUsernameFromToken(someHeader.substring(7));
+
         try {
            return ResponseEntity.ok(new Response<>(true, ErrorCode.SUCCESS,"", billService.addBill(billRequest), username));
         }
