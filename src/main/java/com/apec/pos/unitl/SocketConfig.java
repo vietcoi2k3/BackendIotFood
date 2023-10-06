@@ -37,7 +37,7 @@ public class SocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     @CrossOrigin
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws-iotfood").setAllowedOrigins("http://127.0.0.1:5500","https://thangdev.online","http://127.0.0.1:5500").withSockJS();
+        registry.addEndpoint("/ws-iotfood").setAllowedOrigins("http://127.0.0.1:5500","https://thangdev.online","http://127.0.0.1:5500","https://food.labtlu.shop").withSockJS();
     }
 
 //    @Override
