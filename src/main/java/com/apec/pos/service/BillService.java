@@ -52,10 +52,13 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     }
 
     @Override
-    public List<VoucherEntity> addBill(BillRequest billRequest) {
+    public List<VoucherEntity> addBill(BillRequest billRequest) throws Exception {
 
         Gson gson = new Gson();
-        handleVoucher(billRequest.getCodeVoucher());
+        if (!handleVoucher(billRequest.getCodeVoucher())){
+            throw new Exception("HẾT VOUCHER RỒI!!!!");
+        }
+
         BillEntity result = BillEntity.builder()
                 .orderStatus(OrderStatus.PENDING)
                 .totalAmount(billRequest.getTotalAmount())
@@ -82,14 +85,15 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         return voucherReposioty.findAll();
     }
 
-    public void handleVoucher(String code){
+    public boolean handleVoucher(String code){
         VoucherEntity voucherEntity = voucherReposioty.findVoucherByCode(code);
-        if (voucherEntity.getQuantity()-1<=0){
-            voucherReposioty.delete(voucherEntity.getId());
+        if (voucherEntity.getQuantity()-1<0){
+            return false;
         }
         else {
             voucherEntity.setQuantity(voucherEntity.getQuantity()-1);
             voucherReposioty.update(voucherEntity);
+            return true;
         }
     }
 

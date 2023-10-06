@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.criteria.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -29,7 +30,12 @@ public class BillController {
     @MessageMapping("/app/add-bill")
     @SendTo("/topic/add-bill")
     public ResponseEntity addBill(@RequestBody BillRequest billRequest) {
-        return ResponseEntity.ok(new Response<>(true, "", billService.addBill(billRequest)));
+        try {
+           return ResponseEntity.ok(new Response<>(true, "", billService.addBill(billRequest)));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,e.getMessage()));
+        }
     }
 
     @Operation(summary = "lấy ra bill phía người dùng")

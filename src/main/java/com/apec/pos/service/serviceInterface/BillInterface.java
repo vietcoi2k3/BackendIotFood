@@ -10,7 +10,7 @@ import com.apec.pos.enu.OrderStatus;
 import java.util.List;
 
 public interface BillInterface {
-    public List<VoucherEntity> addBill(BillRequest billRequest);
+    public List<VoucherEntity> addBill(BillRequest billRequest) throws Exception;
 
     public BillEntity updateBill(OrderStatus orderStatus, Integer id);
 
