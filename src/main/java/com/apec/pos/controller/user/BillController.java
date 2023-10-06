@@ -1,5 +1,6 @@
 package com.apec.pos.controller.user;
 
+import com.apec.pos.PosApplication;
 import com.apec.pos.dto.billDTO.BillRequest;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.enu.OrderStatus;
@@ -31,10 +32,10 @@ public class BillController {
     @SendTo("/topic/add-bill")
     public ResponseEntity addBill(@RequestBody BillRequest billRequest) {
         try {
-           return ResponseEntity.ok(new Response<>(true, "", billService.addBill(billRequest)));
+           return ResponseEntity.ok(new Response<>(true, ErrorCode.SUCCESS,"", billService.addBill(billRequest),PosApplication.currentUserGlobal));
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false,ErrorCode.BAD_REQUEST,e.getMessage(),null, PosApplication.currentUrlGlobal));
         }
     }
 
