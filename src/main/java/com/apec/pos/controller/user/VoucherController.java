@@ -27,9 +27,9 @@ public class VoucherController {
     public ResponseEntity useVoucher(@Payload VoucherRequest voucherRequest) {
         System.out.println("ddd");
         try{
-            return ResponseEntity.ok(new Response<>(true,ErrorCode.SUCCESS,"",voucherService.useVoucher(voucherRequest),PosApplication.currentUrlGlobal));
+            return ResponseEntity.ok(new Response<>(true,ErrorCode.SUCCESS,"",voucherService.useVoucher(voucherRequest),null));
         } catch (Exception ex){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false, ErrorCode.BAD_REQUEST,ex.getMessage(),null,PosApplication.currentUserGlobal));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false, ErrorCode.BAD_REQUEST,ex.getMessage(),null,null));
     }
     }
 

@@ -52,7 +52,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     }
 
     @Override
-    public List<VoucherEntity> addBill(BillRequest billRequest) throws Exception {
+    public List<VoucherEntity> addBill(BillRequest billRequest,String username) throws Exception {
 
         Gson gson = new Gson();
         if (!handleVoucher(billRequest.getCodeVoucher())){
@@ -62,10 +62,10 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         BillEntity result = BillEntity.builder()
                 .orderStatus(OrderStatus.PENDING)
                 .totalAmount(billRequest.getTotalAmount())
-                .orderBy(PosApplication.currentUserGlobal)
+                .orderBy(username)
                 .code(billRequest.getCodeVoucher())
                 .note(billRequest.getNote())
-                .accountEntityId(accountRepository.findByUsername(PosApplication.currentUserGlobal).getId())
+                .accountEntityId(accountRepository.findByUsername(username).getId())
                 .build()
                 ;
         result = billRepository.insert(result);
@@ -167,14 +167,14 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     }
 
     @Override
-    public BillResponsePage getBillUser(int pageIndex, int pageSize, OrderStatus orderStatus) {
+    public BillResponsePage getBillUser(int pageIndex, int pageSize, OrderStatus orderStatus,String username) {
         //tao pageRequest
         PageRequest pageRequest = PageRequest.of(pageIndex,pageSize);
 
         Gson gson = new Gson();
 
         //tim user hien tai
-        AccountEntity accountEntity = accountRepository.findByUsername(PosApplication.currentUserGlobal);
+        AccountEntity accountEntity = accountRepository.findByUsername(username);
 
         List<BillEntity> billEntities = billRepository.pagingUserBill(pageRequest,orderStatus,accountEntity.getId());
         List<BillResponse> result = new ArrayList<>();

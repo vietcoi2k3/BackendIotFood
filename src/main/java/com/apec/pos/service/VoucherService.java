@@ -55,9 +55,9 @@ public class VoucherService extends BaseService<VoucherReposioty,VoucherEntity,I
         voucherNew.setCode(voucherEntity.getCode()!=null ? voucherEntity.getCode() : voucherNew.getCode());
         voucherNew.setTitle(voucherEntity.getTitle() !=null ? voucherEntity.getTitle() : voucherNew.getTitle());
         voucherNew.setExpired(voucherEntity.getExpired() != null ? voucherEntity.getExpired() : voucherNew.getExpired());
-        voucherNew.setQuantity(voucherEntity.getQuantity() >0 ? voucherEntity.getQuantity() : voucherEntity.getQuantity());
+        voucherNew.setQuantity(voucherEntity.getQuantity() !=null ? voucherEntity.getQuantity() : voucherEntity.getQuantity());
         voucherNew.setDetail(voucherEntity.getDetail() != null ? voucherEntity.getDetail() : voucherNew.getDetail());
-        voucherNew.setDiscount(voucherEntity.getDiscount() > 0 ? voucherEntity.getDiscount() : voucherNew.getDiscount());
+        voucherNew.setDiscount(voucherEntity.getDiscount() != null ? voucherEntity.getDiscount() : voucherNew.getDiscount());
 
         return voucherReposioty.update(voucherNew);
     }

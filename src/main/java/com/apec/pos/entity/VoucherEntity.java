@@ -14,10 +14,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 public class VoucherEntity extends BaseEntity{
-    private int discount;
+    private Integer discount;
     private LocalDate expired;
     private String detail;
     private String code;
-    private int quantity;
+    private Integer quantity;
     private String title;
 }
