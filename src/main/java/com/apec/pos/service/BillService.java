@@ -56,9 +56,11 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     public List<VoucherEntity> addBill(BillRequest billRequest,String username) throws Exception {
 
         Gson gson = new Gson();
-        if (!handleVoucher(billRequest.getCodeVoucher())){
-            throw new Exception("HẾT VOUCHER RỒI!!!!");
-        }
+       if (billRequest.getCodeVoucher()!=null){
+           if (!handleVoucher(billRequest.getCodeVoucher())){
+               throw new Exception("HẾT VOUCHER RỒI!!!!");
+           }
+       }
 
         BillEntity result = BillEntity.builder()
                 .orderStatus(OrderStatus.PENDING)
@@ -109,7 +111,6 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         } else {
             billEntity.setOrderStatus(orderStatus);
         }
-
         return billRepository.update(billEntity);
     }
 
