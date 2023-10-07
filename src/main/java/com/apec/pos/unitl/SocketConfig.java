@@ -42,6 +42,7 @@ public class SocketConfig implements WebSocketMessageBrokerConfigurer {
                 "https://thangdev.online",
                 "http://127.0.0.1:5500",
                 "https://food.labtlu.shop/",
+                        "https://admin.food.labtlu.shop/",
                         "http://14.225.206.173:8081")
                 .withSockJS();
     }
