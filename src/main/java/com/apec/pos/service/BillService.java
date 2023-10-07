@@ -63,8 +63,10 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                 .orderStatus(OrderStatus.PENDING)
                 .totalAmount(billRequest.getTotalAmount())
                 .orderBy(username)
+                .shipFee(billRequest.getShipFee())
                 .code(billRequest.getCodeVoucher())
                 .note(billRequest.getNote())
+                .finishTime(billRequest.getFinishTime())
                 .accountEntityId(accountRepository.findByUsername(username).getId())
                 .build()
                 ;
@@ -155,6 +157,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                     .finishTime(x.getFinishTime())
                     .shipFee(x.getShipFee())
                     .note(x.getNote())
+                    .finishTime(x.getFinishTime())
                     .accountId(x.getAccountEntityId())
                     .voucherResponseBill(voucherResponseBill)
                     .totalAmount((int) x.getTotalAmount())

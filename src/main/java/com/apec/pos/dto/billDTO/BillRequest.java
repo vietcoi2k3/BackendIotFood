@@ -19,6 +19,7 @@ public class BillRequest {
     private int shipFee;
     private String codeVoucher;
     private String note;
+    private String finishTime;
     private List<BillFoodRequest> billFoodRequests;
 
 }
