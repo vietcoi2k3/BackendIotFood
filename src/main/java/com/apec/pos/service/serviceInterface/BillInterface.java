@@ -17,4 +17,6 @@ public interface BillInterface {
     public BillResponsePage getBill(int pageIndex, int pageSize, OrderStatus orderStatus);
 
     public BillResponsePage getBillUser(int pageIndex, int pageSize, OrderStatus orderStatus,String username);
+
+    public BillResponse getDetailBill(Integer id);
 }

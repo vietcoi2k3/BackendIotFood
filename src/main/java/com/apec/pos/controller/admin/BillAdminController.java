@@ -31,4 +31,9 @@ public class BillAdminController {
     public ResponseEntity updateBill(@RequestParam OrderStatus orderStatus,@RequestParam Integer id){
         return  ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,billService.updateBill(orderStatus,id)));
     }
+
+    @RequestMapping(value = "get-detail-bill",method = RequestMethod.POST)
+    public ResponseEntity getDetailBill(@RequestParam Integer id){
+        return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,billService.getDetailBill(id)));
+    }
 }

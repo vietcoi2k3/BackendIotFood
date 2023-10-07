@@ -3,6 +3,7 @@ package com.apec.pos.service;
 
 import com.apec.pos.dto.FoodDto.BillFoodRequest;
 import com.apec.pos.dto.ToppingDTO.Item;
+import com.apec.pos.dto.accountDto.LoginResponDto;
 import com.apec.pos.dto.billDTO.BillRequest;
 import com.apec.pos.dto.billDTO.BillResponse;
 import com.apec.pos.dto.billDTO.BillResponsePage;
@@ -227,5 +228,72 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         }
 
         return new BillResponsePage ((int) billRepository.countBill(accountEntity.getId(),orderStatus), result);
+    }
+
+    @Override
+    public BillResponse getDetailBill(Integer id) {
+        BillEntity x = billRepository.findOne(id);
+        List<BillDetailEntity> billDetailEntities = x.getBillDetailEntities();
+        List<FoodResponseBill> foodResponseBills = createFoodResponse(billDetailEntities);
+        VoucherResponseBill voucherResponseBill = createVoucherResponseBill(x.getCode());
+        LoginResponDto loginResponDto = createUser(x.getAccountEntityId());
+        BillResponse billResponse = BillResponse.builder()
+                .createAt(x.getCreateDate())
+                .nameRestaurant(x.getNameRes())
+                .orderStatus(x.getOrderStatus())
+                .foodResponseBills(foodResponseBills)
+                .finishTime(x.getFinishTime())
+                .shipFee(x.getShipFee())
+                .accountId(x.getAccountEntityId())
+                .totalAmount((int) x.getTotalAmount())
+                .voucherResponseBill(voucherResponseBill)
+                .note(x.getNote())
+                .id(x.getId())
+                .user(loginResponDto)
+                .build();
+        return billResponse;
+    }
+
+
+    private LoginResponDto createUser(Integer id){
+        AccountEntity accountEntity = accountRepository.findOne(id);
+        LoginResponDto loginResponDto = LoginResponDto.builder()
+                .imgUser(accountEntity.getImgUser())
+                .sdt(accountEntity.getSdt())
+                .msv(accountEntity.getUsername())
+                .build();
+        return loginResponDto;
+    }
+    private List<FoodResponseBill> createFoodResponse(List<BillDetailEntity> billDetailEntities){
+        Gson gson = new Gson();
+        List<FoodResponseBill> foodResponseBills = new ArrayList<>();
+        for (BillDetailEntity y:
+             billDetailEntities) {
+            //tim food
+            FoodEntity foodEntity = y.getFoodEntity();
+            if (foodEntity==null){
+                break;
+            }
+            FoodResponseBill foodResponseBill = FoodResponseBill.builder()
+                    .foodId(y.getFoodEntityId())
+                    .nameRes(foodEntity.getRestaurantEntity().getRestaurantName())
+                    .resId(foodEntity.getRestaurantEntityId())
+                    .quantity(y.getQuantity())
+                    .nameFood(foodEntity.getFoodName())
+                    .priceFood(foodEntity.getPrice())
+                    .itemList(gson.fromJson(y.getItem(),new TypeToken<List<Item>>(){}.getType()))
+                    .build();
+            foodResponseBills.add(foodResponseBill);
+        }
+        return foodResponseBills;
+    }
+
+    private VoucherResponseBill createVoucherResponseBill(String code){
+        VoucherEntity voucherEntity = voucherReposioty.findVoucherByCode(code);
+        VoucherResponseBill voucherResponseBill = null;
+        if (voucherEntity!=null){
+            voucherResponseBill = new VoucherResponseBill(voucherEntity.getCode(),voucherEntity.getDiscount(),voucherEntity.getExpired(),voucherEntity.getCreateDate());
+        }
+        return voucherResponseBill;
     }
 }
