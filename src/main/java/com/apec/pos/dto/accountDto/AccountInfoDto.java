@@ -1,9 +1,13 @@
 package com.apec.pos.dto.accountDto;
 
+import lombok.Data;
+
+@Data
 public class AccountInfoDto {
     private String accountName;
     private String sdt;
     private String username;
+    private String img;
 
     public AccountInfoDto(String accountName, String sdt, String username) {
         super();

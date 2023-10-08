@@ -2,11 +2,14 @@ package com.apec.pos;
 
 import com.apec.pos.dto.FoodDto.FoodRecommendDto;
 import com.apec.pos.dto.TypeDto.DetailTypeFood;
+import com.apec.pos.dto.accountDto.MailAuth;
 import com.apec.pos.dto.accountDto.RegisterRequest;
 import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
+import com.apec.pos.service.*;
 import org.apache.http.HttpStatus;
 
 
+import org.checkerframework.checker.index.qual.PolyUpperBound;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.cache.annotation.CacheConfig;
@@ -29,12 +32,6 @@ import com.apec.pos.unitl.Validator;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.enu.ErrorCode;
 import com.apec.pos.response.Response;
-import com.apec.pos.service.AccountService;
-import com.apec.pos.service.FoodService;
-import com.apec.pos.service.RestaurantService;
-import com.apec.pos.service.RoomService;
-import com.apec.pos.service.SmsService;
-import com.apec.pos.service.TypeFoodService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -62,6 +59,9 @@ public class AuthController {
 
     @Autowired
     private RestaurantService restaurantService;
+
+    @Autowired
+    private EmailSenderService emailSenderService;
 
 
     @Operation(description = "'username'<=>'mã sinh viên'\n\n 'password'<=>'mật khẩu'",
@@ -100,18 +100,6 @@ public class AuthController {
     @RequestMapping(value = "get-all-type", method = RequestMethod.GET)
     public Response getTypeFood() {
         return new Response<>(true, "lấy ra các loại món ăn", ErrorCode.SUCCESS, typeFoodService.findAll());
-    }
-
-    @PostMapping("/send-otp")
-    public OtpResponseDto sendOtp(@RequestBody OtpRequestDto otpRequest) {
-        System.out.println("inside sendOtp :: " + otpRequest.getUsername());
-        return smsService.sendSMS(otpRequest);
-    }
-
-    @PostMapping("/validate-otp")
-    public String validateOtp(@RequestBody OtpValidationRequestDto otpValidationRequest) {
-        System.out.println("inside validateOtp :: " + otpValidationRequest.getUsername() + " " + otpValidationRequest.getOtpNumber());
-        return smsService.validateOtp(otpValidationRequest);
     }
 
     @RequestMapping(value = "hello", method = RequestMethod.GET)
@@ -173,10 +161,23 @@ public class AuthController {
         return ResponseEntity.ok(new Response(true, "trang" + pageIndex, ErrorCode.SUCCESS, foodService.paging(pageSize, pageIndex)));
     }
 
-//	@RequestMapping(method = RequestMethod.GET,value = "get-user-lazy")
-//	public ResponseEntity testLazy(){
-//		FoodEntity foodEntity = foodService.findOne(2);
-//
-//		return ResponseEntity.ok(foodEntity.getRestaurantEntity());
-//	}
+    @Operation(summary = "gửi email để quên mat khẩu")
+    @RequestMapping(value = "forgot-pass",method = RequestMethod.POST)
+    public ResponseEntity forgotPass(@RequestParam String username){
+        try {
+            if (emailSenderService.isExitsEmail(username)) {
+                return ResponseEntity.ok(new Response<>(true, "", emailSenderService.sendEmailByForget(username)));
+            }
+            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Không có email xác thực");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "gửi otp để cho việc quên mật khẩu")
+    @RequestMapping(value = "validate-otp-forgot-pass",method = RequestMethod.POST)
+    public ResponseEntity validateOtpForForget(@RequestBody MailAuth mailAuth){
+        return ResponseEntity.ok(new Response<>(true,"",emailSenderService.validateOtpForForgetPass(mailAuth.getOtp(),mailAuth.getUsername())));
+    }
 }
