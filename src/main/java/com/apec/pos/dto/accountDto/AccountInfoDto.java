@@ -8,6 +8,7 @@ public class AccountInfoDto {
     private String sdt;
     private String username;
     private String img;
+    private String email;
 
     public AccountInfoDto(String accountName, String sdt, String username) {
         super();
