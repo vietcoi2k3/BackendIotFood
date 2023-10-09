@@ -73,11 +73,5 @@ public class AccountController {
            String username=jwtService.getUsernameFromRequest(httpServletRequest);
                 return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.validateOtpForVerify(otp,username)));
     }
-
-    @RequestMapping(value = "change-password",method = RequestMethod.POST)
-    public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp,HttpServletRequest httpServletRequest){
-        String username = jwtService.getUsernameFromRequest(httpServletRequest);
-        return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp,username)));
-    }
 }
  

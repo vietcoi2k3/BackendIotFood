@@ -255,6 +255,17 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         return billResponse;
     }
 
+    public void cancelBill(Integer id,String username){
+        BillEntity billEntity = billRepository.findOne(id);
+        AccountEntity accountEntity = accountRepository.findByUsername(username);
+        if (billEntity.getAccountEntityId().equals(accountEntity.getId())&&billEntity.getOrderStatus().equals(OrderStatus.PENDING)){
+            billEntity.setOrderStatus(OrderStatus.CANCELED);
+            billRepository.update(billEntity);
+        }
+        else {
+            throw new RuntimeException("HỦY ĐƠN KHÔNG THÀNH CÔNG");
+        }
+    }
 
     private LoginResponDto createUser(Integer id){
         AccountEntity accountEntity = accountRepository.findOne(id);
@@ -297,4 +308,6 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         }
         return voucherResponseBill;
     }
+
+
 }

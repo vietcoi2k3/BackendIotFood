@@ -2,10 +2,10 @@ package com.apec.pos;
 
 import com.apec.pos.dto.FoodDto.FoodRecommendDto;
 import com.apec.pos.dto.TypeDto.DetailTypeFood;
-import com.apec.pos.dto.accountDto.MailAuth;
-import com.apec.pos.dto.accountDto.RegisterRequest;
+import com.apec.pos.dto.accountDto.*;
 import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
 import com.apec.pos.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.http.HttpStatus;
 
 
@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apec.pos.dto.accountDto.LoginRequest;
-import com.apec.pos.dto.accountDto.LoginResponDto;
 import com.apec.pos.dto.otpDto.OtpRequestDto;
 import com.apec.pos.dto.otpDto.OtpResponseDto;
 import com.apec.pos.dto.otpDto.OtpValidationRequestDto;
@@ -63,7 +61,8 @@ public class AuthController {
     @Autowired
     private EmailSenderService emailSenderService;
 
-
+    @Autowired
+    private JwtService jwtService;
     @Operation(description = "'username'<=>'mã sinh viên'\n\n 'password'<=>'mật khẩu'",
             summary = "Đăng nhập")
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -174,10 +173,15 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(e.getMessage());
         }
     }
-
     @Operation(summary = "gửi otp để cho việc quên mật khẩu")
     @RequestMapping(value = "validate-otp-forgot-pass",method = RequestMethod.POST)
     public ResponseEntity validateOtpForForget(@RequestBody MailAuth mailAuth){
         return ResponseEntity.ok(new Response<>(true,"",emailSenderService.validateOtpForForgetPass(mailAuth.getOtp(),mailAuth.getUsername())));
+    }
+
+    @RequestMapping(value = "change-password",method = RequestMethod.POST)
+    public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp, HttpServletRequest httpServletRequest){
+        String username = jwtService.getUsernameFromRequest(httpServletRequest);
+        return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp,username)));
     }
 }

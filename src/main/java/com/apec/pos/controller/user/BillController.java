@@ -58,4 +58,15 @@ public class BillController {
         String username = jwtService.getUsernameFromToken(header.substring(7));
         return ResponseEntity.ok(new Response(true,"", ErrorCode.SUCCESS,billService.getBillUser(pageIndex,pageSize,orderStatus,username)));
     }
+
+    @RequestMapping(value = "cancel-bill",method = RequestMethod.PUT)
+    public ResponseEntity cancelBill(@RequestParam Integer id,HttpServletRequest request){
+        String username = jwtService.getUsernameFromRequest(request);
+        try {
+            billService.cancelBill(id,username);
+            return ResponseEntity.ok("HỦY THÀNH CÔNG");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
