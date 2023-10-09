@@ -6,6 +6,7 @@ import com.apec.pos.dto.accountDto.*;
 import com.apec.pos.dto.restaurantDto.ResRecommnedRespon;
 import com.apec.pos.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.http.HttpStatus;
 
 
@@ -62,6 +63,9 @@ public class AuthController {
     private EmailSenderService emailSenderService;
 
     @Autowired
+    private HttpSession httpSession;
+
+    @Autowired
     private JwtService jwtService;
     @Operation(description = "'username'<=>'mã sinh viên'\n\n 'password'<=>'mật khẩu'",
             summary = "Đăng nhập")
@@ -102,7 +106,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "hello", method = RequestMethod.GET)
-    public ResponseEntity hello() {
+    public ResponseEntity hello(HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.SC_OK).body("Welcome to IOT-FOOT");
     }
 
@@ -175,15 +179,14 @@ public class AuthController {
     }
     @Operation(summary = "gửi otp để cho việc quên mật khẩu")
     @RequestMapping(value = "validate-otp-forgot-pass",method = RequestMethod.POST)
-    public ResponseEntity validateOtpForForget(@RequestBody MailAuth mailAuth){
+    public ResponseEntity validateOtpForForget(@RequestBody MailAuth mailAuth,HttpServletRequest request){
         return ResponseEntity.ok(new Response<>(true,"",emailSenderService.validateOtpForForgetPass(mailAuth.getOtp(),mailAuth.getUsername())));
     }
 
     @RequestMapping(value = "change-password",method = RequestMethod.POST)
     public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp){
-        String username = passAndOtp.getUsername();
         try {
-            return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp,username)));
+            return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp)));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(new Response<>(false,e.getMessage()));
         }
