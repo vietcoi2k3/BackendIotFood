@@ -21,5 +21,5 @@ public interface BillInterface {
 
     public BillResponse getDetailBill(Integer id);
 
-    public void cancelBill(Integer id);
+    public void cancelBill(Integer id,String username);
 }
