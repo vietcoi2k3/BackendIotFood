@@ -16,6 +16,7 @@ public class LoginResponDto {
     private String accountName;
     private String imgUser;
     private String msv;
+    private String email;
 
     public LoginResponDto(Integer id, Set<RoleEntity> role, String token, String sdt, String accountName,
                           String imgUser, String msv) {

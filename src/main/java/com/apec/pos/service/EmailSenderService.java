@@ -60,7 +60,7 @@ public class EmailSenderService {
             return "Đổi mật khâu thất bại";
         }
         AccountEntity accountEntity = accountRepository.findByUsername(username);
-        accountEntity.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
+        accountEntity.setPassword(passwordEncoder.encode(passAndOtp.getNewPassword()));
         accountRepository.update(accountEntity);
         keyValueMap.remove(username);
         return "ĐỔI MẬT KHẨU THÀNH CÔNG";
