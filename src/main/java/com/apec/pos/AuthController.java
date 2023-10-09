@@ -180,8 +180,8 @@ public class AuthController {
     }
 
     @RequestMapping(value = "change-password",method = RequestMethod.POST)
-    public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp, HttpServletRequest httpServletRequest){
-        String username = jwtService.getUsernameFromRequest(httpServletRequest);
+    public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp){
+        String username = passAndOtp.getUsername();
         return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp,username)));
     }
 }

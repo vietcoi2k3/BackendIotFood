@@ -77,17 +77,14 @@ public class EmailSenderService {
         return "Xác thực thành công";
     }
 
-    public TokenAndOtp validateOtpForForgetPass(String otp,String username){
+    public String validateOtpForForgetPass(String otp,String username){
         if (!validateOtp(otp,username)){
             throw new RuntimeException("otp không chính xác");
         }
         OtpMail otpMail = keyValueMap.get(username);
-        otpMail.setTimeEx(LocalDateTime.now().plus(300,ChronoUnit.SECONDS));
+        otpMail.generateOTPandTimeEx("");
         keyValueMap.put(username,otpMail);
-        TokenAndOtp tokenAndOtp = TokenAndOtp.builder().
-         token(jwtService.generateToken(accountRepository.findByUsername(username))).otp(otp)
-        .build();
-        return tokenAndOtp;
+        return otpMail.getOtp();
     }
     public boolean isExitsEmail(String username){
         AccountEntity accountEntity = accountRepository.findByUsername(username);

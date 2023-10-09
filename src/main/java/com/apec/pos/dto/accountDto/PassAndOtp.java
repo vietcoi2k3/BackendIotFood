@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class PassAndOtp {
     private String otp;
     private String newPassword;
+    private String username;
 }
