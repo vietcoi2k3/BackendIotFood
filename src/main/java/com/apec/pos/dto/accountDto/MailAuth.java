@@ -7,5 +7,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MailAuth {
     private String otp;
-    private String username;
 }

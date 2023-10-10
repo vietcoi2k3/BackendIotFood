@@ -40,27 +40,29 @@ public class EmailSenderService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private Map<String,OtpMail> keyValueMap = new LinkedHashMap<>();
-
     public String sendEmail(String toEmail,String username){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         OtpMail otpMail = new OtpMail();
-        otpMail.generateOTPandTimeEx(toEmail);
-        keyValueMap.put(username,otpMail);
+        otpMail.generateOTPandTimeEx(toEmail,username);
         simpleMailMessage.setFrom("tlufood.career@gmail.com");
         simpleMailMessage.setTo(toEmail);
         simpleMailMessage.setSubject("Xác thực email");
         simpleMailMessage.setText("Mã OTP của bạn là "+otpMail.getOtp());
         javaMailSender.send(simpleMailMessage);
+        httpSession.setAttribute("otpMail",otpMail);
         return "OTP đã được tạo, mời bạn check mail";
     }
 
     public String sendEmailByForget(String username){
-        return sendEmail(accountRepository.findByUsername(username).getEmail(),username);
+        AccountEntity accountEntity = accountRepository.findByUsername(username);
+        if (accountEntity==null){
+            throw new RuntimeException("tài khoản này không tồn tại");
+        }
+        return sendEmail(accountEntity.getEmail(),username);
     }
 
     public String changePassword(PassAndOtp passAndOtp){
-//        HttpSession session = httpSession.getSession();
+        OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         Boolean auth = (Boolean) httpSession.getAttribute("Authenticate");
         if (auth==null){
             throw new RuntimeException("CHƯA XÁC THỰC");
@@ -68,32 +70,31 @@ public class EmailSenderService {
         if (!auth){
             throw new RuntimeException("CHƯA XÁC THỰC");
         }
-        AccountEntity accountEntity = accountRepository.findByUsername(passAndOtp.getUsername());
+        AccountEntity accountEntity = accountRepository.findByUsername(otpMail.getUsername());
         accountEntity.setPassword(passwordEncoder.encode(passAndOtp.getNewPassword()));
         accountRepository.update(accountEntity);
-        keyValueMap.remove(passAndOtp.getUsername());
         httpSession.removeAttribute("Authenticate");
+        httpSession.removeAttribute("otpMail");
         return "ĐỔI MẬT KHẨU THÀNH CÔNG";
     }
 
-    public String validateOtpForVerify(String otp,String username){
-        if (!validateOtp(otp,username)){
+    public String validateOtpForVerify(String otp){
+        OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
+        if (!otpMail.authenticateOtp(otp)){
             throw new RuntimeException("otp không chính xác");
         }
-        AccountEntity accountEntity = accountRepository.findByUsername(username);
-        accountEntity.setEmail(keyValueMap.get(username).getEmail());
+        AccountEntity accountEntity = accountRepository.findByUsername(otpMail.getUsername());
+        accountEntity.setEmail(otpMail.getEmail());
         accountRepository.update(accountEntity);
-        keyValueMap.remove(username);
+        httpSession.removeAttribute("otpMail");
         return "Xác thực thành công";
     }
 
-    public String validateOtpForForgetPass(String otp, String username){
-        if (!validateOtp(otp,username)){
+    public String validateOtpForForgetPass(String otp){
+        OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
+        if (!otpMail.authenticateOtp(otp)){
             throw new RuntimeException("otp không chính xác");
         }
-        OtpMail otpMail = keyValueMap.get(username);
-        otpMail.generateOTPandTimeEx("");
-        keyValueMap.put(username,otpMail);
         httpSession.setAttribute("Authenticate",true);
         return "XÁC THỰC THÀNH CÔNG";
     }
@@ -108,20 +109,5 @@ public class EmailSenderService {
         return true;
     }
 
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
-    private void checkMap(){
-        keyValueMap.forEach((key,value)->{
-            if (value.getTimeEx().isBefore(LocalDateTime.now())){
-                keyValueMap.remove(key);
-            }
-        });
-    }
 
-    private boolean validateOtp(String otp,String username){
-        OtpMail otpMail = keyValueMap.get(username);
-        if (otpMail.authenticateOtp(otp)){
-            return true;
-        }
-        return false;
-    }
 }

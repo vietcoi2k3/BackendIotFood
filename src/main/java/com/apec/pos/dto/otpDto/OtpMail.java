@@ -19,12 +19,14 @@ public class OtpMail {
     private String otp;
     private LocalDateTime timeEx;
     private String email;
+    private String username;
 
-    public void generateOTPandTimeEx(String email) {
+    public void generateOTPandTimeEx(String email,String username) {
         this.otp = new DecimalFormat("000000")
                 .format(new Random().nextInt(999999));
         this.timeEx=LocalDateTime.now().plus(120, ChronoUnit.SECONDS);
         this.email = email;
+        this.username = username;
     }
 
     public boolean authenticateOtp(String otp){

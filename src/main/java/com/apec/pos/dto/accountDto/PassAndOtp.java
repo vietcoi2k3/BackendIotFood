@@ -12,5 +12,4 @@ import org.springframework.data.domain.PageRequest;
 @Builder
 public class PassAndOtp {
     private String newPassword;
-    private String username;
 }
