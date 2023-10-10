@@ -48,8 +48,9 @@ public class EmailSenderService {
         simpleMailMessage.setTo(toEmail);
         simpleMailMessage.setSubject("Xác thực email");
         simpleMailMessage.setText("Mã OTP của bạn là "+otpMail.getOtp());
-        javaMailSender.send(simpleMailMessage);
         httpSession.setAttribute("otpMail",otpMail);
+        javaMailSender.send(simpleMailMessage);
+
         return "OTP đã được tạo, mời bạn check mail";
     }
 
