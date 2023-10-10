@@ -3,6 +3,7 @@ package com.apec.pos.dto.accountDto;
 import java.util.Set;
 
 import com.apec.pos.entity.RoleEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 

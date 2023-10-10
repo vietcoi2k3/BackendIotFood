@@ -71,7 +71,12 @@ public class AccountController {
     @RequestMapping(value = "validate-otp",method = RequestMethod.POST)
     public ResponseEntity validateOtp(@RequestParam String otp,HttpServletRequest httpServletRequest){
            String username=jwtService.getUsernameFromRequest(httpServletRequest);
-                return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.validateOtpForVerify(otp)));
+           try{
+               return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.validateOtpForVerify(otp)));
+           }catch (Exception e){
+               return ResponseEntity.badRequest().body(new Response<>(false,e.getMessage()));
+           }
+
     }
 }
  

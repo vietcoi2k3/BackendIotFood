@@ -180,7 +180,12 @@ public class AuthController {
     @Operation(summary = "gửi otp để cho việc quên mật khẩu")
     @RequestMapping(value = "validate-otp-forgot-pass",method = RequestMethod.POST)
     public ResponseEntity validateOtpForForget(@RequestBody MailAuth mailAuth,HttpServletRequest request){
-        return ResponseEntity.ok(new Response<>(true,"",emailSenderService.validateOtpForForgetPass(mailAuth.getOtp())));
+            try{
+                return ResponseEntity.ok(new Response<>(true,"",emailSenderService.validateOtpForForgetPass(mailAuth.getOtp())));
+            }catch (Exception e){
+                return ResponseEntity.badRequest().body(new
+                        Response<>(false,e.getMessage()));
+            }
     }
 
     @RequestMapping(value = "change-password",method = RequestMethod.POST)

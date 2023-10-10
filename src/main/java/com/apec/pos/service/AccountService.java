@@ -52,10 +52,10 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         }
         if (loginRequest.getUsername().contains("ADMIN")&&(aEntity.getPassword().contains(loginRequest.getPassword()))){
             System.out.println("********************************");
-            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername());
+            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername(),aEntity.getEmail());
         }
         if (passwordEncoder.matches(loginRequest.getPassword(), aEntity.getPassword())) {
-            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername());
+            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername(),aEntity.getEmail());
 
         }
         return null;

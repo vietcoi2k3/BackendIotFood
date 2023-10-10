@@ -75,12 +75,15 @@ public class EmailSenderService {
         accountEntity.setPassword(passwordEncoder.encode(passAndOtp.getNewPassword()));
         accountRepository.update(accountEntity);
         httpSession.removeAttribute("Authenticate");
-        httpSession.removeAttribute("otpMail");
+
         return "ĐỔI MẬT KHẨU THÀNH CÔNG";
     }
 
     public String validateOtpForVerify(String otp){
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
+        if (otpMail==null){
+            throw new RuntimeException("chưa tạo otp");
+        }
         if (!otpMail.authenticateOtp(otp)){
             throw new RuntimeException("otp không chính xác");
         }
@@ -93,10 +96,14 @@ public class EmailSenderService {
 
     public String validateOtpForForgetPass(String otp){
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
+        if (otpMail==null){
+            throw new RuntimeException("chưa tạo otp");
+        }
         if (!otpMail.authenticateOtp(otp)){
             throw new RuntimeException("otp không chính xác");
         }
         httpSession.setAttribute("Authenticate",true);
+        httpSession.removeAttribute("otpMail");
         return "XÁC THỰC THÀNH CÔNG";
     }
     public boolean isExitsEmail(String username){
