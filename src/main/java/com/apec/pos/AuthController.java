@@ -166,10 +166,10 @@ public class AuthController {
 
     @Operation(summary = "gửi email để quên mat khẩu")
     @RequestMapping(value = "forgot-pass",method = RequestMethod.POST)
-    public ResponseEntity forgotPass(@RequestParam String username){
+    public ResponseEntity forgotPass(@RequestParam String username,HttpServletRequest httpServletRequest){
         try {
             if (emailSenderService.isExitsEmail(username)) {
-                return ResponseEntity.ok(new Response<>(true, "", emailSenderService.sendEmailByForget(username)));
+                return ResponseEntity.ok(new Response<>(true, "", emailSenderService.sendEmailByForget(username,httpServletRequest.getSession())));
             }
             return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Không có email xác thực");
         }
@@ -181,7 +181,7 @@ public class AuthController {
     @RequestMapping(value = "validate-otp-forgot-pass",method = RequestMethod.POST)
     public ResponseEntity validateOtpForForget(@RequestBody MailAuth mailAuth,HttpServletRequest request){
             try{
-                return ResponseEntity.ok(new Response<>(true,"",emailSenderService.validateOtpForForgetPass(mailAuth.getOtp())));
+                return ResponseEntity.ok(new Response<>(true,"",emailSenderService.validateOtpForForgetPass(mailAuth.getOtp(),request.getSession())));
             }catch (Exception e){
                 return ResponseEntity.badRequest().body(new
                         Response<>(false,e.getMessage()));
@@ -189,9 +189,9 @@ public class AuthController {
     }
 
     @RequestMapping(value = "change-password",method = RequestMethod.POST)
-    public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp){
+    public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp,HttpServletRequest request){
         try {
-            return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp)));
+            return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp,request.getSession())));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(new Response<>(false,e.getMessage()));
         }

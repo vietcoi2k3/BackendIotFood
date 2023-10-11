@@ -64,7 +64,7 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("tài khoan này đã xác thực email rồi");
         }
 
-            return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.sendEmail(email,username)));
+            return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.sendEmail(email,username, httpServletRequest.getSession())));
     }
 
     @Operation(summary = "")
@@ -72,7 +72,7 @@ public class AccountController {
     public ResponseEntity validateOtp(@RequestParam String otp,HttpServletRequest httpServletRequest){
            String username=jwtService.getUsernameFromRequest(httpServletRequest);
            try{
-               return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.validateOtpForVerify(otp)));
+               return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.validateOtpForVerify(otp,httpServletRequest.getSession())));
            }catch (Exception e){
                return ResponseEntity.badRequest().body(new Response<>(false,e.getMessage()));
            }

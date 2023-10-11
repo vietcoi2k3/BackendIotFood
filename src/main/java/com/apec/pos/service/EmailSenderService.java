@@ -36,10 +36,8 @@ public class EmailSenderService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private HttpSession httpSession;
-
-    public String sendEmail(String toEmail,String username){
+    public String sendEmail(String toEmail,String username,HttpSession httpSession){
+        System.out.println("send email "+httpSession.getId());
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         OtpMail otpMail = new OtpMail();
         otpMail.generateOTPandTimeEx(toEmail,username);
@@ -48,20 +46,23 @@ public class EmailSenderService {
         simpleMailMessage.setSubject("Xác thực email");
         simpleMailMessage.setText("Mã OTP của bạn là "+otpMail.getOtp());
         httpSession.setAttribute("otpMail",otpMail);
+
         javaMailSender.send(simpleMailMessage);
 
         return "OTP đã được tạo, mời bạn check mail";
     }
 
-    public String sendEmailByForget(String username){
+    public String sendEmailByForget(String username,HttpSession httpSession){
+        System.out.println("send Email By Forget "+httpSession.getId());
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         if (accountEntity==null){
             throw new RuntimeException("tài khoản này không tồn tại");
         }
-        return sendEmail(accountEntity.getEmail(),username);
+        return sendEmail(accountEntity.getEmail(),username,httpSession);
     }
 
-    public String changePassword(PassAndOtp passAndOtp){
+    public String changePassword(PassAndOtp passAndOtp,HttpSession httpSession){
+        System.out.println("change pass "+httpSession.getId());
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         Boolean auth = (Boolean) httpSession.getAttribute("Authenticate");
         if (auth==null){
@@ -78,7 +79,8 @@ public class EmailSenderService {
         return "ĐỔI MẬT KHẨU THÀNH CÔNG";
     }
 
-    public String validateOtpForVerify(String otp){
+    public String validateOtpForVerify(String otp,HttpSession httpSession){
+        System.out.println("validateOtpForVerify"+httpSession.getId());
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         if (otpMail==null){
             throw new RuntimeException("chưa tạo otp");
@@ -94,7 +96,8 @@ public class EmailSenderService {
         return "Xác thực thành công";
     }
 
-    public String validateOtpForForgetPass(String otp){
+    public String validateOtpForForgetPass(String otp,HttpSession httpSession){
+        System.out.println("validateOtpForForgetPass" +httpSession.getId());
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         if (otpMail==null){
             throw new RuntimeException("chưa tạo otp");
