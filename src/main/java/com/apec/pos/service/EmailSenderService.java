@@ -104,6 +104,9 @@ public class EmailSenderService {
         }
         httpSession.setAttribute("Authenticate",true);
         httpSession.removeAttribute("otpMail");
+        int count = 0;
+        System.out.println("toi la viet "+count++);
+        System.out.println("toi la viet "+count++);
         return "XÁC THỰC THÀNH CÔNG";
     }
     public boolean isExitsEmail(String username){
