@@ -47,9 +47,9 @@ public class ConfigSecurity {
                     auth.requestMatchers("/user/**").hasAnyAuthority("USER","ADMIN");
                     auth.anyRequest().authenticated();
                 });
-        http.sessionManagement(
-                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
+//        http.sessionManagement(
+//                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//        );
         http.addFilterBefore(jwtFilterSecurity, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

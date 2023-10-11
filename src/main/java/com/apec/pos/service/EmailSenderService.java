@@ -24,10 +24,6 @@ import java.util.*;
 
 @Service
 public class EmailSenderService {
-
-    @Autowired
-    private HttpSession httpSession;
-
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -39,6 +35,9 @@ public class EmailSenderService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private HttpSession httpSession;
 
     public String sendEmail(String toEmail,String username){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
