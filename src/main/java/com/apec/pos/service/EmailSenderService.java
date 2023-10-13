@@ -65,11 +65,14 @@ public class EmailSenderService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public String changePassword(PassAndOtp passAndOtp,String username){
         if (!validateOtp(passAndOtp.getOtp(),username)){
             return "Đổi mật khâu thất bại";
 =======
+=======
+>>>>>>> parent of 7f65ee8 (bản ghi cuÃối vÃề viáºệc lưu otp vào sÃession)
     public String changePassword(PassAndOtp passAndOtp,HttpSession httpSession){
         System.out.println("change pass "+httpSession.getId());
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
@@ -104,10 +107,13 @@ public class EmailSenderService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public String validateOtpForForgetPass(String otp,String username){
         if (!validateOtp(otp,username)){
 =======
+=======
+>>>>>>> parent of 7f65ee8 (bản ghi cuÃối vÃề viáºệc lưu otp vào sÃession)
     public String validateOtpForForgetPass(String otp,HttpSession httpSession){
         System.out.println("validateOtpForForgetPass" +httpSession.getId());
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
