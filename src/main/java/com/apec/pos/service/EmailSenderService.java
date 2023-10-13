@@ -37,7 +37,7 @@ public class EmailSenderService {
     private PasswordEncoder passwordEncoder;
 
     public String sendEmail(String toEmail,String username,HttpSession httpSession){
-        System.out.println("send email "+httpSession.getId());
+
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         OtpMail otpMail = new OtpMail();
         otpMail.generateOTPandTimeEx(toEmail,username);
@@ -53,7 +53,7 @@ public class EmailSenderService {
     }
 
     public String sendEmailByForget(String username,HttpSession httpSession){
-        System.out.println("send Email By Forget "+httpSession.getId());
+
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         if (accountEntity==null){
             throw new RuntimeException("tài khoản này không tồn tại");
@@ -62,7 +62,7 @@ public class EmailSenderService {
     }
 
     public String changePassword(PassAndOtp passAndOtp,HttpSession httpSession){
-        System.out.println("change pass "+httpSession.getId());
+
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         Boolean auth = (Boolean) httpSession.getAttribute("Authenticate");
         if (auth==null){
@@ -80,7 +80,7 @@ public class EmailSenderService {
     }
 
     public String validateOtpForVerify(String otp,HttpSession httpSession){
-        System.out.println("validateOtpForVerify"+httpSession.getId());
+
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         if (otpMail==null){
             throw new RuntimeException("chưa tạo otp");
@@ -97,7 +97,7 @@ public class EmailSenderService {
     }
 
     public String validateOtpForForgetPass(String otp,HttpSession httpSession){
-        System.out.println("validateOtpForForgetPass" +httpSession.getId());
+
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         if (otpMail==null){
             throw new RuntimeException("chưa tạo otp");
