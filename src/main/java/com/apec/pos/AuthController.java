@@ -183,10 +183,6 @@ public class AuthController {
     @RequestMapping(value = "change-password",method = RequestMethod.POST)
     public ResponseEntity changePassword(@RequestBody PassAndOtp passAndOtp){
         String username = passAndOtp.getUsername();
-        try {
-            return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp,username)));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(new Response<>(false,e.getMessage()));
-        }
+        return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,emailSenderService.changePassword(passAndOtp,username)));
     }
 }

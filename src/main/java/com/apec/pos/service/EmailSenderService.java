@@ -67,7 +67,7 @@ public class EmailSenderService {
 
     public String changePassword(PassAndOtp passAndOtp,String username){
         if (!validateOtp(passAndOtp.getOtp(),username)){
-            throw new RuntimeException("Đổi mật khâu thất bại");
+            return "Đổi mật khâu thất bại";
         }
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         accountEntity.setPassword(passwordEncoder.encode(passAndOtp.getNewPassword()));
