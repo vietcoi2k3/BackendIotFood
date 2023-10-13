@@ -99,7 +99,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         String username = jwtService.getUsernameFromToken(token);
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(), accountEntity.getSdt(), accountEntity.getUsername());
-        accountInfoDto.setEmail(accountEntity.getEmail());
+        accountInfoDto.getEmail();
         return accountInfoDto;
     }
 
