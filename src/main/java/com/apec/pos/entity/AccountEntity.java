@@ -52,16 +52,12 @@ public class AccountEntity extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "accountEntity")
     @JsonManagedReference(value = "bill-account")
     private List<BillEntity> billEntities;
-
-
     public List<MessageEntity> getMessageEntities() {
         return messageEntities;
     }
-
     public void setMessageEntities(List<MessageEntity> messageEntities) {
         this.messageEntities = messageEntities;
     }
-
     public AccountEntity(String createBy, String modifiedBy, String username, String password, String sdt,
                          String accountName, String imgUser, Set<RoleEntity> roles) {
         super(createBy, modifiedBy);
