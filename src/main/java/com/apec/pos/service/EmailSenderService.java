@@ -43,7 +43,7 @@ public class EmailSenderService {
         OtpMail otpMail = new OtpMail();
         otpMail.generateOTPandTimeEx(toEmail);
         keyValueMap.put(username,otpMail);
-        simpleMailMessage.setFrom("viet1234561231@gmail.com");
+        simpleMailMessage.setFrom("tlufood.career@gmail.com");
         simpleMailMessage.setTo(toEmail);
         simpleMailMessage.setSubject("Xác thực email");
         simpleMailMessage.setText("Mã OTP của bạn là "+otpMail.getOtp());

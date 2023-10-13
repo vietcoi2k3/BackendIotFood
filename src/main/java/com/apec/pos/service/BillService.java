@@ -12,10 +12,7 @@ import com.apec.pos.dto.voucherDTO.VoucherResponse;
 import com.apec.pos.dto.voucherDTO.VoucherResponseBill;
 import com.apec.pos.entity.*;
 import com.apec.pos.enu.OrderStatus;
-import com.apec.pos.repository.AccountRepository;
-import com.apec.pos.repository.BillRepository;
-import com.apec.pos.repository.FoodRepository;
-import com.apec.pos.repository.VoucherReposioty;
+import com.apec.pos.repository.*;
 import com.apec.pos.service.serviceInterface.BillInterface;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,6 +42,9 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
 
     @Autowired
     private VoucherReposioty voucherReposioty;
+
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @Override
     BillRepository getRepository() {
@@ -108,6 +108,11 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         if (orderStatus == OrderStatus.DELIVERED) {
             billEntity.setOrderStatus(orderStatus);
             billEntity.setFinishDate(new Date());
+            List<BillDetailEntity> billDetailEntities = billEntity.getBillDetailEntities();
+            for (BillDetailEntity x:billDetailEntities
+                 ) {
+                addQuantity(x.getQuantity(),x.getFoodEntityId());
+            }
         } else {
             billEntity.setOrderStatus(orderStatus);
         }
@@ -309,5 +314,8 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
         return voucherResponseBill;
     }
 
-
+    private void addQuantity(int quantity,int foodId){
+        int resId = foodRepository.findOne(foodId).getRestaurantEntityId() ;
+        restaurantRepository.updateQuantity(quantity,resId);
+    }
 }

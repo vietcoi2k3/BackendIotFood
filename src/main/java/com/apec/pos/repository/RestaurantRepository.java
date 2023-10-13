@@ -51,4 +51,12 @@ public class RestaurantRepository extends BaseRepository<RestaurantEntity, Integ
         query2.setParameter("key", "%" + key + "%");
         return query2.setMaxResults(10).getResultList();
     }
+
+    public void updateQuantity( int quantity,int resId){
+        String query = "UPDATE RestaurantEntity c SET c.quantitySold = c.quantitySold + :quantity WHERE c.id =:resId";
+        Query query1 = entityManager.createQuery(query);
+        query1.setParameter("quantity", quantity);
+        query1.setParameter("resId",resId);
+        int updatedRows = query1.executeUpdate();
+    }
 }

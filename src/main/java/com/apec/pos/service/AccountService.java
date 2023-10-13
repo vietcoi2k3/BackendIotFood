@@ -52,10 +52,10 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         }
         if (loginRequest.getUsername().contains("ADMIN")&&(aEntity.getPassword().contains(loginRequest.getPassword()))){
             System.out.println("********************************");
-            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername());
+            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername(),aEntity.getEmail());
         }
         if (passwordEncoder.matches(loginRequest.getPassword(), aEntity.getPassword())) {
-            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername());
+            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername(),aEntity.getEmail());
 
         }
         return null;
@@ -99,7 +99,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         String username = jwtService.getUsernameFromToken(token);
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(), accountEntity.getSdt(), accountEntity.getUsername());
-        accountInfoDto.getEmail();
+        accountInfoDto.setEmail(accountInfoDto.getEmail());
         return accountInfoDto;
     }
 
@@ -141,13 +141,13 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
             return null;
         }
         if (passwordEncoder.matches(updateRequest.getPassword(), accountEntity.getPassword())) {
-            if (updateRequest.getAccountName() != null) accountEntity.setAccountName(updateRequest.getAccountName());
-            if (updateRequest.getImg() != null) {
+            if (!updateRequest.getAccountName().isEmpty()) accountEntity.setAccountName(updateRequest.getAccountName());
+            if (!updateRequest.getImg().isEmpty()) {
                 String img = fileUploadService.uploadFile(updateRequest.getImg().getBytes());
                 accountEntity.setImgUser(img);
             }
-            if (updateRequest.getSdt()!=null) accountEntity.setSdt(updateRequest.getSdt());
-            if (updateRequest.getNewPassword()!=null) accountEntity.setPassword(passwordEncoder.encode(updateRequest.getNewPassword()));
+            if (!updateRequest.getSdt().isEmpty()) accountEntity.setSdt(updateRequest.getSdt());
+            if (!updateRequest.getNewPassword().isEmpty()) accountEntity.setPassword(passwordEncoder.encode(updateRequest.getNewPassword()));
 
             accountEntity = accountRepository.update(accountEntity);
 
