@@ -37,7 +37,7 @@ public class EmailSenderService {
     private PasswordEncoder passwordEncoder;
 
     public String sendEmail(String toEmail,String username,HttpSession httpSession){
-
+        System.out.println("send email "+httpSession.getId());
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         OtpMail otpMail = new OtpMail();
 
@@ -56,7 +56,7 @@ public class EmailSenderService {
     }
 
     public String sendEmailByForget(String username,HttpSession httpSession){
-
+        System.out.println("send Email By Forget "+httpSession.getId());
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         if (accountEntity==null){
             throw new RuntimeException("tài khoản này không tồn tại");
@@ -64,10 +64,19 @@ public class EmailSenderService {
         return sendEmail(accountEntity.getEmail(),username,httpSession);
     }
 
+<<<<<<< HEAD
 
     public String changePassword(PassAndOtp passAndOtp,String username){
         if (!validateOtp(passAndOtp.getOtp(),username)){
             return "Đổi mật khâu thất bại";
+=======
+    public String changePassword(PassAndOtp passAndOtp,HttpSession httpSession){
+        System.out.println("change pass "+httpSession.getId());
+        OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
+        Boolean auth = (Boolean) httpSession.getAttribute("Authenticate");
+        if (auth==null){
+            throw new RuntimeException("CHƯA XÁC THỰC");
+>>>>>>> parent of 7f65ee8 (bản ghi cuÃối vÃề viáºệc lưu otp vào sÃession)
         }
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         accountEntity.setPassword(passwordEncoder.encode(passAndOtp.getNewPassword()));
@@ -78,7 +87,7 @@ public class EmailSenderService {
     }
 
     public String validateOtpForVerify(String otp,HttpSession httpSession){
-
+        System.out.println("validateOtpForVerify"+httpSession.getId());
         OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
         if (otpMail==null){
             throw new RuntimeException("chưa tạo otp");
@@ -94,9 +103,19 @@ public class EmailSenderService {
         return "Xác thực thành công";
     }
 
+<<<<<<< HEAD
 
     public String validateOtpForForgetPass(String otp,String username){
         if (!validateOtp(otp,username)){
+=======
+    public String validateOtpForForgetPass(String otp,HttpSession httpSession){
+        System.out.println("validateOtpForForgetPass" +httpSession.getId());
+        OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
+        if (otpMail==null){
+            throw new RuntimeException("chưa tạo otp");
+        }
+        if (!otpMail.authenticateOtp(otp)){
+>>>>>>> parent of 7f65ee8 (bản ghi cuÃối vÃề viáºệc lưu otp vào sÃession)
             throw new RuntimeException("otp không chính xác");
         }
         OtpMail otpMail = keyValueMap.get(username);
