@@ -6,8 +6,6 @@ import com.apec.pos.dto.otpDto.OtpMail;
 import com.apec.pos.dto.otpDto.TokenAndOtp;
 import com.apec.pos.entity.AccountEntity;
 import com.apec.pos.repository.AccountRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,7 +21,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
+@SessionAttributes("otpMail")
 public class EmailSenderService {
+
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -40,8 +40,11 @@ public class EmailSenderService {
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         OtpMail otpMail = new OtpMail();
-        otpMail.generateOTPandTimeEx(toEmail,username);
-        simpleMailMessage.setFrom("tlufood.career@gmail.com");
+
+        otpMail.generateOTPandTimeEx(toEmail);
+        keyValueMap.put(username,otpMail);
+        simpleMailMessage.setFrom("viet1234561231@gmail.com");
+
         simpleMailMessage.setTo(toEmail);
         simpleMailMessage.setSubject("Xác thực email");
         simpleMailMessage.setText("Mã OTP của bạn là "+otpMail.getOtp());
@@ -61,20 +64,15 @@ public class EmailSenderService {
         return sendEmail(accountEntity.getEmail(),username,httpSession);
     }
 
-    public String changePassword(PassAndOtp passAndOtp,HttpSession httpSession){
 
-        OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
-        Boolean auth = (Boolean) httpSession.getAttribute("Authenticate");
-        if (auth==null){
-            throw new RuntimeException("CHƯA XÁC THỰC");
+    public String changePassword(PassAndOtp passAndOtp,String username){
+        if (!validateOtp(passAndOtp.getOtp(),username)){
+            throw new RuntimeException("Đổi mật khâu thất bại");
         }
-        if (!auth){
-            throw new RuntimeException("CHƯA XÁC THỰC");
-        }
-        AccountEntity accountEntity = accountRepository.findByUsername(otpMail.getUsername());
+        AccountEntity accountEntity = accountRepository.findByUsername(username);
         accountEntity.setPassword(passwordEncoder.encode(passAndOtp.getNewPassword()));
         accountRepository.update(accountEntity);
-        httpSession.removeAttribute("Authenticate");
+        keyValueMap.remove(username);
 
         return "ĐỔI MẬT KHẨU THÀNH CÔNG";
     }
@@ -96,19 +94,16 @@ public class EmailSenderService {
         return "Xác thực thành công";
     }
 
-    public String validateOtpForForgetPass(String otp,HttpSession httpSession){
 
-        OtpMail otpMail = (OtpMail) httpSession.getAttribute("otpMail");
-        if (otpMail==null){
-            throw new RuntimeException("chưa tạo otp");
-        }
-        if (!otpMail.authenticateOtp(otp)){
+    public String validateOtpForForgetPass(String otp,String username){
+        if (!validateOtp(otp,username)){
             throw new RuntimeException("otp không chính xác");
         }
-        httpSession.setAttribute("Authenticate",true);
-        httpSession.removeAttribute("otpMail");
+        OtpMail otpMail = keyValueMap.get(username);
+        otpMail.generateOTPandTimeEx("");
+        keyValueMap.put(username,otpMail);
+        return otpMail.getOtp();
 
-        return "XÁC THỰC THÀNH CÔNG";
     }
     public boolean isExitsEmail(String username){
         AccountEntity accountEntity = accountRepository.findByUsername(username);
