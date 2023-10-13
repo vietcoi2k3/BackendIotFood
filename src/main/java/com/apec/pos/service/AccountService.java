@@ -99,7 +99,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         String username = jwtService.getUsernameFromToken(token);
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(), accountEntity.getSdt(), accountEntity.getUsername());
-        accountInfoDto.setEmail(accountInfoDto.getEmail());
+        accountInfoDto.setEmail(accountEntity.getEmail());
         return accountInfoDto;
     }
 
@@ -141,13 +141,13 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
             return null;
         }
         if (passwordEncoder.matches(updateRequest.getPassword(), accountEntity.getPassword())) {
-            if (!updateRequest.getAccountName().isEmpty()) accountEntity.setAccountName(updateRequest.getAccountName());
-            if (!updateRequest.getImg().isEmpty()) {
+            if (updateRequest.getAccountName()!=null) accountEntity.setAccountName(updateRequest.getAccountName());
+            if (updateRequest.getImg()!=null) {
                 String img = fileUploadService.uploadFile(updateRequest.getImg().getBytes());
                 accountEntity.setImgUser(img);
             }
-            if (!updateRequest.getSdt().isEmpty()) accountEntity.setSdt(updateRequest.getSdt());
-            if (!updateRequest.getNewPassword().isEmpty()) accountEntity.setPassword(passwordEncoder.encode(updateRequest.getNewPassword()));
+            if (updateRequest.getSdt()!=null) accountEntity.setSdt(updateRequest.getSdt());
+            if (updateRequest.getNewPassword()!=null) accountEntity.setPassword(passwordEncoder.encode(updateRequest.getNewPassword()));
 
             accountEntity = accountRepository.update(accountEntity);
 
