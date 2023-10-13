@@ -21,12 +21,9 @@ import java.net.URL;
 @EnableConfigurationProperties
 @EnableScheduling
 public class PosApplication extends SpringBootServletInitializer {
-
     public static void main(String[] args)throws IOException {
         SpringApplication.run(PosApplication.class, args);
-
     }
-
     public static String currentUserGlobal = "";
     public static String currentUrlGlobal = "";
 

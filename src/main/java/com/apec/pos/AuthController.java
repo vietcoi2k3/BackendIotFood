@@ -73,13 +73,11 @@ public class AuthController {
         }
         return ResponseEntity.status(HttpStatus.SC_OK).body(new Response<LoginResponDto>(true, "Đăng nhập thành công", ErrorCode.SUCCESS, loginResponDto));
     }
-
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResponseEntity<Response> register(@RequestBody RegisterRequest registerRequest) {
         if (!(Validator.validateStudentID(registerRequest.getUsername()) && Validator.validatePassword(registerRequest.getPassword()))) {
             return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response<>(false, "Tài khoàn hoặc mật khẩu không hợp lệ"));
         }
-
 
         LoginResponDto loginResponDto = accountService.register(registerRequest);
         if (loginResponDto == null) {
@@ -105,13 +103,11 @@ public class AuthController {
     public ResponseEntity hello() {
         return ResponseEntity.status(HttpStatus.SC_OK).body("Welcome to IOT-FOOT");
     }
-
     @Operation(summary = "tìm kiếm món ăn theo type,detail,tên món ăn")
     @RequestMapping(value = "search-food", method = RequestMethod.POST)
     public ResponseEntity searchFood(@RequestParam(required = false) String searchString) {
         return ResponseEntity.ok(new Response(true, "lấy thành công", ErrorCode.SUCCESS, foodService.searchFood(searchString)));
     }
-
     @Operation(summary = "lấy ra detail food", description = "khi bấm vào một món ăn sẽ gọi đến api này")
     @RequestMapping(value = "get-detail-food", method = RequestMethod.POST)
     public ResponseEntity getDetailFood(@RequestParam Integer id) {
@@ -121,13 +117,11 @@ public class AuthController {
         }
         return ResponseEntity.ok(new Response(true, "lấy thành công", ErrorCode.SUCCESS, foodRecommendDto));
     }
-
     @Operation(summary = "lấy ra danh sách cửa hàng đề xuất")
     @RequestMapping(value = "get-recommend-res", method = RequestMethod.GET)
     public ResponseEntity getRecommendRes() {
         return ResponseEntity.ok(new Response<>(true, "lấy thành công", ErrorCode.SUCCESS, restaurantService.getRecommendRes()));
     }
-
     @Operation(summary = "lấy ra restaurant detail", description = "quantitySold = 'Số lượng đã bán'\n\n quantityPurchased = 'số lượng đã mua'")
     @RequestMapping(value = "get-detail-res", method = RequestMethod.POST)
     public ResponseEntity getDetailRes(@RequestParam Integer id) {
@@ -137,7 +131,6 @@ public class AuthController {
         }
         return ResponseEntity.ok(new Response(true, "lấy thành công", ErrorCode.SUCCESS, resRecommnedRespon));
     }
-
     @RequestMapping(value = "/paging-res", method = RequestMethod.POST)
     public ResponseEntity pagingRes(@RequestParam Integer pageSize, @RequestParam Integer pageIndex) {
         return ResponseEntity.ok(new Response(true, "", restaurantService.paging(pageSize, pageIndex)));
