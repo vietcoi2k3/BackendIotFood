@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import com.twilio.Twilio;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.net.URL;
 
 @SpringBootApplication
 @EnableConfigurationProperties
+@EnableScheduling
 public class PosApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args)throws IOException {

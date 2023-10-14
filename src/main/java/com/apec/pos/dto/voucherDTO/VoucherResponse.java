@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 public class VoucherResponse {
     private Integer totalRow;
-    private List<VoucherEntity> voucherEntities;
+    private List<VoucherEntity> data;
 }

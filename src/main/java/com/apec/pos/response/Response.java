@@ -3,8 +3,10 @@ package com.apec.pos.response;
 import java.io.Serializable;
 
 import com.apec.pos.enu.ErrorCode;
+import lombok.Data;
 
 
+@Data
 public class Response<T> implements Serializable {
 
     /**
@@ -24,6 +26,10 @@ public class Response<T> implements Serializable {
      * Dữ liệu trả về của function
      */
     private T data;
+    /**
+     * trả về username hiện tại
+     */
+    private String usernameSend;
 
     public Response() {
     }
@@ -55,8 +61,13 @@ public class Response<T> implements Serializable {
         this.type = code;
         this.data = data;
     }
-
-
+    public Response(boolean status, ErrorCode type, String message, T data, String usernameSend) {
+        this.status = status;
+        this.type = type;
+        this.message = message;
+        this.data = data;
+        this.usernameSend = usernameSend;
+    }
     public boolean isStatus() {
         return status;
     }
@@ -88,6 +99,7 @@ public class Response<T> implements Serializable {
     public void setType(ErrorCode type) {
         this.type = type;
     }
+
 
 }
 

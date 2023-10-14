@@ -26,6 +26,8 @@ public class AccountEntity extends BaseEntity implements UserDetails {
 
     private String username;
 
+    private String email;
+
     private String password;
 
     private String sdt;

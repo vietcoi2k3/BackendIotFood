@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(),
-                description = "\n\n<h1>Đã có totalRow cho getBill,getBillUser và admin bây giờ chỉ cần không truyền orderStatus sẽ ra tất cả</h1>\n",
+                description = "\n\n<h1>Đã xong voucher</h1>\n",
                 version = "1.0"
         ),
         servers = {

@@ -10,13 +10,13 @@ public interface AccountInterface {
 
     public LoginResponDto login(LoginRequest loginRequest);
 
-    public LoginResponDto register(AccountEntity accountEntity);
+    public LoginResponDto register(RegisterRequest registerRequest);
 
     public AccountInfoDto getUserInfo(String token);
 
     public LoginResponDto addEmployee(RegisterRequest registerRequest);
 
-    public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest) throws Exception;
+    public AccountInfoDto updateAccountInfo(UpdateRequest updateRequest,String username) throws Exception;
 
     public AccountResponseAdmin paging(Integer pageSize, Integer pageIndex);
 

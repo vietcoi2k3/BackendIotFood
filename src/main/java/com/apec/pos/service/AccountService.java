@@ -52,19 +52,19 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         }
         if (loginRequest.getUsername().contains("ADMIN")&&(aEntity.getPassword().contains(loginRequest.getPassword()))){
             System.out.println("********************************");
-            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername());
+            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername(),aEntity.getEmail());
         }
         if (passwordEncoder.matches(loginRequest.getPassword(), aEntity.getPassword())) {
-            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername());
+            return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername(),aEntity.getEmail());
 
         }
         return null;
     }
 
     @Override
-    public LoginResponDto register(AccountEntity accountEntity) {
+    public LoginResponDto register(RegisterRequest registerRequest) {
         // Kiểm tra xem tài khoản đã tồn tại chưa
-        if (accountRepository.findByUsername(accountEntity.getUsername()) != null) {
+        if (accountRepository.findByUsername(registerRequest.getUsername()) != null) {
             return null;
         }
 
@@ -77,12 +77,12 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         roleEntity.add(userRole);
 
         AccountEntity accountEntity2 = new AccountEntity();
-        accountEntity2.setAccountName(accountEntity.getAccountName());
+        accountEntity2.setAccountName(registerRequest.getAccountName());
         accountEntity2.setCreateDate(new Date());
-        accountEntity2.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
+        accountEntity2.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         accountEntity2.setRoles(roleEntity);
-        accountEntity2.setSdt(accountEntity.getSdt());
-        accountEntity2.setUsername(accountEntity.getUsername());
+        accountEntity2.setSdt(registerRequest.getSdt());
+        accountEntity2.setUsername(registerRequest.getUsername());
         accountEntity2.setImgUser("https://i.pinimg.com/736x/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg");
         // Lưu tài khoản mới vào cơ sở dữ liệu
         accountRepository.insert(accountEntity2);
@@ -99,7 +99,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         String username = jwtService.getUsernameFromToken(token);
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(), accountEntity.getSdt(), accountEntity.getUsername());
-
+        accountInfoDto.setEmail(accountEntity.getEmail());
         return accountInfoDto;
     }
 
@@ -135,18 +135,24 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
     }
 
     @Override
-    public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest) throws Exception {
-        AccountEntity accountEntity = accountRepository.findByUsername(updateRequest.getUsername());
-        System.out.println(updateRequest.getPassword());
+    public AccountInfoDto updateAccountInfo(UpdateRequest updateRequest,String username) throws Exception {
+        AccountEntity accountEntity = accountRepository.findByUsername(username);
         if (accountEntity == null) {
             return null;
         }
         if (passwordEncoder.matches(updateRequest.getPassword(), accountEntity.getPassword())) {
-            if (updateRequest.getAccountName() != null) accountEntity.setAccountName(updateRequest.getAccountName());
-            if (updateRequest.getImgUser() != null) accountEntity.setImgUser(updateRequest.getImgUser());
+            if (updateRequest.getAccountName()!=null) accountEntity.setAccountName(updateRequest.getAccountName());
+            if (updateRequest.getImg()!=null) {
+                String img = fileUploadService.uploadFile(updateRequest.getImg().getBytes());
+                accountEntity.setImgUser(img);
+            }
+            if (updateRequest.getSdt()!=null) accountEntity.setSdt(updateRequest.getSdt());
+            if (updateRequest.getNewPassword()!=null) accountEntity.setPassword(passwordEncoder.encode(updateRequest.getNewPassword()));
+
             accountEntity = accountRepository.update(accountEntity);
 
             AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(), accountEntity.getSdt(), accountEntity.getUsername());
+            accountInfoDto.setImg(accountInfoDto.getImg() );
             return accountInfoDto;
         }
         return null;
@@ -229,6 +235,5 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         result.setData(listLoginResponse);
         return result;
     }
-
 
 }

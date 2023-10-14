@@ -21,7 +21,7 @@ public class BillRepository extends BaseRepository<BillEntity, Integer> {
         String query = "SELECT c FROM BillEntity c WHERE 1=1";
         Map<String, Object> params = new HashMap<>();
         if (orderStatus!=null){
-            query +="and c.orderStatus =:orderStatus";
+            query +=" and c.orderStatus =:orderStatus ";
             params.put("orderStatus",orderStatus);
         }
         return query(query,false,params,pageRequest);
@@ -31,7 +31,7 @@ public class BillRepository extends BaseRepository<BillEntity, Integer> {
         String query = "SELECT c FROM BillEntity c WHERE c.accountEntityId =:accountId";
         Map<String, Object> params = new HashMap<>();
         if (orderStatus!=null){
-            query +="and c.orderStatus =:orderStatus";
+            query +=" and c.orderStatus =:orderStatus ";
             params.put("orderStatus",orderStatus);
         }
         params.put("accountId",accountId);
@@ -42,11 +42,11 @@ public class BillRepository extends BaseRepository<BillEntity, Integer> {
         String query = "SELECT count(c.id) FROM BillEntity c WHERE 1=1";
         Map<String, Object> params = new HashMap<>();
         if (accountId!=null){
-            query += "and c.accountEntityId =:accountId";
+            query += " and c.accountEntityId =:accountId ";
             params.put("accountId",accountId);
         }
         if (orderStatus !=null){
-            query +="and c.orderStatus =:orderStatus";
+            query +=" and c.orderStatus =:orderStatus ";
             params.put("orderStatus",orderStatus);
         }
 
