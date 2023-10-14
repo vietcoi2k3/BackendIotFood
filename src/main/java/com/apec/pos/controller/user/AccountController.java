@@ -47,7 +47,11 @@ public class AccountController {
         if (accountInfoDto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(true, "mật khẩu không hợp lệ", ErrorCode.BAD_REQUEST));
         }
-        return ResponseEntity.ok(new Response(true, "", ErrorCode.SUCCESS, accountInfoDto));
+        try {
+            return ResponseEntity.ok(new Response(true, "", ErrorCode.SUCCESS, accountInfoDto));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @Operation(summary = "phân trang người dùng")
