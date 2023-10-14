@@ -16,8 +16,10 @@ import java.util.List;
 public class BillRequest {
     private OrderStatus orderStatus;
     private long totalAmount;
-    private String nameRes;
     private int shipFee;
+    private String codeVoucher;
+    private String note;
+    private String finishTime;
     private List<BillFoodRequest> billFoodRequests;
 
 }

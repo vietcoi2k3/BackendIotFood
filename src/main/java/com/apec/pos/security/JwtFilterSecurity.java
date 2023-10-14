@@ -52,10 +52,10 @@ public class JwtFilterSecurity extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            PosApplication.currentUserGlobal = username;
             PosApplication.currentUrlGlobal=request.getRequestURI();
             UserDetails userDetails = this.accountRepository.findByUsername(username);
             if (jwtService.validateToken(jwtToken, userDetails)) {
+                PosApplication.currentUserGlobal = username;
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
 

@@ -16,7 +16,7 @@ public interface AccountInterface {
 
     public LoginResponDto addEmployee(RegisterRequest registerRequest);
 
-    public AccountInfoDto updateAccountInfo(RegisterRequest updateRequest) throws Exception;
+    public AccountInfoDto updateAccountInfo(UpdateRequest updateRequest,String username) throws Exception;
 
     public AccountResponseAdmin paging(Integer pageSize, Integer pageIndex);
 

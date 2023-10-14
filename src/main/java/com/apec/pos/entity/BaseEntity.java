@@ -30,10 +30,10 @@ public class BaseEntity {
     @Column(name = "create_by")
     private String createBy;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "log_table", joinColumns = @JoinColumn(name = "log_id"))
-    @JsonIgnore
-    private List<LogElement> logs;
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(name = "log_table", joinColumns = @JoinColumn(name = "log_id"))
+//    @JsonIgnore
+//    private List<LogElement> logs;
 
     @Column
     private Boolean status;

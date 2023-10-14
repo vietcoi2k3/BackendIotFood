@@ -16,6 +16,18 @@ public class LoginResponDto {
     private String accountName;
     private String imgUser;
     private String msv;
+    private String email;
+
+    public LoginResponDto(Integer id, Set<RoleEntity> role, String token, String sdt, String accountName, String imgUser, String msv, String email) {
+        this.id = id;
+        this.role = role;
+        this.token = token;
+        this.sdt = sdt;
+        this.accountName = accountName;
+        this.imgUser = imgUser;
+        this.msv = msv;
+        this.email = email;
+    }
 
     public LoginResponDto(Integer id, Set<RoleEntity> role, String token, String sdt, String accountName,
                           String imgUser, String msv) {
@@ -40,6 +52,8 @@ public class LoginResponDto {
     public String getMsv() {
         return msv;
     }
+
+
 
     public LoginResponDto(Set<RoleEntity> role, String token, String sdt, String accountName, String imgUser,
                           String msv) {

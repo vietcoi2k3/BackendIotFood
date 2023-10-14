@@ -7,6 +7,7 @@ import java.util.Map;
 
 
 import com.apec.pos.entity.FoodEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -50,5 +51,14 @@ public class RestaurantRepository extends BaseRepository<RestaurantEntity, Integ
         Query query2 = entityManager.createQuery(queryString);
         query2.setParameter("key", "%" + key + "%");
         return query2.setMaxResults(10).getResultList();
+    }
+
+    @Transactional
+    public void updateQuantity( int quantity,int resId){
+        String query = "UPDATE RestaurantEntity c SET c.quantitySold = c.quantitySold + :quantity WHERE c.id =:resId";
+        Query query1 = entityManager.createQuery(query);
+        query1.setParameter("quantity", quantity);
+        query1.setParameter("resId",resId);
+        int updatedRows = query1.executeUpdate();
     }
 }
