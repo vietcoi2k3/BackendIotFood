@@ -52,7 +52,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
     @Override
     public List<FoodRecommendDto> getFoodRecommand() {
         List<FoodEntity> foodEntitys = foodRepository.getTopFood();
-        System.out.println(foodEntitys.size());
         List<FoodRecommendDto> foodRecommanDtos = new ArrayList<FoodRecommendDto>();
         for (FoodEntity x : foodEntitys) {
             String nameRes = x.getRestaurantEntity().getRestaurantName();
@@ -90,7 +89,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
 
             foodRecommanDtos.add(temp);
         }
-        System.out.println(foodRecommanDtos.size());
         return foodRecommanDtos;
     }
 
