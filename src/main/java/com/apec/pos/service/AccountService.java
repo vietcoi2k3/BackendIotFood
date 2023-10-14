@@ -153,7 +153,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
             accountEntity = accountRepository.update(accountEntity);
 
             AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(), accountEntity.getSdt(), accountEntity.getUsername());
-            accountInfoDto.setImg(accountInfoDto.getImg() );
+            accountInfoDto.setImg(accountEntity.getImgUser() );
             return accountInfoDto;
         }
         return null;
