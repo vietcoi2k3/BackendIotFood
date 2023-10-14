@@ -100,6 +100,7 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
         AccountEntity accountEntity = accountRepository.findByUsername(username);
         AccountInfoDto accountInfoDto = new AccountInfoDto(accountEntity.getAccountName(), accountEntity.getSdt(), accountEntity.getUsername());
         accountInfoDto.setEmail(accountEntity.getEmail());
+        accountInfoDto.setImg(accountEntity.getImgUser());
         return accountInfoDto;
     }
 
