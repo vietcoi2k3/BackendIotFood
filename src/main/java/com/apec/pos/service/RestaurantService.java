@@ -60,6 +60,7 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
         restaurantEntity.setTimeStart(request.getTimeStart());
         restaurantEntity.setTimeClose(request.getTimeClose());
         restaurantEntity.setStar(5.0);
+        restaurantEntity.setQuantitySold(0);
         if (request.getImgRes() != null) {
             String imgRes = null;
             try {

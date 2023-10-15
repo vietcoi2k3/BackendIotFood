@@ -112,7 +112,7 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         foodEntity.setPrice(addFoodRequest.getPrice());
         foodEntity.setRestaurantEntityId(addFoodRequest.getRestaurantEntityId());
         foodEntity.setTypeFoodEntityId(addFoodRequest.getTypeFoodEntityId());
-
+        foodEntity.setQuantityPurchased(0);
 
         foodEntity = foodRepository.insert(foodEntity);
 

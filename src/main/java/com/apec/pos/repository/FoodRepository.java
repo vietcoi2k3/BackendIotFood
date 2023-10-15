@@ -72,6 +72,15 @@ public class FoodRepository extends BaseRepository<FoodEntity, Integer> {
         return query2.setMaxResults(10).getResultList();
     }
 
+    @Transactional
+    public void addQuantity(int quantity,int foodId){
+        String query = "UPDATE  FROM FoodEntity c SET c.quantityPurchased = c.quantityPurchased + :quantity WHERE c.id =:foodId";
+        Query query1 = entityManager.createQuery(query);
+        query1.setParameter("quantity",quantity);
+        query1.setParameter("foodId",foodId);
+        query1.executeUpdate();
+    }
+
     private String buildQuery(FoodEntity foodEntity) {
         String query = "FROM FoodEntity c WHERE 1=1 ";
         if (foodEntity.getId() != null) {

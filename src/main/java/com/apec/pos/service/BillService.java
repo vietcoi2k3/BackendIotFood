@@ -317,5 +317,6 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
     private void addQuantity(int quantity,int foodId){
         int resId = foodRepository.findOne(foodId).getRestaurantEntityId() ;
         restaurantRepository.updateQuantity(quantity,resId);
+        foodRepository.addQuantity(quantity,foodId);
     }
 }
