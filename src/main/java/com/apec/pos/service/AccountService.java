@@ -47,11 +47,9 @@ public class AccountService extends BaseService<AccountRepository, AccountEntity
     public LoginResponDto login(LoginRequest loginRequest) {
         AccountEntity aEntity = accountRepository.findByUsername(loginRequest.getUsername());
         if (aEntity == null) {
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
             return null;
         }
-        if (loginRequest.getUsername().contains("ADMIN")&&(aEntity.getPassword().contains(loginRequest.getPassword()))){
-            System.out.println("********************************");
+        if (loginRequest.getUsername().equals("ADMIN")&&(aEntity.getPassword().equals(loginRequest.getPassword()))){
             return new LoginResponDto(aEntity.getId(), aEntity.getRoles(), jwtService.generateToken(aEntity), aEntity.getSdt(), aEntity.getAccountName(), aEntity.getImgUser(), aEntity.getUsername(),aEntity.getEmail());
         }
         if (passwordEncoder.matches(loginRequest.getPassword(), aEntity.getPassword())) {

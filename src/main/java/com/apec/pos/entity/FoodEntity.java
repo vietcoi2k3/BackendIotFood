@@ -59,9 +59,6 @@ public class FoodEntity extends BaseEntity implements Serializable {
     @JsonManagedReference(value = "food-bill-detail")
     private List<BillDetailEntity> billDetailEntities;
 
-    @Column(name = "billEntityId")
-    private Integer billEntityId;
-
     public FoodEntity() {
 
     }
