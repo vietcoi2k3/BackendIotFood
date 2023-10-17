@@ -43,7 +43,7 @@ public class BaseEntity {
     // Constructor with createBy and modifiedBy arguments
     public BaseEntity(String createBy, String modifiedBy) {
         this.createDate = new Date();
-        this.createBy = createBy;
+//        this.createBy = createBy;
     }
 
 
@@ -91,7 +91,7 @@ public class BaseEntity {
 //        logElement.setUrl(PosApplication.currentUrlGlobal);
 //        logElement.setModifiedBy(PosApplication.currentUserGlobal);
 //        logElement.setModifiedDate(new Date());
-//        this.logs.add(logElement);
+//        this.logs.add(logElement)
     }
 
 

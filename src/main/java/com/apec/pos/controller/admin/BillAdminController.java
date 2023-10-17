@@ -41,4 +41,5 @@ public class BillAdminController {
     public ResponseEntity getDetailBill(@RequestParam Integer id){
         return ResponseEntity.ok(new Response<>(true,"",ErrorCode.SUCCESS,billService.getDetailBill(id)));
     }
+
 }

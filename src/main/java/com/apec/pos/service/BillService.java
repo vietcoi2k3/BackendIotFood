@@ -278,6 +278,7 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
                 .imgUser(accountEntity.getImgUser())
                 .sdt(accountEntity.getSdt())
                 .msv(accountEntity.getUsername())
+                .email(accountEntity.getEmail())
                 .build();
         return loginResponDto;
     }
@@ -288,13 +289,16 @@ public class BillService extends BaseService<BillRepository, BillEntity, Integer
              billDetailEntities) {
             //tim food
             FoodEntity foodEntity = y.getFoodEntity();
+            RestaurantEntity restaurantEntity = foodEntity.getRestaurantEntity();
             if (foodEntity==null){
                 break;
             }
+
             FoodResponseBill foodResponseBill = FoodResponseBill.builder()
                     .foodId(y.getFoodEntityId())
-                    .nameRes(foodEntity.getRestaurantEntity().getRestaurantName())
-                    .resId(foodEntity.getRestaurantEntityId())
+                    .nameRes(restaurantEntity.getRestaurantName())
+                    .resId(restaurantEntity.getId())
+                    .address(restaurantEntity.getAddress())
                     .quantity(y.getQuantity())
                     .nameFood(foodEntity.getFoodName())
                     .priceFood(foodEntity.getPrice())

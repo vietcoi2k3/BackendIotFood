@@ -20,6 +20,11 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Struct;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 @RestController
@@ -38,11 +43,17 @@ public class BillController {
     @MessageMapping("/app/add-bill")
     @SendTo("/topic/add-bill")
     public ResponseEntity addBill(@RequestBody BillRequest billRequest, SimpMessageHeaderAccessor headerAccessor) {
-        System.out.println("header"+(headerAccessor.getNativeHeader("Authorization")));
-
         String someHeader =  headerAccessor.getNativeHeader("Authorization").get(0);
         String username =jwtService.getUsernameFromToken(someHeader.substring(7));
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        LocalTime finishTime = LocalTime.parse(billRequest.getFinishTime(), formatter);
+        LocalDateTime finishDatetime = LocalDateTime.of(LocalDate.now(), finishTime);
+        if (billRequest.getFinishTime().contains("PM")){
+            return ResponseEntity.badRequest().body("KHÔNG ĐƯỢC ĐĂT HÀNG LÚC NÀY");
+        }
+        if (LocalDateTime.now().plus(1, ChronoUnit.HOURS).isAfter(finishDatetime)){
+            return ResponseEntity.badRequest().body("KHÔNG ĐƯỢC ĐẶT HÀNG LÚC NÀY");
+        }
         try {
            return ResponseEntity.ok(new Response<>(true, ErrorCode.SUCCESS,"", billService.addBill(billRequest,username), username));
         }
