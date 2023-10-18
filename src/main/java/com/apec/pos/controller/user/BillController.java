@@ -49,9 +49,11 @@ public class BillController {
         LocalTime finishTime = LocalTime.parse(billRequest.getFinishTime(), formatter);
         LocalDateTime finishDatetime = LocalDateTime.of(LocalDate.now(), finishTime);
         if (billRequest.getFinishTime().contains("PM")){
+            System.out.println("toang");
             return ResponseEntity.badRequest().body("KHÔNG ĐƯỢC ĐĂT HÀNG LÚC NÀY");
         }
         if (LocalDateTime.now().plus(1, ChronoUnit.HOURS).isAfter(finishDatetime)){
+            System.out.println("ngày nhận:"+finishDatetime);
             return ResponseEntity.badRequest().body("KHÔNG ĐƯỢC ĐẶT HÀNG LÚC NÀY");
         }
         try {
