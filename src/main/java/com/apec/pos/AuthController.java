@@ -77,7 +77,7 @@ public class AuthController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResponseEntity<Response> register(@RequestBody RegisterRequest registerRequest) {
-        if (Validator.validatePassword(registerRequest.getPassword())) {
+        if (!Validator.validatePassword(registerRequest.getPassword())) {
             return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(new Response<>(false, "Tài khoàn hoặc mật khẩu không hợp lệ"));
         }
 
