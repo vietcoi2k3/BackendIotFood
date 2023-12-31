@@ -11,7 +11,7 @@
     <groupId>com.apec</groupId>
     <artifactId>pos</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>pos</name>
     <description>Pos order - tablet</description>
     <properties>
