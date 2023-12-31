@@ -38,7 +38,6 @@ import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @RequestMapping(value = "auth")
 @CrossOrigin
-@CacheConfig(cacheNames = "iotFood")
 public class AuthController {
 
     @Autowired
