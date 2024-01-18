@@ -15,7 +15,6 @@ import java.util.List;
 @Builder
 public class DetailTypeFood {
     private Date createAt;
-    private boolean status;
     private String nameType;
     private String imgType;
     private List<FoodRecommendDto> foodRecommendDtos;

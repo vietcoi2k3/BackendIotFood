@@ -27,7 +27,6 @@ public class FoodRecommendDto {
     private Integer quantityPurchased;
     private Integer typeFoodEntityId;
     private Integer restaurantEntityId;
-    private Boolean status;
     private Double distance;
     private List<ToppingResponse> toppingEntityList;
     private String nameType;

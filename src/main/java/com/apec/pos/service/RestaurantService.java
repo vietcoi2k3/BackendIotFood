@@ -136,7 +136,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
                     x.getQuantityPurchased(),
                     x.getTypeFoodEntityId(),
                     x.getRestaurantEntityId(),
-                    x.getStatus(),
                     x.getRestaurantEntity().getDistance(),
                     null,
                     x.getTypeFoodEntity().getNameType()
@@ -315,7 +314,6 @@ public class RestaurantService extends BaseService<RestaurantRepository, Restaur
                     x.getQuantityPurchased(),
                     x.getTypeFoodEntityId(),
                     x.getRestaurantEntityId(),
-                    x.getStatus(),
                     restaurantEntity.getDistance(),
                     toppingResponses,
                     x.getTypeFoodEntity().getNameType());

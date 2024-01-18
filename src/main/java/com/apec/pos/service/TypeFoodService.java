@@ -56,7 +56,6 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
         typefoodResponseData.setId(typeFoodEntity2.getId());
         typefoodResponseData.setImgType(typeFoodEntity2.getImgType());
         typefoodResponseData.setNameType(typeFoodEntity.getNameType());
-        typefoodResponseData.setStatus(typeFoodEntity.getStatus());
         return typefoodResponseData;
     }
 
@@ -77,7 +76,6 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
             temp.setId(x.getId());
             temp.setImgType(x.getImgType());
             temp.setNameType(x.getNameType());
-            temp.setStatus(x.getStatus());
             typefoodResponseDatas.add(temp);
         }
         typeResponseAdmin.setData(typefoodResponseDatas);
@@ -111,16 +109,14 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
         typefoodResponseData.setId(typeFoodEntity2.getId());
         typefoodResponseData.setImgType(typeFoodEntity2.getImgType());
         typefoodResponseData.setNameType(typeFoodEntity.getNameType());
-        typefoodResponseData.setStatus(typeFoodEntity.getStatus());
         return typefoodResponseData;
     }
 
     @Override
     public TypefoodResponseData updateStatusType(Integer id, Boolean status) {
         TypeFoodEntity typeFoodEntity = typeFoodRepository.findOne(id);
-        typeFoodEntity.setStatus(status);
         TypeFoodEntity typeFoodEntity2 = typeFoodRepository.update(typeFoodEntity);
-        TypefoodResponseData typefoodResponseData = new TypefoodResponseData(typeFoodEntity2.getId(), typeFoodEntity2.getStatus(), typeFoodEntity2.getNameType(), typeFoodEntity2.getImgType(), typeFoodEntity2.getCreateDate(), typeFoodEntity2.getCreateBy());
+        TypefoodResponseData typefoodResponseData = new TypefoodResponseData(typeFoodEntity2.getId(), typeFoodEntity2.getNameType(), typeFoodEntity2.getImgType(), typeFoodEntity2.getCreateDate(), typeFoodEntity2.getCreateBy());
         return typefoodResponseData;
     }
 
@@ -187,7 +183,6 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
                     x.getQuantityPurchased(),
                     x.getTypeFoodEntityId(),
                     x.getRestaurantEntityId(),
-                    x.getStatus(),
                     x.getRestaurantEntity().getDistance(),
                     toppingResponses,
                     x.getTypeFoodEntity().getNameType()
@@ -196,7 +191,6 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
         }
         DetailTypeFood result = new DetailTypeFood(
                 typeFoodEntity.getCreateDate(),
-                typeFoodEntity.getStatus(),
                 typeFoodEntity.getNameType(),
                 typeFoodEntity.getImgType(),
                 foodRecommendDtos
@@ -210,7 +204,6 @@ public class TypeFoodService extends BaseService<TypeFoodRepository, TypeFoodEnt
         DetailTypeFood detailTypeFood = DetailTypeFood.builder()
                 .imgType(typeFoodEntity.getImgType())
                 .nameType(typeFoodEntity.getNameType())
-                .status(typeFoodEntity.getStatus())
                 .createAt(typeFoodEntity.getCreateDate())
                 .build();
         return detailTypeFood;

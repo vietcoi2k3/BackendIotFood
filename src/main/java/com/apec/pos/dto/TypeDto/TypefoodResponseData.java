@@ -5,7 +5,6 @@ import java.util.Date;
 public class TypefoodResponseData {
 
     private Integer id;
-    private Boolean status;
     private String nameType;
     private String imgType;
     private Date createAt;
@@ -16,11 +15,10 @@ public class TypefoodResponseData {
         super();
     }
 
-    public TypefoodResponseData(Integer id, Boolean status, String nameType, String imgType, Date createAt,
+    public TypefoodResponseData(Integer id, String nameType, String imgType, Date createAt,
                                 String createBy) {
         super();
         this.id = id;
-        this.status = status;
         this.nameType = nameType;
         this.imgType = imgType;
         this.createAt = createAt;
@@ -33,14 +31,6 @@ public class TypefoodResponseData {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 
     public String getNameType() {

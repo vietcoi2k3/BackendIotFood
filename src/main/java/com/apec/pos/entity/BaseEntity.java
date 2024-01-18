@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import com.apec.pos.PosApplication;
+import com.apec.pos.unitl.BooleanToBitConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -35,8 +36,9 @@ public class BaseEntity {
 //    @JsonIgnore
 //    private List<LogElement> logs;
 
-    @Column
-    private Boolean status;
+//    @Column(columnDefinition = "bit")
+//    @Convert(converter = BooleanToBitConverter.class)
+//    private Boolean status;
 
     // Constructors, getters, and setters (you can generate them automatically or write them manually)
 
@@ -47,14 +49,14 @@ public class BaseEntity {
     }
 
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
+//    public Boolean getStatus() {
+//        return status;
+//    }
+//
+//
+//    public void setStatus(Boolean status) {
+//        this.status = status;
+//    }
 
     public Integer getId() {
         return id;
@@ -97,7 +99,7 @@ public class BaseEntity {
 
     @PrePersist
     protected void onCreate() {
-        this.status = true;
+//        this.status = true;
         this.createDate = new Date();
         this.createBy = PosApplication.currentUserGlobal;
     }

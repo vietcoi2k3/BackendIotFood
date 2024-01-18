@@ -81,7 +81,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getQuantityPurchased(),
                             x.getTypeFoodEntityId(),
                             x.getRestaurantEntityId(),
-                            x.getStatus(),
                             x.getRestaurantEntity().getDistance(),
                             toppingResponses,
                             x.getTypeFoodEntity().getNameType()
@@ -125,7 +124,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         foodRecommanDto.setImgFood(foodEntity.getImgFood());
         foodRecommanDto.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
         foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
-        foodRecommanDto.setStatus(foodEntity.getStatus());
         return foodRecommanDto;
     }
 
@@ -166,7 +164,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                     x.getQuantityPurchased(),
                     x.getTypeFoodEntityId(),
                     x.getRestaurantEntityId(),
-                    x.getStatus(),
                     x.getRestaurantEntity().getDistance(),
                     toppingResponses,
                     x.getTypeFoodEntity().getNameType()
@@ -209,7 +206,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                 x.getQuantityPurchased(),
                 x.getTypeFoodEntityId(),
                 x.getRestaurantEntityId(),
-                x.getStatus(),
                 x.getRestaurantEntity().getDistance(),
                 toppingResponses,
                 x.getTypeFoodEntity().getNameType()
@@ -249,12 +245,10 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
                             x.getQuantityPurchased(),
                             x.getTypeFoodEntityId(),
                             x.getRestaurantEntityId(),
-                            x.getStatus(),
                             x.getRestaurantEntity().getDistance(),
                             toppingResponses,
                             x.getTypeFoodEntity().getNameType()
                     );
-            data.setStatus(x.getStatus());
             data.setCreateAt(x.getCreateDate());
             data.setCreateBy(x.getCreateBy());
             foodRecommanDtos.add(data);
@@ -297,7 +291,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         foodRecommanDto.setImgFood(foodEntity.getImgFood());
         foodRecommanDto.setTypeFoodEntityId(foodEntity.getTypeFoodEntityId());
         foodRecommanDto.setRestaurantEntityId(foodEntity.getRestaurantEntityId());
-        foodRecommanDto.setStatus(foodEntity.getStatus());
 
         return foodRecommanDto;
     }
@@ -308,7 +301,6 @@ public class FoodService extends BaseService<FoodRepository, FoodEntity, Integer
         if (foodEntity==null){
             return null;
         }
-        foodEntity.setStatus(status);
         return "Đã Sửa status";
     }
 
